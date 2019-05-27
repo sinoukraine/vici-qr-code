@@ -7,12 +7,8 @@ var routes = [{
         url: './resources/templates/delete.cam.html',
     },
     {
-        path: '/gallery.photo/',
-        url: './resources/templates/gallery.photo.html',
-    },
-    {
-        path: '/gallery.video/',
-        url: './resources/templates/gallery.video.html',
+        path: '/gallery/',
+        url: './resources/templates/gallery.html',
     },
     {
         path: '/dashcam.setting/',
@@ -111,16 +107,8 @@ var routes = [{
         url: './resources/templates/air.dashcam.html',
     },
     {
-        path: '/normal.dashcam/',
-        url: './resources/templates/normal.dashcam.html',
-    },
-    {
-        path: '/shortvideo.dashcam/',
-        url: './resources/templates/shortvideo.dashcam.html',
-    },
-    {
-        path: '/locked.dashcam/',
-        url: './resources/templates/locked.dashcam.html',
+        path: '/dashcam.video/',
+        url: './resources/templates/dashcam.video.html',
     },
 
 ]

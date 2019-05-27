@@ -70,39 +70,19 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
     background-color: #6F86D6 !important;
 }
 
-
-/* 
-#app .f7-icons {
-    font-size: 44px;
-    width: 44px;
-    height: 44px;
-} */
-
 .border-left {
-    /* background-color: #ccc;
-    width: 2px;
-    height: 100%; */
     border-left: 1px solid #ccc;
 }
 
 .border-right {
-    /* background-color: #ccc;
-    width: 2px;
-    height: 100%; */
     border-right: 1px solid #ccc;
 }
 
 .border-top {
-    /* background-color: #ccc;
-    width: 100%;
-    height: 2px; */
     border-top: 1px solid #ccc;
 }
 
 .border-bottom {
-    /* background-color: #ccc;
-    width: 100%;
-    height: 2px; */
     border-bottom: 1px solid #ccc;
 }
 
@@ -351,33 +331,17 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 }
 
 
-/* NORMAL DASHCAM */
+/*DASHCAM VIDEO*/
 
-.normal-dashcam .navbar a {
+.dashcam-video .navbar a {
     padding: 0 15px;
 }
 
-.normal-dashcam .navbar .icon-done {
+.dashcam-video .navbar .icon-done {
     font-size: 23px !important;
 }
 
 
-/* SHORTVIDEO DASHCAM */
-.shortvideo-dashcam .navbar a {
-    padding: 0 15px;
-}
-.shortvideo-dashcam .navbar .icon-done {
-    font-size: 23px !important;
-}
-
-
-/* LOCKED DASHCAN  */
-.locked-dashcam .navbar a {
-    padding: 0 15px;
-}
-.locked-dashcam .navbar .icon-done {
-    font-size: 23px !important;
-}
 
 /*INFO PAGES */
 
@@ -401,6 +365,16 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 
 /* GALLERY PHOTO*/
 
+.gallery-photo .navbar a {
+    padding: 0 15px;
+ }
+ .gallery-photo .navbar .icon-done {
+     font-size: 23px !important;
+ }
+ .gallery-photo .navbar .icon-sort {
+     font-size: 23px !important;
+ }
+
 #toolbar-menu {
     /* top: -2px; */
     background: linear-gradient(to right, #48c6ef, #6f86d6);
@@ -419,13 +393,69 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 }
 
 .ios .tab-link-active {
-    border-bottom: 2px solid white;
+    border-bottom: 2px solid rgb(78, 23, 23);
 }
 
 .navbar:after {
     background-color: transparent !important;
 }
 
+
+/* GALLERY VIDEO */
+.gallery .navbar a {
+   padding: 0 15px;
+}
+.gallery .navbar .icon-done {
+    font-size: 23px !important;
+}
+.gallery .navbar .icon-sort {
+    font-size: 23px !important;
+}
+
+
+.video-list .video-item-media {
+    position: relative;
+    padding-bottom: 0;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.video-list .video-item-media img{
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+.video-list .item-media-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30px;
+    background-color: rgba(0,0,0,.7);
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 7px;
+}
+
+.video-list .item-media-bottom .item-media-time{
+    color: white;
+    font-size: 12px;
+}
+
+.video-list .item-media-bottom .item-media-quality{
+    color: white;
+    font-size: 12px;
+}
 
 /* DELETE */
 
@@ -520,14 +550,6 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 /* WIFI PAGE */
 
 
-/* .wifi-page .list ul:before {
-    display: none;
-}
-
-.wifi-page .list ul:after {
-    display: none;
-} */
-
 .wifi-page .item-inner-wrap {
     width: 100%;
     margin-bottom: 15px;
@@ -539,22 +561,6 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
     margin: 0;
 }
 
-
-/* .wifi-page ul {
-    padding: 0 15px;
-} */
-
-
-/* .wifi-page .list .item-content {
-    padding: 0;
-} */
-
-
-/* .wifi-page .links-list a:after,
-.list .item-inner:after,
-.simple-list li:after {
-    display: none;
-} */
 
 .wifi-page .md .input:not(.input-outline):after,
 .md .item-input:not(.item-input-outline) .item-input-wrap:after {

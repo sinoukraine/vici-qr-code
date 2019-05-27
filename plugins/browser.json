@@ -15,7 +15,32 @@
         },
         "cordova-plugin-statusbar": {
             "PACKAGE_NAME": "com.quiktrack.dashcamtest"
+        },
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-plugin-buildinfo": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-plugin-dialogs": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-plugin-splashscreen": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-plugin-camera": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-launch-review": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-plugin-advanced-http": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
         }
     },
-    "dependent_plugins": {}
+    "dependent_plugins": {
+        "cordova-plugin-file": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        }
+    }
 }
