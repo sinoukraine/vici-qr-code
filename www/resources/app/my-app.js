@@ -361,7 +361,7 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 					if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
 				}
 				return found;
-			},
+			},			
 			itemTemplate: 
 				'<li>' +
 				'<div>{{dateList}}</div>' + 
