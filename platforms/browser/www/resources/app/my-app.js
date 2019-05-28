@@ -143,17 +143,41 @@ function menuList() {
 
 
 
-function getRecordInfo() {
-
-    // тут типа должен быть аяк вызов который будет по апи тянуть джейсон строку
-
-    // имитируем респонс ответ 
-    let data = { "type": "commonvideo", "mp4folder": "DCIM/100video", "titlefolder": "DCIM/103thumb", "thumbfolder": "DCIM/102thumb", "mp4data": [{ "filename": "20190523121307_180_720p.MP4", "duration": 180, "filesize": 94716138, "title": "20190523121307.JPG", "titlesize": 5817, "thumb": "20190523121307.TGZ", "thumbsize": 36302, "time": "20190523121307" }, { "filename": "20190522183431_60_720p.MP4", "duration": 60, "filesize": 31524959, "title": "20190522183431.JPG", "titlesize": 4496, "thumb": "20190522183431.TGZ", "thumbsize": 8248, "time": "20190522183431" }, { "filename": "20190522183131_180_720p.MP4", "duration": 180, "filesize": 94784465, "title": "20190522183131.JPG", "titlesize": 4367, "thumb": "20190522183131.TGZ", "thumbsize": 33554, "time": "20190522183131" }, { "filename": "20190522182831_180_720p.MP4", "duration": 180, "filesize": 94735201, "title": "20190522182831.JPG", "titlesize": 4268, "thumb": "20190522182831.TGZ", "thumbsize": 32689, "time": "20190522182831" }, { "filename": "20190522182531_180_720p.MP4", "duration": 180, "filesize": 94748683, "title": "20190522182531.JPG", "titlesize": 4028, "thumb": "20190522182531.TGZ", "thumbsize": 31223, "time": "20190522182531" }, { "filename": "20190522182231_180_720p.MP4", "duration": 180, "filesize": 94810902, "title": "20190522182231.JPG", "titlesize": 4073, "thumb": "20190522182231.TGZ", "thumbsize": 31388, "time": "20190522182231" }, { "filename": "20190522181931_180_720p.MP4", "duration": 180, "filesize": 94752401, "title": "20190522181931.JPG", "titlesize": 4416, "thumb": "20190522181931.TGZ", "thumbsize": 32301, "time": "20190522181931" }, { "filename": "20190522181631_180_720p.MP4", "duration": 180, "filesize": 94713344, "title": "20190522181631.JPG", "titlesize": 4459, "thumb": "20190522181631.TGZ", "thumbsize": 34450, "time": "20190522181631" }, { "filename": "20190522181331_180_720p.MP4", "duration": 180, "filesize": 94814436, "title": "20190522181331.JPG", "titlesize": 4485, "thumb": "20190522181331.TGZ", "thumbsize": 34100, "time": "20190522181331" }, { "filename": "20190522181031_180_720p.MP4", "duration": 180, "filesize": 94742625, "title": "20190522181031.JPG", "titlesize": 4378, "thumb": "20190522181031.TGZ", "thumbsize": 34123, "time": "20190522181031" }] };
-
-
-    console.log('axaj call');
-    return data;
-
+function getRecordInfo(resolve) {	
+    return new Promise((resolve, reject) => {
+		$.ajax({
+               type: "GET",
+           dataType: "json", 
+                /*dataFilter: function(raw, type) {
+                console.log(raw, type);
+                return JSON.parse(raw);
+				{ 
+			"filename": "20190523121307_180_720p.MP4", 
+			"duration": 180, 
+			"filesize": 94716138, 
+			"title": "20190523121307.JPG", 
+			"titlesize": 5817, 
+			"thumb": "20190523121307.TGZ", 
+			"thumbsize": 36302, 
+			"time": "20190523121307" 
+		 }
+            },*/
+              jsonp: false,
+              //jsonpCallback: "onJsonP",
+                url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
+              async: true,           
+                crossDomain: true, 
+              cache: false,
+            success: function (result) {    
+                //console.log('res', result, 'ault');
+				//data = result;
+				resolve(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){ 
+               console.log(textStatus,'error');
+            }
+        });		
+    });   
 }
 
 
@@ -239,7 +263,7 @@ function sortDatePhoto(data) {
             photoName: dataObj.mp4data[i].title
         });
     }
-    console.log(infoArr);
+    ////console.log(infoArr);
 
     for (let i = 0; i < infoArr.length; i++) {
         if (infoArr[i] !== '') {
@@ -264,7 +288,7 @@ function sortDatePhoto(data) {
         }
     }
 
-    console.log(sortArr);
+    ////console.log(sortArr);
 
 
 }
@@ -273,63 +297,92 @@ function sortDatePhoto(data) {
 
 $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
     let toolbarLinks = $$('.tab-link');
-    let getPhotoJson = getRecordInfo();
-    let videolist = [];
-    let videoItems = [];
-    let dateObj = getDate(getPhotoJson);
-    sortDatePhoto(getPhotoJson)
-        // console.log(dateObj);
+    let getPhotoJson = { 
+		"type": "commonvideo", 
+		"mp4folder": "DCIM/100video", 
+		"titlefolder": "DCIM/103thumb", 
+		"thumbfolder": "DCIM/102thumb", 
+		"mp4data": [] 
+	};
+	
+	getRecordInfo().then(response => {
+		getPhotoJson = response;
+		console.log('1',getPhotoJson);	
+		
+		//console.log(getPhotoJson);
+		
+		let videolist = [];
+		let videoItems = [];
+		let dateObj = getDate(getPhotoJson);
+		sortDatePhoto(getPhotoJson)
+			// console.log(dateObj);
 
 
-    for (let i = 0; i < getPhotoJson.mp4data.length; i++) {
-        videolist.push(getPhotoJson.mp4data[i].filename);
-    }
+		for (let i = 0; i < getPhotoJson.mp4data.length; i++) {
+			videolist.push(getPhotoJson.mp4data[i].filename);
+		}
 
 
-    // console.log(date);
-    for (let i = 0; i < videolist.length; i++) {
-        videoItems.push({
-            title: videolist[i],
-            value: i,
-            dateList: dateObj[i].date,
-            timeList: dateObj[i].time,
-            prevImg: getPhotoJson.mp4data[i].title,
-            durationVideo: getPhotoJson.mp4data[i].duration,
-            videoName: getPhotoJson.mp4data[i].filename,
-        });
-    }
+		// console.log(date);
+		for (let i = 0; i < videolist.length; i++) {
+			let newDate = '';
+			let newWidth = '';
+			
+			if(i>0){
+				newDate = dateObj[i].date!=dateObj[i-1].date?dateObj[i].date:'';
+			}else{
+				newDate = dateObj[i].date;
+			}
+			
+			if(newDate){
+				newWidth = '100vw'
+			}
+			
+			videoItems.push({
+				width: newWidth,
+				title: videolist[i],
+				value: i,
+				dateList: newDate,
+				timeList: dateObj[i].time,
+				prevImg: getPhotoJson.mp4data[i].title,
+				durationVideo: getPhotoJson.mp4data[i].duration,
+				videoName: getPhotoJson.mp4data[i].filename,
+			});
+		}
 
-    // console.log(videoItems);
+		// console.log(videoItems);
 
-    let loadVideoList = App.virtualList.create({
-        el: '.video-list',
-        items: videoItems,
-        searchAll: function(query, items) {
-            let found = [];
-            for (let i = 0; i < items.length; i++) {
-                if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-            }
-            return found;
-        },
-        itemTemplate: '<li>' +
-            '<div>{{dateList}}</div>' +
-            '<a href="#" class="" data-video="{{videoName}}">' +
-            '<div class="item-content">' +
-            '<div class="item-media video-item-media">' +
-            '<img src="resources/images/DCIM/103thumb/{{prevImg}}">' +
-            '<div class="item-media-bottom">' +
-            '<div class="item-media-quality">720p</div>' +
-            '<div class="item-media-time">{{timeList}}</div>' +
-            '</div>' +
-            '</div>' +
-            '</div>' +
-            '</a>' +
-            '</li>',
-        height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
+		let loadVideoList = App.virtualList.create({
+			el: '.video-list',
+			items: videoItems,
+			searchAll: function(query, items) {
+				let found = [];
+				for (let i = 0; i < items.length; i++) {
+					if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+				}
+				return found;
+			},
+			itemTemplate: 
+				'<li>' +
+				'<div>{{dateList}}</div>' + 
+				'<a href="http://192.168.1.1/DCIM/100video/{{videoName}}" class="" data-video="{{videoName}}">' +
+				'<div class="item-content">' +
+				'<div class="item-media video-item-media">' +
+				'<img src="http://192.168.1.1/DCIM/103thumb/{{prevImg}}">' +
+				'<div class="item-media-bottom">' +
+				'<div class="item-media-quality">720p</div>' +
+				'<div class="item-media-time">{{timeList}}</div>' +
+				'</div>' +
+				'</div>' +
+				'</div>' +
+				'</a>' +
+				'</li>',
+			height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
+		});
+	}, error => {
+        console.log('something wrong...');
     });
-
-
-
+	
 });
 
 
@@ -399,7 +452,7 @@ $$(document).on('page:init', '.page[data-name="gallery.video"]', function(e) {
         });
     }
 
-    console.log(items);
+    ////console.log(items);
 
     let loadVideoList = App.virtualList.create({
         el: '.load-video-list',

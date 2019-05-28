@@ -711,3 +711,14 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
     font-family: 'product_reg';
     color: #808080;
 }
+
+/*custom*/
+
+.date-list-label{
+	width: 100%;
+}
+
+.video-list ul{
+	display: inline-flex;
+	flex-wrap: wrap;
+}
