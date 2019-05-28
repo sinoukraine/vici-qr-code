@@ -48,7 +48,9 @@ var mainView = App.views.create('.view-main');
 
 $$('#connectCam').on('click', function() {
 	console.log('play');
-window.plugins.html5Video.play("streamka");
+	
+VideoPlayer.play("https://www.youtube.com/watch?v=en_sVVjWFKk");
+//window.plugins.html5Video.play("streamka");
 //console.log('start');App.dialog.alert("Start Stream");
 	
 	/*var videoUrl = 'http://192.168.1.1/livesubstream.h264';
@@ -88,8 +90,8 @@ document.addEventListener("deviceready", onDeviceReady, false );
 //function onPlusReady(){   
 function onDeviceReady(){ 
 	console.log('ready');
-	window.plugins.html5Video.initialize({
-	"streamka" : "http://192.168.1.1/livesubstream.h264"});
+	/*window.plugins.html5Video.initialize({
+	"streamka" : "http://192.168.1.1/livesubstream.h264"});*/
 }
 
 $$('#mainMenu li').on('click', menuList)
