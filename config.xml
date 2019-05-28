@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.dashcamtest" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="1">
-    <name>GPS Tracking WA</name>
+    <name>DashCamTest</name>
     <description>
-        GPS Tracking WA tracker
+        DashCamTest
     </description>
     <author email="support@sinopacific.co" href="http://sinopacific.co">
         Sinopacific Co Limited
