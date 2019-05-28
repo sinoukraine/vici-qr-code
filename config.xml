@@ -56,8 +56,8 @@
 	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
 	
 	
-    <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
-
+    <!--<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />-->
+<plugin spec="https://github.com/jaeger25/Html5Video.git" source="git" />jaeger25/Html5Videohttps://github.com
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
     </edit-config>

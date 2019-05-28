@@ -9,9 +9,9 @@
     <feature name="CordovaHttpPlugin">
         <param name="browser-package" value="CordovaHttpPlugin" />
     </feature>
-    <name>GPS Tracking WA</name>
+    <name>DashCamTest</name>
     <description>
-        GPS Tracking WA tracker
+        DashCamTest
     </description>
     <author email="support@sinopacific.co" href="http://sinopacific.co">
         Sinopacific Co Limited

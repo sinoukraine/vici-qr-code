@@ -48,15 +48,22 @@ var mainView = App.views.create('.view-main');
 
 $$('#connectCam').on('click', function() {
 
-console.log('start');App.dialog.alert("Start Stream");
+//console.log('start');App.dialog.alert("Start Stream");
 	
 	var videoUrl = 'http://192.168.1.1/livesubstream.h264';
+	window.plugins.html5Video.initialize({
+			  "streamka" : "http://192.168.1.1/livesubstream.h264"
+		  }, function initializeIsFinished() {
+			  //console.log('okokokoko');
+			  //App.dialog.alert("End Stream");
+		  window.plugins.html5Video.play("streamka")
+		})
 
   // Just play a video
   //window.plugins.streamingMedia.playVideo(videoUrl);
 
   // Play a video with callbacks
-  var options = {
+  /*var options = {
     successCallback: function() {
 		App.dialog.alert("Video was closed without error.");
       console.log("Video was closed without error.");
@@ -69,8 +76,8 @@ console.log('start');App.dialog.alert("Start Stream");
     shouldAutoClose: true,  // true(default)/false
     controls: true // true(default)/false. Used to hide controls on fullscreen
   };
-  window.plugins.streamingMedia.playVideo(videoUrl, options);
-  App.dialog.alert("End Stream");
+  window.plugins.streamingMedia.playVideo(videoUrl, options);*/
+ // App.dialog.alert("End Stream");
 	//VideoPlayer.play('../../17102817_1237189569733103_7116754826582556672_n.mp4');
 	
 });
