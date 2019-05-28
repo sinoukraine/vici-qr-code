@@ -49,7 +49,7 @@ var mainView = App.views.create('.view-main');
 $$('#connectCam').on('click', function() {
 	console.log('play');
 	
-VideoPlayer.play("https://www.youtube.com/watch?v=en_sVVjWFKk");
+VideoPlayer.play("http://192.168.1.1/livesubstream.h264");
 //window.plugins.html5Video.play("streamka");
 //console.log('start');App.dialog.alert("Start Stream");
 	
