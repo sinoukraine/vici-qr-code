@@ -55,7 +55,7 @@
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
 	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
 	
-	<gap:plugin name="com.dawsonloudon.videoplayer" version="1.0.0" />
+	<!--<gap:plugin name="com.dawsonloudon.videoplayer" version="1.0.0" />-->
 <plugin name="com.dawsonloudon.videoplayer" source="npm" spec="1.0.0" />
 <plugin name="http://github.com/macdonst/VideoPlayer"  source="git" />
    <!-- <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
