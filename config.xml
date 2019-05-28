@@ -58,7 +58,7 @@
 	
     <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
 
-<plugin spec="http://github.com/macdonst/VideoPlayer"  source="git" />
+<plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
     </edit-config>
