@@ -717,6 +717,7 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 .date-list-label{
 	width: 100%;
 }
+
 .video-list ul{
 	display: inline-flex;
 	flex-wrap: wrap;

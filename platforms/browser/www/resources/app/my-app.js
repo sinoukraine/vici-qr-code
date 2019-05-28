@@ -350,8 +350,6 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 			});
 		}
 
-		// console.log(videoItems);
-
 		let loadVideoList = App.virtualList.create({
 			el: '.video-list',
 			items: videoItems,
