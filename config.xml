@@ -57,7 +57,7 @@
 	
 	<!--<gap:plugin name="com.dawsonloudon.videoplayer" version="1.0.0" />-->
 <plugin name="com.dawsonloudon.videoplayer" source="npm" spec="1.0.0" />
-<plugin name="http://github.com/macdonst/VideoPlayer"  source="git" />
+<!--<plugin name="http://github.com/macdonst/VideoPlayer"  source="git" />-->
    <!-- <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
 <plugin spec="https://github.com/jaeger25/Html5Video.git" source="git" />-->
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
