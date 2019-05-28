@@ -55,11 +55,10 @@
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
 	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
 	
-	<!--<gap:plugin name="com.dawsonloudon.videoplayer" version="1.0.0" />-->
-<!--<plugin name="com.dawsonloudon.videoplayer" source="npm" spec="1.0.0" />-->
+	
+    <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
+
 <plugin spec="http://github.com/macdonst/VideoPlayer"  source="git" />
-   <!-- <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
-<plugin spec="https://github.com/jaeger25/Html5Video.git" source="git" />-->
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
     </edit-config>
