@@ -49,7 +49,7 @@ var mainView = App.views.create('.view-main');
 $$('#connectCam').on('click', function() {
 	console.log('play');
 	
-VideoPlayer.play("http://192.168.1.1/livesubstream.h264");
+VideoPlayer.play(API_LIVE_STREAM);
 
 //window.plugins.html5Video.play("streamka");
 //console.log('start');App.dialog.alert("Start Stream");
@@ -363,7 +363,7 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 			itemTemplate: 
 				'<li>' +
 				'<div>{{dateList}}</div>' + 
-				'<a href="http://192.168.1.1/DCIM/100video/{{videoName}}" class="" data-video="{{videoName}}">' +
+				'<a href="#" onclick="openPlayer(\'http://192.168.1.1/DCIM/100video/{{videoName}}\')" class="" data-video="{{videoName}}">' +
 				'<div class="item-content">' +
 				'<div class="item-media video-item-media">' +
 				'<img src="http://192.168.1.1/DCIM/103thumb/{{prevImg}}">' +
@@ -418,7 +418,9 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 
 // ]
 
-
+function openPlayer(url){
+	VideoPlayer.play(url);
+}
 
 
 
