@@ -9,9 +9,9 @@
     <feature name="CordovaHttpPlugin">
         <param name="browser-package" value="CordovaHttpPlugin" />
     </feature>
-    <name>DashCamTest</name>
+    <name>DashCam</name>
     <description>
-        DashCamTest
+        DashCam
     </description>
     <author email="support@sinopacific.co" href="http://sinopacific.co">
         Sinopacific Co Limited
