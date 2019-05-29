@@ -7,7 +7,7 @@ const LOCAL_ADRESS = 'http://sinopacificukraine.com/app/';//http://192.168.1.1/
 const API_COMMON_VIDEO_LIST = LOCAL_ADRESS + 'ini.htm?cmd=commonvideolist';
 const API_ALARM_VIDEO_LIST = LOCAL_ADRESS + 'ini.htm?cmd=alarmvideolist';
 const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
-const API_LIVE_STREAM = 'https://www.youtube.com/watch?v=tNkZsRW7h2c';//LOCAL_ADRESS + 'livesubstream.h264';
+const API_LIVE_STREAM = 'blob:https://balticlivecam.com/56dd5a25-c243-4cba-9640-b86f09a57fda';//LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
 
@@ -391,10 +391,10 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 					let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
 					
 					ret += '			  <div class="col-50">';
-					ret += 					'<a href="#" onclick="openPlayer(\'' + LOCAL_ADRESS + '/DCIM/103thumb/'+item.data[d].filename+'\')" class="" data-photo="'+item.data[d].filename+'">' +
+					ret += 					'<a href="#" class="" data-photo="'+item.data[d].filename+'">' +
 											'<div class="item-content">' +
 											'<div class="item-media photo-item-media">' +
-											'<img src="' + LOCAL_ADRESS + '//DCIM/103thumb/'+item.data[d].title+'">' +
+											'<img src="' + LOCAL_ADRESS + '/DCIM/103thumb/'+item.data[d].title+'">' +
 											
 											'</div>' +
 											'</div>' +
@@ -458,7 +458,7 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 					let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
 					
 					ret += '			  <div class="col-50">';
-					ret += 					'<a href="#" onclick="openPlayer(\'' + LOCAL_ADRESS + '/DCIM/103thumb/'+item.data[d].filename+'\')" class="" data-photo="'+item.data[d].filename+'">' +
+					ret += 					'<a href="#" onclick="openPlayer(\'http://sinopacificukraine.com/app/DCIM/103thumb/'+item.data[d].filename+'\')" class="" data-photo="'+item.data[d].filename+'">' +
 											'<div class="item-content">' +
 											'<div class="item-media photo-item-media">' +
 											'<img src="' + LOCAL_ADRESS + '/DCIM/103thumb/'+item.data[d].title+'">' +
