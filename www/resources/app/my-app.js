@@ -3,11 +3,11 @@ var $$ = Dom7;
 
 
 // API ADRESS URL
-const LOCAL_ADRESS = 'http://sinopacificukraine.com/app/';//http://192.168.1.1/
+const LOCAL_ADRESS = 'http://192.168.1.1/';//'http://sinopacificukraine.com/app/'
 const API_COMMON_VIDEO_LIST = LOCAL_ADRESS + 'ini.htm?cmd=commonvideolist';
 const API_ALARM_VIDEO_LIST = LOCAL_ADRESS + 'ini.htm?cmd=alarmvideolist';
 const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
-const API_LIVE_STREAM = 'https://cdn-001.whatsupcams.com/hls/hr_rovinj3.m3u8';//LOCAL_ADRESS + 'livesubstream.h264';
+const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
 
