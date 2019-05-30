@@ -335,21 +335,21 @@ function sortDatePhoto(data) {
 
 $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
     let toolbarLinks = $$('.tab-link');
-    /*let getPhotoJson = { 
+    let getPhotoJson = { 
 		"type": "alarmvideo", 
 		"mp4folder": "DCIM/101video", 
 		"titlefolder": "DCIM/105thumb", 
 		"imagefolder": "DCIM/104snap", 
 		"mp4data": [] 
-	};*/
-	
+	};
+	/*
 	let getPhotoJson = { 
 		"type": "commonvideo", 
 		"mp4folder": "DCIM/100video", 
 		"titlefolder": "DCIM/103thumb", 
 		"thumbfolder": "DCIM/102thumb", 
 		"mp4data": [] 
-	};
+	};*/
 	
 	getRecordPhoto().then(response => {
 		getPhotoJson = response;
@@ -388,17 +388,19 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 				
 				for (let d = 0; d < item.data.length; d ++){	
 					let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
+					for (let a = 0; a < item.data[d].associateddata.length; a ++){
 					
-					ret += '			  <div class="col-50">';
-					ret += 					'<a href="#" onclick="openPlayer(\'http://192.168.1.1/DCIM/103thumb/'+item.data[d].filename+'\')" class="" data-photo="'+item.data[d].filename+'">' +
-											'<div class="item-content">' +
-											'<div class="item-media photo-item-media">' +
-											'<img src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
-											
-											'</div>' +
-											'</div>' +
-											'</a>';
-					ret += '			  </div> ';					
+						ret += '			  <div class="col-50">';
+						ret += 					'<a href="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'"  class="" data-photo="'+item.data[d].associateddata[a].image+'">' +
+												'<div class="item-content">' +
+												'<div class="item-media photo-item-media">' +
+												'<img src="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'">' +
+												
+												'</div>' +
+												'</div>' +
+												'</a>';
+						ret += '			  </div> ';			
+					}						
 				}
 				
 				ret += '			</div>';
