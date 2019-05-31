@@ -46,6 +46,7 @@ var App = new Framework7({
 var mainView = App.views.create('.view-main');
 
 
+
 $$('#connectCam').on('click', function() {
 	console.log('play');
 	
