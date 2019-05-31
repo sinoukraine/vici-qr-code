@@ -51,11 +51,7 @@ $$('#connectCam').on('click', function() {
 	
 //VideoPlayer.play(API_LIVE_STREAM);
 
-window.plugins.html5Video.initialize({
-      "video1" : API_LIVE_STREAM
-  }, function initializeIsFinished() {
-  window.plugins.html5Video.play("video1")
-})
+window.plugins.videoPlayer.play(API_LIVE_STREAM);
 
 //window.plugins.html5Video.play("streamka");
 //console.log('start');App.dialog.alert("Start Stream");
