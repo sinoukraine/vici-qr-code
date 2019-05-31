@@ -46,28 +46,11 @@ var App = new Framework7({
 var mainView = App.views.create('.view-main');
 
 
-
 $$('#connectCam').on('click', function() {
 	console.log('play');
 	
-//VideoPlayer.play(API_LIVE_STREAM);
-var videoUrl = API_LIVE_STREAM;
+VideoPlayer.play('file:///android_asset/'+API_LIVE_STREAM);
 
- // Play a video with callbacks
-  var options = {
-    successCallback: function() {
-      //App.dialog.alert("Video was closed without error.");
-	  console.log("Video was closed without error.");
-    },
-    errorCallback: function(errMsg) {
-		App.dialog.alert("Error! " + errMsg);
-      //console.log("Error! " + errMsg);
-    },
-    orientation: 'landscape',
-    shouldAutoClose: true,  // true(default)/false
-    controls: true // true(default)/false. Used to hide controls on fullscreen
-  };
-  window.plugins.streamingMedia.playVideo(videoUrl, options);
 //window.plugins.html5Video.play("streamka");
 //console.log('start');App.dialog.alert("Start Stream");
 	
