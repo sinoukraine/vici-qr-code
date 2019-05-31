@@ -46,4 +46,5 @@
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarStyle" value="blacktranslucent" />
     <preference name="phonegap-version" value="cli-7.1.0" />
+    <preference name="loadUrlTimeoutValue" value="60000" />
 </widget>
