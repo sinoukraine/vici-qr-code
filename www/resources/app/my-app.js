@@ -49,12 +49,11 @@ var mainView = App.views.create('.view-main');
 $$('#connectCam').on('click', function() {
 	console.log('play');
 	
-	 var videoUrl = API_LIVE_STREAM;
+//VideoPlayer.play(API_LIVE_STREAM);
+var videoUrl = API_LIVE_STREAM;
 
   // Just play a video
   window.plugins.streamingMedia.playVideo(videoUrl);
-//VideoPlayer.play(API_LIVE_STREAM);
-
 //window.plugins.html5Video.play("streamka");
 //console.log('start');App.dialog.alert("Start Stream");
 	
@@ -95,20 +94,6 @@ document.addEventListener("deviceready", onDeviceReady, false );
 //function onPlusReady(){   
 function onDeviceReady(){ 
 	console.log('ready');
-
-  // Play a video with callbacks
-  /*var options = {
-    successCallback: function() {
-      console.log("Video was closed without error.");
-    },
-    errorCallback: function(errMsg) {
-      console.log("Error! " + errMsg);
-    },
-    orientation: 'landscape',
-    shouldAutoClose: true,  // true(default)/false
-    controls: true // true(default)/false. Used to hide controls on fullscreen
-  };
-  window.plugins.streamingMedia.playVideo(videoUrl, options);*/
 	/*window.plugins.html5Video.initialize({
 	"streamka" : "http://192.168.1.1/livesubstream.h264"});*/
 }
@@ -225,31 +210,22 @@ function loadCarcamPage() {
         }
     });
 }
-
-$$('#connectCam').on('click', function() {
+/*
 $$('.photo-list').on('click', '.photo-path', function(){
-	console.log(4);
     TargetPhoto.PATH = $$(this).data("path");  
-  /*  TargetAsset.ASSET_ID = $$(this).data("id"); 
-    TargetAsset.ASSET_IMG = '';        
-    var assetList = getAssetList();  
-    var asset = assetList[TargetAsset.ASSET_IMEI];  
-*/
-    loadOpenPhotoPage();
-});
+
+});*/
 
 // OPEN PHOTO
 function loadOpenPhotoPage() {    
-    //var asset = PHOTOLIST[TargetAsset.ASSET_IMEI];
+    var asset = PHOTOLIST[TargetAsset.ASSET_IMEI];
     mainView.router.load({
         url: 'resources/templates/open.photo.html',
         context: {
-            PhotoPath: TargetPhoto.PATH,
+            PhotoPath: userInfo.FirstName,
         }
     });
 }
-
-
 
 
 // GALLERY
