@@ -49,7 +49,13 @@ var mainView = App.views.create('.view-main');
 $$('#connectCam').on('click', function() {
 	console.log('play');
 	
-VideoPlayer.play('file:///android_asset/'+API_LIVE_STREAM);
+//VideoPlayer.play(API_LIVE_STREAM);
+
+window.plugins.html5Video.initialize({
+      "video1" : API_LIVE_STREAM
+  }, function initializeIsFinished() {
+  window.plugins.html5Video.play("video1")
+})
 
 //window.plugins.html5Video.play("streamka");
 //console.log('start');App.dialog.alert("Start Stream");

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.dashcamtest" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="1">
+<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.dashcamtest" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="1">
     <name>DashCam</name>
     <description>
         DashCam
@@ -58,8 +58,9 @@
 	
 	
     <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
-
 <plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />
+    <plugin spec="https://github.com/jaeger25/Html5Video.git" source="git"  />
+
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
         <string>You can take a photo of your asset using camera and upload it into the app</string>
     </edit-config>
