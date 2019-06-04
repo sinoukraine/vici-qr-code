@@ -225,6 +225,85 @@ function onDeviceReady(){
 	
 var mainView = App.views.create('.view-main');
 
+/*download*/
+
+//First step check parameters mismatch and checking network connection if available call    download function
+function DownloadFile(URL, Folder_Name, File_Name) {
+//Parameters mismatch check
+if (URL == null && Folder_Name == null && File_Name == null) {
+    return;
+}
+else {
+    //checking Internet connection availablity
+    var networkState = navigator.connection.type;
+    if (networkState == Connection.NONE) {
+        return;
+    } else {
+        download(URL, Folder_Name, File_Name); //If available download function call
+    }
+  }
+}
+
+
+
+function filetransfer(download_link, fp) {
+var fileTransfer = new FileTransfer();
+// File download function with URL and local path
+fileTransfer.download(download_link, fp,
+                    function (entry) {
+                        App.dialog.alert("download complete: " + entry.fullPath);
+                    },
+                 function (error) {
+                     //Download abort errors or download failed errors
+                     App.dialog.alert("download error source " + error.source);
+                     //alert("download error target " + error.target);
+                     //alert("upload error code" + error.code);
+                 }
+            );
+}
+
+
+
+function download(URL, Folder_Name, File_Name) {
+//step to request a file system 
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+function fileSystemSuccess(fileSystem) {
+    var download_link = encodeURI(URL);
+    ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
+
+    var directoryEntry = fileSystem.root; // to get root path of directory
+    directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+    var rootdir = fileSystem.root;
+    var fp = rootdir.fullPath; // Returns Fulpath of local directory
+
+    fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+    // download function call
+    filetransfer(download_link, fp);
+}
+
+function onDirectorySuccess(parent) {
+    // Directory created successfuly
+}
+
+function onDirectoryFail(error) {
+    //Error while creating directory
+    App.dialog.alert("Unable to create new directory: " + error.code);
+}
+
+  function fileSystemFail(evt) {
+    //Unable to access file system
+    App.dialog.alert(evt.target.error.code);
+ }
+}
+
+
+
+
+
+
+
+
 
 
 $$('#connectCam').on('click', function() {
@@ -233,19 +312,25 @@ $$('#connectCam').on('click', function() {
 	var fileTransfer = new FileTransfer();
 	var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 	
-	
 	// output in android: file:///storage/emulated/0/
 	var base_url = cordova.file.externalRootDirectory;
 	//App.dialog.alert(base_url);
 	// or 
 	// var base_url = "cdvfile://localhost/persistent/";
-	var new_directory = 'TEST';
-	 
+	var new_directory = 'dashcam_001';
+	
+	DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", new_directory, "alarm_001.jpg")
+	
 	// To Create a sub Directory inside a folder
 	// var new_directory = 'Sounds/Test';  // Here 'Sounds' is the name of existing parent directory. Parent Directoy must exist to work fine
 	 
 	let fileURL = base_url;
-	 fileTransfer.download(
+	//First step check parameters mismatch and checking network connection if available call    download function
+	
+	
+	
+	
+	/*fileTransfer.download(
 						uri,
 						fileURL,
 						function(entry) {
@@ -264,7 +349,7 @@ $$('#connectCam').on('click', function() {
 								"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
 							}
 						}
-					);
+					);*/
 
 	/*var new_directory = 'TEST';
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
