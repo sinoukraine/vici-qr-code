@@ -232,14 +232,34 @@ $$('#connectCam').on('click', function() {
     var self = this;
 	//var fileTransfer = new FileTransfer();
 	var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
-
+	
+	
+	// output in android: file:///storage/emulated/0/
+	var base_url = cordova.file.externalRootDirectory;
+	App.dialog.alert(base_url);
+	// or 
+	// var base_url = "cdvfile://localhost/persistent/";
 	var new_directory = 'TEST';
+	 
+	// To Create a sub Directory inside a folder
+	// var new_directory = 'Sounds/Test';  // Here 'Sounds' is the name of existing parent directory. Parent Directoy must exist to work fine
+	 
+	window.resolveLocalFileSystemURL(base_url, function (fileSystem) {
+	   //App.dialog.alert(base_url);
+	   
+	   dir.getDirectory(new_directory, { create: true }, function (file) {
+		   //App.dialog.alert(base_url);
+			  App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);
+	   });
+	});
+
+	/*var new_directory = 'TEST';
 	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
 	 fileSystem.root.getDirectory(new_directory, { create: true }, function (file) {
 	 //alert("got the file: "+ file.name + ', ' + file.fullPath);
 	 
 	 
-     App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);
+     App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);*/
 	 /*let fileURL = file.fullPath
 	 fileTransfer.download(
 						uri,
@@ -259,10 +279,10 @@ $$('#connectCam').on('click', function() {
 							}
 						}
 					);*/
-	 });
+	/* });
 	}, function(error) {
 	 App.dialog.alert("can't even get the file system: " + error.code);
-	});
+	});*/
 	 
 
 
