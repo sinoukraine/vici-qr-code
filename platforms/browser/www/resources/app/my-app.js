@@ -88,10 +88,10 @@ var App = new Framework7({
                         }
                         break; 
 						default:
-                        app.dialog.alert('There is no item saved with such name - '+name);
+                        App.dialog.alert('There is no item saved with such name - '+name);
                 }
             }else{
-                app.dialog.alert('Wrong query parameters!');
+                App.dialog.alert('Wrong query parameters!');
             }
             return ret;
 		},
@@ -103,10 +103,10 @@ var App = new Framework7({
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(params.data));
                     break;                        
                     default:
-                        app.dialog.alert('There is no function associated with this name - '+params.name);
+                        App.dialog.alert('There is no function associated with this name - '+params.name);
                 }   
             }else{
-                app.dialog.alert('Wrong query parameters!');
+                App.dialog.alert('Wrong query parameters!');
             }
         },
 		getRecordPhoto: function(resolve, reject){ 	
@@ -230,7 +230,7 @@ var mainView = App.views.create('.view-main');
 $$('#connectCam').on('click', function() {
 	
     var self = this;
-	var fileTransfer = new FileTransfer();
+	//var fileTransfer = new FileTransfer();
 	var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 
 	var new_directory = 'TEST';
@@ -238,8 +238,9 @@ $$('#connectCam').on('click', function() {
 	 fileSystem.root.getDirectory(new_directory, { create: true }, function (file) {
 	 //alert("got the file: "+ file.name + ', ' + file.fullPath);
 	 
-	 self.$app.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);
-	 let fileURL = file.fullPath
+	 
+     App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);
+	 /*let fileURL = file.fullPath
 	 fileTransfer.download(
 						uri,
 						fileURL,
@@ -257,10 +258,10 @@ $$('#connectCam').on('click', function() {
 								"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
 							}
 						}
-					);
+					);*/
 	 });
 	}, function(error) {
-	 self.$app.dialog.alert("can't even get the file system: " + error.code);
+	 App.dialog.alert("can't even get the file system: " + error.code);
 	});
 	 
 
