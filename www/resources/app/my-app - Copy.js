@@ -1,6 +1,6 @@
 var $$ = Dom7;
-window.COM_TIMEFORMAT = 'YYYY-MM-DD HH:mm:ss';
-window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
+
+
 
 // API ADRESS URL
 const LOCAL_ADRESS = 'http://192.168.1.1/';
@@ -10,13 +10,11 @@ const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
 const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
-var myPhotoBrowserStandalone = {};
-var photoBrowserArr = [];
 
-//var MapTrack = null;
-var PHOTOLIST = {};
-var VIDEOLIST = {};
 
+
+
+var MapTrack = null;
 window.PosMarker = {};
 var App = new Framework7({
     swipeBackPage: false,
@@ -28,211 +26,102 @@ var App = new Framework7({
     tapHold: false, //enable tap hold events
     root: '#app',
     name: 'DashCam',
-    id: 'com.quiktrak.dashcam',
+    id: 'com.myapp.test',
     panel: {
         swipe: 'left',
         leftBreakpoint: 768,
     },
     routes: routes,
-	// App root data
-    data: function () {
-    },
     on: {
         init: function() {
             // console.log('App initialized');
+
         },
         pageInit: function() {
             // console.log('Page initialized');
         },
-		photoBrowser: {
-			type: 'popup',
-		  }
     },
-	methods: {        
-        capitalize: function(s) {
-            if (typeof s !== 'string') return ''
-            return s.charAt(0).toUpperCase() + s.slice(1)
-        },
-        isJsonString: function(str){
-            try{var ret=JSON.parse(str);}catch(e){return false;}return ret;
-        },
-        findObjectByKey: function(array, key, value) {           
-            for (var i = 0; i < array.length; i++) {
-                if (array[i][key] == value) {
-                    return array[i];
-                }
-            }
-            return null;
-        },
-        isObjEmpty: function(obj) {
-            for (var key in obj) {
-                return false;
-            }
-            return true;
-        },
-        reverseArry: function(arry){
-            var newArry = [];
-            var i = null;
-            for (i = arry.length - 1; i >= 0; i -= 1)
-            {
-                newArry.push(arry[i]);
-            }
-            return newArry;
-        },
-        getFromStorage: function(name){
-            var ret = [];
-            var str = '';
-            if (name) {
-                switch (name){
-                    case 'photoList':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                        break; 
-						default:
-                        app.dialog.alert('There is no item saved with such name - '+name);
-                }
-            }else{
-                app.dialog.alert('Wrong query parameters!');
-            }
-            return ret;
-		},
-        setInStorage: function(params){
-            let self = this;
-            if (typeof(params) == 'object' && params.name && params.data) {
-                switch (params.name){
-                    case 'photoList':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(params.data));
-                    break;                        
-                    default:
-                        app.dialog.alert('There is no function associated with this name - '+params.name);
-                }   
-            }else{
-                app.dialog.alert('Wrong query parameters!');
-            }
-        },
-		getRecordPhoto: function(resolve, reject){ 	
-			return new Promise((resolve, reject) => {
-				$.ajax({
-					   type: "GET",
-				   dataType: "json", 
-					  jsonp: false,
-						url: 'http://192.168.1.1/ini.htm?cmd=alarmvideolist',
-					  async: true,           
-						crossDomain: true, 
-					  cache: false,
-					success: function (result) {    
-						//if (resolve) {
-						resolve(result);
-						//}
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error');
-						//if (reject) {
-						reject();
-						//}  
-					}
-				});		
-			});   
-		},/*
-        getPhotoList: function(){  
-            let getPhotoJson = { 
-				"type": "alarmvideo", 
-				"mp4folder": "DCIM/101video", 
-				"titlefolder": "DCIM/105thumb", 
-				"imagefolder": "DCIM/104snap", 
-				"mp4data": [] 
-			};
-				
-			var self = this;   
-			
-            self.methods.getRecordPhoto().then(response => {			
-                self.methods.setPhotoList({list: response.mp4data});			
-                //if (resolve) {
-				//	resolve();
-                //} 				
-			}, error => {
-				console.log('something wrong...');
-			});
-        },
-        setPhotoList: function(params){ 
-            var self = this; 
-            var ret = '';
-
-            if (params && params.list && params.list.length) {
-            	var ary = {};    
-				
-	            for(var i = 0; i < params.list.length; i++) { 	                
-					ary[i] = {                      
-	                    associateddata: params.list[i].associateddata,
-	                    duration: params.list[i].duration,
-	                    filename: params.list[i].filename,
-	                    filesize: params.list[i].filesize,
-	                    time: params.list[i].time,
-	                    title: params.list[i].title,
-	                    titlesize: params.list[i].titlesize,
-	                    trigger: params.list[i].trigger
-					}						   
-	            }
-	            ret = ary;
-				
-                self.methods.setInStorage({name: 'photoList', data: JSON.stringify(ary)});
-	            //localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(ary));
-            }
-            return ret;
-        },*/
-        sortDatePhoto: function(data){
-			//let infoArr = [];
-			let dataObj = data;
-			//let sortArr = [];
-			let dateArr = [];
-			let dataArr = [];
-			//console.log(dataObj);
-
-			// info array push
-			for (let i = 0; i < dataObj.length; i++) {
-				/*infoArr.push({
-					data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
-					photoName: dataObj.mp4data[i].title
-				});*/
-				
-				let newDate = (dataObj[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj[i].time.substring(0, 8)).substring(6, 9);
-					
-				let index = dateArr.findIndex(item => item.title === newDate);
-				
-				if(index == -1){
-					dataArr.push(dataObj[i]);
-					dateArr.push({
-						title: (dataObj[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj[i].time.substring(0, 8)).substring(6, 9),
-						data: dataArr
-					});
-				}else{
-					dateArr[index].data.push(dataObj[i]);
-				}
-			}
-			
-			return dateArr;
-		}
-	}
 });
 
-
-document.addEventListener("deviceready", onDeviceReady, false ); 
- 
-function onDeviceReady(){ 
-	console.log('ready');
-	//App.methods.getPhotoList();
-}
-
-	
 var mainView = App.views.create('.view-main');
+var TargetPhoto = {};
+/*
+$$('.view-main').on('click', '.photo-path', function(){	
+	TargetPhoto.PATH = $$(this).data("path");
+	loadOpenPhotoPage()
+});
+*/
+/*
+$$('.photo-list').on('click', '.photo-path', function(){
+      
+});*/
+
+
+// OPEN PHOTO
+/*
+function loadOpenPhotoPage() {    
+    //var asset = PHOTOLIST[TargetAsset.ASSET_IMEI];
+	
+    console.log(TargetPhoto.PATH);
+	
+    mainView.router.load({
+        url: 'resources/templates/open.photo.html',
+        context: {
+            PhotoPath: TargetPhoto.PATH,
+        }
+    });
+}*/
 
 $$('#connectCam').on('click', function() {
-	VideoPlayer.play(API_LIVE_STREAM);
-	//window.plugins.videoPlayer.play(API_LIVE_STREAM);
+	console.log('play');
+	
+//VideoPlayer.play(API_LIVE_STREAM);
+
+window.plugins.videoPlayer.play(API_LIVE_STREAM);
+
+//window.plugins.html5Video.play("streamka");
+//console.log('start');App.dialog.alert("Start Stream");
+	
+	/*var videoUrl = 'http://192.168.1.1/livesubstream.h264';
+	window.plugins.html5Video.initialize({
+			  "streamka" : "http://192.168.1.1/livesubstream.h264"
+		  }, function initializeIsFinished() {
+			  //console.log('okokokoko');
+			  //App.dialog.alert("End Stream");
+		  window.plugins.html5Video.play("streamka")
+		})*/
+
+  // Just play a video
+  //window.plugins.streamingMedia.playVideo(videoUrl);
+
+  // Play a video with callbacks
+  /*var options = {
+    successCallback: function() {
+		App.dialog.alert("Video was closed without error.");
+      console.log("Video was closed without error.");
+    },
+    errorCallback: function(errMsg) {
+      console.log("Error! " + errMsg);
+		App.dialog.alert("Error! " + errMsg);
+    },
+    orientation: 'landscape',
+    shouldAutoClose: true,  // true(default)/false
+    controls: true // true(default)/false. Used to hide controls on fullscreen
+  };
+  window.plugins.streamingMedia.playVideo(videoUrl, options);*/
+ // App.dialog.alert("End Stream");
+	//VideoPlayer.play('../../17102817_1237189569733103_7116754826582556672_n.mp4');
+	
 });
 
+document.addEventListener("deviceready", onDeviceReady, false ); 
+
+//function onPlusReady(){   
+function onDeviceReady(){ 
+	console.log('ready');
+	/*window.plugins.html5Video.initialize({
+	"streamka" : "http://192.168.1.1/livesubstream.h264"});*/
+}
 
 $$('#mainMenu li').on('click', menuList)
 
@@ -278,6 +167,27 @@ function menuList() {
         }
     }
 }
+
+function getRecordPhoto(resolve) {	
+    return new Promise((resolve, reject) => {
+		$.ajax({
+               type: "GET",
+           dataType: "json", 
+              jsonp: false,
+                url: 'http://192.168.1.1/ini.htm?cmd=alarmvideolist',
+              async: true,           
+                crossDomain: true, 
+              cache: false,
+            success: function (result) {    
+				resolve(result);
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown){ 
+               console.log(textStatus,'error');
+            }
+        });		
+    });   
+}
+
 
 function getRecordVideo(resolve) {	
     return new Promise((resolve, reject) => {
@@ -329,7 +239,34 @@ function loadCarcamPage() {
 
 // GALLERY
 function loadGalleryPage() {
-	mainView.router.navigate('/my-gallery/');
+    mainView.router.load({
+        url: 'resources/templates/gallery.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });
+}
+
+
+// PHOTO GALLERY
+function loadGalleryPhotoPage() {
+    mainView.router.load({
+        url: 'resources/templates/gallery.photo.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });
+}
+
+
+// DASHCAM VIDEO
+function loadDashcamVideoPage() {
+    mainView.router.load({
+        url: 'resources/templates/dashcam.video.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });
 }
 
 
@@ -357,9 +294,71 @@ function getDate(data) {
 }
 
 
+function sortDatePhoto(data) {
+    //let infoArr = [];
+    let dataObj = data;
+    //let sortArr = [];
+	let dateArr = [];
+	let dataArr = [];
+    //console.log(dataObj);
+
+    // info array push
+    for (let i = 0; i < dataObj.mp4data.length; i++) {
+        /*infoArr.push({
+            data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
+            photoName: dataObj.mp4data[i].title
+        });*/
+		
+		let newDate = (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9);
+			
+        let index = dateArr.findIndex(item => item.title === newDate);
+		
+		if(index == -1){
+			dataArr.push(dataObj.mp4data[i]);
+			dateArr.push({
+				title: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
+				data: dataArr
+			});
+		}else{
+			dateArr[index].data.push(dataObj.mp4data[i]);
+		}
+    }
+	
+	return dateArr;
+	
+	
+	/*
+	console.log( dateArr ); // кришна, харе, 8-()
+    ////console.log(infoArr);
+
+    for (let i = 0; i < infoArr.length; i++) {
+        if (infoArr[i] !== '') {
+            if (sortArr.length == 0) {
+                sortArr.push({
+                    Date: infoArr[i].data,
+                    Photo: infoArr[i].photoName
+                });
+            } else {
+                // for (let p = 0; p < sortArr.length; p++) {
+                //     if (sortArr[p].Date !== infoArr[i].data) {
+                //         sortArr.push({
+                //             Date: infoArr[i].data,
+                //             Photo: infoArr[i].photoName
+                //         });
+                //     }
+
+                // }
+            }
+        } else {
+            App.dialog.alert('Not Found');
+        }
+    }
+
+*/
+
+}
 
 
-/*
 $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
     let toolbarLinks = $$('.tab-link');
     let getPhotoJson = { 
@@ -369,6 +368,14 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 		"imagefolder": "DCIM/104snap", 
 		"mp4data": [] 
 	};
+	/*
+	let getPhotoJson = { 
+		"type": "commonvideo", 
+		"mp4folder": "DCIM/100video", 
+		"titlefolder": "DCIM/103thumb", 
+		"thumbfolder": "DCIM/102thumb", 
+		"mp4data": [] 
+	};*/
 	
 	getRecordPhoto().then(response => {
 		getPhotoJson = response;
@@ -519,13 +526,161 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
     });
 	
 });
-*/
+
 
 function openPlayer(url){
 	VideoPlayer.play(url);
 }
 
+
+
+// INIT VIDEO GALLERY
+
+$$(document).on('page:init', '.page[data-name="gallery.video"]', function(e) {
+    let toolbarLinks = $$('.tab-link');
+    //let getPhotoJson = getRecordVideo();
+    //let videolist = [];
+
+    toolbarLinks.on('click', function() {
+        let dataId = $$(this).attr('data-id');
+        if (dataId == 'gallery.photo') {
+            loadGalleryPhotoPage();
+        }
+    });
+
 /*
+    for (let i = 0; i < getPhotoJson.mp4data.length; i++) {
+        videolist.push(getPhotoJson.mp4data[i].filename);
+    }
+
+
+    let items = [];
+    for (let i = 0; i < videolist.length; i++) {
+        items.push({
+            title: 'Dachcam name #' + videolist[i],
+            value: videolist[i],
+        });
+    }*/
+
+    ////console.log(items);
+
+	let getPhotoJson = { 
+		"type": "commonvideo", 
+		"mp4folder": "DCIM/100video", 
+		"titlefolder": "DCIM/103thumb", 
+		"thumbfolder": "DCIM/102thumb", 
+		"mp4data": [] 
+	};
+	
+	getRecordVideo().then(response => {
+		getPhotoJson = response;
+		console.log('1',getPhotoJson);	
+		
+		let dateItems = [];
+		let dateObj = getDate(getPhotoJson);
+		let dateArr = sortDatePhoto(getPhotoJson);
+		
+	let loadVideoList = App.virtualList.create({
+			el: '.video-list',
+			items: dateArr,
+			searchAll: function(query, items) {
+				let found = [];
+				for (let i = 0; i < items.length; i++) {
+					if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+				}
+				return found;
+			},	
+			renderItem: function (item, index) {   	
+			
+				var ret = '';
+				
+				ret += '<div class="list media-list">';
+				ret += '  <ul>';
+				ret += '	<li>';
+				ret += '	  <div class="item-content">      ';  
+				ret += '		<div class="item-inner">';
+				ret += '		  <div class="item-title-row">';
+				ret += '			<div class="item-title">' + item.title + '</div>  ';          
+				ret += '		  </div>          ';
+				ret += '		  <div class="item-text">';
+				ret += '			<div class="row">';
+				
+				for (let d = 0; d < item.data.length; d ++){	
+					let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
+					
+					ret += '			  <div class="col-50">';
+					ret += 					'<a href="#" onclick="openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
+											'<div class="item-content">' +
+											'<div class="item-media video-item-media">' +
+											'<img src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
+											'<div class="item-media-bottom">' +
+											'<div class="item-media-quality">720p</div>' +
+											'<div class="item-media-time">'+time+'</div>' +
+											'</div>' +
+											'</div>' +
+											'</div>' +
+											'</a>';
+					ret += '			  </div> ';					
+				}
+				
+				ret += '			</div>';
+				ret += '		  </div>';
+				ret += '		</div>';
+				ret += '	  </div>';
+				ret += '	</li>';
+				ret += '  </ul>';
+				ret += '</div>';
+				
+				return ret;
+			},
+			height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
+		});
+		}, error => {
+        console.log('something wrong...');
+    });
+	/*
+    let loadVideoList = App.virtualList.create({
+        el: '.load-video-list',
+        items: items,
+        searchAll: function(query, items) {
+            let found = [];
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+            }
+            return found;
+        },
+        itemTemplate: '<li>' +
+            '<label class="item-radio item-content">' +
+            '<input type="radio" name="demo-radio" value="{{value}}"/>' +
+            '<div class="item-media">' +
+            '<div class="item-media-inner">' +
+            '<p>DC</p>' +
+            '</div>' +
+            '</div>' +
+            '<div class="item-inner">' +
+            '<div class="item-title">{{title}}</div>' +
+            '</div>' +
+            '<i class="icon icon-radio"></i>' +
+            '</label>' +
+            '</li>',
+        height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
+    });
+*/
+
+
+
+});
+
+function loadGalleryVideoPage() {
+    mainView.router.load({
+        url: 'resources/templates/gallery.video.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });
+}
+
+
 function loadInfoPage() {
     mainView.router.load({
         url: 'resources/templates/info.html',
@@ -538,6 +693,7 @@ function loadInfoPage() {
 function loadCarcamPage() {
     console.log('Carcam page');
 }
+
 
 
 // INIT DELETE CAM
@@ -594,7 +750,7 @@ function loadDeleteCamPage() {
         }
     });
 }
-*/
+
 
 
 
@@ -678,4 +834,3 @@ $$(document).on('page:init', '.page[data-name="normal.dashcam"]', function(e) {
         height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
     });
 });
-

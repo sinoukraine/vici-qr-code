@@ -110,5 +110,15 @@ var routes = [{
         path: '/dashcam.video/',
         url: './resources/templates/dashcam.video.html',
     },
+	{
+        name: 'my-gallery',
+        path: '/my-gallery/',
+        componentUrl: './resources/pages/my-gallery.html?v=1.35',
+    },
+	{
+        name: 'my-photo',
+        path: '/my-photo/',
+        componentUrl: './resources/pages/my-photo.html?v=1.32',
+    },
 
 ]
