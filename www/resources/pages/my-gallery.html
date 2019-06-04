@@ -35,14 +35,9 @@
 			<div class="page-content tab tab-active" id="photo">
 				<div class="block">
 					<div class="list virtual-list photo-list no-hairlines">
-					{{#if ShowList}}
-						<div key="VirtualList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found photosList">
+					{{#if ShowPhotoList}}
+						<div key="VirtualPhotoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found photosList">
 						</div> 
-						<div class="col-50"><a href="#" class="button button-fill pb-standalone-dark">Standalone</a></div>
-					{{else}}
-						<div key="VirtualListPreloader" class="block block-strong text-align-center">
-							<div class="preloader color-red"></div>
-						</div>
 					{{/if}}
 					</div>
 				</div>
@@ -51,6 +46,10 @@
 			<div class="page-content tab" id="video">
 				<div class="block">
 					<div class="list virtual-list video-list no-hairlines">
+					{{#if ShowVideoList}}
+						<div key="VirtualVideoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found videoList">
+						</div> 
+					{{/if}}
 					</div>
 				</div>
 			</div>
@@ -64,9 +63,11 @@
         data: function () {
             var self = this;
 			var ret = {
-                VirtualList: false,
-                VirtualListSearchBar: false,
-				ShowList: false,				
+				photoBrowserArr: [],
+                VirtualPhotoList: false,
+                VirtualVideoList: false,
+				ShowPhotoList: false,	
+				ShowVideoList: false,			
             }; 			
             return ret;
         },
@@ -87,7 +88,7 @@
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'photoList', data: response.mp4data});
                     self.$setState({
-                        ShowList: true,
+                        ShowPhotoList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
                         self.initList(response.mp4data);
@@ -98,6 +99,23 @@
 					console.log('Error occured at Get Alarm Photo List');
                     self.$app.dialog.alert('Error occured at Get Alarm Photo List');
 				});
+				
+				/*self.$app.preloader.show();
+				self.$app.methods.getRecordPhoto().then(response => {			
+					//self.methods.setPhotoList({list: response.mp4data});	
+					self.$app.methods.setInStorage({name: 'photoList', data: response.mp4data});
+                    self.$setState({
+                        ShowList: true,
+                    });
+                    self.$app.utils.nextFrame(()=>{
+                        self.initList(response.mp4data);
+                    });					
+					self.$app.preloader.hide(); 	
+				}, error => {
+					self.$app.preloader.hide(); 
+					console.log('Error occured at Get Alarm Photo List');
+                    self.$app.dialog.alert('Error occured at Get Alarm Photo List');
+				});*/
             },
             initList: function(photoListArr = []){
                 var self = this;
@@ -115,9 +133,9 @@
                     });
                 }*/
 				
-				photoBrowserArr.length = 0;
+				self.photoBrowserArr.length = 0;
 				
-                self.VirtualList = App.virtualList.create({
+                self.VirtualPhotoList = App.virtualList.create({
                     el: listEl, 
                     setListHeight: false,
                     // search item by item
@@ -161,10 +179,10 @@
 							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
 							for (let a = 0; a < item.data[d].associateddata.length; a ++){
 								
-								photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image)
-																
+								self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image);
+								///my-photo/?code=http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'
 								ret += '			  <div class="col-50">';
-								ret += 					'<a href="/my-photo/?code=http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" class="" data-photo="'+item.data[d].associateddata[a].image+'">' +
+								ret += 					'<a href="#" class="pb-standalone-dark" data-photo="'+item.data[d].associateddata[a].image+'">' +
 														'<div class="item-content">' +
 														'<div class="item-media photo-item-media">' +
 														'<img class="photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'">' +
@@ -188,9 +206,14 @@
                     }
                 });				
 				
-				console.log('ar',photoBrowserArr);
-				self.$app.photoBrowser.create({
-					photos : photoBrowserArr
+				console.log('ar',self.photoBrowserArr);
+				self.PhotoBrowserObj = self.$app.photoBrowser.create({
+					theme : 'dark',
+					toolbar : false,
+					renderNavbar : function() {
+						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Photo</div></div></div>    ';
+					},
+					photos : self.photoBrowserArr
 				});
             },  
         },
@@ -202,10 +225,8 @@
 
 				var page = page.$el.find('.page-content'); 
 
-                page.on('click', '.pb-standalone', function(e){
-				//Open photo browser on click
-				//$$('.pb-standalone').on('click', function () {
-					myPhotoBrowserStandalone.open();
+                page.on('click', '.pb-standalone-dark', function(e){
+					self.PhotoBrowserObj.open();
 				});
 			}
 		}

@@ -10,9 +10,6 @@ const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
 const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
-var myPhotoBrowserStandalone = {};
-var photoBrowserArr = [];
-
 //var MapTrack = null;
 var PHOTOLIST = {};
 var VIDEOLIST = {};
@@ -229,7 +226,28 @@ function onDeviceReady(){
 var mainView = App.views.create('.view-main');
 
 $$('#connectCam').on('click', function() {
-	VideoPlayer.play(API_LIVE_STREAM);
+	var fileTransfer = new FileTransfer();
+					var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
+
+					fileTransfer.download(
+						uri,
+						fileURL,
+						function(entry) {
+							console.log("download complete: " + entry.toURL());
+						},
+						function(error) {
+							console.log("download error source " + error.source);
+							console.log("download error target " + error.target);
+							console.log("download error code" + error.code);
+						},
+						false,
+						{
+							headers: {
+								"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
+							}
+						}
+					);
+					//VideoPlayer.play(API_LIVE_STREAM);
 	//window.plugins.videoPlayer.play(API_LIVE_STREAM);
 });
 
@@ -522,7 +540,8 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 */
 
 function openPlayer(url){
-	VideoPlayer.play(url);
+	//VideoPlayer.play(url);
+	
 }
 
 /*
