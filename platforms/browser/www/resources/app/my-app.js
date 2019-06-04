@@ -230,13 +230,13 @@ var mainView = App.views.create('.view-main');
 $$('#connectCam').on('click', function() {
 	
     var self = this;
-	//var fileTransfer = new FileTransfer();
+	var fileTransfer = new FileTransfer();
 	var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 	
 	
 	// output in android: file:///storage/emulated/0/
 	var base_url = cordova.file.externalRootDirectory;
-	App.dialog.alert(base_url);
+	//App.dialog.alert(base_url);
 	// or 
 	// var base_url = "cdvfile://localhost/persistent/";
 	var new_directory = 'TEST';
@@ -244,30 +244,16 @@ $$('#connectCam').on('click', function() {
 	// To Create a sub Directory inside a folder
 	// var new_directory = 'Sounds/Test';  // Here 'Sounds' is the name of existing parent directory. Parent Directoy must exist to work fine
 	 
-	window.resolveLocalFileSystemURL(base_url, function (fileSystem) {
-	   //App.dialog.alert(base_url);
-	   
-	   dir.getDirectory(new_directory, { create: true }, function (file) {
-		   //App.dialog.alert(base_url);
-			  App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);
-	   });
-	});
-
-	/*var new_directory = 'TEST';
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-	 fileSystem.root.getDirectory(new_directory, { create: true }, function (file) {
-	 //alert("got the file: "+ file.name + ', ' + file.fullPath);
-	 
-	 
-     App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);*/
-	 /*let fileURL = file.fullPath
+	let fileURL = base_url;
 	 fileTransfer.download(
 						uri,
 						fileURL,
 						function(entry) {
+							App.dialog.alert("download complete: " + entry.toURL());
 							console.log("download complete: " + entry.toURL());
 						},
 						function(error) {
+							App.dialog.alert("download error source: " + error.source);
 							console.log("download error source " + error.source);
 							console.log("download error target " + error.target);
 							console.log("download error code" + error.code);
@@ -278,7 +264,16 @@ $$('#connectCam').on('click', function() {
 								"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
 							}
 						}
-					);*/
+					);
+
+	/*var new_directory = 'TEST';
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+	 fileSystem.root.getDirectory(new_directory, { create: true }, function (file) {
+	 //alert("got the file: "+ file.name + ', ' + file.fullPath);
+	 
+	 
+     App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);*/
+	 /**/
 	/* });
 	}, function(error) {
 	 App.dialog.alert("can't even get the file system: " + error.code);
