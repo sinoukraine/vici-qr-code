@@ -4,5 +4,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
-    "displayName": "DashCamTest"
+    "displayName": "DashCamTest",
+    "dependencies": {
+        "cordova-plugin-file-transfer": "^1.7.1"
+    }
 }

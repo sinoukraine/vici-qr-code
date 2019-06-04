@@ -225,11 +225,22 @@ function onDeviceReady(){
 	
 var mainView = App.views.create('.view-main');
 
-$$('#connectCam').on('click', function() {
-	var fileTransfer = new FileTransfer();
-					var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 
-					fileTransfer.download(
+
+$$('#connectCam').on('click', function() {
+	
+    var self = this;
+	var fileTransfer = new FileTransfer();
+	var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
+
+	var new_directory = 'TEST';
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
+	 fileSystem.root.getDirectory(new_directory, { create: true }, function (file) {
+	 //alert("got the file: "+ file.name + ', ' + file.fullPath);
+	 
+	 self.$app.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);
+	 let fileURL = file.fullPath
+	 fileTransfer.download(
 						uri,
 						fileURL,
 						function(entry) {
@@ -247,6 +258,16 @@ $$('#connectCam').on('click', function() {
 							}
 						}
 					);
+	 });
+	}, function(error) {
+	 self.$app.dialog.alert("can't even get the file system: " + error.code);
+	});
+	 
+
+
+	
+					
+					
 					//VideoPlayer.play(API_LIVE_STREAM);
 	//window.plugins.videoPlayer.play(API_LIVE_STREAM);
 });
