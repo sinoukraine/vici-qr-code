@@ -275,7 +275,8 @@ function fileSystemSuccess(fileSystem) {
     var directoryEntry = fileSystem.root; // to get root path of directory
     directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
     var rootdir = fileSystem.root;
-    var fp = rootdir.toURL(); // Returns Fulpath of local directory
+    var fp = rootdir.toURL(); 
+	App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 	//var fp = "file:///storage/sdcard0'";
     fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
     // download function call
@@ -307,7 +308,6 @@ function onDirectoryFail(error) {
 
 
 $$('#connectCam').on('click', function() {
-	
     var self = this;
 	var fileTransfer = new FileTransfer();
 	var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
@@ -319,7 +319,7 @@ $$('#connectCam').on('click', function() {
 	// var base_url = "cdvfile://localhost/persistent/";
 	var new_directory = 'dashcam_001';
 	
-	DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", new_directory, "alarm_001.jpg")
+	DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", new_directory, "alarm_001")
 	
 	// To Create a sub Directory inside a folder
 	// var new_directory = 'Sounds/Test';  // Here 'Sounds' is the name of existing parent directory. Parent Directoy must exist to work fine
