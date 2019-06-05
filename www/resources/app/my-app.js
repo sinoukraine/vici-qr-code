@@ -86,7 +86,13 @@ var App = new Framework7({
                         if(str) {
                             ret = JSON.parse(str);
                         }
-                        break; 
+                        break;   
+						case 'videoList':
+						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+						break;  
 						default:
                         App.dialog.alert('There is no item saved with such name - '+name);
                 }
@@ -101,7 +107,10 @@ var App = new Framework7({
                 switch (params.name){
                     case 'photoList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(params.data));
-                    break;                        
+                    break;       
+                    case 'videoList':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST", JSON.stringify(params.data));
+                    break;                      
                     default:
                         App.dialog.alert('There is no function associated with this name - '+params.name);
                 }   
@@ -277,7 +286,7 @@ function fileSystemSuccess(fileSystem) {
     var rootdir = fileSystem.root;
     var fp = rootdir.toURL(); 
 	App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
-	//var fp = "file:///storage/sdcard0'";
+	var fp = "file:///storage/sdcard0'";
     fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
     // download function call
     filetransfer(download_link, fp);

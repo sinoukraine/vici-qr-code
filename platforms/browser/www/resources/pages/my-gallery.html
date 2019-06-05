@@ -47,7 +47,7 @@
 				<div class="block">
 					<div class="list virtual-list video-list no-hairlines">
 					{{#if ShowVideoList}}
-						<div key="VirtualVideoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found videoList">
+						<div key="VirtualVideoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found videosList">
 						</div> 
 					{{/if}}
 					</div>
@@ -91,7 +91,7 @@
                         ShowPhotoList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
-                        self.initList(response.mp4data);
+                        self.initPhotoList(response.mp4data);
                     });					
 					self.$app.preloader.hide(); 	
 				}, error => {
@@ -100,24 +100,24 @@
                     self.$app.dialog.alert('Error occured at Get Alarm Photo List');
 				});
 				
-				/*self.$app.preloader.show();
+				self.$app.preloader.show();
 				self.$app.methods.getRecordPhoto().then(response => {			
 					//self.methods.setPhotoList({list: response.mp4data});	
-					self.$app.methods.setInStorage({name: 'photoList', data: response.mp4data});
+					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
                     self.$setState({
-                        ShowList: true,
+                        ShowVideoList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
-                        self.initList(response.mp4data);
+                        self.initVideoList(response.mp4data);
                     });					
 					self.$app.preloader.hide(); 	
 				}, error => {
 					self.$app.preloader.hide(); 
-					console.log('Error occured at Get Alarm Photo List');
-                    self.$app.dialog.alert('Error occured at Get Alarm Photo List');
-				});*/
+					console.log('Error occured at Get Video List');
+                    self.$app.dialog.alert('Error occured at Get Video List');
+				});
             },
-            initList: function(photoListArr = []){
+            initPhotoList: function(photoListArr = []){
                 var self = this;
                 
                 var listEl = self.$el.find('.photosList'); 
@@ -215,6 +215,105 @@
 					},
 					photos : self.photoBrowserArr
 				});
+            }, 
+            initVideoList: function(videoListArr = []){
+                var self = this;
+                
+                var listEl = self.$el.find('.videosList'); 
+                //var listSearchEl = self.$el.find('.searchbar');    
+                var videoList = self.$app.methods.getFromStorage("videoList");
+				let dateArr = self.$app.methods.sortDatePhoto(videoList);           
+                console.log(dateArr);
+                /*if (photoListArr.length) {
+                    photoListArr.sort(function(a,b){
+                        if(a.AccountName < b.AccountName) return -1;
+                        if(a.AccountName > b.AccountName) return 1;
+                        return 0;
+                    });
+                }*/
+				
+				//self.photoBrowserArr.length = 0;
+				
+                self.VirtualVideoList = App.virtualList.create({
+                    el: listEl, 
+                    setListHeight: false,
+                    // search item by item
+                    searchAll: function (query, items) {
+                        /*var found = [];
+                        query = query.trim().toLowerCase();   
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].AccountName.toLowerCase().indexOf(query) >= 0 || 
+                                items[i].EMail.toLowerCase().indexOf(query) >= 0 ||                                
+                                query === '') found.push(i);
+                        }
+                        return found; //return array with mathced indexes*/
+						let found = [];
+						for (let i = 0; i < items.length; i++) {
+							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+						}
+						return found;
+                    },
+                    //List of array items
+                    items: dateArr,
+                    height: function(item){
+                        let height = 134.94;
+                        return height;
+                    },
+                    // Display the each item using Template7 template parameter
+                    renderItem: function (item, index) {  console.log(index, item);                 
+                        var ret = '';
+						
+						ret += '<div class="list media-list">';
+						ret += '  <ul>';
+						ret += '	<li>';
+						ret += '	  <div class="item-content">      ';  
+						ret += '		<div class="item-inner">';
+						ret += '		  <div class="item-title-row">';
+						ret += '			<div class="item-title">' + item.title + '</div>  ';          
+						ret += '		  </div>          ';
+						ret += '		  <div class="item-text">';
+						ret += '			<div class="row">';
+						
+						for (let d = 0; d < item.data.length; d ++){	
+							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
+							for (let a = 0; a < item.data[d].associateddata.length; a ++){
+								
+								//self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image);
+								///my-photo/?code=http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'
+								ret += '			  <div class="col-50">';
+								ret += 					'<a href="#" class="pb-standalone-dark" data-photo="'+item.data[d].associateddata[a].image+'">' +
+														'<div class="item-content">' +
+														'<div class="item-media photo-item-media">' +
+														'<img class="photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'">' +
+														
+														'</div>' +
+														'</div>' +
+														'</a>';
+								ret += '			  </div> ';			
+							}						
+						}
+						
+						ret += '			</div>';
+						ret += '		  </div>';
+						ret += '		</div>';
+						ret += '	  </div>';
+						ret += '	</li>';
+						ret += '  </ul>';
+						ret += '</div>';
+												
+						return ret;
+                    }
+                });				
+				
+				/*console.log('ar',self.photoBrowserArr);
+				self.PhotoBrowserObj = self.$app.photoBrowser.create({
+					theme : 'dark',
+					toolbar : false,
+					renderNavbar : function() {
+						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Photo</div></div></div>    ';
+					},
+					photos : self.photoBrowserArr
+				});*/
             },  
         },
         on: {
