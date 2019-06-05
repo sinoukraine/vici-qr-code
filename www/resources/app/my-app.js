@@ -264,11 +264,11 @@ fileTransfer.download(download_link, fp,
                     function (entry) {
                         //App.dialog.alert("download complete: " + entry.fullPath);
 						
-						App.dialog.alert(fp + '.+.' + download_link);
+						App.dialog.alert('+'+fp);
                     },
                  function (error) {
                      
-						App.dialog.alert(fp + '.-.' + download_link);
+						App.dialog.alert('-'+fp);
 					 //Download abort errors or download failed errors
                      //App.dialog.alert("download error source " + error.source);
                      //alert("download error target " + error.target);
@@ -290,7 +290,8 @@ function fileSystemSuccess(fileSystem) {
     var directoryEntry = fileSystem.root; // to get root path of directory
     directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
     var rootdir = fileSystem.root;
-    var fp = rootdir.toURL(); 
+    //var fp = rootdir.toURL(); 
+	var fp = cordova.file.dataDirectory;
 	//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 	//var fp = "file:///storage/sdcard0'";
     fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
