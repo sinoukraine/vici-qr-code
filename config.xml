@@ -63,6 +63,8 @@
 	<plugin name="cordova-plugin-android-permissions" spec="1.0.0" />
 	
 	
+	
+    <plugin spec="https://github.com/gitawego/cordova-screenshot.git" source="git"  />
     <plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
 <plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />
     <plugin spec="https://github.com/jaeger25/Html5Video.git" source="git"  />

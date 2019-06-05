@@ -298,8 +298,8 @@ function fileSystemSuccess(fileSystem) {
 	//var fp = cordova.file.dataDirectory;
 	//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 	//var fp = "file:///storage/sdcard0'";
-    fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
-	//fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+    //fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
+	fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
     // download function call
     filetransfer(download_link, fp);
 }
@@ -344,8 +344,14 @@ $$('#connectCam').on('click', function() {
 				// permission is granted
 				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 				
-				DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-		
+				//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+				navigator.screenshot.save(function(error,res){
+				  if(error){
+					console.error(error);
+				  }else{
+					console.log('ok',res.filePath);
+				  }
+				});
 			} else {
 				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
 
@@ -354,7 +360,14 @@ $$('#connectCam').on('click', function() {
 				}
 
 				function success(status1) {
-					DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+					//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+					navigator.screenshot.save(function(error,res){
+					  if(error){
+						console.error(error);
+					  }else{
+						console.log('ok',res.filePath);
+					  }
+					});
 					if (!status1.hasPermission) error();
 				}
 			}
