@@ -331,27 +331,38 @@ function onDirectoryFail(error) {
 $$('#connectCam').on('click', function() {
     var self = this;
 	
-	var Permission = window.plugins.Permission
- 
-	//var Permission = window.plugins.Permission
-	// request grant for a permission
-	var permission = ['android.permission.READ_EXTERNAL_STORAGE', 'android.permission.WRITE_EXTERNAL_STORAGE']
-	Permission.request(permission, function(results) {
-		if (results[permission]) {
+	//let input = $$(this).siblings('input');
+
+	let permissions = cordova.plugins.permissions;
+	if (!permissions) {
+		App.alert('plugin not supported')
+	} else {
+		permissions.hasPermission(permissions.CAMERA, function(status) {
+		// App.alert(JSON.stringify(status))
+
+		if (status.hasPermission) {
 			// permission is granted
-			var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
-	
-			// output in android: file:///storage/emulated/0/
-			var base_url = cordova.file.externalRootDirectory;
-			//App.dialog.alert(base_url);
-			// or 
-			// var base_url = "cdvfile://localhost/persistent/";
-			var new_directory = 'dashcam_001';
+			//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 			
-			DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", new_directory, "alarm_001")
+			DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
 	
+		} else {
+			permissions.requestPermission(permissions.CAMERA, success, error);
+
+			function error() {
+				App.alert('Camera permission is not turned on');
+			}
+
+			function success(status1) {
+				DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
+				if (!status1.hasPermission) error();
+			}
 		}
-	}, alert)
+	});
+
+
+
+			
 	
 	// verify grant for a permission
 	/*Permission.has(permission, function(results) {
@@ -365,7 +376,7 @@ $$('#connectCam').on('click', function() {
 	// To Create a sub Directory inside a folder
 	// var new_directory = 'Sounds/Test';  // Here 'Sounds' is the name of existing parent directory. Parent Directoy must exist to work fine
 	 
-	let fileURL = base_url;
+	//let fileURL = base_url;
 	//First step check parameters mismatch and checking network connection if available call    download function
 	
 	
