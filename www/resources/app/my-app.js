@@ -264,9 +264,9 @@ fileTransfer.download(download_link, fp,
 					function (entry) {
                                 //alert("download complete: " + entry.fullPath);
                                 window.plugins.scanmedia.scanFile(fp, function (msg) {
-                                    App.dialog.alert("Success ScanMedia");
+                                    App.dialog.alert("+" + fp);
                                 }, function (err) {
-                                    App.dialog.alert("Fail ScanMedia: " + err);
+                                    App.dialog.alert("Fail ScanMedia: " + fp);
                                 })
 					},
 					function (error) {
@@ -297,7 +297,8 @@ function fileSystemSuccess(fileSystem) {
 	//var fp = cordova.file.dataDirectory;
 	//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 	//var fp = "file:///storage/sdcard0'";
-    fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+    fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
+	//fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
     // download function call
     filetransfer(download_link, fp);
 }
