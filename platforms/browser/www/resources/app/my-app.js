@@ -228,6 +228,7 @@ document.addEventListener("deviceready", onDeviceReady, false );
  
 function onDeviceReady(){ 
 	console.log('ready');
+	
 	//App.methods.getPhotoList();
 }
 
@@ -332,10 +333,11 @@ $$('#connectCam').on('click', function() {
 	
 	var Permission = window.plugins.Permission
  
-	// verify grant for a permission
+	//var Permission = window.plugins.Permission
+	// request grant for a permission
 	var permission = ['android.permission.READ_EXTERNAL_STORAGE', 'android.permission.WRITE_EXTERNAL_STORAGE']
-	Permission.has(permission, function(results) {
-		if (results['android.permission.WRITE_EXTERNAL_STORAGE']) {
+	Permission.request(permission, function(results) {
+		if (results[permission]) {
 			// permission is granted
 			var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 	
@@ -350,6 +352,14 @@ $$('#connectCam').on('click', function() {
 	
 		}
 	}, alert)
+	
+	// verify grant for a permission
+	/*Permission.has(permission, function(results) {
+		if (results['android.permission.WRITE_EXTERNAL_STORAGE']) {
+			// permission is granted
+			
+		}
+	}, alert)*/
 	//var fileTransfer = new FileTransfer();
 	
 	// To Create a sub Directory inside a folder
