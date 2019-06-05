@@ -36,6 +36,9 @@
         },
         "cordova-plugin-advanced-http": {
             "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-plugin-android-permissions": {
+            "PACKAGE_NAME": "com.sinopacific.dashcamtest"
         }
     },
     "dependent_plugins": {

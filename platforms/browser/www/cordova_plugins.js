@@ -340,6 +340,14 @@ module.exports = [
         "id": "cordova-plugin-advanced-http.http-proxy",
         "pluginId": "cordova-plugin-advanced-http",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
+        "id": "cordova-plugin-android-permissions.Permissions",
+        "pluginId": "cordova-plugin-android-permissions",
+        "clobbers": [
+            "cordova.plugins.permissions"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -355,7 +363,8 @@ module.exports.metadata =
     "cordova-plugin-camera": "4.0.3",
     "cordova-launch-review": "3.1.1",
     "cordova-plugin-file": "6.0.1",
-    "cordova-plugin-advanced-http": "2.0.9"
+    "cordova-plugin-advanced-http": "2.0.9",
+    "cordova-plugin-android-permissions": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

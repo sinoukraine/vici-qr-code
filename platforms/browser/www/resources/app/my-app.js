@@ -329,17 +329,28 @@ function onDirectoryFail(error) {
 
 $$('#connectCam').on('click', function() {
     var self = this;
-	var fileTransfer = new FileTransfer();
-	var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 	
-	// output in android: file:///storage/emulated/0/
-	var base_url = cordova.file.externalRootDirectory;
-	//App.dialog.alert(base_url);
-	// or 
-	// var base_url = "cdvfile://localhost/persistent/";
-	var new_directory = 'dashcam_001';
+	var Permission = window.plugins.Permission
+ 
+	// verify grant for a permission
+	var permission = ['android.permission.READ_EXTERNAL_STORAGE', 'android.permission.WRITE_EXTERNAL_STORAGE']
+	Permission.has(permission, function(results) {
+		if (results['android.permission.WRITE_EXTERNAL_STORAGE']) {
+			// permission is granted
+			var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 	
-	DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", new_directory, "alarm_001")
+			// output in android: file:///storage/emulated/0/
+			var base_url = cordova.file.externalRootDirectory;
+			//App.dialog.alert(base_url);
+			// or 
+			// var base_url = "cdvfile://localhost/persistent/";
+			var new_directory = 'dashcam_001';
+			
+			DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", new_directory, "alarm_001")
+	
+		}
+	}, alert)
+	//var fileTransfer = new FileTransfer();
 	
 	// To Create a sub Directory inside a folder
 	// var new_directory = 'Sounds/Test';  // Here 'Sounds' is the name of existing parent directory. Parent Directoy must exist to work fine
