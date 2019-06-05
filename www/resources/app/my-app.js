@@ -340,26 +340,26 @@ $$('#connectCam').on('click', function() {
 		permissions.hasPermission(permissions.CAMERA, function(status) {
 		// App.alert(JSON.stringify(status))
 
-		if (status.hasPermission) {
-			// permission is granted
-			//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
-			
-			DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
-	
-		} else {
-			permissions.requestPermission(permissions.CAMERA, success, error);
-
-			function error() {
-				App.alert('Camera permission is not turned on');
-			}
-
-			function success(status1) {
+			if (status.hasPermission) {
+				// permission is granted
+				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
+				
 				DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
-				if (!status1.hasPermission) error();
-			}
-		}
-	});
+		
+			} else {
+				permissions.requestPermission(permissions.CAMERA, success, error);
 
+				function error() {
+					App.alert('Camera permission is not turned on');
+				}
+
+				function success(status1) {
+					DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
+					if (!status1.hasPermission) error();
+				}
+			}
+		});
+	}
 
 
 			
