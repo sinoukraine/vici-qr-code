@@ -261,18 +261,20 @@ function filetransfer(download_link, fp) {
 var fileTransfer = new FileTransfer();
 // File download function with URL and local path
 fileTransfer.download(download_link, fp,
-                    function (entry) {
-                        //App.dialog.alert("download complete: " + entry.fullPath);
-						
-						App.dialog.alert('+'+fp);
-                    },
-                 function (error) {
+					function (entry) {
+                                //alert("download complete: " + entry.fullPath);
+                                window.plugins.scanmedia.scanFile(fp, function (msg) {
+                                    App.dialog.alert("Success ScanMedia");
+                                }, function (err) {
+                                    App.dialog.alert("Fail ScanMedia: " + err);
+                                }),
+					function (error) {
                      
-						App.dialog.alert('-'+fp);
-					 //Download abort errors or download failed errors
-                     //App.dialog.alert("download error source " + error.source);
-                     //alert("download error target " + error.target);
-                     //alert("upload error code" + error.code);
+						App.dialog.alert('-');
+						 //Download abort errors or download failed errors
+						 //App.dialog.alert("download error source " + error.source);
+						 //alert("download error target " + error.target);
+						 //alert("upload error code" + error.code);
                  }
             );
 }
@@ -290,8 +292,8 @@ function fileSystemSuccess(fileSystem) {
     var directoryEntry = fileSystem.root; // to get root path of directory
     directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
     var rootdir = fileSystem.root;
-    //var fp = rootdir.toURL(); 
-	var fp = cordova.file.dataDirectory;
+    var fp = rootdir.toURL(); 
+	//var fp = cordova.file.dataDirectory;
 	//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 	//var fp = "file:///storage/sdcard0'";
     fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
