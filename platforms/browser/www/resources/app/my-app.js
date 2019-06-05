@@ -267,7 +267,7 @@ fileTransfer.download(download_link, fp,
                                     App.dialog.alert("Success ScanMedia");
                                 }, function (err) {
                                     App.dialog.alert("Fail ScanMedia: " + err);
-                                }),
+                                })
 					},
 					function (error) {
                      
