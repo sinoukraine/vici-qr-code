@@ -335,9 +335,9 @@ $$('#connectCam').on('click', function() {
 
 	let permissions = cordova.plugins.permissions;
 	if (!permissions) {
-		App.alert('plugin not supported')
+		App.dialog.alert('plugin not supported')
 	} else {
-		permissions.hasPermission(permissions.CAMERA, function(status) {
+		permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function(status) {
 		// App.alert(JSON.stringify(status))
 
 			if (status.hasPermission) {
@@ -347,10 +347,10 @@ $$('#connectCam').on('click', function() {
 				DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
 		
 			} else {
-				permissions.requestPermission(permissions.CAMERA, success, error);
+				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
 
 				function error() {
-					App.alert('Camera permission is not turned on');
+					App.dialog.alert('Storage permission is not turned on');
 				}
 
 				function success(status1) {
