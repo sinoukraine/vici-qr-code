@@ -267,12 +267,12 @@ fileTransfer.download(download_link, fp,
                                 window.plugins.scanmedia.scanFile(fp, function (msg) {
                                     App.dialog.alert("+" + fp);
                                 }, function (err) {
-                                    App.dialog.alert("Fail ScanMedia: " + fp);
+                                    App.dialog.alert("-: " + fp);
                                 })
 					},
 					function (error) {
                      
-						App.dialog.alert('-');
+						App.dialog.alert('--');
 						 //Download abort errors or download failed errors
 						 //App.dialog.alert("download error source " + error.source);
 						 //alert("download error target " + error.target);
@@ -344,7 +344,7 @@ $$('#connectCam').on('click', function() {
 				// permission is granted
 				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 				
-				DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
+				DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
 		
 			} else {
 				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
@@ -354,7 +354,7 @@ $$('#connectCam').on('click', function() {
 				}
 
 				function success(status1) {
-					DownloadFile("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG", "dashcam_001", "alarm_001");
+					DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
 					if (!status1.hasPermission) error();
 				}
 			}
