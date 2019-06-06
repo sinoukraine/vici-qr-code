@@ -33,7 +33,11 @@
 		<div class="tabs">
 			<!-- First tab, active -->
 			<div class="page-content tab tab-active" id="photo">
-				<div class="block">
+				<div class="block ptr-content">
+					<div class="ptr-preloader">
+						<div class="preloader"></div>
+						<div class="ptr-arrow"></div>
+					  </div>
 					<div class="list virtual-list photo-list no-hairlines">
 					{{#if ShowPhotoList}}
 						<div key="VirtualPhotoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found photosList">
@@ -154,10 +158,11 @@
 						}
 						return found;
                     },
+					
                     //List of array items
                     items: dateArr,
                     height: function(item){
-                        let height = 134.94;
+                        let height = 534.94;
                         return height;
                     },
                     // Display the each item using Template7 template parameter
@@ -170,7 +175,7 @@
 						ret += '	  <div class="item-content">      ';  
 						ret += '		<div class="item-inner">';
 						ret += '		  <div class="item-title-row">';
-						ret += '			<div class="item-title">' + item.title + '</div>  ';          
+						ret += '			<div class="item-title">' + item.title + '</div>  <video id="myvideo'+index+'" loop></video>';          
 						ret += '		  </div>          ';
 						ret += '		  <div class="item-text">';
 						ret += '			<div class="row">';
@@ -215,6 +220,12 @@
 					},
 					photos : self.photoBrowserArr
 				});
+				
+				window.plugins.html5Video.initialize({
+					  "myvideo0" : "http://d35x2hbem77sz6.cloudfront.net/video/home-pickup.mp4"
+				  }, function initializeIsFinished() {
+				  window.plugins.html5Video.play("myvideo0")
+				})
             }, 
             initVideoList: function(videoListArr = []){
                 var self = this;
@@ -324,8 +335,28 @@
 
 				var page = page.$el.find('.page-content'); 
 
-                page.on('click', '.pb-standalone-dark', function(e){
+                /*page.on('click', '.pb-standalone-dark', function(e){
 					self.PhotoBrowserObj.open();
+				});*/
+				
+				page.on('taphold', '.photo-path', function(e){
+				//$$('.photo-path').on('taphold', function () {
+				console.log('tap');
+				  App.dialog.alert('Tap hold fired!');
+				});
+				
+				// Pull to refresh content
+				var $ptrContent = $$('.ptr-content');
+				// Add 'refresh' listener on it
+				$ptrContent.on('ptr:refresh', function (e) {
+				  // Emulate 2s loading
+				  setTimeout(function () { // Prepend new list element
+					
+					self.getPhotoList();	
+					//$ptrContent.find('ul').prepend(itemHTML);
+					// When loading done, we need to reset it
+					App.ptr.done(); // or e.detail();
+				  }, 2000);
 				});
 			}
 		}

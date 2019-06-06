@@ -26,6 +26,9 @@ var App = new Framework7({
     root: '#app',
     name: 'DashCam',
     id: 'com.quiktrak.dashcam',
+	  touch: {
+		tapHold: true //enable tap hold events
+	  },
     panel: {
         swipe: 'left',
         leftBreakpoint: 768,

@@ -113,7 +113,7 @@ var routes = [{
 	{
         name: 'my-gallery',
         path: '/my-gallery/',
-        componentUrl: './resources/pages/my-gallery.html?v=1.52',
+        componentUrl: './resources/pages/my-gallery.html?v=1.54',
     },
 	{
         name: 'my-photo',
