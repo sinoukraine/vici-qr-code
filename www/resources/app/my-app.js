@@ -421,7 +421,7 @@ function ssidHandler(s) {
 }
 
 function win() {
-    App.dialog.alert("Win");
+    loadCarcamPage();
 }
 
 function fail(e) {
@@ -449,10 +449,55 @@ function connectWiFi(SSID) {
 
 
 $('.view-main').on('click', '#openCam', function () {    	
-	//loadCarcamPage();
+	//
 	//getWifiList();
-	connectWiFi('AUTO-VOX D6PRO 06ac');
+	//connectWiFi('AUTO-VOX D6PRO 06ac');
 	//getCurrentSSID();
+	let permissions = cordova.plugins.permissions;
+	if (!permissions) {
+		App.dialog.alert('plugin not supported')
+	} else {
+		permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function(status) {//WRITE_EXTERNAL_STORAGE
+			// App.alert(JSON.stringify(status))
+
+			if (status.hasPermission) {
+				//App.dialog.alert('WIFI permission is turned on');
+				// permission is granted
+				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
+				
+				DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
+				App.dialog.alert('video downloaded 0');
+				/*navigator.screenshot.save(function(error,res){
+				  if(error){
+					console.error(error);
+				  }else{
+					console.log('ok',res.filePath);
+				  }
+				});*/
+			} else {
+				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
+
+				function error() {
+					App.dialog.alert('no storage permission');
+				}
+
+				function success(status1) {
+					//App.dialog.alert('WIFI permission is turned on');
+					
+				DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
+					App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+					/*navigator.screenshot.save(function(error,res){
+					  if(error){
+						console.error(error);
+					  }else{
+						console.log('ok',res.filePath);
+					  }
+					});*/
+					if (!status1.hasPermission) error();
+				}
+			}
+		});
+	}
 });
 
 function loadCarcamPage() {
