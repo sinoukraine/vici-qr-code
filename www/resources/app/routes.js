@@ -6,10 +6,10 @@ var routes = [{
         path: '/delete.cam/',
         url: './resources/templates/delete.cam.html',
     },
-    {
+    /*{
         path: '/gallery/',
         url: './resources/templates/gallery.html',
-    },
+    },*/
     {
         path: '/dashcam.setting/',
         url: './resources/templates/dashcam.setting.html',
@@ -111,14 +111,24 @@ var routes = [{
         url: './resources/templates/dashcam.video.html',
     },
 	{
+        name: 'my-home',
+        path: '/my-home/',
+        componentUrl: './resources/pages/my-home.html?v=1.57',
+    },
+	{
         name: 'my-gallery',
         path: '/my-gallery/',
-        componentUrl: './resources/pages/my-gallery.html?v=1.55',
+        componentUrl: './resources/pages/my-gallery.html?v=1.57',
     },
 	{
         name: 'my-photo',
         path: '/my-photo/',
-        componentUrl: './resources/pages/my-photo.html?v=1.55',
+        componentUrl: './resources/pages/my-photo.html?v=1.57',
+    },
+	{
+        name: 'my-info',
+        path: '/my-info/',
+        componentUrl: './resources/pages/my-info.html?v=1.57',
     },
 
 ]

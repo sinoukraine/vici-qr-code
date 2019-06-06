@@ -224,6 +224,7 @@ document.addEventListener("deviceready", onDeviceReady, false );
  
 function onDeviceReady(){ 
 	console.log('ready');
+	loadListPage();
 	
 	var self = this;
 	
@@ -237,7 +238,7 @@ function onDeviceReady(){
 			// App.alert(JSON.stringify(status))
 
 			if (status.hasPermission) {
-				App.dialog.alert('WIFI permission is turned on');
+				//App.dialog.alert('WIFI permission is turned on');
 				// permission is granted
 				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 				
@@ -258,7 +259,7 @@ function onDeviceReady(){
 				}
 
 				function success(status1) {
-					App.dialog.alert('WIFI permission is turned on');
+					//App.dialog.alert('WIFI permission is turned on');
 					//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
 					/*navigator.screenshot.save(function(error,res){
 					  if(error){
@@ -361,12 +362,6 @@ function download(URL, Folder_Name, File_Name) {
 
 /*end download file*/
 
-$$('#connectCam').on('click', function() {    
-	VideoPlayer.play(API_LIVE_STREAM);
-	//window.plugins.videoPlayer.play(API_LIVE_STREAM);
-});
-
-
 $$('#mainMenu li').on('click', menuList)
 
 function menuList() {
@@ -381,10 +376,11 @@ function menuList() {
                 //     console.log('open cam');
                 //     App.panel.close($$('.panel-left'), true);
                 // }
-                mainView.router.back({
+				loadCarcamPage();
+				/*mainView.router.back({
                     pageName: 'home',
                     force: true
-                });
+                });*/
                 App.panel.close($$('.panel-left'), true);
                 break;
             case 'delete.cam':
@@ -406,6 +402,12 @@ function menuList() {
                     App.panel.close($$('.panel-left'), true);
                 }
                 break;
+            case 'list':
+                if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "list")) {
+                    loadListPage();
+                    App.panel.close($$('.panel-left'), true);
+                }
+                break;
             default:
                 console.log('No Found list menu');
         }
@@ -413,9 +415,33 @@ function menuList() {
 }
 
 
+$('.view-main').on('click', '#openCam', function () {    	
+	//loadCarcamPage();
+	var WifiManager = cordova.plugins.WifiManager
+ 
+	WifiManager.onwifistatechanged = function (data) {
+	  console.log(data.previousWifiState, '->', data.wifiState)
+	}
+	 
+	// Turn on Wifi
+	WifiManager.setWifiEnabled(true, function (err, success) {
+	  console.log(err, success)
+	})
+});
+
 function loadCarcamPage() {
-    mainView.router.load({
+	mainView.router.navigate('/my-home/');
+    /*mainView.router.load({
         url: 'index.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });*/
+}
+
+function loadListPage() {
+	mainView.router.load({
+        url: 'resources/templates/open.dashcam.html',
         context: {
             // FirstName: userInfo.FirstName,
         }
@@ -427,6 +453,26 @@ function loadGalleryPage() {
 	mainView.router.navigate('/my-gallery/');
 }
 
+// INFO
+function loadInfoPage() {	
+	//mainView.router.navigate('/my-info/');
+    mainView.router.load({
+        url: 'resources/templates/info.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });
+}
+
+function loadDeleteCamPage() {
+	//mainView.router.navigate('/my-delete-cam/');
+    mainView.router.load({
+        url: 'resources/templates/delete.cam.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });
+}
 /* ---
 function getDate(data) {
     let arr = [];
@@ -452,7 +498,7 @@ function getDate(data) {
 }*/
 
 
-/*
+/*---
 $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
     let toolbarLinks = $$('.tab-link');
     let getPhotoJson = { 
@@ -615,21 +661,6 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 */
 
 
-/*
-function loadInfoPage() {
-    mainView.router.load({
-        url: 'resources/templates/info.html',
-        context: {
-            // FirstName: userInfo.FirstName,
-        }
-    });
-}
-
-function loadCarcamPage() {
-    console.log('Carcam page');
-}
-
-
 // INIT DELETE CAM
 
 $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
@@ -674,18 +705,6 @@ $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
         height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
     });
 });
-
-
-function loadDeleteCamPage() {
-    mainView.router.load({
-        url: 'resources/templates/delete.cam.html',
-        context: {
-            // FirstName: userInfo.FirstName,
-        }
-    });
-}
-*/
-
 
 
 // INIT OPEN PAGE DASHCAM LIST

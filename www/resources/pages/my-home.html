@@ -1,0 +1,73 @@
+<template>
+	<div class="page home-page" data-name="my-home">
+                <div class="navbar">
+                    <div class="navbar-inner">
+                        <div class="left">
+                            <a class="panel-open" href="#">
+                                <i class="f7-icons icon-menu"></i>
+                            </a>
+                        </div>
+                        <div class="title">Home</div>
+                    </div>
+                </div>
+
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a class="btn-cs" href="#" id='openCamList'>
+                            list
+                        </a>
+                    </div>
+                </div>
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a class="btn-cs" href="#" id='connectCam'>
+                            connect
+                        </a>
+                    </div>
+                </div>
+
+                <div class="page-content">
+                    <div class="inner-content">
+                        <!--<p><a href="/open.dashcam/">open</a></p>
+                        <p><a href="/air.dashcam/">open</a></p>
+<video id="myvideo" controls="controls" width="400">
+    <source src="file:///android_asset/www/gruppenruf.mp4" />
+ </video>-->
+                        <img class="main-bg" src="./resources/images/main.png" alt="main">
+						
+                        <p class="text-content">You have not had any connections to the dashcam.</p>
+                        <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
+                    </div>
+                </div>
+            </div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {};            
+
+            return ret;
+        },
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;    
+				var page = page.$el.find('.page-content'); 
+
+                /*page.on('click', '.pb-standalone-dark', function(e){
+					self.PhotoBrowserObj.open();
+				});*/
+						
+				
+				page.on('click', '#connectCam', function(e){				
+				//$$('#connectCam').on('click', function() {    
+					VideoPlayer.play(API_LIVE_STREAM);
+					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
+				});				
+			}
+		}
+    };
+</script>
+    

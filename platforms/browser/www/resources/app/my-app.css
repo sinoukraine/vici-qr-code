@@ -728,7 +728,7 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 }
 
 .block{
-	height: 120%;	
+	/*height: 120%;	*/
 }
 
 .photo-list ul{
