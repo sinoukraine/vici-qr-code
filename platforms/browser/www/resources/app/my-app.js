@@ -503,8 +503,8 @@ $('.view-main').on('click', '#openCam', function () {
 				VideoPlayer.play(fp);
 				*/
 				
-				//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
-				DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+				DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
+				////DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
 				App.dialog.alert('video downloaded 0');
 				/*navigator.screenshot.save(function(error,res){
 				  if(error){
@@ -522,7 +522,8 @@ $('.view-main').on('click', '#openCam', function () {
 
 				function success(status1) {
 					//App.dialog.alert('WIFI permission is turned on');
-					DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+					
+				DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 				App.dialog.alert('video downloaded 1');
 				//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
 					//App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
