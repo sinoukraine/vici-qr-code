@@ -762,10 +762,6 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 	display: contents;
 }
 
-.photo-item-media{
-	
-}
-
 .photo-list .photo-item-media img, .video-list .video-item-media img {
 	width: 100%;
     height: 80px;
@@ -773,4 +769,10 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 
 .ptr-content {
 	margin-top: -20px;
+}
+
+.check-item{
+	position: absolute;
+    top: 22px;
+    left: 8px;
 }

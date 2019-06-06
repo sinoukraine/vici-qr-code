@@ -144,7 +144,44 @@ var App = new Framework7({
 					}
 				});		
 			});   
-		},/*
+		},
+		getRecordVideo: function (resolve, reject) {	
+			return new Promise((resolve, reject) => {
+				$.ajax({
+					   type: "GET",
+				   dataType: "json", 
+						/*dataFilter: function(raw, type) {
+						console.log(raw, type);
+						return JSON.parse(raw);
+						{ 
+					"filename": "20190523121307_180_720p.MP4", 
+					"duration": 180, 
+					"filesize": 94716138, 
+					"title": "20190523121307.JPG", 
+					"titlesize": 5817, 
+					"thumb": "20190523121307.TGZ", 
+					"thumbsize": 36302, 
+					"time": "20190523121307" 
+				 }
+					},*/
+					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
+						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
+					  async: true,           
+						crossDomain: true, 
+					  cache: false,
+					success: function (result) {    
+						//console.log('res', result, 'ault');
+						//data = result;
+						resolve(result);
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){ 
+					   console.log(textStatus,'error');
+					}
+				});		
+			});   
+		},
+/*
         getPhotoList: function(){  
             let getPhotoJson = { 
 				"type": "alarmvideo", 
@@ -487,42 +524,7 @@ function menuList() {
     }
 }
 
-function getRecordVideo(resolve) {	
-    return new Promise((resolve, reject) => {
-		$.ajax({
-               type: "GET",
-           dataType: "json", 
-                /*dataFilter: function(raw, type) {
-                console.log(raw, type);
-                return JSON.parse(raw);
-				{ 
-			"filename": "20190523121307_180_720p.MP4", 
-			"duration": 180, 
-			"filesize": 94716138, 
-			"title": "20190523121307.JPG", 
-			"titlesize": 5817, 
-			"thumb": "20190523121307.TGZ", 
-			"thumbsize": 36302, 
-			"time": "20190523121307" 
-		 }
-            },*/
-              jsonp: false,
-              //jsonpCallback: "onJsonP",
-                url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
-              async: true,           
-                crossDomain: true, 
-              cache: false,
-            success: function (result) {    
-                //console.log('res', result, 'ault');
-				//data = result;
-				resolve(result);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown){ 
-               console.log(textStatus,'error');
-            }
-        });		
-    });   
-}
+
 
 
 function loadCarcamPage() {
