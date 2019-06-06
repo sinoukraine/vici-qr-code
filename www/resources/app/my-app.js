@@ -414,19 +414,33 @@ function menuList() {
     }
 }
 
+/*start wifi manage*/
+
+function ssidHandler(s) {
+    App.dialog.alert("Current SSID"+s);
+}
+
+function fail(e) {
+    App.dialog.alert("Failed"+e);
+}
+
+function getCurrentSSID() {
+    WifiWizard.getCurrentSSID(ssidHandler, fail);
+}
+
+function listHandler(a) {
+    alert(a);
+}
+
+function getWifiList() {
+   WifiWizard.listNetworks(listHandler, fail);
+}
+
+/*end wifi manage*/
 
 $('.view-main').on('click', '#openCam', function () {    	
 	//loadCarcamPage();
-	var WifiManager = cordova.plugins.WifiManager
- 
-	WifiManager.onwifistatechanged = function (data) {
-	  console.log(data.previousWifiState, '->', data.wifiState)
-	}
-	 
-	// Turn on Wifi
-	WifiManager.setWifiEnabled(true, function (err, success) {
-	  console.log(err, success)
-	})
+	getWifiList();
 });
 
 function loadCarcamPage() {
