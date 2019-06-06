@@ -322,8 +322,39 @@ function filetransfer(download_link, fp) {
 		}
     );
 }
+/*
+function readfile(Folder_Name, File_Name) {	
+	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+	
+	function fileSystemSuccess(fileSystem) {
+		var directoryEntry = fileSystem.root; // to get root path of directory
+		directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+		var rootdir = fileSystem.root;
+		var fp = rootdir.toURL(); 
+		//var fp = cordova.file.dataDirectory;
+		//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
+		//var fp = "file:///storage/sdcard0'";
+		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
+		fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+		// download function call
+		filetransfer(download_link, fp);
+	}
+	
+	function onDirectorySuccess(parent) {
+		// Directory created successfuly
+	}
 
+	function onDirectoryFail(error) {
+		//Error while creating directory
+		App.dialog.alert("Unable to read new directory: " + error.code);
+	}
 
+	function fileSystemFail(evt) {
+		//Unable to access file system
+		App.dialog.alert(evt.target.error.code);
+	}
+}
+*/
 function download(URL, Folder_Name, File_Name) {
 //step to request a file system 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
@@ -457,7 +488,7 @@ $('.view-main').on('click', '#openCam', function () {
 	if (!permissions) {
 		App.dialog.alert('plugin not supported')
 	} else {
-		permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function(status) {//WRITE_EXTERNAL_STORAGE
+		permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function(status) {//WRITE_EXTERNAL_STORAGE
 			// App.alert(JSON.stringify(status))
 
 			if (status.hasPermission) {
@@ -465,8 +496,15 @@ $('.view-main').on('click', '#openCam', function () {
 				// permission is granted
 				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 				
-				DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
-				App.dialog.alert('video downloaded 0');
+					
+				
+				var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
+				fp = fp + "/dashcam_videos/video_001.MP4";
+				VideoPlayer.play(fp);
+				
+				
+				//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
+				//App.dialog.alert('video downloaded 0');
 				/*navigator.screenshot.save(function(error,res){
 				  if(error){
 					console.error(error);
@@ -475,17 +513,19 @@ $('.view-main').on('click', '#openCam', function () {
 				  }
 				});*/
 			} else {
-				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
-
+				permissions.requestPermission(permissions.READ_EXTERNAL_STORAGE, success, error);
+				
 				function error() {
 					App.dialog.alert('no storage permission');
 				}
 
 				function success(status1) {
 					//App.dialog.alert('WIFI permission is turned on');
-					
-				DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
-					App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+					var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
+				fp = fp + "/dashcam_videos/video_001.MP4";
+				VideoPlayer.play(fp);
+				//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
+					//App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
 					/*navigator.screenshot.save(function(error,res){
 					  if(error){
 						console.error(error);
