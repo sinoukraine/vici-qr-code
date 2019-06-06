@@ -451,8 +451,8 @@ function connectWiFi(SSID) {
 $('.view-main').on('click', '#openCam', function () {    	
 	//loadCarcamPage();
 	//getWifiList();
-	//connectWiFi();
-	getCurrentSSID();
+	connectWiFi('AUTO-VOX D6PRO 06ac');
+	//getCurrentSSID();
 });
 
 function loadCarcamPage() {
