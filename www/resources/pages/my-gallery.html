@@ -49,12 +49,18 @@
 			<!-- First tab, active -->
 			<div class="page-content tab" id="video">
 				<div class="block">
+				
+					  <video controls width="400" height="300">
+  <source src="http://d35x2hbem77sz6.cloudfront.net/video/home-pickup.mp4" type="video/mp4"><!-- MP4 ??? Safari, IE9, iPhone, iPad, Android, ? Windows Phone 7 -->
+
+</video>
 					<div class="list virtual-list video-list no-hairlines">
 					{{#if ShowVideoList}}
 						<div key="VirtualVideoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found videosList">
 						</div> 
 					{{/if}}
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -175,7 +181,7 @@
 						ret += '	  <div class="item-content">      ';  
 						ret += '		<div class="item-inner">';
 						ret += '		  <div class="item-title-row">';
-						ret += '			<div class="item-title">' + item.title + '</div>  <video id="myvideo'+index+'" loop></video>';          
+						ret += '			<div class="item-title">' + item.title + '</div>  ';          
 						ret += '		  </div>          ';
 						ret += '		  <div class="item-text">';
 						ret += '			<div class="row">';
@@ -221,11 +227,11 @@
 					photos : self.photoBrowserArr
 				});
 				
-				window.plugins.html5Video.initialize({
+				/*window.plugins.html5Video.initialize({
 					  "myvideo0" : "http://d35x2hbem77sz6.cloudfront.net/video/home-pickup.mp4"
 				  }, function initializeIsFinished() {
 				  window.plugins.html5Video.play("myvideo0")
-				})
+				})*/
             }, 
             initVideoList: function(videoListArr = []){
                 var self = this;
