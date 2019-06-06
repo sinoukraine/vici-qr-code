@@ -488,7 +488,7 @@ $('.view-main').on('click', '#openCam', function () {
 	if (!permissions) {
 		App.dialog.alert('plugin not supported')
 	} else {
-		permissions.hasPermission(permissions.READ_EXTERNAL_STORAGE, function(status) {//WRITE_EXTERNAL_STORAGE
+		permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 			// App.alert(JSON.stringify(status))
 
 			if (status.hasPermission) {
@@ -498,13 +498,14 @@ $('.view-main').on('click', '#openCam', function () {
 				
 					
 				
-				var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
+				/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
 				fp = fp + "/dashcam_videos/video_001.MP4";
 				VideoPlayer.play(fp);
-				
+				*/
 				
 				//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
-				//App.dialog.alert('video downloaded 0');
+				DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+				App.dialog.alert('video downloaded 0');
 				/*navigator.screenshot.save(function(error,res){
 				  if(error){
 					console.error(error);
@@ -513,7 +514,7 @@ $('.view-main').on('click', '#openCam', function () {
 				  }
 				});*/
 			} else {
-				permissions.requestPermission(permissions.READ_EXTERNAL_STORAGE, success, error);
+				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
 				
 				function error() {
 					App.dialog.alert('no storage permission');
@@ -521,9 +522,8 @@ $('.view-main').on('click', '#openCam', function () {
 
 				function success(status1) {
 					//App.dialog.alert('WIFI permission is turned on');
-					var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
-				fp = fp + "/dashcam_videos/video_001.MP4";
-				VideoPlayer.play(fp);
+					DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+				App.dialog.alert('video downloaded 1');
 				//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
 					//App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
 					/*navigator.screenshot.save(function(error,res){
