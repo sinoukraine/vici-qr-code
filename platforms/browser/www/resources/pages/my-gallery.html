@@ -30,10 +30,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="tabs">
+		<div class="tabs ptr-content">
 			<!-- First tab, active -->
 			<div class="page-content tab tab-active" id="photo">
-				<div class="block ptr-content">
+				<div class="block">
 					<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
@@ -48,7 +48,7 @@
 			</div>
 			<!-- First tab, active -->
 			<div class="page-content tab" id="video">
-				<div class="block ptr-content">
+				<div class="block">
 					<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
@@ -80,14 +80,14 @@
             return ret;
         },
         methods: {
-            getPhotoList: function(){
-				let getPhotoJson = { 
+            getGalleryList: function(){
+				/*let getPhotoJson = { 
 					"type": "alarmvideo", 
 					"mp4folder": "DCIM/101video", 
 					"titlefolder": "DCIM/105thumb", 
 					"imagefolder": "DCIM/104snap", 
 					"mp4data": [] 
-				};
+				};*/
 					
 				var self = this;   
 				
@@ -293,7 +293,7 @@
 							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
 							
 							ret += '			  <div class="col-50">';
-							ret += 					'<a href="#" onclick="openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
+							ret += 					'<a href="#" onclick="App.methods.openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
 													'<div class="item-content">' +
 													'<div class="item-media video-item-media">' +
 													'<img src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
@@ -334,7 +334,7 @@
             pageInit: function (e, page) {  
 				var self = this;                                              
                 console.log('page init');
-                self.getPhotoList();		
+                self.getGalleryList();		
 
 				var page = page.$el.find('.page-content'); 
 
@@ -355,7 +355,7 @@
 				  // Emulate 2s loading
 				  setTimeout(function () { // Prepend new list element
 					
-					self.getPhotoList();	
+					self.getGalleryList();	
 					//$ptrContent.find('ul').prepend(itemHTML);
 					// When loading done, we need to reset it
 					App.ptr.done(); // or e.detail();

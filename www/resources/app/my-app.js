@@ -181,53 +181,6 @@ var App = new Framework7({
 				});		
 			});   
 		},
-/*
-        getPhotoList: function(){  
-            let getPhotoJson = { 
-				"type": "alarmvideo", 
-				"mp4folder": "DCIM/101video", 
-				"titlefolder": "DCIM/105thumb", 
-				"imagefolder": "DCIM/104snap", 
-				"mp4data": [] 
-			};
-				
-			var self = this;   
-			
-            self.methods.getRecordPhoto().then(response => {			
-                self.methods.setPhotoList({list: response.mp4data});			
-                //if (resolve) {
-				//	resolve();
-                //} 				
-			}, error => {
-				console.log('something wrong...');
-			});
-        },
-        setPhotoList: function(params){ 
-            var self = this; 
-            var ret = '';
-
-            if (params && params.list && params.list.length) {
-            	var ary = {};    
-				
-	            for(var i = 0; i < params.list.length; i++) { 	                
-					ary[i] = {                      
-	                    associateddata: params.list[i].associateddata,
-	                    duration: params.list[i].duration,
-	                    filename: params.list[i].filename,
-	                    filesize: params.list[i].filesize,
-	                    time: params.list[i].time,
-	                    title: params.list[i].title,
-	                    titlesize: params.list[i].titlesize,
-	                    trigger: params.list[i].trigger
-					}						   
-	            }
-	            ret = ary;
-				
-                self.methods.setInStorage({name: 'photoList', data: JSON.stringify(ary)});
-	            //localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(ary));
-            }
-            return ret;
-        },*/
         sortDatePhoto: function(data){
 			//let infoArr = [];
 			let dataObj = data;
@@ -259,6 +212,9 @@ var App = new Framework7({
 			}
 			
 			return dateArr;
+		},		
+		openPlayer: function(url){
+			VideoPlayer.play(url);			
 		}
 	}
 });
@@ -269,107 +225,7 @@ document.addEventListener("deviceready", onDeviceReady, false );
 function onDeviceReady(){ 
 	console.log('ready');
 	
-	//App.methods.getPhotoList();
-}
-
-	
-var mainView = App.views.create('.view-main');
-
-/*download*/
-
-//First step check parameters mismatch and checking network connection if available call    download function
-function DownloadFile(URL, Folder_Name, File_Name) {
-//Parameters mismatch check
-if (URL == null && Folder_Name == null && File_Name == null) {
-    return;
-}
-else {
-    //checking Internet connection availablity
-    var networkState = navigator.connection.type;
-    if (networkState == Connection.NONE) {
-        return;
-    } else {
-        download(URL, Folder_Name, File_Name); //If available download function call
-    }
-  }
-}
-
-
-
-function filetransfer(download_link, fp) {
-	
-	
-var fileTransfer = new FileTransfer();
-// File download function with URL and local path
-fileTransfer.download(download_link, fp,
-					function (entry) {
-                                //alert("download complete: " + entry.fullPath);
-                                window.plugins.scanmedia.scanFile(fp, function (msg) {
-                                    App.dialog.alert("+" + fp);
-                                }, function (err) {
-                                    App.dialog.alert("-: " + fp);
-                                })
-					},
-					function (error) {
-                     
-						App.dialog.alert('--');
-						 //Download abort errors or download failed errors
-						 //App.dialog.alert("download error source " + error.source);
-						 //alert("download error target " + error.target);
-						 //alert("upload error code" + error.code);
-                 }
-            );
-}
-
-
-
-function download(URL, Folder_Name, File_Name) {
-//step to request a file system 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
-
-function fileSystemSuccess(fileSystem) {
-    var download_link = encodeURI(URL);
-    ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
-
-    var directoryEntry = fileSystem.root; // to get root path of directory
-    directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
-    var rootdir = fileSystem.root;
-    var fp = rootdir.toURL(); 
-	//var fp = cordova.file.dataDirectory;
-	//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
-	//var fp = "file:///storage/sdcard0'";
-    //fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
-	fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
-    // download function call
-    filetransfer(download_link, fp);
-}
-
-function onDirectorySuccess(parent) {
-    // Directory created successfuly
-}
-
-function onDirectoryFail(error) {
-    //Error while creating directory
-    App.dialog.alert("Unable to create new directory: " + error.code);
-}
-
-  function fileSystemFail(evt) {
-    //Unable to access file system
-    App.dialog.alert(evt.target.error.code);
- }
-}
-
-
-
-
-
-
-
-
-
-
-$$('#connectCam').on('click', function() {
-    var self = this;
+	var self = this;
 	
 	//let input = $$(this).siblings('input');
 
@@ -377,104 +233,136 @@ $$('#connectCam').on('click', function() {
 	if (!permissions) {
 		App.dialog.alert('plugin not supported')
 	} else {
-		permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function(status) {
-		// App.alert(JSON.stringify(status))
+		permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//WRITE_EXTERNAL_STORAGE
+			// App.alert(JSON.stringify(status))
 
 			if (status.hasPermission) {
+				App.dialog.alert('WIFI permission is turned on');
 				// permission is granted
 				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
 				
 				//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-				navigator.screenshot.save(function(error,res){
+				
+				/*navigator.screenshot.save(function(error,res){
 				  if(error){
 					console.error(error);
 				  }else{
 					console.log('ok',res.filePath);
 				  }
-				});
+				});*/
 			} else {
-				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
+				permissions.requestPermission(permissions.CHANGE_WIFI_STATE, success, error);
 
 				function error() {
-					App.dialog.alert('Storage permission is not turned on');
+					App.dialog.alert('WIFI permission is not turned on');
 				}
 
 				function success(status1) {
+					App.dialog.alert('WIFI permission is turned on');
 					//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-					navigator.screenshot.save(function(error,res){
+					/*navigator.screenshot.save(function(error,res){
 					  if(error){
 						console.error(error);
 					  }else{
 						console.log('ok',res.filePath);
 					  }
-					});
+					});*/
 					if (!status1.hasPermission) error();
 				}
 			}
 		});
 	}
-
-
-			
 	
-	// verify grant for a permission
-	/*Permission.has(permission, function(results) {
-		if (results['android.permission.WRITE_EXTERNAL_STORAGE']) {
-			// permission is granted
-			
+	//App.methods.getPhotoList();
+}
+
+	
+var mainView = App.views.create('.view-main');
+
+/*start download file*/
+
+//First step check parameters mismatch and checking network connection if available call    download function
+function DownloadFile(URL, Folder_Name, File_Name) {
+	//Parameters mismatch check
+	if (URL == null && Folder_Name == null && File_Name == null) {
+		return;
+	}
+	else {
+		//checking Internet connection availablity
+		var networkState = navigator.connection.type;
+		if (networkState == Connection.NONE) {
+			return;
+		} else {
+			download(URL, Folder_Name, File_Name); //If available download function call
 		}
-	}, alert)*/
-	//var fileTransfer = new FileTransfer();
-	
-	// To Create a sub Directory inside a folder
-	// var new_directory = 'Sounds/Test';  // Here 'Sounds' is the name of existing parent directory. Parent Directoy must exist to work fine
-	 
-	//let fileURL = base_url;
-	//First step check parameters mismatch and checking network connection if available call    download function
-	
-	
-	
-	
-	/*fileTransfer.download(
-						uri,
-						fileURL,
-						function(entry) {
-							App.dialog.alert("download complete: " + entry.toURL());
-							console.log("download complete: " + entry.toURL());
-						},
-						function(error) {
-							App.dialog.alert(error.target + ".."+error.code);
-							console.log("download error source " + error.source);
-							console.log("download error target " + error.target);
-							console.log("download error code" + error.code);
-						},
-						false,
-						{
-							headers: {
-								"Authorization": "Basic dGVzdHVzZXJuYW1lOnRlc3RwYXNzd29yZA=="
-							}
-						}
-					);*/
-
-	/*var new_directory = 'TEST';
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSystem) {
-	 fileSystem.root.getDirectory(new_directory, { create: true }, function (file) {
-	 //alert("got the file: "+ file.name + ', ' + file.fullPath);
-	 
-	 
-     App.dialog.alert("got the file: "+ file.name + ', ' + file.fullPath);*/
-	 /**/
-	/* });
-	}, function(error) {
-	 App.dialog.alert("can't even get the file system: " + error.code);
-	});*/
-	 
+	}
+}
 
 
-	
-					
-					
-					//VideoPlayer.play(API_LIVE_STREAM);
+function filetransfer(download_link, fp) {	
+	var fileTransfer = new FileTransfer();
+	// File download function with URL and local path
+	fileTransfer.download(download_link, fp,
+		function (entry) {
+							//alert("download complete: " + entry.fullPath);
+							window.plugins.scanmedia.scanFile(fp, function (msg) {
+								App.dialog.alert("+" + fp);
+							}, function (err) {
+								App.dialog.alert("-: " + fp);
+							})
+		},
+		function (error) {
+						 
+							App.dialog.alert('--');
+							//Download abort errors or download failed errors
+							//App.dialog.alert("download error source " + error.source);
+							//alert("download error target " + error.target);
+							//alert("upload error code" + error.code);
+		}
+    );
+}
+
+
+function download(URL, Folder_Name, File_Name) {
+//step to request a file system 
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+
+	function fileSystemSuccess(fileSystem) {
+		var download_link = encodeURI(URL);
+		ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
+
+		var directoryEntry = fileSystem.root; // to get root path of directory
+		directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
+		var rootdir = fileSystem.root;
+		var fp = rootdir.toURL(); 
+		//var fp = cordova.file.dataDirectory;
+		//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
+		//var fp = "file:///storage/sdcard0'";
+		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
+		fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+		// download function call
+		filetransfer(download_link, fp);
+	}
+
+	function onDirectorySuccess(parent) {
+		// Directory created successfuly
+	}
+
+	function onDirectoryFail(error) {
+		//Error while creating directory
+		App.dialog.alert("Unable to create new directory: " + error.code);
+	}
+
+	function fileSystemFail(evt) {
+		//Unable to access file system
+		App.dialog.alert(evt.target.error.code);
+	}
+}
+
+/*end download file*/
+
+$$('#connectCam').on('click', function() {    
+	VideoPlayer.play(API_LIVE_STREAM);
 	//window.plugins.videoPlayer.play(API_LIVE_STREAM);
 });
 
@@ -525,8 +413,6 @@ function menuList() {
 }
 
 
-
-
 function loadCarcamPage() {
     mainView.router.load({
         url: 'index.html',
@@ -536,13 +422,12 @@ function loadCarcamPage() {
     });
 }
 
-
 // GALLERY
 function loadGalleryPage() {
 	mainView.router.navigate('/my-gallery/');
 }
 
-
+/* ---
 function getDate(data) {
     let arr = [];
     let dateTime = [];
@@ -564,9 +449,7 @@ function getDate(data) {
     }
 
     return dateTime;
-}
-
-
+}*/
 
 
 /*
@@ -731,10 +614,6 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 });
 */
 
-function openPlayer(url){
-	//VideoPlayer.play(url);
-	
-}
 
 /*
 function loadInfoPage() {
@@ -853,8 +732,6 @@ $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
         height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
     });
 });
-
-
 
 
 // INIT NORMAL VIDEO LIST PAGE
