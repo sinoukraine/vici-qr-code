@@ -420,6 +420,10 @@ function ssidHandler(s) {
     App.dialog.alert("Current SSID"+s);
 }
 
+function win() {
+    App.dialog.alert("Win");
+}
+
 function fail(e) {
     App.dialog.alert("Failed"+e);
 }
@@ -436,11 +440,19 @@ function getWifiList() {
    WifiWizard.listNetworks(listHandler, fail);
 }
 
+function connectWiFi(SSID) {
+	WifiWizard.connectNetwork(SSID, win, fail);
+}
+
 /*end wifi manage*/
+
+
 
 $('.view-main').on('click', '#openCam', function () {    	
 	//loadCarcamPage();
-	getWifiList();
+	//getWifiList();
+	//connectWiFi();
+	getCurrentSSID();
 });
 
 function loadCarcamPage() {
