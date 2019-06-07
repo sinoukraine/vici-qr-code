@@ -113,22 +113,22 @@ var routes = [{
 	{
         name: 'my-home',
         path: '/my-home/',
-        componentUrl: './resources/pages/my-home.html?v=1.57',
+        componentUrl: './resources/pages/my-home.html?v=1.8',
     },
 	{
         name: 'my-gallery',
         path: '/my-gallery/',
-        componentUrl: './resources/pages/my-gallery.html?v=1.57',
+        componentUrl: './resources/pages/my-gallery.html?v=1.61',
     },
 	{
         name: 'my-photo',
         path: '/my-photo/',
-        componentUrl: './resources/pages/my-photo.html?v=1.57',
+        componentUrl: './resources/pages/my-photo.html?v=1.58',
     },
 	{
         name: 'my-info',
         path: '/my-info/',
-        componentUrl: './resources/pages/my-info.html?v=1.57',
+        componentUrl: './resources/pages/my-info.html?v=1.58',
     },
 
 ]

@@ -773,6 +773,36 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 
 .check-item{
 	position: absolute;
-    top: 22px;
-    left: 8px;
+    margin-top: 22px;
+    margin-left: 8px;
+}
+
+label.check-item input[type=checkbox]:checked~.check-item {
+    background-color: #6F86D6 !important;
+    border-color: #6F86D6 !important;
+}
+
+.ios .toggle input[type=checkbox]:checked+.toggle-icon {
+    background-color: #6F86D6 !important;
+}
+
+.md .toggle input[type=checkbox]:checked+.toggle-icon:after {
+    background-color: #6F86D6 !important;
+}
+
+.check-item .f7-icons{
+	color: transparent;
+}
+
+.md .checkbox i:after, .md .icon-checkbox:after {
+	color: transparent;
+}
+
+.check-item input[type=checkbox]:checked+.f7-icons{
+	font-size: 14px;
+	color: #ffffff;
+}
+
+.display-none{
+	display:none;
 }

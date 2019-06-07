@@ -215,6 +215,15 @@ var App = new Framework7({
 		},		
 		openPlayer: function(url){
 			VideoPlayer.play(url);			
+		},
+		downloadFiles: function(arr = []){
+			if(arr.length){
+				arr.forEach(function(value, index) {
+					DownloadFile(value.url, "dashcam_files", value.name);
+				});
+			}else{
+				App.dialog.alert('Please choose files');
+			}				
 		}
 	}
 });
@@ -305,20 +314,15 @@ function filetransfer(download_link, fp) {
 	// File download function with URL and local path
 	fileTransfer.download(download_link, fp,
 		function (entry) {
-							//alert("download complete: " + entry.fullPath);
-							window.plugins.scanmedia.scanFile(fp, function (msg) {
-								App.dialog.alert("+" + fp);
-							}, function (err) {
-								App.dialog.alert("-: " + fp);
-							})
+			//alert("download complete: " + entry.fullPath);
+			window.plugins.scanmedia.scanFile(fp, function (msg) {
+				App.dialog.alert("File uploaded");
+			}, function (err) {
+				App.dialog.alert("File not uploaded");
+			})
 		},
-		function (error) {
-						 
-							App.dialog.alert('--');
-							//Download abort errors or download failed errors
-							//App.dialog.alert("download error source " + error.source);
-							//alert("download error target " + error.target);
-							//alert("upload error code" + error.code);
+		function (error) {						 
+			App.dialog.alert('something wrong...');
 		}
     );
 }
@@ -371,7 +375,7 @@ function download(URL, Folder_Name, File_Name) {
 		//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
 		//var fp = "file:///storage/sdcard0'";
 		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
-		fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
+		fp = fp + "/" + Folder_Name + "/" + File_Name;// + "." + ext; // fullpath and name of the file which we want to give
 		// download function call
 		filetransfer(download_link, fp);
 	}
