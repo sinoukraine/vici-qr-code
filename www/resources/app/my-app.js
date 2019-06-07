@@ -870,13 +870,14 @@ $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
 });
 
 
-$('.view-main').on('click', '#toolbarDeleteCam', function () {  
-	validWiFi = false;
+$('.view-main').on('click', '#toolbarDeleteCam', function () {  	
 	WifiWizard.disconnectNetwork('AUTO-VOX D6PRO 06ac', winDelete, failDelete);
 });
 
 function winDelete(){	
-	App.dialog.alert('Camera AUTO-VOX D6PRO 06ac deleted');
+	App.dialog.alert('Camera AUTO-VOX D6PRO 06ac deleted');	
+	validWiFi = false;
+	loadListPage();
 }
 
 function failDelete(){	
