@@ -383,6 +383,8 @@
 							
 					
 				gallery.on('click', '.download-items', function(e){
+				
+					App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
 					var arrItems = [];			
 					var downloadItems = $$('[name="photo-check"]');
 					downloadItems.forEach(function() {

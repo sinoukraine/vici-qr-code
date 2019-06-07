@@ -782,9 +782,9 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
 
     var items = [];
-    for (var i = 1; i <= 8; i++) {
+    for (var i = 1; i <= 1; i++) {
         items.push({
-            title: 'Item ' + i,
+            title: 'AUTO-VOX D6PRO 06ac',
             value: i,
         });
     }
@@ -868,6 +868,21 @@ $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
     });
 });
 
+
+var page = page.$el.find('.view'); 
+				
+page.on('click', '#toolbarDeleteCam', function(e){
+	validWiFi = false;
+	WifiWizard.disconnectNetwork('AUTO-VOX D6PRO 06ac', winDelete, failDelete);
+});
+
+function winDelete(){	
+	App.dialog.alert('Camera AUTO-VOX D6PRO 06ac deleted');
+}
+
+function failDelete(){	
+	App.dialog.alert('Camera not deleted');
+}
 
 // INIT NORMAL VIDEO LIST PAGE
 
