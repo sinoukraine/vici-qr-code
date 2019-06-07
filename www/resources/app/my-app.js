@@ -219,7 +219,8 @@ var App = new Framework7({
 			VideoPlayer.play(url);			
 		},
 		downloadFiles: function(arr = []){
-			if(arr.length){
+			if(arr.length){				
+				App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
 				arr.forEach(function(value, index) {
 					DownloadFile(value.url, "dashcam_files", value.name);
 				});
@@ -869,9 +870,7 @@ $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
 });
 
 
-var page = page.$el.find('.view'); 
-				
-page.on('click', '#toolbarDeleteCam', function(e){
+$('.view-main').on('click', '#toolbarDeleteCam', function () {  
 	validWiFi = false;
 	WifiWizard.disconnectNetwork('AUTO-VOX D6PRO 06ac', winDelete, failDelete);
 });
