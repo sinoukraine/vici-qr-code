@@ -467,7 +467,8 @@ function menuList() {
 /*start wifi manage*/
 
 function ssidHandler(s) {
-	return s;
+	App.dialog.alert(s);
+	//return s;
 }
 
 function win() {
@@ -486,7 +487,7 @@ function failConnect(e) {
 }
 
 function getCurrentSSID() {
-    WifiWizard.getCurrentSSID(ssidHandler, fail);
+    return WifiWizard.getCurrentSSID(ssidHandler, fail);
 }
 
 function listHandler(a) {
