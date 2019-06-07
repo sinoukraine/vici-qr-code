@@ -239,7 +239,7 @@ function onDeviceReady(){
 	
 	//let input = $$(this).siblings('input');
 
-	let permissions = cordova.plugins.permissions;
+	/*let permissions = cordova.plugins.permissions;
 	if (!permissions) {
 		App.dialog.alert('plugin not supported')
 	} else {
@@ -260,7 +260,7 @@ function onDeviceReady(){
 					console.log('ok',res.filePath);
 				  }
 				});*/
-			} else {
+			/*} else {
 				permissions.requestPermission(permissions.CHANGE_WIFI_STATE, success, error);
 
 				function error() {
@@ -277,12 +277,12 @@ function onDeviceReady(){
 						console.log('ok',res.filePath);
 					  }
 					});*/
-					if (!status1.hasPermission) error();
+					/*if (!status1.hasPermission) error();
 				}
 			}
 		});
 	}
-	
+	*/
 	//App.methods.getPhotoList();
 }
 
@@ -397,70 +397,92 @@ function download(URL, Folder_Name, File_Name) {
 
 /*end download file*/
 
+function isValidWiFi(){	
+	let validWiFi = getCurrentSSID();
+	
+	if(validWiFi == 'AUTO-VOX D6PRO 06ac') {
+		return true;
+	}else{
+		App.dialog.alert('Please connect to camera: (SSID: AUTO-VOX D6PRO 06ac, password: 12345678');
+		return false;
+	}
+}
+
 $$('#mainMenu li').on('click', menuList)
 
 function menuList() {
-    let listId = $$(this).attr('id');
-    let activePage = mainView.activePage;
+	let validWiFi = isValidWiFi();
+	
+	if(validWiFi){
+		let listId = $$(this).attr('id');
+		let activePage = mainView.activePage;
 
-    if (listId) {
-        switch (listId) {
-            case 'carcam':
-                // if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "delete.cam")) {
-                //     loadCarcamPage();
-                //     console.log('open cam');
-                //     App.panel.close($$('.panel-left'), true);
-                // }
-				loadCarcamPage();
-				/*mainView.router.back({
-                    pageName: 'home',
-                    force: true
-                });*/
-                App.panel.close($$('.panel-left'), true);
-                break;
-            case 'delete.cam':
-                if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "delete.cam")) {
-                    loadDeleteCamPage();
-                    console.log('open del');
-                    App.panel.close($$('.panel-left'), true);
-                }
-                break;
-            case 'gallery':
-                if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "gallery")) {
-                    loadGalleryPage();
-                    App.panel.close($$('.panel-left'), true);
-                }
-                break;
-            case 'info':
-                if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "info")) {
-                    loadInfoPage();
-                    App.panel.close($$('.panel-left'), true);
-                }
-                break;
-            case 'list':
-                if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "list")) {
-                    loadListPage();
-                    App.panel.close($$('.panel-left'), true);
-                }
-                break;
-            default:
-                console.log('No Found list menu');
-        }
-    }
+		if (listId) {
+			switch (listId) {
+				case 'carcam':
+					// if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "delete.cam")) {
+					//     loadCarcamPage();
+					//     console.log('open cam');
+					//     App.panel.close($$('.panel-left'), true);
+					// }
+					loadCarcamPage();
+					/*mainView.router.back({
+						pageName: 'home',
+						force: true
+					});*/
+					App.panel.close($$('.panel-left'), true);
+					break;
+				case 'delete.cam':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "delete.cam")) {
+						loadDeleteCamPage();
+						console.log('open del');
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
+				case 'gallery':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "gallery")) {
+						loadGalleryPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
+				case 'info':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "info")) {
+						loadInfoPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
+				case 'list':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "list")) {
+						loadListPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
+				default:
+					console.log('No Found list menu');
+			}
+		}
+	}
 }
 
 /*start wifi manage*/
 
 function ssidHandler(s) {
-    App.dialog.alert("Current SSID"+s);
+	return s;
 }
 
 function win() {
-    loadCarcamPage();
+    //loadCarcamPage();
+	App.dialog.alert("Camera connected");
+	loadCarcamPage();
 }
 
 function fail(e) {
-    App.dialog.alert("Failed"+e);
+    //App.dialog.alert("Failed"+e);
+	return null;
+}
+
+function failConnect(e) {
+    App.dialog.alert("Failed connect "+e);
 }
 
 function getCurrentSSID() {
@@ -476,40 +498,23 @@ function getWifiList() {
 }
 
 function connectWiFi(SSID) {
-	WifiWizard.connectNetwork(SSID, win, fail);
-}
-
-/*end wifi manage*/
-
-
-
-$('.view-main').on('click', '#openCam', function () {    	
-	//
-	//getWifiList();
-	//connectWiFi('AUTO-VOX D6PRO 06ac');
-	//getCurrentSSID();
 	let permissions = cordova.plugins.permissions;
+	
 	if (!permissions) {
 		App.dialog.alert('plugin not supported')
 	} else {
-		permissions.hasPermission(permissions.WRITE_EXTERNAL_STORAGE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
-			// App.alert(JSON.stringify(status))
-
+		permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 			if (status.hasPermission) {
+				WifiWizard.connectNetwork(SSID, win, failConnect);
 				//App.dialog.alert('WIFI permission is turned on');
-				// permission is granted
-				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
-				
-					
-				
 				/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
 				fp = fp + "/dashcam_videos/video_001.MP4";
 				VideoPlayer.play(fp);
 				*/
 				
-				DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
+				//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 				////DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-				App.dialog.alert('video downloaded 0');
+				//App.dialog.alert('video downloaded 0');
 				/*navigator.screenshot.save(function(error,res){
 				  if(error){
 					console.error(error);
@@ -518,18 +523,19 @@ $('.view-main').on('click', '#openCam', function () {
 				  }
 				});*/
 			} else {
-				permissions.requestPermission(permissions.WRITE_EXTERNAL_STORAGE, success, error);
+				permissions.requestPermission(permissions.CHANGE_WIFI_STATE, success, error);
 				
 				function error() {
-					App.dialog.alert('no storage permission');
+					App.dialog.alert('no change WiFi permission');
 				}
 
 				function success(status1) {
 					//App.dialog.alert('WIFI permission is turned on');
+					WifiWizard.connectNetwork(SSID, win, failConnect);
 					
-				DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
-				App.dialog.alert('video downloaded 1');
-				//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
+					//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
+					//App.dialog.alert('video downloaded 1');
+					//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
 					//App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
 					/*navigator.screenshot.save(function(error,res){
 					  if(error){
@@ -543,6 +549,14 @@ $('.view-main').on('click', '#openCam', function () {
 			}
 		});
 	}
+}
+
+/*end wifi manage*/
+
+
+$('.view-main').on('click', '#openCam', function () {    	
+	//getWifiList();
+	connectWiFi('AUTO-VOX D6PRO 06ac');
 });
 
 function loadCarcamPage() {
@@ -805,7 +819,7 @@ $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
         // List item Template7 template
         itemTemplate: '<li>' +
             '<label class="item-checkbox item-content">' +
-            '<input type="checkbox" name="demo-checkbox" value="{{value}}"/>' +
+            '<input type="checkbox" name="demo-checkbox" value="{{value}}" />' +
             '<div class="item-media">' +
             '<div class="item-media-inner">' +
             '<p>DC</p>' +
@@ -828,9 +842,9 @@ $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
 $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
 
     var items = [];
-    for (var i = 1; i <= 3; i++) {
+    for (var i = 1; i <= 1; i++) {
         items.push({
-            title: 'Dachcam name #' + i,
+            title: 'AUTO-VOX D6PRO 06ac',
             value: i,
         });
     }
@@ -851,7 +865,7 @@ $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
         // List item Template7 template
         itemTemplate: '<li>' +
             '<label class="item-radio item-content">' +
-            '<input type="radio" name="demo-radio" value="{{value}}"/>' +
+            '<input type="radio" name="demo-radio" value="{{value}}" checked="checked"/>' +
             '<div class="item-media">' +
             '<div class="item-media-inner">' +
             '<p>DC</p>' +

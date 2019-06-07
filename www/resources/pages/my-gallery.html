@@ -212,7 +212,7 @@
 								ret += 					'<a href="#" class="pb-standalone-dark" data-photo="'+item.data[d].associateddata[a].image+'">' +
 														'<div class="item-content">' +
 														'<div class="item-media photo-item-media">' +
-														'<img class="photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'">' +
+														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'">' +
 														
 														'</div>' +
 														'</div>' +
@@ -310,10 +310,14 @@
 							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
 							
 							ret += '			  <div class="col-50">';
+							ret +='<label class="checkbox check-item photo-check-item display-none">';
+							ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'"/>';
+							ret +='<i class="f7-icons">check</i>';
+							ret +='</label>';
 							ret += 					'<a href="#" onclick="App.methods.openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
 													'<div class="item-content">' +
 													'<div class="item-media video-item-media">' +
-													'<img src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
+													'<img class="item-path" src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
 													'<div class="item-media-bottom">' +
 													'<div class="item-media-quality">720p</div>' +
 													'<div class="item-media-time">'+time+'</div>' +
@@ -359,10 +363,11 @@
 					self.PhotoBrowserObj.open();
 				});*/
 				
-				page.on('taphold', '.photo-path', function(e){
-				//$$('.photo-path').on('taphold', function () {
-				console.log('tap');
-				  App.dialog.alert('Tap hold fired!');
+				page.on('taphold', '.item-path', function(e){
+					self.$setState({
+                        IsCheckAll: true,
+                    });
+					$('.photo-check-item').removeClass('display-none');
 				});
 				
 				
@@ -387,8 +392,16 @@
 								url: $(this).val()
 							}
 							arrItems.push(objItem);
-						}							
+						}											
+						$(this).removeAttr("checked");
 					});
+					
+					self.$setState({
+                        IsCheckAll: false,
+                    });
+										
+					$('.photo-check-item').toggleClass('display-none');
+					
 					self.$app.methods.downloadFiles(arrItems);
 					arrItems.length = 0;
 				});	
