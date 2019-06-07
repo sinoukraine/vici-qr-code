@@ -1,5 +1,5 @@
 <template>
-	<div class="page home-page" data-name="my-home">
+	<div class="page home-page cam" data-name="my-home">
                 <div class="navbar">
                     <div class="navbar-inner">
                         <div class="left">
@@ -55,17 +55,23 @@
             pageInit: function (e, page) {  
 				var self = this;    
 				var page = page.$el.find('.page-content'); 
+				
+				var myPage = $$('.cam');
+				
+				myPage.on('click', '#connectCam', function(e){
+					VideoPlayer.play(API_LIVE_STREAM);
+				});
 
                 /*page.on('click', '.pb-standalone-dark', function(e){
 					self.PhotoBrowserObj.open();
 				});*/
 						
 				
-				page.on('click', '#connectCam', function(e){				
+				//page.on('click', '#connectCam', function(e){				
 				//$$('#connectCam').on('click', function() {    
-					VideoPlayer.play(API_LIVE_STREAM);
+					
 					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
-				});				
+				//});				
 			}
 		}
     };

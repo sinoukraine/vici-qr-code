@@ -403,7 +403,7 @@ function isValidWiFi(){
 	if(validWiFi == 'AUTO-VOX D6PRO 06ac') {
 		return true;
 	}else{
-		App.dialog.alert('Please connect to camera: (SSID: AUTO-VOX D6PRO 06ac, password: 12345678');
+		App.dialog.alert('Current WiFi'+validWiFi);//Please connect to camera: (SSID: AUTO-VOX D6PRO 06ac, password: 12345678'
 		return false;
 	}
 }
@@ -472,7 +472,7 @@ function ssidHandler(s) {
 
 function win() {
     //loadCarcamPage();
-	App.dialog.alert("Camera connected");
+	App.dialog.alert("Connected to AUTO-VOX D6PRO 06ac");
 	loadCarcamPage();
 }
 
