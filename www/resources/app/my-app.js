@@ -14,6 +14,8 @@ const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 var PHOTOLIST = {};
 var VIDEOLIST = {};
 
+var validWiFi = false;
+
 window.PosMarker = {};
 var App = new Framework7({
     swipeBackPage: false,
@@ -397,26 +399,13 @@ function download(URL, Folder_Name, File_Name) {
 
 /*end download file*/
 
-function isValidWiFi(){	
-	let validWiFi = getCurrentSSID();
-	
-	if(validWiFi == 'AUTO-VOX D6PRO 06ac') {
-		return true;
-	}else{
-		App.dialog.alert('Current WiFi'+validWiFi);//Please connect to camera: (SSID: AUTO-VOX D6PRO 06ac, password: 12345678'
-		return false;
-	}
-}
-
 $$('#mainMenu li').on('click', menuList)
 
-function menuList() {
-	let validWiFi = isValidWiFi();
-	
-	if(validWiFi){
+function menuList() {		
+	if(validWiFi){		
 		let listId = $$(this).attr('id');
 		let activePage = mainView.activePage;
-
+		
 		if (listId) {
 			switch (listId) {
 				case 'carcam':
@@ -461,33 +450,29 @@ function menuList() {
 					console.log('No Found list menu');
 			}
 		}
-	}
+	}else{		
+		App.dialog.alert('Please connect to camera: (SSID: AUTO-VOX D6PRO 06ac, password: 12345678');		
+	}	
 }
 
 /*start wifi manage*/
 
 function ssidHandler(s) {
-	App.dialog.alert(s);
-	//return s;
+	App.dialog.alert('Current SSID is '+s);
 }
 
 function win() {
-    //loadCarcamPage();
+	validWiFi = true;
 	App.dialog.alert("Connected to AUTO-VOX D6PRO 06ac");
 	loadCarcamPage();
 }
 
 function fail(e) {
-    //App.dialog.alert("Failed"+e);
-	return null;
-}
-
-function failConnect(e) {
     App.dialog.alert("Failed connect "+e);
 }
 
 function getCurrentSSID() {
-    return WifiWizard.getCurrentSSID(ssidHandler, fail);
+    WifiWizard.getCurrentSSID(ssidHandler, fail);
 }
 
 function listHandler(a) {
@@ -506,7 +491,7 @@ function connectWiFi(SSID) {
 	} else {
 		permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 			if (status.hasPermission) {
-				WifiWizard.connectNetwork(SSID, win, failConnect);
+				WifiWizard.connectNetwork(SSID, win, fail);
 				//App.dialog.alert('WIFI permission is turned on');
 				/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
 				fp = fp + "/dashcam_videos/video_001.MP4";
@@ -532,7 +517,7 @@ function connectWiFi(SSID) {
 
 				function success(status1) {
 					//App.dialog.alert('WIFI permission is turned on');
-					WifiWizard.connectNetwork(SSID, win, failConnect);
+					WifiWizard.connectNetwork(SSID, win, fail);
 					
 					//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 					//App.dialog.alert('video downloaded 1');
