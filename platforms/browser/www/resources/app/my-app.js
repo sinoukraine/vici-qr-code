@@ -141,7 +141,30 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
-		getRecordPhoto: function(resolve, reject){ 	
+		getRecordPhoto: function(resolve, reject){ 			
+			return new Promise((resolve, reject) => {
+				let url = 'http://192.168.1.1/DCIM/104snap/';
+				let params = {};
+				let headers = {};
+				let newArr = [];
+				cordova.plugin.http.get(url, 
+					params, headers, (response) => {
+						var arrParse = response.data.split('</a>');
+						arrParse.forEach(function(value, index) {
+							var valParse = value.split('>');						
+							if(index > 0 && index < arrParse.length - 1){
+								newArr.push(valParse[1]);					
+							}
+						});
+						
+						console.log(newArr);					
+						resolve(newArr);
+				}, function(response) {
+				  console.error(response.error);
+				  reject();
+				});	
+			});	
+			/*
 			return new Promise((resolve, reject) => {
 				$.ajax({
 					   type: "GET",
@@ -164,6 +187,7 @@ var App = new Framework7({
 					}
 				});		
 			});   
+			*/
 		},
 		getRecordVideo: function (resolve, reject) {	
 			return new Promise((resolve, reject) => {
@@ -200,6 +224,41 @@ var App = new Framework7({
 					}
 				});		
 			});   
+		},
+        sortParseDatePhoto: function(data){
+			//let infoArr = [];
+			let dataObj = data;
+			//let sortArr = [];
+			let dateArr = [];
+			let dataArr = [];
+			//console.log(dataObj);
+
+			// info array push
+			for (let i = 0; i < dataObj.length; i++) {
+				/*infoArr.push({
+					data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
+					photoName: dataObj.mp4data[i].title
+				});*/
+				let timeArr = dataObj[i].split('.');
+				let filename = timeArr[0];
+				let time = timeArr[0].substring(0, 14);
+								
+				let newDate = (time.substring(0, 8)).substring(0, 4) + '/' + (time.substring(0, 8)).substring(4, 6) + '/' + (time.substring(0, 8)).substring(6, 9);
+					
+				let index = dateArr.findIndex(item => item.title === newDate);
+				
+				if(index == -1){
+					dataArr.push(dataObj[i]);
+					dateArr.push({
+						title: (time.substring(0, 8)).substring(0, 4) + '/' + (time.substring(0, 8)).substring(4, 6) + '/' + (time.substring(0, 8)).substring(6, 9),
+						data: dataArr
+					});
+				}else{
+					dateArr[index].data.push(dataObj[i]);
+				}
+			}
+			
+			return dateArr;
 		},
         sortDatePhoto: function(data){
 			//let infoArr = [];
@@ -251,7 +310,27 @@ var App = new Framework7({
 		},
 		openCam: function(){
 			loadCarcamPage();		
-		}
+		},
+		getTest: function () {	
+			let url = 'http://192.168.1.1/DCIM/104snap/';
+			let params = {};
+			let headers = {};
+			let newArr = [];
+			cordova.plugin.http.get(url, 
+				params, headers, (response) => {
+					var arrParse = response.data.split('</a>');
+					arrParse.forEach(function(value, index) {
+						var valParse = value.split('>');						
+						if(index > 0 && index < arrParse.length - 1){
+							newArr.push(valParse[1]);					
+						}
+					});
+					
+					console.log(newArr);
+			}, function(response) {
+			  console.error(response.error);
+			});		 
+		},
 	}
 });
 
@@ -274,6 +353,7 @@ function listHandler(a) {
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
 function onDeviceReady(){ 
+	App.methods.getTest();
 	console.log('ready');
 	loadListPage();
 	
