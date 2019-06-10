@@ -232,7 +232,7 @@ var App = new Framework7({
 			let dateArr = [];
 			let dataArr = [];
 			//console.log(dataObj);
-
+			App.dialog.alert(dataObj.length);
 			// info array push
 			for (let i = 0; i < dataObj.length; i++) {
 				/*infoArr.push({
@@ -242,6 +242,7 @@ var App = new Framework7({
 				let timeArr = dataObj[i].split('.');
 				let filename = timeArr[0];
 				let time = timeArr[0].substring(0, 14);
+			App.dialog.alert(time);
 								
 				let newDate = (time.substring(0, 8)).substring(0, 4) + '/' + (time.substring(0, 8)).substring(4, 6) + '/' + (time.substring(0, 8)).substring(6, 9);
 					
