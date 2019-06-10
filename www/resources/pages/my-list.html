@@ -60,12 +60,20 @@
 
 				var items = [];
 				for (var i = 1; i <= a.length; i++) {
-					var pattern = /^AUTO-VOX/i;
+					var pattern = /AUTO-VOX/i;
 					if (pattern.test(a[i])) {
-						items.push({
-							title: a[i],
-							value: i,
-						});
+						if (a[i].charAt(0) === '"' && a[i].charAt(a[i].length -1) === '"')
+						{
+							items.push({
+								title: a[i].substr(1,a[i].length -2),
+								value: i,
+							});
+						}else{
+							items.push({
+								title: '--',
+								value: i,
+							});
+						}					
 					}else{
 						items.push({
 							title: 'bla-bla',
