@@ -56,14 +56,14 @@
                     ShowCamList: true,
                 });		
 				App.dialog.alert(a.length);			
-				var camArr = names.split(',');
+				//var camArr = names.split(',');
 
 				var items = [];
-				for (var i = 1; i <= camArr.length; i++) {
+				for (var i = 1; i <= a.length; i++) {
 					var pattern = /^AUTO-VOX/i;
-					if (pattern.test(camArr[i])) {
+					if (pattern.test(a[i])) {
 						items.push({
-							title: camArr[i],
+							title: a[i],
 							value: i,
 						});
 					}else{
