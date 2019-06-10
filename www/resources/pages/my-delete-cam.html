@@ -186,7 +186,8 @@
 				
 				//App.dialog.alert(self.$app.methods.getFromStorage("deletedCameras"));
                     
-				WifiWizard.listNetworks(self.listHandler, self.fail);
+				self.$app.methods.openCamList();
+				//WifiWizard.listNetworks(self.listHandler, self.fail);
 			}
 			/*
 			winDelete: function () {

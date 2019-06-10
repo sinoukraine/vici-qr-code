@@ -246,6 +246,9 @@ var App = new Framework7({
 				App.dialog.alert('Please choose files');
 			}				
 		},
+		openCamList: function(){
+			loadListPage();		
+		}
 		openCam: function(){
 			loadCarcamPage();		
 		}
