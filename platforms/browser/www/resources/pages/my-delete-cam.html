@@ -1,5 +1,5 @@
 <template>
-	<div data-name="my-list" class="page open-dashcam-page my-list">
+	<div data-name="my-delete-cam" class="page delete-cam-page">
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="left">
@@ -7,14 +7,14 @@
 						<i class="f7-icons icon-menu"></i>
 					</a>
 				</div>
-				<div class="title">Home</div>
+				<div class="title">Delete Cam</div>
 			</div>
 		</div>
 
-		<div class="toolbar toolbar-bottom" id="openCam">
+		<div class="toolbar toolbar-bottom" id="toolbarDeleteCam">
 			<div class="toolbar-inner">
 				<a class="btn-cs" href="#">
-					open dashcam
+					Delete
 				</a>
 			</div>
 		</div>
@@ -22,8 +22,8 @@
 		<div class="page-content">
 			<div class="block">
 				{{#if ShowCamList}}
-				<p class="item-title open-title">
-					Check the box of the desired dashcam and click the OPEN DASHCAM button.
+				<p class="item-title delete-title">
+					Check the box of the desired dashcam and click the DELETE button.
 				</p>
 				{{else}}
 				<div key="VirtualListPreloader" class="block text-align-center">
@@ -31,8 +31,7 @@
                 </div>
 				{{/if}}
 			</div>
-			<div class="list virtual-list open-cam-list no-hairlines">
-				
+			<div class="list virtual-list delete-cam-list no-hairlines">
 			</div>
 		</div>
 	</div>
@@ -49,8 +48,7 @@
 
             return ret;
         },
-		methods: {
-		
+		methods: {		
 			listHandler: function(a){	
 				var self = this; 	
 				var items = [];
@@ -74,7 +72,7 @@
 
 				var deletecamList = App.virtualList.create({
 					// List Element
-					el: '.open-cam-list',
+					el: '.delete-cam-list',
 					// Pass array with items
 					items: items,
 					// Custom search function for searchbar
@@ -87,8 +85,8 @@
 					},
 					// List item Template7 template
 					itemTemplate: '<li>' +
-						'<label class="item-radio item-content">' +
-						'<input type="radio" name="demo-radio" class="radio-cam" value="{{title}}" />' +
+						'<label class="item-checkbox item-content">' +
+						'<input type="checkbox" name="demo-checkbox" value="{{title}}" />' +
 						'<div class="item-media">' +
 						'<div class="item-media-inner">' +
 						'<p>DC</p>' +
@@ -97,7 +95,7 @@
 						'<div class="item-inner">' +
 						'<div class="item-title">{{title}}</div>' +
 						'</div>' +
-						'<i class="icon icon-radio"></i>' +
+						'<i class="icon icon-checkbox"></i>' +
 						'</label>' +
 						'</li>',
 					// Item height
@@ -110,7 +108,7 @@
                     ShowCamList: false,
                 });						
 			},			
-			connectWiFi: function(SSID){
+			deleteWiFi: function(SSID){
 				var self = this; 
 				let permissions = cordova.plugins.permissions;
 				
@@ -119,7 +117,7 @@
 				} else {
 					permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 						if (status.hasPermission) {
-							WifiWizard.connectNetwork(SSID, self.winConnect, self.failConnect);
+							WifiWizard.disconnectNetwork(SSID, self.winDelete, self.failDelete);
 							//App.dialog.alert('WIFI permission is turned on');
 							/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
 							fp = fp + "/dashcam_videos/video_001.MP4";
@@ -145,7 +143,7 @@
 
 							function success(status1) {
 								//App.dialog.alert('WIFI permission is turned on');
-								WifiWizard.connectNetwork(SSID, self.winConnect, self.failConnect);
+								WifiWizard.disconnectNetwork(SSID, self.winDelete, self.failDelete);
 								
 								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 								//App.dialog.alert('video downloaded 1');
@@ -164,14 +162,17 @@
 					});
 				}
 			},			
-			winConnect: function () {
-				//validWiFi = true;
-				var self = this;				
-				App.dialog.alert("Connected to camera");
-				self.$app.methods.openCam();
+			winDelete: function () {
+				var self = this;	
+				self.$setState({
+                    ShowCamList: false,
+                });			
+				App.dialog.alert("Successfully disconnected");
+				//self.$app.methods.openCam();				
+				WifiWizard.listNetworks(self.listHandler, self.fail);
 			},
-			failConnect: function (e) {
-				App.dialog.alert("Failed connect "+e);
+			failDelete: function (e) {
+				App.dialog.alert("Failed "+e);
 			}
 		},
         on: {
@@ -182,12 +183,12 @@
 
 				var myPage = $$('.my-list');
 				
-				myPage.on('click', '#openCam', function(e){		
-					var selectedCam = $$('[name="demo-radio"]');
+				myPage.on('click', '#toolbarDeleteCam', function(e){		
+					var selectedCam = $$('[name="demo-checkbox"]');
 					var isChoosen = false;
 					selectedCam.forEach(function() {
 						if($(this).is(":checked")){
-							self.connectWiFi($(this).val());
+							self.deleteWiFi($(this).val());
 							isChoosen = true;
 						}				
 					});
