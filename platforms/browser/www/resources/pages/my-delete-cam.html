@@ -52,11 +52,15 @@
 			listHandler: function(a){	
 				var self = this; 	
 				var items = [];
-				let index = 1;
+				let index = 1;				
+                var deletedCameras = self.$app.methods.getFromStorage("deletedCameras");
+				
+				
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
-					
-					if (pattern.test(a[i])) {						
+					let found = deletedCameras.indexOf(a[i]);
+					 
+					if (pattern.test(a[i]) && found == -1) {						
 						self.$setState({
 							ShowCamList: true,
 						});	
@@ -117,7 +121,8 @@
 				} else {
 					permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 						if (status.hasPermission) {
-						WifiWizard2.remove(SSID);
+							//WifiWizard2.remove(SSID);
+							self.removeCamera(SSID);
 							//WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
 							//App.dialog.alert('WIFI permission is turned on');
 							/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
@@ -145,7 +150,7 @@
 							function success(status1) {
 								//App.dialog.alert('WIFI permission is turned on');
 								//WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
-								WifiWizard2.remove(SSID);
+								self.removeCamera(SSID);
 								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 								//App.dialog.alert('video downloaded 1');
 								//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
@@ -162,7 +167,24 @@
 						}
 					});
 				}
-			},			
+			},		
+			removeCamera: function (SSID) {					
+				var self = this;				
+				
+                var deletedCameras = self.$app.methods.getFromStorage("deletedCameras");
+				deletedCameras.push('"'+SSID+'"');
+				
+				self.$app.methods.setInStorage({name: 'deletedCameras', data: deletedCameras});
+					
+				self.$setState({
+                    ShowCamList: false,
+                });	
+				
+				App.dialog.alert(self.$app.methods.getFromStorage("deletedCameras"));
+                    
+				WifiWizard.listNetworks(self.listHandler, self.fail);
+			}
+			/*
 			winDelete: function () {
 				var self = this;	
 				self.$setState({
@@ -174,7 +196,7 @@
 			},
 			failDelete: function (e) {
 				App.dialog.alert("Failed "+e);
-			}
+			}*/
 		},
         on: {
             pageInit: function (e, page) {  

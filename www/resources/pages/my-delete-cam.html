@@ -59,8 +59,7 @@
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					let found = deletedCameras.indexOf(a[i]);
-					App.dialog.alert(found);
-                     
+					 
 					if (pattern.test(a[i]) && found == -1) {						
 						self.$setState({
 							ShowCamList: true,
@@ -169,16 +168,21 @@
 					});
 				}
 			},		
-			removeCamera: function (SSID) {	
-				var self = this;	
-				self.$setState({
-                    ShowCamList: false,
-                });					
+			removeCamera: function (SSID) {					
+				var self = this;				
 				
                 var deletedCameras = self.$app.methods.getFromStorage("deletedCameras");
-				deletedCameras.push(SSID);
+				deletedCameras.push('"'+SSID+'"');
 				
 				self.$app.methods.setInStorage({name: 'deletedCameras', data: deletedCameras});
+					
+				self.$setState({
+                    ShowCamList: false,
+                });	
+				
+				App.dialog.alert(self.$app.methods.getFromStorage("deletedCameras"));
+                    
+				WifiWizard.listNetworks(self.listHandler, self.fail);
 			}
 			/*
 			winDelete: function () {
