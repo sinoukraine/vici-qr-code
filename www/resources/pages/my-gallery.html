@@ -401,7 +401,7 @@
 				var page = page.$el.find('.page-content'); 
 
                 page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open($(this.attr('data-index')));
+					self.PhotoBrowserObj.open($(this).attr('data-index'));
 				});
 				
 				page.on('taphold', '.item-path', function(e){
