@@ -55,13 +55,13 @@
 				let index = 1;				
                 var deletedCameras = self.$app.methods.getFromStorage("deletedCameras");
 				
-				App.dialog.alert(deletedCameras);
 				
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					let found = deletedCameras.indexOf(a[i]);
+					App.dialog.alert(found);
                      
-					if (pattern.test(a[i]) && found != -1) {						
+					if (pattern.test(a[i]) && found == -1) {						
 						self.$setState({
 							ShowCamList: true,
 						});	
