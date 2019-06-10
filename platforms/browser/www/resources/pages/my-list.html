@@ -55,14 +55,23 @@
 				self.$setState({
                     ShowCamList: true,
                 });		
-				App.dialog.alert(a);
-				
+				App.dialog.alert(a.length);			
+				var camArr = names.split(',');
+
 				var items = [];
-				for (var i = 1; i <= 1; i++) {
-					items.push({
-						title: 'AUTO-VOX D6PRO 06ac',
-						value: i,
-					});
+				for (var i = 1; i <= camArr.length; i++) {
+					var pattern = /^AUTO-VOX/i;
+					if (pattern.test(camArr[i])) {
+						items.push({
+							title: camArr[i],
+							value: i,
+						});
+					}else{
+						items.push({
+							title: 'bla-bla',
+							value: i,
+						});
+					}
 				}
 
 				var deletecamList = App.virtualList.create({
