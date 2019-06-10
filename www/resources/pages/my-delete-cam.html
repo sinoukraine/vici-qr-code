@@ -58,17 +58,17 @@
 							ShowCamList: true,
 						});
 						
-				for (var i = 1; i <= a.length; i++) {
+				for (var i = 1; i <= 5; i++) {
 					var pattern = /AUTO-VOX/i;
 					
 					//if (pattern.test(a[i])) {			
-						var title = a[i].replace(/[^A-Za-z0-9]/g, "");
+						//var title = a[i].replace(/[^A-Za-z0-9]/g, "");
 						//App.dialog.alert(title);
 							
 						//if (a[i].charAt(0) === '"' && a[i].charAt(a[i].length -1) === '"')
 							//{
 								items.push({
-									title: title,//.substr(1,title.length -2),
+									title: a[i].substr(1,a[i].length -2),
 									value: i,
 								});	
 								index++;
