@@ -53,21 +53,23 @@
 				var self = this; 	
 				var items = [];
 				let index = 1;
+				
+						self.$setState({
+							ShowCamList: true,
+						});
+						
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					
 					//if (pattern.test(a[i])) {			
 						var title = a[i].replace(/[^A-Za-z0-9]/g, "");
-						App.dialog.alert(title);
-						
-						self.$setState({
-							ShowCamList: true,
-						});	
+						//App.dialog.alert(title);
+							
 						//if (a[i].charAt(0) === '"' && a[i].charAt(a[i].length -1) === '"')
 							//{
 								items.push({
 									title: title,//.substr(1,title.length -2),
-									value: index,
+									value: i,
 								});	
 								index++;
 							//}
@@ -76,6 +78,8 @@
 					//}
 				}
 
+				
+						
 				var deletecamList = App.virtualList.create({
 					// List Element
 					el: '.delete-cam-list',
