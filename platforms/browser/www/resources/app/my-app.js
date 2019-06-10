@@ -228,29 +228,25 @@ var App = new Framework7({
 				App.dialog.alert('Please choose files');
 			}				
 		},
-		/*getWifiList: function (resolve, reject) {	
-			return new Promise((resolve, reject) => {
-				
-			});
-		},*/
+		openCam: function(){
+			loadCarcamPage();		
+		}
 	}
 });
 
 /*start wifi manage*/
-/*
-function ssidHandler(s) {
+
+/*function ssidHandler(s) {
 	App.dialog.alert('Current SSID is '+s);
 }
 
-
 function getCurrentSSID() {
     WifiWizard.getCurrentSSID(ssidHandler, fail);
-}*/
-/*
+}
+
 function listHandler(a) {
     alert(a);
 }*/
-
 
 /*end wifi manage*/
 
@@ -425,7 +421,7 @@ function download(URL, Folder_Name, File_Name) {
 $$('#mainMenu li').on('click', menuList)
 
 function menuList() {		
-	if(validWiFi){		
+	//if(validWiFi){		
 		let listId = $$(this).attr('id');
 		let activePage = mainView.activePage;
 		
@@ -473,9 +469,9 @@ function menuList() {
 					console.log('No Found list menu');
 			}
 		}
-	}else{		
-		App.dialog.alert('Please connect to camera: (SSID: AUTO-VOX D6PRO 06ac, password: 12345678');		
-	}	
+	//}else{		
+	//	App.dialog.alert('Please connect to camera');		
+	//}	
 }
 
 function loadCarcamPage() {

@@ -52,9 +52,6 @@
 		methods: {
 			listHandler: function(a){	
 				var self = this; 	
-				App.dialog.alert(a.length);			
-				//var camArr = names.split(',');
-
 				var items = [];
 				let index = 1;
 				for (var i = 1; i <= a.length; i++) {
@@ -168,8 +165,9 @@
 			},			
 			winConnect: function () {
 				//validWiFi = true;
+				var self = this;				
 				App.dialog.alert("Connected to camera");
-				//loadCarcamPage();
+				self.$app.methods.openCam();
 			},
 			failConnect: function (e) {
 				App.dialog.alert("Failed connect "+e);
@@ -185,14 +183,14 @@
 				
 				myPage.on('click', '#openCam', function(e){		
 					var selectedCam = $$('[name="demo-radio"]');
+					var isChoosen = false;
 					selectedCam.forEach(function() {
 						if($(this).is(":checked")){
-							App.dialog.alert($(this).val());
-							self.connectWiFi($(this).val());						
-						}else{
-							App.dialog.alert('Please choose camera');						
-						}					
+							self.connectWiFi($(this).val());
+							isChoosen = true;
+						}				
 					});
+					if(!isChoosen)App.dialog.alert('Please choose camera');
 				});
 				
             }
