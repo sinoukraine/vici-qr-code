@@ -48,11 +48,13 @@
         },
 		methods: {
 			listHandler: function(a){	
+				var self = this; 
 				self.$setState({
                     camList: '+',
                 });				
 			},	
 			fail: function(e){
+				var self = this; 
 				self.$setState({
                     camList: '-',
                 });						
