@@ -62,7 +62,7 @@
             pageInit: function (e, page) {  
 				var self = this;    
 				
-				WifiWizard.listNetworks(listHandler, fail);
+				WifiWizard.listNetworks(self.listHandler, self.fail);
 				
 				//self.$app.methods.getWifiList().then(response => {	
 					//console.log(response);
