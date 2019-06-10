@@ -56,14 +56,17 @@
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					
-					//if (pattern.test(a[i])) {						
+					//if (pattern.test(a[i])) {			
+						var title = a[i].replace(/[^A-Za-z0-9]/g, "");
+						App.dialog.alert(title);
+						
 						self.$setState({
 							ShowCamList: true,
 						});	
 						//if (a[i].charAt(0) === '"' && a[i].charAt(a[i].length -1) === '"')
 							//{
 								items.push({
-									title: a[i],//a[i].substr(1,a[i].length -2),
+									title: title,//.substr(1,title.length -2),
 									value: index,
 								});	
 								index++;
