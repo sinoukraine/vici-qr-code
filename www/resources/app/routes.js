@@ -116,6 +116,11 @@ var routes = [{
         componentUrl: './resources/pages/my-home.html?v=1.62',
     },
 	{
+        name: 'my-list',
+        path: '/my-list/',
+        componentUrl: './resources/pages/my-list.html?v=1.62',
+    },
+	{
         name: 'my-gallery',
         path: '/my-gallery/',
         componentUrl: './resources/pages/my-gallery.html?v=1.62',

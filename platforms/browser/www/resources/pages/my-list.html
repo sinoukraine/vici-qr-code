@@ -1,0 +1,83 @@
+<template>
+	<div data-name="my-list" class="page open-dashcam-page my-list">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a class="panel-open" href="#">
+						<i class="f7-icons icon-menu"></i>
+					</a>
+				</div>
+				<div class="title">Home</div>
+			</div>
+		</div>
+
+		<div class="toolbar toolbar-bottom" id="openCam">
+			<div class="toolbar-inner">
+				<a class="btn-cs" href="#">
+					open dashcam
+				</a>
+			</div>
+		</div>
+
+		<div class="page-content">
+			<div class="block">
+				<div key="VirtualListPreloader" class="block text-align-center">
+                    <div class="preloader color-blue"></div>
+                </div>
+				<!--<p class="item-title open-title">
+					Check the box of the desired dashcam and click the OPEN DASHCAM button.
+				</p>-->
+			</div>
+			<div class="list virtual-list open-cam-list no-hairlines">
+				{{camList}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {
+				camList: ''
+			};            
+
+            return ret;
+        },
+		methods: {
+			listHandler: function(a){	
+				self.$setState({
+                    camList: '+',
+                });				
+			},	
+			fail: function(e){
+				self.$setState({
+                    camList: '-',
+                });						
+			}
+		},
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;    
+				
+				WifiWizard.listNetworks(listHandler, fail);
+				
+				//self.$app.methods.getWifiList().then(response => {	
+					//console.log(response);
+				//});
+				
+				//var page = page.$el.find('.page-content'); 
+								
+                //self.$app.preloader.show();
+				//var myPage = $$('.my-list');
+				
+				/*myPage.on('click', '#connectCam', function(e){
+					VideoPlayer.play(API_LIVE_STREAM);
+				});*/
+            }
+		}
+    };
+</script>
+    
