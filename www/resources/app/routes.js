@@ -126,9 +126,9 @@ var routes = [{
         componentUrl: './resources/pages/my-gallery.html?v=1.62',
     },
 	{
-        name: 'my-photo',
-        path: '/my-photo/',
-        componentUrl: './resources/pages/my-photo.html?v=1.62',
+        name: 'my-delete-cam',
+        path: '/my-delete-cam/',
+        componentUrl: './resources/pages/my-delete-cam.html?v=1.62',
     },
 	{
         name: 'my-info',

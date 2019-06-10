@@ -499,13 +499,7 @@ function loadInfoPage() {
 }
 
 function loadDeleteCamPage() {
-	//mainView.router.navigate('/my-delete-cam/');
-    mainView.router.load({
-        url: 'resources/templates/delete.cam.html',
-        context: {
-            // FirstName: userInfo.FirstName,
-        }
-    });
+	mainView.router.navigate('/my-delete-cam/');
 }
 /* ---
 function getDate(data) {
@@ -696,7 +690,7 @@ $$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
 
 
 // INIT DELETE CAM
-
+/*---
 $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
 
     var items = [];
@@ -739,7 +733,7 @@ $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
         height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
     });
 });
-
+-->
 
 // INIT OPEN PAGE DASHCAM LIST
 /*---

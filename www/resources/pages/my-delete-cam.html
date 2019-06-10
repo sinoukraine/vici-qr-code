@@ -1,0 +1,202 @@
+<template>
+	<div data-name="my-delete-cam" class="page delete-cam-page">
+		<div class="navbar">
+			<div class="navbar-inner">
+				<div class="left">
+					<a class="panel-open" href="#">
+						<i class="f7-icons icon-menu"></i>
+					</a>
+				</div>
+				<div class="title">Delete Cam</div>
+			</div>
+		</div>
+
+		<div class="toolbar toolbar-bottom" id="toolbarDeleteCam">
+			<div class="toolbar-inner">
+				<a class="btn-cs" href="#">
+					Delete
+				</a>
+			</div>
+		</div>
+
+		<div class="page-content">
+			<div class="block">
+				{{#if ShowCamList}}
+				<p class="item-title delete-title">
+					Check the box of the desired dashcam and click the DELETE button.
+				</p>
+				{{else}}
+				<div key="VirtualListPreloader" class="block text-align-center">
+                    <div class="preloader color-blue"></div>
+                </div>
+				{{/if}}
+			</div>
+			<div class="list virtual-list delete-cam-list no-hairlines">
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {
+				ShowCamList: false
+			};            
+
+            return ret;
+        },
+		methods: {		
+			listHandler: function(a){	
+				var self = this; 	
+				var items = [];
+				let index = 1;
+				for (var i = 1; i <= a.length; i++) {
+					var pattern = /AUTO-VOX/i;
+					
+					if (pattern.test(a[i])) {						
+						self.$setState({
+							ShowCamList: true,
+						});	
+						
+						items.push({
+							title: a[i].substr(1,a[i].length -2),
+							value: index,
+						});	
+
+						index++;						
+					}
+				}
+
+				var deletecamList = App.virtualList.create({
+					// List Element
+					el: '.delete-cam-list',
+					// Pass array with items
+					items: items,
+					// Custom search function for searchbar
+					searchAll: function(query, items) {
+						var found = [];
+						for (var i = 0; i < items.length; i++) {
+							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+						}
+						return found; //return array with mathced indexes
+					},
+					// List item Template7 template
+					itemTemplate: '<li>' +
+						'<label class="item-checkbox item-content">' +
+						'<input type="checkbox" name="demo-checkbox" value="{{value}}" />' +
+						'<div class="item-media">' +
+						'<div class="item-media-inner">' +
+						'<p>DC</p>' +
+						'</div>' +
+						'</div>' +
+						'<div class="item-inner">' +
+						'<div class="item-title">{{title}}</div>' +
+						'</div>' +
+						'<i class="icon icon-checkbox"></i>' +
+						'</label>' +
+						'</li>',
+					// Item height
+					height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
+				});
+			},	
+			fail: function(e){
+				var self = this; 
+				self.$setState({
+                    ShowCamList: false,
+                });						
+			},			
+			deleteWiFi: function(SSID){
+				var self = this; 
+				let permissions = cordova.plugins.permissions;
+				
+				if (!permissions) {
+					App.dialog.alert('plugin not supported')
+				} else {
+					permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
+						if (status.hasPermission) {
+							WifiWizard.disconnectNetwork(SSID, self.winDelete, self.failDelete);
+							//App.dialog.alert('WIFI permission is turned on');
+							/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
+							fp = fp + "/dashcam_videos/video_001.MP4";
+							VideoPlayer.play(fp);
+							*/
+							
+							//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
+							////DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+							//App.dialog.alert('video downloaded 0');
+							/*navigator.screenshot.save(function(error,res){
+							  if(error){
+								console.error(error);
+							  }else{
+								console.log('ok',res.filePath);
+							  }
+							});*/
+						} else {
+							permissions.requestPermission(permissions.CHANGE_WIFI_STATE, success, error);
+							
+							function error() {
+								App.dialog.alert('no change WiFi permission');
+							}
+
+							function success(status1) {
+								//App.dialog.alert('WIFI permission is turned on');
+								WifiWizard.disconnectNetwork(SSID, self.winDelete, self.failDelete);
+								
+								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
+								//App.dialog.alert('video downloaded 1');
+								//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
+								//App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
+								/*navigator.screenshot.save(function(error,res){
+								  if(error){
+									console.error(error);
+								  }else{
+									console.log('ok',res.filePath);
+								  }
+								});*/
+								if (!status1.hasPermission) error();
+							}
+						}
+					});
+				}
+			},			
+			winDelete: function () {
+				var self = this;	
+				self.$setState({
+                    ShowCamList: false,
+                });			
+				App.dialog.alert("Successfully disconnected");
+				//self.$app.methods.openCam();				
+				WifiWizard.listNetworks(self.listHandler, self.fail);
+			},
+			failDelete: function (e) {
+				App.dialog.alert("Failed "+e);
+			}
+		},
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;    
+				
+				WifiWizard.listNetworks(self.listHandler, self.fail);
+
+				var myPage = $$('.my-list');
+				
+				myPage.on('click', '#toolbarDeleteCam', function(e){		
+					var selectedCam = $$('[name="demo-checkbox"]');
+					var isChoosen = false;
+					selectedCam.forEach(function() {
+						if($(this).is(":checked")){
+							self.deleteWiFi($(this).val());
+							isChoosen = true;
+						}				
+					});
+					if(!isChoosen)App.dialog.alert('Please choose camera');
+				});
+				
+            }
+		}
+    };
+</script>
+    
