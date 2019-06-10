@@ -86,19 +86,25 @@ var App = new Framework7({
             var str = '';
             if (name) {
                 switch (name){
+                    case 'deletedCameras':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.DELETEDCAMERAS");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'photoList':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST");
                         if(str) {
                             ret = JSON.parse(str);
                         }
-                        break;   
-						case 'videoList':
+                    break;   
+					case 'videoList':
 						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST");
                         if(str) {
                             ret = JSON.parse(str);
                         }
-						break;  
-						default:
+					break;  
+					default:
                         App.dialog.alert('There is no item saved with such name - '+name);
                 }
             }else{
@@ -110,6 +116,9 @@ var App = new Framework7({
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
                 switch (params.name){
+                    case 'deletedCameras':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.DELETEDCAMERAS", JSON.stringify(params.data));
+                    break;     
                     case 'photoList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(params.data));
                     break;       
