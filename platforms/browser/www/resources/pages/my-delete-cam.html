@@ -52,28 +52,32 @@
 			listHandler: function(a){	
 				var self = this; 	
 				var items = [];
-				let index = 1;				
+				let index = 0;				
                 var deletedCameras = self.$app.methods.getFromStorage("deletedCameras");
 				
+				self.$setState({
+							ShowCamList: true,
+						});	
 				
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					let found = deletedCameras.indexOf(a[i]);
 					 
-					if (pattern.test(a[i]) && found == -1) {						
-						self.$setState({
-							ShowCamList: true,
-						});	
+					if (pattern.test(a[i]) && found == -1) {	
+
+						index++;	
 						
 						items.push({
 							title: a[i].substr(1,a[i].length -2),
 							value: index,
-						});	
-
-						index++;						
+						});						
 					}
 				}
 
+				if(index === 0){
+					App.dialog.alert('You have no any cam to connect automaticaly. Please add new camera in your WiFi settings.');
+				}
+				
 				var deletecamList = App.virtualList.create({
 					// List Element
 					el: '.delete-cam-list',
@@ -180,7 +184,7 @@
                     ShowCamList: false,
                 });	
 				
-				App.dialog.alert(self.$app.methods.getFromStorage("deletedCameras"));
+				//App.dialog.alert(self.$app.methods.getFromStorage("deletedCameras"));
                     
 				WifiWizard.listNetworks(self.listHandler, self.fail);
 			}
