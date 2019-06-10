@@ -44,7 +44,8 @@
         data: function () {
             var self = this;
             var ret = {
-				ShowCamList: false
+				ShowCamList: false,
+				currentSSID: 'dashcam'
 			};            
 
             return ret;
@@ -152,9 +153,12 @@
 
 							function success(status1) {
 								//App.dialog.alert('WIFI permission is turned on');
+								self.$setState({
+									currentSSID: SSID,
+								});	
+								
 								WifiWizard.connectNetwork(SSID, self.winConnect, self.failConnect);
 								
-								self.$app.methods.setInStorage({name: 'currentCamera', data: SSID});
 								
 								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 								//App.dialog.alert('video downloaded 1');
@@ -178,6 +182,7 @@
 				var self = this;				
 				//App.dialog.alert("Connected to camera");
 				
+				self.$app.methods.setInStorage({name: 'currentCamera', data: self.currentSSID});
 				self.$app.methods.openCam();
 			},
 			failConnect: function (e) {
