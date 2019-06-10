@@ -154,6 +154,8 @@
 								//App.dialog.alert('WIFI permission is turned on');
 								WifiWizard.connectNetwork(SSID, self.winConnect, self.failConnect);
 								
+								self.$app.methods.setInStorage({name: 'currentCamera', data: SSID});
+								
 								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 								//App.dialog.alert('video downloaded 1');
 								//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
@@ -175,6 +177,7 @@
 				//validWiFi = true;
 				var self = this;				
 				//App.dialog.alert("Connected to camera");
+				
 				self.$app.methods.openCam();
 			},
 			failConnect: function (e) {

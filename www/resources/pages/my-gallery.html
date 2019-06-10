@@ -385,11 +385,15 @@
 				gallery.on('click', '.download-items', function(e){
 				
 					var arrItems = [];			
+					
+					var currentCamera = self.$app.methods.getFromStorage("currentCamera");
+				
 					var downloadItems = $$('[name="photo-check"]');
 					downloadItems.forEach(function() {
 						if($(this).is(":checked")){
 							let objItem = {
 								name: $(this).attr('file-name'),
+								dir: currentCamera,
 								url: $(this).val()
 							}
 							arrItems.push(objItem);

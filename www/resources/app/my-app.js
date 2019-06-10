@@ -86,7 +86,13 @@ var App = new Framework7({
             var str = '';
             if (name) {
                 switch (name){
-                    case 'deletedCameras':
+                    case 'currentCamera':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTCAMERA");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
+					case 'deletedCameras':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.DELETEDCAMERAS");
                         if(str) {
                             ret = JSON.parse(str);
@@ -116,7 +122,10 @@ var App = new Framework7({
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
                 switch (params.name){
-                    case 'deletedCameras':
+                    case 'currentCamera':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTCAMERA", JSON.stringify(params.data));
+                    break; 
+					case 'deletedCameras':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.DELETEDCAMERAS", JSON.stringify(params.data));
                     break;     
                     case 'photoList':
@@ -231,7 +240,7 @@ var App = new Framework7({
 			if(arr.length){				
 				App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
 				arr.forEach(function(value, index) {
-					DownloadFile(value.url, "dashcam_files", value.name);
+					DownloadFile(value.url, value.dir, value.name);
 				});
 			}else{
 				App.dialog.alert('Please choose files');
