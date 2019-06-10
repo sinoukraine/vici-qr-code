@@ -113,6 +113,7 @@
                 });						
 			},			
 			connectWiFi: function(SSID){
+				var self = this; 
 				let permissions = cordova.plugins.permissions;
 				
 				if (!permissions) {
@@ -169,8 +170,7 @@
 				//validWiFi = true;
 				App.dialog.alert("Connected to camera");
 				//loadCarcamPage();
-			}
-
+			},
 			failConnect: function (e) {
 				App.dialog.alert("Failed connect "+e);
 			}
@@ -189,6 +189,8 @@
 						if($(this).is(":checked")){
 							App.dialog.alert($(this).val());
 							self.connectWiFi($(this).val());						
+						}else{
+							App.dialog.alert('Please choose camera');						
 						}					
 				});
 				
