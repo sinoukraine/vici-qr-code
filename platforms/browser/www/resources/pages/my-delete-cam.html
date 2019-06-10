@@ -56,7 +56,7 @@
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					
-					if (pattern.test(a[i])) {						
+					//if (pattern.test(a[i])) {						
 						self.$setState({
 							ShowCamList: true,
 						});	
@@ -67,7 +67,7 @@
 						});	
 
 						index++;						
-					}
+					//}
 				}
 
 				var deletecamList = App.virtualList.create({
@@ -118,7 +118,7 @@
 					permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 						if (status.hasPermission) {
 						
-							WifiWizard.formatWifiConfig(SSID, '12345678', self.winDelete);
+							WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
 							//App.dialog.alert('WIFI permission is turned on');
 							/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
 							fp = fp + "/dashcam_videos/video_001.MP4";
@@ -144,7 +144,7 @@
 
 							function success(status1) {
 								//App.dialog.alert('WIFI permission is turned on');
-								WifiWizard.formatWifiConfig(SSID, '12345678', self.winDelete);
+								WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
 								
 								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 								//App.dialog.alert('video downloaded 1');
@@ -168,8 +168,8 @@
 				self.$setState({
                     ShowCamList: false,
                 });			
-				//WifiWizard.listNetworks(self.listHandler, self.fail);
-				App.dialog.alert("Cameras removed1");
+				WifiWizard.listNetworks(self.listHandler, self.fail);
+				App.dialog.alert("Cameras removed");
 				//self.$app.methods.openCam();				
 			},
 			failDelete: function (e) {

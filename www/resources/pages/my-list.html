@@ -58,7 +58,7 @@
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					
-					//if (pattern.test(a[i])) {						
+					if (pattern.test(a[i])) {						
 						self.$setState({
 							ShowCamList: true,
 						});	
@@ -69,7 +69,7 @@
 						});	
 
 						index++;						
-					//}
+					}
 				}
 
 				var deletecamList = App.virtualList.create({
