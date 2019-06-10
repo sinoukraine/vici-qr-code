@@ -237,82 +237,20 @@ var App = new Framework7({
 });
 
 /*start wifi manage*/
-
+/*
 function ssidHandler(s) {
 	App.dialog.alert('Current SSID is '+s);
 }
 
-function win() {
-	validWiFi = true;
-	App.dialog.alert("Connected to AUTO-VOX D6PRO 06ac");
-	loadCarcamPage();
-}
-
-function fail(e) {
-    App.dialog.alert("Failed connect "+e);
-}
 
 function getCurrentSSID() {
     WifiWizard.getCurrentSSID(ssidHandler, fail);
-}
+}*/
 /*
 function listHandler(a) {
     alert(a);
 }*/
 
-function connectWiFi(SSID) {
-	let permissions = cordova.plugins.permissions;
-	
-	if (!permissions) {
-		App.dialog.alert('plugin not supported')
-	} else {
-		permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
-			if (status.hasPermission) {
-				WifiWizard.connectNetwork(SSID, win, fail);
-				//App.dialog.alert('WIFI permission is turned on');
-				/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
-				fp = fp + "/dashcam_videos/video_001.MP4";
-				VideoPlayer.play(fp);
-				*/
-				
-				//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
-				////DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-				//App.dialog.alert('video downloaded 0');
-				/*navigator.screenshot.save(function(error,res){
-				  if(error){
-					console.error(error);
-				  }else{
-					console.log('ok',res.filePath);
-				  }
-				});*/
-			} else {
-				permissions.requestPermission(permissions.CHANGE_WIFI_STATE, success, error);
-				
-				function error() {
-					App.dialog.alert('no change WiFi permission');
-				}
-
-				function success(status1) {
-					//App.dialog.alert('WIFI permission is turned on');
-					WifiWizard.connectNetwork(SSID, win, fail);
-					
-					//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
-					//App.dialog.alert('video downloaded 1');
-					//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
-					//App.dialog.alert('video downloaded 1');//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-					/*navigator.screenshot.save(function(error,res){
-					  if(error){
-						console.error(error);
-					  }else{
-						console.log('ok',res.filePath);
-					  }
-					});*/
-					if (!status1.hasPermission) error();
-				}
-			}
-		});
-	}
-}
 
 /*end wifi manage*/
 
@@ -540,30 +478,12 @@ function menuList() {
 	}	
 }
 
-
-$('.view-main').on('click', '#openCam', function () {    	
-	//getWifiList();
-	connectWiFi('AUTO-VOX D6PRO 06ac');
-});
-
 function loadCarcamPage() {
 	mainView.router.navigate('/my-home/');
-    /*mainView.router.load({
-        url: 'index.html',
-        context: {
-            // FirstName: userInfo.FirstName,
-        }
-    });*/
 }
 
 function loadListPage() {
 	mainView.router.navigate('/my-list/');
-	/*mainView.router.load({
-        url: 'resources/templates/open.dashcam.html',
-        context: {
-            // FirstName: userInfo.FirstName,
-        }
-    });*/
 }
 
 // GALLERY
@@ -826,7 +746,7 @@ $$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
 
 
 // INIT OPEN PAGE DASHCAM LIST
-
+/*---
 $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
 
     var items = [];
@@ -868,13 +788,13 @@ $$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
         // Item height
         height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
     });
-});
+});*/
 
 
 $('.view-main').on('click', '#toolbarDeleteCam', function () {  	
-	WifiWizard.disconnectNetwork('AUTO-VOX D6PRO 06ac', winDelete, failDelete);
+	//WifiWizard.disconnectNetwork('AUTO-VOX D6PRO 06ac', winDelete, failDelete);
 });
-
+/*
 function winDelete(){	
 	App.dialog.alert('Camera AUTO-VOX D6PRO 06ac deleted');	
 	validWiFi = false;
@@ -883,7 +803,7 @@ function winDelete(){
 
 function failDelete(){	
 	App.dialog.alert('Camera not deleted');
-}
+}*/
 
 // INIT NORMAL VIDEO LIST PAGE
 
