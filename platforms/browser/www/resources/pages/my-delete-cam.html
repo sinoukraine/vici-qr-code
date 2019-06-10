@@ -86,7 +86,7 @@
 					// List item Template7 template
 					itemTemplate: '<li>' +
 						'<label class="item-checkbox item-content">' +
-						'<input type="checkbox" name="demo-checkbox" value="{{title}}" />' +
+						'<input type="checkbox" name="cam-checkbox" value="{{title}}" />' +
 						'<div class="item-media">' +
 						'<div class="item-media-inner">' +
 						'<p>DC</p>' +
@@ -118,7 +118,7 @@
 					permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 						if (status.hasPermission) {
 						
-							WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
+							WifiWizard.formatWifiConfig(SSID, '12345678', self.winDelete);
 							//App.dialog.alert('WIFI permission is turned on');
 							/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
 							fp = fp + "/dashcam_videos/video_001.MP4";
@@ -144,7 +144,7 @@
 
 							function success(status1) {
 								//App.dialog.alert('WIFI permission is turned on');
-								WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
+								WifiWizard.formatWifiConfig(SSID, '12345678', self.winDelete);
 								
 								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 								//App.dialog.alert('video downloaded 1');
@@ -168,9 +168,9 @@
 				self.$setState({
                     ShowCamList: false,
                 });			
-				App.dialog.alert("Successfully disconnected");
+				//WifiWizard.listNetworks(self.listHandler, self.fail);
+				App.dialog.alert("Cameras removed1");
 				//self.$app.methods.openCam();				
-				WifiWizard.listNetworks(self.listHandler, self.fail);
 			},
 			failDelete: function (e) {
 				App.dialog.alert("Failed "+e);
@@ -185,7 +185,7 @@
 				var myPage = $$('.delete-cam-page');
 				
 				myPage.on('click', '#toolbarDeleteCam', function(e){		
-					var selectedCam = $$('[name="demo-checkbox"]');
+					var selectedCam = $$('[name="cam-checkbox"]');
 					var isChoosen = false;
 					selectedCam.forEach(function() {
 						if($(this).is(":checked")){
