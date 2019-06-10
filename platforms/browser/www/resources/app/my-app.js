@@ -357,7 +357,8 @@ document.addEventListener("deviceready", onDeviceReady, false );
 function onDeviceReady(){ 
 	App.methods.getTest();
 	console.log('ready');
-	loadCarcamPage();
+	//loadCarcamPage();
+	loadListPage();
 	
 	var self = this;
 	
