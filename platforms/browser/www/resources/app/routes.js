@@ -113,27 +113,27 @@ var routes = [{
 	{
         name: 'my-home',
         path: '/my-home/',
-        componentUrl: './resources/pages/my-home.html?v=1.62',
+        componentUrl: './resources/pages/my-home.html?v=1.63',
     },
 	{
         name: 'my-list',
         path: '/my-list/',
-        componentUrl: './resources/pages/my-list.html?v=1.62',
+        componentUrl: './resources/pages/my-list.html?v=1.63',
     },
 	{
         name: 'my-gallery',
         path: '/my-gallery/',
-        componentUrl: './resources/pages/my-gallery.html?v=1.62',
+        componentUrl: './resources/pages/my-gallery.html?v=1.63',
     },
 	{
         name: 'my-delete-cam',
         path: '/my-delete-cam/',
-        componentUrl: './resources/pages/my-delete-cam.html?v=1.62',
+        componentUrl: './resources/pages/my-delete-cam.html?v=1.63',
     },
 	{
         name: 'my-info',
         path: '/my-info/',
-        componentUrl: './resources/pages/my-info.html?v=1.62',
+        componentUrl: './resources/pages/my-info.html?v=1.63',
     },
 
 ]

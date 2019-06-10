@@ -117,6 +117,7 @@
 				} else {
 					permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 						if (status.hasPermission) {
+						
 							WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
 							//App.dialog.alert('WIFI permission is turned on');
 							/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
