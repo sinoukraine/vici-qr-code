@@ -248,7 +248,7 @@ var App = new Framework7({
 		},
 		openCamList: function(){
 			loadListPage();		
-		}
+		},
 		openCam: function(){
 			loadCarcamPage();		
 		}
