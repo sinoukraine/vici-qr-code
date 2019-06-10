@@ -86,7 +86,7 @@
 					// List item Template7 template
 					itemTemplate: '<li>' +
 						'<label class="item-checkbox item-content">' +
-						'<input type="checkbox" name="demo-checkbox" value="{{title}}" />' +
+						'<input type="checkbox" name="cam-checkbox" value="{{title}}" />' +
 						'<div class="item-media">' +
 						'<div class="item-media-inner">' +
 						'<p>DC</p>' +
@@ -168,9 +168,9 @@
 				self.$setState({
                     ShowCamList: false,
                 });			
-				App.dialog.alert("Successfully disconnected");
-				//self.$app.methods.openCam();				
 				WifiWizard.listNetworks(self.listHandler, self.fail);
+				App.dialog.alert("Cameras removed");
+				//self.$app.methods.openCam();				
 			},
 			failDelete: function (e) {
 				App.dialog.alert("Failed "+e);
@@ -185,7 +185,7 @@
 				var myPage = $$('.delete-cam-page');
 				
 				myPage.on('click', '#toolbarDeleteCam', function(e){		
-					var selectedCam = $$('[name="demo-checkbox"]');
+					var selectedCam = $$('[name="cam-checkbox"]');
 					var isChoosen = false;
 					selectedCam.forEach(function() {
 						if($(this).is(":checked")){
