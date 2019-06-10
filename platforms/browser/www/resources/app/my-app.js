@@ -234,7 +234,7 @@ var App = new Framework7({
 			//console.log(dataObj);
 			//App.dialog.alert(dataObj.length);
 			// info array push
-			for (let i = 0; i < dataObj.length; i++) {
+			for (let i = dataObj.length - 1; i >= 0; i--) {
 				/*infoArr.push({
 					data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
 					photoName: dataObj.mp4data[i].title
