@@ -49,7 +49,7 @@
             return ret;
         },
 		methods: {		
-			listHandler: function(a){	App.dialog.alert(a.length);
+			listHandler: function(a){	App.dialog.alert(a);
 				var self = this; 	
 				var items = [];
 				let index = 1;
@@ -60,13 +60,16 @@
 						self.$setState({
 							ShowCamList: true,
 						});	
+						if (a[i].charAt(0) === '"' && a[i].charAt(a[i].length -1) === '"')
+							{
+								items.push({
+									title: a[i].substr(1,a[i].length -2),
+									value: index,
+								});	
+								index++;
+							}
 						
-						items.push({
-							title: a[i].substr(1,a[i].length -2),
-							value: index,
-						});	
-
-						index++;						
+						
 					//}
 				}
 
@@ -78,9 +81,9 @@
 					// Custom search function for searchbar
 					searchAll: function(query, items) {
 						var found = [];
-						for (var i = 0; i < items.length; i++) {
+						/*for (var i = 0; i < items.length; i++) {
 							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-						}
+						}*/
 						return found; //return array with mathced indexes
 					},
 					// List item Template7 template
