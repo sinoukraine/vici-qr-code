@@ -232,7 +232,7 @@ var App = new Framework7({
 			let dateArr = [];
 			let dataArr = [];
 			//console.log(dataObj);
-			App.dialog.alert(dataObj.length);
+			//App.dialog.alert(dataObj.length);
 			// info array push
 			for (let i = 0; i < dataObj.length; i++) {
 				/*infoArr.push({
@@ -240,9 +240,10 @@ var App = new Framework7({
 					photoName: dataObj.mp4data[i].title
 				});*/
 				let timeArr = dataObj[i].split('.');
+				//console.log(timeArr);
 				let filename = timeArr[0];
-				let time = timeArr[0].substring(0, 14);
-			App.dialog.alert(time);
+				let time = timeArr[0].substring(1, 15);
+				//alert(time);
 								
 				let newDate = (time.substring(0, 8)).substring(0, 4) + '/' + (time.substring(0, 8)).substring(4, 6) + '/' + (time.substring(0, 8)).substring(6, 9);
 					
@@ -356,7 +357,7 @@ document.addEventListener("deviceready", onDeviceReady, false );
 function onDeviceReady(){ 
 	App.methods.getTest();
 	console.log('ready');
-	loadListPage();
+	loadCarcamPage();
 	
 	var self = this;
 	

@@ -158,7 +158,7 @@
                 var listEl = self.$el.find('.photosList'); 
                 //var listSearchEl = self.$el.find('.searchbar');    
                 var photoList = self.$app.methods.getFromStorage("photoList");
-				let dateArr = self.$app.methods.sortDatePhoto(photoList);           
+				let dateArr = self.$app.methods.sortParseDatePhoto(photoList);           
                
                 /*if (photoListArr.length) {
                     photoListArr.sort(function(a,b){
@@ -193,7 +193,7 @@
                     //List of array items
                     items: dateArr,
                     height: function(item){
-                        let height = 134.94;
+                        let height = 10034.94;
                         return height;
                     },
                     // Display the each item using Template7 template parameter
@@ -206,28 +206,31 @@
 						ret += '	  <div class="item-content">      ';  
 						ret += '		<div class="item-inner">';
 						ret += '		  <div class="item-title-row">';
-						ret += '			<div class="item-title">(' + item.title + ')</div>  ';          
+						//ret += '			<div class="item-title">' + item.title + '</div>  ';          
 						ret += '		  </div>          ';
 						ret += '		  <div class="item-text">';
 						ret += '			<div class="row">';
 						/*<label class="checkbox item-content check-item"><input type="checkbox" name="demo-checkbox" value="'+index+'-'+d+'-'+a+'"><i class="icon-checkbox"></i></label>
 						*/
-						/*ret += '			  <div class="col-50">';
+						for (let d = 0; d < item.data.length; d ++){
+						self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
+						ret += '			  <div class="col-50">';
 								//if(!self.IsCheckAll) {
 									ret +='<label class="checkbox check-item photo-check-item display-none">';
-									ret +='<input type="checkbox" name="photo-check" file-name="'+item+'" value="http://192.168.1.1/DCIM/104snap/'+item+'"/>';
+									ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d]+'" value="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'"/>';
 									ret +='<i class="f7-icons">check</i>';
 									ret +='</label>';
 								//}
-								ret += 					'<a href="#" class="pb-standalone-dark" data-photo="'+item+'">' +
+								ret += 					'<a href="#" class="pb-standalone-dark" data-photo="'+item.data[d]+'">' +
 														'<div class="item-content">' +
 														'<div class="item-media photo-item-media">' +
-														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item+'" src="http://192.168.1.1/DCIM/104snap/'+item+'">' +
+														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'">' +
 														
 														'</div>' +
 														'</div>' +
 														'</a>';
-								ret += '			  </div> ';	*/
+								ret += '			  </div> ';	
+								}
 						/*
 						for (let d = 0; d < item.data.length; d ++){	
 							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
