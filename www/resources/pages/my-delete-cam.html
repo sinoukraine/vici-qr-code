@@ -59,7 +59,7 @@
 				
 				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
-					let found = deletedCameras.find(a[i]);
+					let found = deletedCameras.indexOf(a[i]);
                      
 					if (pattern.test(a[i]) && found != -1) {						
 						self.$setState({
