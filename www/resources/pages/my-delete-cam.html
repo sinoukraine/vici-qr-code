@@ -49,37 +49,27 @@
             return ret;
         },
 		methods: {		
-			listHandler: function(a){	//App.dialog.alert(a);
+			listHandler: function(a){	
 				var self = this; 	
 				var items = [];
 				let index = 1;
-				
-						self.$setState({
-							ShowCamList: true,
-						});
-						
-				for (var i = 1; i <= 5; i++) {
+				for (var i = 1; i <= a.length; i++) {
 					var pattern = /AUTO-VOX/i;
 					
-					//if (pattern.test(a[i])) {			
-						//var title = a[i].replace(/[^A-Za-z0-9]/g, "");
-						//App.dialog.alert(title);
-							
-						//if (a[i].charAt(0) === '"' && a[i].charAt(a[i].length -1) === '"')
-							//{
-								items.push({
-									title: a[i].substr(1,a[i].length -2),
-									value: i,
-								});	
-								index++;
-							//}
+					if (pattern.test(a[i])) {						
+						self.$setState({
+							ShowCamList: true,
+						});	
 						
-						
-					//}
+						items.push({
+							title: a[i].substr(1,a[i].length -2),
+							value: index,
+						});	
+
+						index++;						
+					}
 				}
 
-				
-						
 				var deletecamList = App.virtualList.create({
 					// List Element
 					el: '.delete-cam-list',
@@ -88,9 +78,9 @@
 					// Custom search function for searchbar
 					searchAll: function(query, items) {
 						var found = [];
-						/*for (var i = 0; i < items.length; i++) {
+						for (var i = 0; i < items.length; i++) {
 							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-						}*/
+						}
 						return found; //return array with mathced indexes
 					},
 					// List item Template7 template
@@ -127,8 +117,8 @@
 				} else {
 					permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//READ_EXTERNAL_STORAGE WRITE_EXTERNAL_STORAGE
 						if (status.hasPermission) {
-						
-							WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
+						WifiWizard2.disconnect(SSID);
+							//WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
 							//App.dialog.alert('WIFI permission is turned on');
 							/*var fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/'; 
 							fp = fp + "/dashcam_videos/video_001.MP4";
@@ -154,8 +144,8 @@
 
 							function success(status1) {
 								//App.dialog.alert('WIFI permission is turned on');
-								WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
-								
+								//WifiWizard.removeNetwork(SSID, self.winDelete, self.failDelete);
+								WifiWizard2.disconnect(SSID);
 								//DownloadFile("http://192.168.1.1/DCIM/101video/20190530120221_10.MP4", "dashcam_002", "video_002");
 								//App.dialog.alert('video downloaded 1');
 								//DownloadFile("http://192.168.1.1/DCIM/100video/20190606190422_180.MP4", "dashcam_videos", "video_001");
