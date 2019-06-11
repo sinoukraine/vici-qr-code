@@ -60,8 +60,15 @@
 				var scanResultsInterval = setInterval(function(){
 
                                 console.log("Scan interval running.");
-
-                                WifiWizard.getScanResults(function(availableNetworks){
+								
+								WifiWizard2.getScanResults().then(response => {
+									//this.networksData = response;
+									App.dialog.alert(response);
+								}).catch(e => {
+									console.log(JSON.stringify(e));
+									App.dialog.alert(JSON.stringify(e));
+								});
+                                /*WifiWizard.getScanResults(function(availableNetworks){
 
                                     
 									App.dialog.alert(availableNetworks);
@@ -69,7 +76,7 @@
                                 }, function(){
 
                                     App.dialog.alert('-');
-                                });
+                                });*/
 
                             }, 3000);
 							
@@ -224,7 +231,15 @@
 				
 				WifiWizard.listNetworks(self.listHandler, self.fail);
 				
-				WifiWizard.startScan(self.listToAdd, self.fail);
+				//WifiWizard.startScan(self.listToAdd, self.fail);
+				WifiWizard2.startScan().then(startscanresponse => {
+					App.dialog.alert('start scan');
+					self.listToAdd();
+					// Success
+				}).catch(e => {
+					App.dialog.alert(JSON.stringify(e));
+					console.log(JSON.stringify(e));
+				});
 				
 				var myPage = $$('.my-list');
 				
