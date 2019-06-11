@@ -199,21 +199,18 @@
 				var self = this;    
 				
 				WifiWizard.listNetworks(self.listHandler, self.fail);
-					App.dialog.alert("Connected to camera");
-				WifiWizard2.startScan().then(startscanresponse => {
-					App.dialog.alert(startscanresponse);
-					
-					// Success
-				}).catch(e => {
-					console.log(JSON.stringify(e));
-				});
+				
 
-				WifiWizard2.getScanResults().then(response => {
-					//this.networksData = response;
-					App.dialog.alert(response);
-				}).catch(e => {
-					console.log(JSON.stringify(e));
-				});
+				
+				WifiWizard.startScan(function(){ 
+					WifiWizard.getScanResults({},function(arr){
+						App.dialog.alert(arr);
+					  //is this array the latest WiFi list ? it seems not the latest WiFi list sometimes
+					}) 
+				 })
+				
+				
+				
 
 				var myPage = $$('.my-list');
 				
