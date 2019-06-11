@@ -54,18 +54,18 @@
 
             return ret;
         },
-		methods: {			
-			results = [];
-			async getNetworks() {
-				try {
-					let results = await WifiWizard2.scan();
-					  //this.results = results;
-					App.dialog.alert(JSON.stringify(results));
-					  
-				} catch (error) {
-					App.dialog.alert(JSON.stringify(error));
-				}
-				
+		methods: {	
+			scanWiFi: function(){
+				results = [];
+					try {
+						let results = WifiWizard2.scan().then(response => {
+							//this.networksData = response;
+							
+							App.dialog.alert(JSON.stringify(response));
+						});						  
+					} catch (error) {
+						App.dialog.alert(JSON.stringify(error));
+					}				
 				
 			},
 			listToAdd: function(){	
@@ -251,7 +251,7 @@
 				} else {
 					permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, function(status) {					
 						if (status.hasPermission) {
-							self.getNetworks();							
+							self.scanWiFi();							
 						} else {
 							permissions.requestPermission(permissions.ACCESS_FINE_LOCATION, success, error);
 
@@ -260,7 +260,7 @@
 							}
 
 							function success(status1) {
-								self.getNetworks();											
+								self.scanWiFi();											
 								if (!status1.hasPermission) error();
 							}
 						}

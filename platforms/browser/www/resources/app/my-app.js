@@ -314,7 +314,7 @@ var App = new Framework7({
 			loadCarcamPage();		
 		},
 		getTest: function () {	
-			let url = 'http://192.168.1.1/DCIM/104snap/';
+			/*let url = 'http://192.168.1.1/DCIM/104snap/';
 			let params = {};
 			let headers = {};
 			let newArr = [];
@@ -331,7 +331,7 @@ var App = new Framework7({
 					console.log(newArr);
 			}, function(response) {
 			  console.error(response.error);
-			});		 
+			});	*/	 
 		},
 	}
 });
@@ -355,7 +355,7 @@ function listHandler(a) {
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
 function onDeviceReady(){ 
-	App.methods.getTest();
+	//App.methods.getTest();
 	console.log('ready');
 	//loadCarcamPage();
 	loadListPage();
