@@ -199,6 +199,21 @@
 				var self = this;    
 				
 				WifiWizard.listNetworks(self.listHandler, self.fail);
+					App.dialog.alert("Connected to camera");
+				WifiWizard2.startScan().then(startscanresponse => {
+					App.dialog.alert(startscanresponse);
+					
+					// Success
+				}).catch(e => {
+					console.log(JSON.stringify(e));
+				});
+
+				WifiWizard2.getScanResults().then(response => {
+					//this.networksData = response;
+					App.dialog.alert(response);
+				}).catch(e => {
+					console.log(JSON.stringify(e));
+				});
 
 				var myPage = $$('.my-list');
 				
