@@ -58,7 +58,7 @@
 			listToAdd: function(){	
 				var self = this; 
 				
-				WifiWizard.getScanResults({}, self.listHandlerToAdd, fail);
+				WifiWizard.getScanResults({}, self.listHandlerToAdd, self.fail);
 			},
 			listHandlerToAdd: function(a){	
 				var self = this; 	
