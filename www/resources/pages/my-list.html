@@ -54,7 +54,18 @@
 
             return ret;
         },
-		methods: {
+		methods: {			
+			results = [];
+			async getNetworks() {
+				try {
+					let results = await WifiWizard2.scan();
+					  //this.results = results;
+					App.dialog.alert(JSON.stringify(results));
+					  
+				} catch (error) {
+					App.dialog.alert(JSON.stringify(error));
+				}
+			},
 			listToAdd: function(){	
 				var self = this; 
 				var scanResultsInterval = setInterval(function(){
@@ -229,19 +240,31 @@
             pageInit: function (e, page) {  
 				var self = this;    
 				
-				WifiWizard.listNetworks(self.listHandler, self.fail);
-				/*ACCESS_FINE_LOCATION
-				results = [];
-				async getNetworks() {
-					try {
-					  let results = await WifiWizard2.scan();
-					  //this.results = results;
-					  App.dialog.alert(JSON.stringify(results));
-					  
-					} catch (error) {
-						App.dialog.alert(JSON.stringify(error));
-					}
-				}*/
+				WifiWizard.listNetworks(self.listHandler, self.fail);				
+				
+				let permissions = cordova.plugins.permissions;
+				
+				if (!permissions) {
+					App.dialog.alert('plugin not supported')
+				} else {
+					permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, function(status) {					
+						if (status.hasPermission) {
+							self.getNetworks();							
+						} else {
+							permissions.requestPermission(permissions.ACCESS_FINE_LOCATION, success, error);
+
+							function error() {
+								App.dialog.alert('ACCESS_FINE_LOCATION permission is not turned on');
+							}
+
+							function success(status1) {
+								self.getNetworks();											
+								if (!status1.hasPermission) error();
+							}
+						}
+					});
+				}
+				
 				//WifiWizard.startScan(self.listToAdd, self.fail);
 				/*WifiWizard2.scan().then(startscanresponse => {
 					
