@@ -52,8 +52,10 @@
             return ret;
         },
 		methods: {			
-			ssidHandler: function(a){					
-				App.dialog.alert('You connected to: '+a);
+			ssidHandler: function(a){		
+				setTimeout(function () { // Prepend new list element	
+					App.dialog.alert('You connected to: '+a);					
+				  }, 2000);
 			},		
 			fail: function(e){	
 				App.dialog.alert(e);
