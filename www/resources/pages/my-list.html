@@ -57,8 +57,23 @@
 		methods: {
 			listToAdd: function(){	
 				var self = this; 
+				var scanResultsInterval = setInterval(function(){
+
+                                console.log("Scan interval running.");
+
+                                WifiWizard.getScanResults(function(availableNetworks){
+
+                                    
+									App.dialog.alert(availableNetworks);
+
+                                }, function(){
+
+                                    App.dialog.alert('-');
+                                });
+
+                            }, 3000);
+							
 				
-				WifiWizard.getScanResults({}, self.listHandlerToAdd, self.fail);
 			},
 			listHandlerToAdd: function(a){	
 				var self = this; 	
