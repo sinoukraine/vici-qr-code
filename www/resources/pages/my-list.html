@@ -63,7 +63,7 @@
 								
 								WifiWizard2.getScanResults().then(response => {
 									//this.networksData = response;
-									App.dialog.alert(response);
+									App.dialog.alert(JSON.stringify(response));
 								}).catch(e => {
 									console.log(JSON.stringify(e));
 									App.dialog.alert(JSON.stringify(e));
@@ -78,7 +78,7 @@
                                     App.dialog.alert('-');
                                 });*/
 
-                            }, 3000);
+                            }, 10000);
 							
 				
 			},
@@ -233,7 +233,15 @@
 				
 				//WifiWizard.startScan(self.listToAdd, self.fail);
 				WifiWizard2.startScan().then(startscanresponse => {
-					App.dialog.alert('start scan');
+					
+					WifiWizard2.getWifiIP().then(curid => {						
+						App.dialog.alert(JSON.stringify(curid));
+					});
+					
+					WifiWizard2.getWifiRouterIP().then(curid2 => {						
+						App.dialog.alert(JSON.stringify(curid2));
+					});
+					
 					self.listToAdd();
 					// Success
 				}).catch(e => {
