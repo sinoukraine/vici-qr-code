@@ -230,9 +230,22 @@
 				var self = this;    
 				
 				WifiWizard.listNetworks(self.listHandler, self.fail);
-				
+				/*ACCESS_FINE_LOCATION
+				results = [];
+				async getNetworks() {
+					try {
+					  let results = await WifiWizard2.scan();
+					  //this.results = results;
+					  App.dialog.alert(JSON.stringify(results));
+					  
+					} catch (error) {
+						App.dialog.alert(JSON.stringify(error));
+					}
+				}*/
 				//WifiWizard.startScan(self.listToAdd, self.fail);
-				WifiWizard2.startScan().then(startscanresponse => {
+				/*WifiWizard2.scan().then(startscanresponse => {
+					
+					App.dialog.alert(JSON.stringify(startscanresponse));
 					
 					WifiWizard2.getWifiIP().then(curid => {						
 						App.dialog.alert(JSON.stringify(curid));
@@ -247,7 +260,7 @@
 				}).catch(e => {
 					App.dialog.alert(JSON.stringify(e));
 					console.log(JSON.stringify(e));
-				});
+				});*/
 				
 				var myPage = $$('.my-list');
 				

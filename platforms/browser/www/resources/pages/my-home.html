@@ -51,12 +51,26 @@
 
             return ret;
         },
+		methods: {			
+			ssidHandler: function(a){					
+				App.dialog.alert(a);
+			},		
+			fail: function(e){	
+				App.dialog.alert(e);
+			},
+		},
         on: {
             pageInit: function (e, page) {  
 				var self = this;    
 				var page = page.$el.find('.page-content'); 
 				
 				var myPage = $$('.cam');
+				
+				WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
+				
+				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
+					App.dialog.alert(JSON.stringify(curid2));
+				});*/
 				
 				myPage.on('click', '#connectCam', function(e){
 					VideoPlayer.play(API_LIVE_STREAM);
