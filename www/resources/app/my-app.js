@@ -180,7 +180,7 @@ var App = new Framework7({
 						//}
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error');
+					   console.log(textStatus,'error_photo');
 						//if (reject) {
 						reject();
 						//}  
@@ -221,7 +221,7 @@ var App = new Framework7({
 						resolve(result);
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error');
+					   console.log(textStatus,'error_video');
 					}
 				});		
 			});   
@@ -268,11 +268,10 @@ var App = new Framework7({
 			let dataObj = data;
 			//let sortArr = [];
 			let dateArr = [];
-			let dataArr = [];
-			//console.log(dataObj);
-
+			
 			// info array push
 			for (let i = 0; i < dataObj.length; i++) {
+				let dataArr = [];
 				/*infoArr.push({
 					data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
 					photoName: dataObj.mp4data[i].title

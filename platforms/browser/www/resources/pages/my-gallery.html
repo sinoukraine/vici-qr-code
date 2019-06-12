@@ -194,7 +194,20 @@
                     //List of array items
                     items: dateArr,
                     height: function(item){
-                        let height = 10034.94;
+						let height = 0.00;
+                        let heightHeader = 34.94;
+                        let heightElement = 100.00;
+						let dataLength = 0;
+						for (let d = 0; d < item.data.length; d ++){
+							dataLength += item.data[d].associateddata.length;					
+						}		
+						//
+						if(dataLength%2){
+							height = heightHeader + heightElement*((dataLength+1)/2);
+						}else{
+							height = heightHeader + heightElement*(dataLength/2);
+						}
+						//console.log(height);
                         return height;
                     },
                     // Display the each item using Template7 template parameter
@@ -207,7 +220,7 @@
 						ret += '	  <div class="item-content">      ';  
 						ret += '		<div class="item-inner">';
 						ret += '		  <div class="item-title-row">';
-						//ret += '			<div class="item-title">' + item.title + '</div>  ';          
+						ret += '			<div class="item-title">' + item.title + '</div>  ';          
 						ret += '		  </div>          ';
 						ret += '		  <div class="item-text">';
 						ret += '			<div class="row">';
@@ -332,7 +345,17 @@
                     //List of array items
                     items: dateArr,
                     height: function(item){
-                        let height = 134.94;
+                        let height = 0.00;
+                        let heightHeader = 34.94;
+                        let heightElement = 100.00;
+						let dataLength = item.data.length;
+						
+						if(dataLength%2){
+							height = heightHeader + heightElement*((dataLength+1)/2);
+						}else{
+							height = heightHeader + heightElement*(dataLength/2);
+						}
+						console.log(height);
                         return height;
                     },
                     // Display the each item using Template7 template parameter
