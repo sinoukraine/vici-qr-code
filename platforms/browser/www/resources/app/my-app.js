@@ -142,7 +142,7 @@ var App = new Framework7({
             }
         },
 		getRecordPhoto: function(resolve, reject){ 			
-			return new Promise((resolve, reject) => {
+			/*return new Promise((resolve, reject) => {
 				let url = 'http://192.168.1.1/DCIM/104snap/';
 				let params = {};
 				let headers = {};
@@ -163,8 +163,8 @@ var App = new Framework7({
 				  console.error(response.error);
 				  reject();
 				});	
-			});	
-			/*
+			});	*/
+			
 			return new Promise((resolve, reject) => {
 				$.ajax({
 					   type: "GET",
@@ -187,7 +187,7 @@ var App = new Framework7({
 					}
 				});		
 			});   
-			*/
+			
 		},
 		getRecordVideo: function (resolve, reject) {	
 			return new Promise((resolve, reject) => {
