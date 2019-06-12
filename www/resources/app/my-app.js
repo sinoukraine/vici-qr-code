@@ -185,6 +185,7 @@ var App = new Framework7({
 						reject();
 						//}  
 					}
+					
 				});		
 			});   
 			
