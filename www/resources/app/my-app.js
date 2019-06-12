@@ -226,6 +226,7 @@ var App = new Framework7({
 				});		
 			});   
 		},
+		
         sortParseDatePhoto: function(data){
 			//let infoArr = [];
 			let dataObj = data;
