@@ -131,6 +131,11 @@ var routes = [{
         componentUrl: './resources/pages/my-delete-cam.html?v=1.63',
     },
 	{
+        name: 'my-hints',
+        path: '/my-hints/',
+        componentUrl: './resources/pages/my-hints.html?v=1.63',
+    },
+	{
         name: 'my-info',
         path: '/my-info/',
         componentUrl: './resources/pages/my-info.html?v=1.63',

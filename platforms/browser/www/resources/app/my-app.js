@@ -360,7 +360,7 @@ function onDeviceReady(){
 	console.log('ready');
 	loadCarcamPage();
 	//loadListPage();
-	
+	//loadHintsPage();
 	var self = this;
 	
 	//let input = $$(this).siblings('input');
@@ -590,6 +590,11 @@ function loadListPage() {
 // GALLERY
 function loadGalleryPage() {
 	mainView.router.navigate('/my-gallery/');
+}
+
+// HINTS
+function loadHintsPage() {
+	mainView.router.navigate('/my-hints/');
 }
 
 // INFO
