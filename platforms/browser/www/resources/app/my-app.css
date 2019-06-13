@@ -806,3 +806,7 @@ label.check-item input[type=checkbox]:checked~.check-item {
 .display-none{
 	display:none;
 }
+
+.item-content .row{
+	width: 100%;
+}

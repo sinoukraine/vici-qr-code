@@ -110,6 +110,12 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
 					break;  
+					case 'normalList':
+						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.NORMALLIST");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+					break;  
 					default:
                         App.dialog.alert('There is no item saved with such name - '+name);
                 }
@@ -128,6 +134,9 @@ var App = new Framework7({
 					case 'deletedCameras':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.DELETEDCAMERAS", JSON.stringify(params.data));
                     break;     
+                    case 'normalList':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.NORMALLIST", JSON.stringify(params.data));
+                    break; 
                     case 'photoList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(params.data));
                     break;       
@@ -265,6 +274,7 @@ var App = new Framework7({
 			return dateArr;
 		},
         sortDatePhoto: function(data){
+			//console.log(data);
 			//let infoArr = [];
 			let dataObj = data;
 			//let sortArr = [];
@@ -558,6 +568,12 @@ function menuList() {
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
+				case 'videos':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "videos")) {
+						loadVideosPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
 				case 'info':
 					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "info")) {
 						loadInfoPage();
@@ -590,6 +606,11 @@ function loadListPage() {
 // GALLERY
 function loadGalleryPage() {
 	mainView.router.navigate('/my-gallery/');
+}
+
+// GALLERY
+function loadVideosPage() {
+	mainView.router.navigate('/my-videos/');
 }
 
 // HINTS

@@ -1,5 +1,5 @@
 <template>
-	<div data-name="my-gallery" class="page gallery my-gallery">
+	<div data-name="my-videos" class="page gallery my-videos">
 		<div class="navbar">
 			<div class="navbar-inner">
 				<div class="left">
@@ -13,11 +13,8 @@
 					</a>
 					{{/if}}
 				</div>
-				<div class="title">Gallery</div>
+				<div class="title">Videos</div>
 				<div class="right">
-					<a href="#" class="sort-photos">
-						<i class="f7-icons icon-sort"></i>
-					</a>
 					<a href="#" class="toggle-check-item">
 						{{#if IsCheckAll}}
 							<i class="f7-icons">close</i>
@@ -26,38 +23,38 @@
 						{{/if}}
 					</a>
 				</div>
-				<!--<div class="subnavbar">
+				<div class="subnavbar">
 					<div class="toolbar tabbar" id="toolbar-menu">
 						<div class="toolbar-inner">
-							<a href="#photo" class="tab-link tab-link-active" >
-								<span class="tabbar-label"><b>Photo</b></span>
+							<a href="#normal" class="tab-link tab-link-active" >
+								<span class="tabbar-label"><b>Normal</b></span>
 							</a>
 							<a href="#video" class="tab-link">
-								<span class="tabbar-label"><b>Video</b></span>
+								<span class="tabbar-label"><b>Short</b></span>
 							</a>
 						</div>
 					</div>
-				</div>-->
+				</div>
 			</div>
 		</div>
-		<div class="ptr-content">
+		<div class="tabs ptr-content">
 			<!-- First tab, active -->
-			<div class="page-content tab tab-active" id="photo">
+			<div class="page-content tab tab-active" id="normal">
 				<div class="block">
 					<div class="ptr-preloader">
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
 					</div>
-					<div class="list virtual-list photo-list no-hairlines">
-					{{#if ShowPhotoList}}
-						<div key="VirtualPhotoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found photosList">
+					<div class="list virtual-list video-list no-hairlines">
+					{{#if ShowNormalList}}
+						<div key="VirtualNormalList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found normalList">
 						</div> 
 					{{/if}}
 					</div>
 				</div>
 			</div>
 			<!-- First tab, active -->
-			<!--<div class="page-content tab" id="video">
+			<div class="page-content tab" id="video">
 				<div class="block">
 					<div class="ptr-preloader">
 						<div class="preloader"></div>
@@ -70,7 +67,7 @@
 					{{/if}}
 					</div>					
 				</div>
-			</div>-->
+			</div>
 		</div>
 	</div>
 </template>
@@ -81,12 +78,11 @@
         data: function () {
             var self = this;
 			var ret = {
-				IsReverse: false,
 				IsCheckAll: false,
 				photoBrowserArr: [],
-                VirtualPhotoList: false,
+                VirtualNormalList: false,
                 VirtualVideoList: false,
-				ShowPhotoList: false,	
+				ShowNormalList: false,	
 				ShowVideoList: false,			
             }; 			
             return ret;
@@ -96,40 +92,24 @@
 					
 				var self = this;  
 
-				/*self.$app.preloader.show();
-				self.$app.methods.getRecordPhoto().then(response => {			
-					self.$app.methods.setInStorage({name: 'photoList', data: response});
-                    self.$setState({
-                        ShowPhotoList: true,
-                    });
-                    self.$app.utils.nextFrame(()=>{
-                        self.initPhotoList(response);
-                    });					
-					self.$app.preloader.hide(); 	
-				}, error => {
-					self.$app.preloader.hide(); 
-					console.log('Error occured at Get Alarm Photo List');
-                    self.$app.dialog.alert('Error occured at Get Alarm Photo List');
-				});		*/		
 				
                 self.$app.preloader.show();
 				self.$app.methods.getRecordPhoto().then(response => {		
 					self.$app.methods.setInStorage({name: 'photoList', data: response.mp4data});
-					
                     self.$setState({
-                        ShowPhotoList: true,
+                        ShowNormalList: true,
                     });
                     self.$app.utils.nextFrame(()=>{
-                        self.initPhotoList(response.mp4data);
+                        self.initNormalList(response.mp4data);
                     });					
 					self.$app.preloader.hide(); 	
 				}, error => {
 					self.$app.preloader.hide(); 
-					console.log('Error occured at Get Alarm Photo List');
-                    self.$app.dialog.alert('Error occured at Get Alarm Photo List');
+					console.log('Error occured at Get Normal Video List');
+                    self.$app.dialog.alert('Error occured at Get Normal Video List');
 				});
 				
-				/*self.$app.preloader.show();
+				self.$app.preloader.show();
 				self.$app.methods.getRecordVideo().then(response => {			
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
@@ -144,20 +124,21 @@
 					self.$app.preloader.hide(); 
 					console.log('Error occured at Get Video List');
                     self.$app.dialog.alert('Error occured at Get Video List');
-				});*/
+				});
             },
-            initPhotoList: function(photoListArr = []){
+            initNormalList: function(normalListArr = []){
                 var self = this;
                 
-                var listEl = self.$el.find('.photosList'); 
+                var listEl = self.$el.find('.normalList'); 
                 //var listSearchEl = self.$el.find('.searchbar');    
-                var photoList = self.$app.methods.getFromStorage("photoList");
-				let dateArr = self.$app.methods.sortDatePhoto(photoList);           
-               
-				if(self.IsReverse) {dateArr.reverse();}
-				
-                /*if (photoListArr.length) {
-                    photoListArr.sort(function(a,b){
+                var normalList = self.$app.methods.getFromStorage("photoList");
+				//let dateArr = self.$app.methods.sortDateNormal(normalList);           
+               let dateArr = [{
+				'data': normalList
+			   }];
+			   //console.log(dateArr);
+                /*if (normalListArr.length) {
+                    normalListArr.sort(function(a,b){
                         if(a.AccountName < b.AccountName) return -1;
                         if(a.AccountName > b.AccountName) return 1;
                         return 0;
@@ -166,12 +147,20 @@
 				
 				self.photoBrowserArr.length = 0;
 				var photoIndex = 0;
-				         
-                self.VirtualPhotoList = App.virtualList.create({
+				
+                self.VirtualNormalList = App.virtualList.create({
                     el: listEl, 
                     setListHeight: false,
                     // search item by item
                     searchAll: function (query, items) {
+                        /*var found = [];
+                        query = query.trim().toLowerCase();   
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].AccountName.toLowerCase().indexOf(query) >= 0 || 
+                                items[i].EMail.toLowerCase().indexOf(query) >= 0 ||                                
+                                query === '') found.push(i);
+                        }
+                        return found; //return array with mathced indexes*/
 						let found = [];
 						for (let i = 0; i < items.length; i++) {
 							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
@@ -181,24 +170,24 @@
 					
                     //List of array items
                     items: dateArr,
-                    height: function(item){  
+                    height: function(item){
 						let height = 0.00;
-                        let heightHeader = 34.94;
-                        let heightElement = 100.00;
+						let heightElement = 100.00;
 						let dataLength = 0;
-						for (let d = 0; d < item.data.length; d ++){
-							dataLength += item.data[d].associateddata.length;					
-						}		
-						//
+						//let heightHeader = 34.94;
+						let heightHeader = 0;
+						
+						dataLength = item.data.length;
 						if(dataLength%2){
 							height = heightHeader + heightElement*((dataLength+1)/2);
 						}else{
 							height = heightHeader + heightElement*(dataLength/2);
 						}
+                       
                         return height;
                     },
                     // Display the each item using Template7 template parameter
-                    renderItem: function (item, index) {    
+                    renderItem: function (item, index) {          //console.log(item);        
                         var ret = '';
 						
 						ret += '<div class="list media-list">';
@@ -206,35 +195,31 @@
 						ret += '	<li>';
 						ret += '	  <div class="item-content">      ';  
 						ret += '		<div class="item-inner">';
-						ret += '		  <div class="item-title-row">';
-						ret += '			<div class="item-title">' + item.title + '</div>  ';          
-						ret += '		  </div>          ';
 						ret += '		  <div class="item-text">';
 						ret += '			<div class="row">';
 						
-						
 						for (let d = 0; d < item.data.length; d ++){	
-							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
-							for (let a = 0; a < item.data[d].associateddata.length; a ++){
-								self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image);
-								ret += '			  <div class="col-50">';
-									ret +='<label class="checkbox check-item photo-check-item display-none">';
-									ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].associateddata[a].image+'" value="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'"/>';
-									ret +='<i class="f7-icons">check</i>';
-									ret +='</label>';
-								ret += 					'<a href="#" class="pb-standalone-dark" data-index="'+photoIndex+'" data-photo="'+item.data[d].associateddata[a].image+'">' +
-														'<div class="item-content">' +
-														'<div class="item-media photo-item-media">' +
-														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'">' +
-														
-														'</div>' +
-														'</div>' +
-														'</a>';
-								ret += '			  </div> ';	
-								photoIndex ++;		
-							}						
+							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(10, 12);
+							
+							ret += '			  <div class="col-50">';
+							ret +='<label class="checkbox check-item photo-check-item display-none">';
+							ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/101video/'+item.data[d].filename+'"/>';
+							ret +='<i class="f7-icons">check</i>';
+							ret +='</label>';
+							
+							ret += 					'<a href="#" onclick="App.methods.openPlayer(\'http://192.168.1.1/DCIM/101video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
+													'<div class="item-content">' +
+													'<div class="item-media video-item-media">' +
+													'<img class="item-path" src="http://192.168.1.1/DCIM/105thumb/'+item.data[d].title+'">' +
+													'<div class="item-media-bottom">' +
+													'<div class="item-media-quality">720p</div>' +
+													'<div class="item-media-time">'+time+'</div>' +
+													'</div>' +
+													'</div>' +
+													'</div>' +
+													'</a>';
+							ret += '			  </div> ';		
 						}
-						
 						ret += '			</div>';
 						ret += '		  </div>';
 						ret += '		</div>';
@@ -262,14 +247,21 @@
 				  window.plugins.html5Video.play("myvideo0")
 				})*/
             }, 
-            /*initVideoList: function(videoListArr = []){
+            initVideoList: function(videoListArr = []){
                 var self = this;
                 
                 var listEl = self.$el.find('.videosList'); 
                 //var listSearchEl = self.$el.find('.searchbar');    
                 var videoList = self.$app.methods.getFromStorage("videoList");
 				let dateArr = self.$app.methods.sortDatePhoto(videoList);           
-               
+                
+                /*if (photoListArr.length) {
+                    photoListArr.sort(function(a,b){
+                        if(a.AccountName < b.AccountName) return -1;
+                        if(a.AccountName > b.AccountName) return 1;
+                        return 0;
+                    });
+                }*/
 				
 				//self.photoBrowserArr.length = 0;
 				
@@ -278,7 +270,15 @@
                     setListHeight: false,
                     // search item by item
                     searchAll: function (query, items) {
-                       	let found = [];
+                        /*var found = [];
+                        query = query.trim().toLowerCase();   
+                        for (var i = 0; i < items.length; i++) {
+                            if (items[i].AccountName.toLowerCase().indexOf(query) >= 0 || 
+                                items[i].EMail.toLowerCase().indexOf(query) >= 0 ||                                
+                                query === '') found.push(i);
+                        }
+                        return found; //return array with mathced indexes*/
+						let found = [];
 						for (let i = 0; i < items.length; i++) {
 							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
 						}
@@ -289,8 +289,9 @@
                     items: dateArr,
                     height: function(item){
                         let height = 0.00;
-                        let heightHeader = 34.94;
+                        //let heightHeader = 34.94;
                         let heightElement = 100.00;
+						let heightHeader = 0;
 						let dataLength = item.data.length;
 						
 						if(dataLength%2){
@@ -310,9 +311,9 @@
 						ret += '	<li>';
 						ret += '	  <div class="item-content">      ';  
 						ret += '		<div class="item-inner">';
-						ret += '		  <div class="item-title-row">';
-						ret += '			<div class="item-title">' + item.title + '</div>  ';          
-						ret += '		  </div>          ';
+						//ret += '		  <div class="item-title-row">';
+						//ret += '			<div class="item-title">' + item.title + '</div>  ';          
+						//ret += '		  </div>          ';
 						ret += '		  <div class="item-text">';
 						ret += '			<div class="row">';
 						
@@ -350,8 +351,16 @@
                     }
                 });				
 				
-				
-            },*/  
+				/*console.log('ar',self.photoBrowserArr);
+				self.PhotoBrowserObj = self.$app.photoBrowser.create({
+					theme : 'dark',
+					toolbar : false,
+					renderNavbar : function() {
+						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Photo</div></div></div>    ';
+					},
+					photos : self.photoBrowserArr
+				});*/
+            },  
         },
         on: {
             pageInit: function (e, page) {  
@@ -362,7 +371,7 @@
 				var page = page.$el.find('.page-content'); 
 
                 page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open(+($(this).attr('data-index')));
+					self.PhotoBrowserObj.open($(this).attr('data-index'));
 				});
 				
 				page.on('taphold', '.item-path', function(e){
@@ -373,7 +382,7 @@
 				});
 				
 				
-				var myPage = $$('.my-gallery');
+				var myPage = $$('.my-videos');
 				
 				myPage.on('click', '.toggle-check-item', function(e){
 					let newState = !self.IsCheckAll;
@@ -382,14 +391,7 @@
                     });
 					$('.photo-check-item').toggleClass('display-none');
 				});				
-					
-				myPage.on('click', '.sort-photos', function(e){				
-					let newState = !self.IsReverse;
-					self.$setState({
-                        IsReverse: newState,
-                    });
-					self.getGalleryList();
-				});						
+							
 					
 				myPage.on('click', '.download-items', function(e){
 				

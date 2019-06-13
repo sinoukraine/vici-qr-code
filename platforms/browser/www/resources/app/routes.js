@@ -113,32 +113,37 @@ var routes = [{
 	{
         name: 'my-home',
         path: '/my-home/',
-        componentUrl: './resources/pages/my-home.html?v=1.63',
+        componentUrl: './resources/pages/my-home.html?v=1.64',
     },
 	{
         name: 'my-list',
         path: '/my-list/',
-        componentUrl: './resources/pages/my-list.html?v=1.63',
+        componentUrl: './resources/pages/my-list.html?v=1.64',
     },
 	{
         name: 'my-gallery',
         path: '/my-gallery/',
-        componentUrl: './resources/pages/my-gallery.html?v=1.63',
+        componentUrl: './resources/pages/my-gallery.html?v=1.66',
+    },
+	{
+        name: 'my-videos',
+        path: '/my-videos/',
+        componentUrl: './resources/pages/my-videos.html?v=1.77',
     },
 	{
         name: 'my-delete-cam',
         path: '/my-delete-cam/',
-        componentUrl: './resources/pages/my-delete-cam.html?v=1.63',
+        componentUrl: './resources/pages/my-delete-cam.html?v=1.64',
     },
 	{
         name: 'my-hints',
         path: '/my-hints/',
-        componentUrl: './resources/pages/my-hints.html?v=1.63',
+        componentUrl: './resources/pages/my-hints.html?v=1.64',
     },
 	{
         name: 'my-info',
         path: '/my-info/',
-        componentUrl: './resources/pages/my-info.html?v=1.63',
+        componentUrl: './resources/pages/my-info.html?v=1.64',
     },
 
 ]
