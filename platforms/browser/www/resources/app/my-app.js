@@ -309,8 +309,9 @@ var App = new Framework7({
 			VideoPlayer.play(url);			
 		},
 		downloadFiles: function(arr = []){
-			if(arr.length){				
-				App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
+			if(arr.length){						
+                self.$app.preloader.show();
+				//App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
 				arr.forEach(function(value, index) {
 					DownloadFile(value.url, value.dir, value.name);
 				});
@@ -452,13 +453,16 @@ function filetransfer(download_link, fp) {
 		function (entry) {
 			//alert("download complete: " + entry.fullPath);
 			window.plugins.scanmedia.scanFile(fp, function (msg) {
+				self.$app.preloader.hide(); 
 				App.dialog.alert("File uploaded");
 			}, function (err) {
+				self.$app.preloader.hide(); 
 				App.dialog.alert("File not uploaded");
 			})
 		},
-		function (error) {						 
-			App.dialog.alert('something wrong...');
+		function (error) {		
+			self.$app.preloader.hide(); 
+			App.dialog.alert('Please try once more');
 		}
     );
 }
@@ -583,6 +587,12 @@ function menuList() {
 				case 'list':
 					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "list")) {
 						loadListPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
+				case 'help':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "help")) {
+						loadHintsPage();
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
