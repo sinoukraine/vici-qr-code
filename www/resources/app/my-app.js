@@ -1,39 +1,6 @@
 var $$ = Dom7;
 window.COM_TIMEFORMAT = 'YYYY-MM-DD HH:mm:ss';
 window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
-/*
-var CONNECTION_ID;
-//Socket connection
-
-
-
-const CMD = {
-  SYNC_PRODUCT_INFO: 0x0001,
-  CMD_GREEN_LED_FLASH_START: 0xFFF000000000400400000000,
-};
-*/
-/*
-const CMD = {
-  SYNC_PRODUCT_INFO: 0x0001,
-  CMD_GREEN_LED_FLASH_START: 0x4004,
-};
-
-var createFrame = (command, data) => {
-  let HEADER = 0xFFF0;
-  let VERSION = 0x0000;//2b
-  let COMMAND = command;
-  let LENGTH = data.length;
-  let PARAMETER = data;
-  let CHECKSUM = 0xFFFF;//((VERSION + COMMAND + LENGTH + PARAMETER).toString( 16 )) & 0xFFFF;
-
-	//console.log(CHECKSUM.toString( 16 ));
-  return (HEADER + CHECKSUM + VERSION + COMMAND + LENGTH + PARAMETER)
-};
-
-console.log(createFrame(CMD.SYNC_PRODUCT_INFO, 0x0000));
-*/
-
-
 
 // API ADRESS URL
 const LOCAL_ADRESS = 'http://192.168.1.1/';
@@ -403,12 +370,46 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 
+	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+		  console.log(ev.metadata.host);    // host who sent the data
+		  console.log(ev.metadata.port);    // sender port
+		  console.log(ev.metadata.id);      // connection id
+		  App.dialog.alert(ev.metadata.data);    // received data
+	});
+		
+	//App.methods.getTest();
 	console.log('ready');
 	loadCarcamPage();
 	
-	const ip = '192.168.1.1';
-const port = 10080;
+	window.tlantic.plugins.socket.connect(
+	  function (connectionId) {
+		App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
+		
+			window.tlantic.plugins.socket.send(
+			  function () {
+				console.log('worked!');  
+			  },
+
+			  function () {
+				App.dialog.alert('failed!');
+			  },
+			  '192.168.1.1:10080',
+			  '0x0001 CMD_SYNC_PRODUCT_INFO'
+			);
+	  },
+	  
+	  function () {
+		App.dialog.alert('failed tcp!');
+	  },
+	  '192.168.1.1',
+	  10080
+	);*/
+	
+	
 	const s = window.tlantic.plugins.socket;
+	const ip = '192.168.1.1';
+	const port = 10080;
+
 	document.addEventListener(
 	  s.receiveHookName,
 	  (ev) => {
@@ -427,25 +428,16 @@ const port = 10080;
 	  App.dialog.alert(error);
 	};
 
-	//const CMD_SYNC_PRODUCT_INFO = 0xFFF000000100000000010000;
-	const frame = 0xFFF000000100000000010000;
-	
+	const data = 0xFFF000000100000000010000;
+//0xFFF000000000400400000000
+
 	const successConnectCallback = (connectionId) => {
-		//CONNECTION_ID = connectionId;
-		//console.log(CONNECTION_ID);
-		
-		s.send(
-		  successSendCallback,
-		  errorSendCallback,
-		  connectionId,
-		  frame,
-		);
-	  /*s.send(
+	  s.send(
 		successSendCallback,
 		errorSendCallback,
 		connectionId,
-		CMD_SYNC_PRODUCT_INFO,
-	  );*/
+		data,
+	  );
 	};
 
 	const errorConnectCallback = (error) => {
