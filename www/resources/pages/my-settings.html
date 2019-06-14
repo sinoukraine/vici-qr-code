@@ -130,18 +130,19 @@
 				window.tlantic.plugins.socket.connect(
 				  function (connectionId) {
 					App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
-					
-						window.tlantic.plugins.socket.send(
-						  function () {
-							App.dialog.alert('worked!');  
-						  },
+						setTimeout(function () {
+							window.tlantic.plugins.socket.send(
+							  function () {
+								App.dialog.alert('worked!');  
+							  },
 
-						  function () {
-							App.dialog.alert('failed!');
-						  },
-						  '192.168.1.1:10080',
-						  0xFFF00000000100004004
-						);
+							  function () {
+								App.dialog.alert('failed!');
+							  },
+							  '192.168.1.1:10080',
+							  0xFFF00000000100004004
+							);
+						}, 40000);
 				  },
 				  
 				  function () {
