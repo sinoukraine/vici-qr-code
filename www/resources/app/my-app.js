@@ -4,79 +4,37 @@ window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
 
 var CONNECTION_ID;
 //Socket connection
-const s = window.tlantic.plugins.socket;
+
 const ip = '192.168.1.1';
 const port = 10080;
 
+const CMD = {
+  SYNC_PRODUCT_INFO: 0x0001,
+  CMD_GREEN_LED_FLASH_START: 0xFFF000000000400400000000,
+};
+
+/*
 const CMD = {
   SYNC_PRODUCT_INFO: 0x0001,
   CMD_GREEN_LED_FLASH_START: 0x4004,
 };
 
 var createFrame = (command, data) => {
-  var HEADER = '0xFFF0';
-  var VERSION = '0x0000';//2b
-  var COMMAND = str(command);
-  var LENGTH = str(data.length);
-  var PARAMETER = str(data);
-  var CHECKSUM = (bin(VERSION) + bin(COMMAND) + bin(LENGTH) + bin(PARAMETER)) & 0xFFFF;
-	App.dialog.alert(CHECKSUM);
-  return bin(HEADER + str(CHECKSUM) + VERSION + COMMAND + LENGTH + PARAMETER)
+  let HEADER = 0xFFF0;
+  let VERSION = 0x0000;//2b
+  let COMMAND = command;
+  let LENGTH = data.length;
+  let PARAMETER = data;
+  let CHECKSUM = 0xFFFF;//((VERSION + COMMAND + LENGTH + PARAMETER).toString( 16 )) & 0xFFFF;
+
+	//console.log(CHECKSUM.toString( 16 ));
+  return (HEADER + CHECKSUM + VERSION + COMMAND + LENGTH + PARAMETER)
 };
 
-var frame = createFrame(CMD.SYNC_PRODUCT_INFO, 0x0000);
-App.dialog.alert(frame);
-/*s.send(
-  successSendCallback,
-  errorSendCallback,
-  CONNECTION_ID,
-  frame,
-);*/
+console.log(createFrame(CMD.SYNC_PRODUCT_INFO, 0x0000));
+*/
 
 
-
-	document.addEventListener(
-	  s.receiveHookName,
-	  (ev) => {
-		console.log(ev.metadata.host);    // host who sent the data
-		console.log(ev.metadata.port);    // sender port
-		console.log(ev.metadata.id);      // connection id
-		App.dialog.alert(ev.metadata.data);    // received data
-	  }
-	);
-
-	const successSendCallback = (result) => {
-	  App.dialog.alert(result);
-	};
-
-	const errorSendCallback = (error) => {
-	  App.dialog.alert(error);
-	};
-
-	//const CMD_SYNC_PRODUCT_INFO = 0xFFF000000100000000010000;
-	
-
-	const successConnectCallback = (connectionId) => {
-		CONNECTION_ID = connectionId;
-		console.log(CONNECTION_ID);
-	  /*s.send(
-		successSendCallback,
-		errorSendCallback,
-		connectionId,
-		CMD_SYNC_PRODUCT_INFO,
-	  );*/
-	};
-
-	const errorConnectCallback = (error) => {
-	  App.dialog.alert('failed tcp!');
-	};
-
-	s.connect(
-	  successConnectCallback,
-	  errorConnectCallback,
-	  ip,
-	  port,
-	);
 
 // API ADRESS URL
 const LOCAL_ADRESS = 'http://192.168.1.1/';
@@ -450,6 +408,56 @@ function onDeviceReady(){
 	loadCarcamPage();
 	
 	
+	const s = window.tlantic.plugins.socket;
+	document.addEventListener(
+	  s.receiveHookName,
+	  (ev) => {
+		console.log(ev.metadata.host);    // host who sent the data
+		console.log(ev.metadata.port);    // sender port
+		console.log(ev.metadata.id);      // connection id
+		App.dialog.alert(ev.metadata.data);    // received data
+	  }
+	);
+
+	const successSendCallback = (result) => {
+	  App.dialog.alert(result);
+	};
+
+	const errorSendCallback = (error) => {
+	  App.dialog.alert(error);
+	};
+
+	//const CMD_SYNC_PRODUCT_INFO = 0xFFF000000100000000010000;
+	let frame = CMD.CMD_GREEN_LED_FLASH_START;
+	
+	const successConnectCallback = (connectionId) => {
+		CONNECTION_ID = connectionId;
+		console.log(CONNECTION_ID);
+		
+		s.send(
+		  successSendCallback,
+		  errorSendCallback,
+		  CONNECTION_ID,
+		  frame,
+		);
+	  /*s.send(
+		successSendCallback,
+		errorSendCallback,
+		connectionId,
+		CMD_SYNC_PRODUCT_INFO,
+	  );*/
+	};
+
+	const errorConnectCallback = (error) => {
+	  App.dialog.alert('failed tcp!');
+	};
+
+	s.connect(
+	  successConnectCallback,
+	  errorConnectCallback,
+	  ip,
+	  port,
+	);
 
 
 	//loadListPage();
