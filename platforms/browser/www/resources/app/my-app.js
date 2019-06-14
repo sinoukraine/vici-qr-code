@@ -421,17 +421,17 @@ function onDeviceReady(){
 	);	
 
 	const data = 0xFFF000000100‎00007007000101;
-			   //0xFFF00000000100007007000101
+	//0xFFF00000000100007007000101
 	
 	const successConnectCallback = (connectionId) => {
-		connection_id = connectionId;	
+		//connection_id = connectionId;	
 
 		//const data = 0xFFF000001000700700010001;
 	//			 
 	s.send(
 					successSendCallback,
 					errorSendCallback,
-					connection_id,
+					connectionId,
 					data,
 				  );		
 	};
