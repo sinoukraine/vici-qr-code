@@ -383,7 +383,7 @@ function onDeviceReady(){
 	
 	window.tlantic.plugins.socket.connect(
 	  function (connectionId) {
-		//App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
+		App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
 		
 		
 		
