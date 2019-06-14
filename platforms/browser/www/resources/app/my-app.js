@@ -366,21 +366,26 @@ function listHandler(a) {
 
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
-function onDeviceReady(){ 
+
+		
+function onDeviceReady(){
+
+	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+		  console.log(ev.metadata.host);    // host who sent the data
+		  console.log(ev.metadata.port);    // sender port
+		  console.log(ev.metadata.id);      // connection id
+		  App.dialog.alert(ev.metadata.data);    // received data
+	});
+		
 	//App.methods.getTest();
 	console.log('ready');
 	loadCarcamPage();
 	
 	window.tlantic.plugins.socket.connect(
 	  function (connectionId) {
-		//App.dialog.alert('worked! This is the tcp connection ID: ', connectionId); 
+		//App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
 		
-		document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
-		  console.log(ev.metadata.host);    // host who sent the data
-		  console.log(ev.metadata.port);    // sender port
-		  console.log(ev.metadata.id);      // connection id
-		  App.dialog.alert(ev.metadata.data);    // received data
-		})
+		
 		
 			window.tlantic.plugins.socket.send(
 			  function () {
