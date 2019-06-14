@@ -385,29 +385,7 @@ function onDeviceReady(){
 		
 	console.log('ready');
 	
-	window.tlantic.plugins.socket.connect(
-	  function (connectionId) {
-		App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
-		
-			window.tlantic.plugins.socket.send(
-			  function () {
-				console.log('worked!');  
-			  },
-
-			  function () {
-				App.dialog.alert('failed!');
-			  },
-			  '192.168.1.1:10080',
-			  0xFFF00000010000007007000101
-			);
-	  },
-	  
-	  function () {
-		App.dialog.alert('failed tcp!');
-	  },
-	  '192.168.1.1',
-	  10080
-	);	
+	
 /*
 	document.addEventListener(
 	  s.receiveHookName,
