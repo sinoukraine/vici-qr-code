@@ -436,6 +436,14 @@ function onDeviceReady(){
 	  port,
 	);
 
+	const data = 0xFFF000001000700700010001;
+	
+	s.send(
+					successSendCallback,
+					errorSendCallback,
+					connection_id,
+					data,
+				  );
 
 	//loadListPage();
 	//loadHintsPage();
