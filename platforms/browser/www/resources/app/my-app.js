@@ -375,20 +375,19 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 	loadCarcamPage();
-	s = window.tlantic.plugins.socket;
-	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+	//s = window.tlantic.plugins.socket;
+	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
 		  console.log(ev.metadata.id);      // connection id
 		  App.dialog.alert(ev.metadata.data);    // received data
 	});
 		
-	//App.methods.getTest();
 	console.log('ready');
 	
 	window.tlantic.plugins.socket.connect(
 	  function (connectionId) {
-		App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
+		//App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
 		
 			window.tlantic.plugins.socket.send(
 			  function () {
@@ -398,9 +397,10 @@ function onDeviceReady(){
 			  function () {
 				App.dialog.alert('failed!');
 			  },
-			  '192.168.1.1:10080',
-			  '0x0001 CMD_SYNC_PRODUCT_INFO'
-			);
+			  
+					connectionId,
+					0xFFF00000010000007007000101
+					);
 	  },
 	  
 	  function () {
@@ -408,8 +408,8 @@ function onDeviceReady(){
 	  },
 	  '192.168.1.1',
 	  10080
-	);*/	
-
+	);	
+/*
 	document.addEventListener(
 	  s.receiveHookName,
 	  (ev) => {
@@ -440,13 +440,13 @@ function onDeviceReady(){
 	  '192.168.1.1:10080',
 	  data
 	);
-/*
+
 	s.send(
 					successSendCallback,
 					errorSendCallback,
 					connection_id,
 					data,
-				  );	*/	
+				  );	
 	};
 
 	
@@ -462,7 +462,7 @@ function onDeviceReady(){
 	);
 
 	
-	
+	*/
 
 	//loadListPage();
 	//loadHintsPage();
