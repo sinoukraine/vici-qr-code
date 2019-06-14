@@ -100,10 +100,16 @@
 				
 				var myPage = $$('.my-settings');
 				
-				WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-				WifiWizard2.getWifiRouterIP().then(curid2 => {						
+				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
+				WifiWizard2.getConnectedSSID().then(response => {						
 					self.$setState({
-                        WiFiRouterIp: JSON.stringify(curid2),
+                        CamName: JSON.stringify(response),
+                    });						
+				});	
+				
+				WifiWizard2.getWifiRouterIP().then(response => {						
+					self.$setState({
+                        WiFiRouterIp: JSON.stringify(response),
                     });						
 				});	
 				

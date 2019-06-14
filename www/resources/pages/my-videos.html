@@ -30,7 +30,7 @@
 								<span class="tabbar-label"><b>Normal</b></span>
 							</a>
 							<a href="#video" class="tab-link">
-								<span class="tabbar-label"><b>Short</b></span>
+								<span class="tabbar-label"><b>Loop</b></span>
 							</a>
 						</div>
 					</div>
@@ -122,8 +122,8 @@
 					self.$app.preloader.hide(); 	
 				}, error => {
 					self.$app.preloader.hide(); 
-					console.log('Please check connect to camera');
-                    self.$app.dialog.alert('Please check connect to camera');
+					console.log('Please check connect');
+                    self.$app.dialog.alert('Please check connect');
 				});
             },
             initNormalList: function(normalListArr = []){
@@ -253,8 +253,10 @@
                 var listEl = self.$el.find('.videosList'); 
                 //var listSearchEl = self.$el.find('.searchbar');    
                 var videoList = self.$app.methods.getFromStorage("videoList");
-				let dateArr = self.$app.methods.sortDatePhoto(videoList);           
-                
+				//let dateArr = self.$app.methods.sortDatePhoto(videoList);           
+                let dateArr = [{
+				'data': videoList
+			   }];
                 /*if (photoListArr.length) {
                     photoListArr.sort(function(a,b){
                         if(a.AccountName < b.AccountName) return -1;
