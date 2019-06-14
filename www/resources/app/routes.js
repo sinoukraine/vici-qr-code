@@ -148,7 +148,7 @@ var routes = [{
 	{
         name: 'my-mac-address',
         path: '/my-mac-address/',
-        componentUrl: './resources/pages/my-mac-address.html?v=1.70',
+        componentUrl: './resources/pages/my-mac-address.html?v=1.71',
     },
 	{
         name: 'my-wifi-settings',
@@ -160,5 +160,4 @@ var routes = [{
         path: '/my-info/',
         componentUrl: './resources/pages/my-info.html?v=1.64',
     },
-
 ]

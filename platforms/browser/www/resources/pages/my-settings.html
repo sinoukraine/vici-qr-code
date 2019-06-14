@@ -67,6 +67,7 @@
             var ret = {
 				CamName: 'Dashcam',
 				WiFiRouterIp: '0.0.0.0'
+				Mac: '00.00.00.00.00.00'
 			};            
 
             return ret;
@@ -85,7 +86,8 @@
 			navigateMacAddress: function(){
 				var self = this;
 				var name = self.CamName;
-				mainView.router.navigate('/my-mac-address/?name='+name);
+				var mac = self.Mac;
+				mainView.router.navigate('/my-mac-address/?name='+name+'&mac='+mac);
 			},
 			navigateIp: function(){
 				var self = this;
@@ -107,6 +109,12 @@
                     });						
 				});	
 				
+				getConnectedBSSID().then(response => {						
+					self.$setState({
+                        Mac: JSON.stringify(response),
+                    });						
+				});	
+								
 				WifiWizard2.getWifiRouterIP().then(response => {						
 					self.$setState({
                         WiFiRouterIp: JSON.stringify(response),

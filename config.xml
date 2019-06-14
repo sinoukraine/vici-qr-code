@@ -66,6 +66,10 @@
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
 	<!--<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />-->
 	<plugin name="cordova-plugin-android-permissions" spec="1.0.0" />
+	<!--<plugin name="com.tlantic.plugins.socket" source="npm" spec="0.3.2" />-->
+	<plugin spec="https://github.com/Tlantic/cdv-socket-plugin"  source="git"  />	
+	
+	
 	
 	<plugin spec="https://github.com/parsonsmatt/WifiWizard.git"  source="git"  />	
     <!--<plugin spec="https://github.com/gitawego/cordova-screenshot.git" source="git"  />-->

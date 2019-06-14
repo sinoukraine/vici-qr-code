@@ -370,6 +370,19 @@ function onDeviceReady(){
 	//App.methods.getTest();
 	console.log('ready');
 	loadCarcamPage();
+	
+	window.tlantic.plugins.socket.connect(
+	  function (connectionId) {
+		App.dialog.alert('worked! This is the tcp connection ID: ', connectionId);  
+	  },
+	  
+	  function () {
+		App.dialog.alert('failed tcp!');
+	  },
+	  '192.168.1.1',
+	  10080
+	);
+
 	//loadListPage();
 	//loadHintsPage();
 	var self = this;
