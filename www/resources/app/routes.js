@@ -156,6 +156,11 @@ var routes = [{
         componentUrl: './resources/pages/my-wifi-settings.html?v=1.70',
     },
 	{
+        name: 'my-language-settings',
+        path: '/my-language-settings/',
+        componentUrl: './resources/pages/my-language-settings.html?v=1.75',
+    },
+	{
         name: 'my-info',
         path: '/my-info/',
         componentUrl: './resources/pages/my-info.html?v=1.64',

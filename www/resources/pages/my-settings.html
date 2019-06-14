@@ -30,6 +30,26 @@
 						</a>
 					</li>
 					<li class="item-content">
+						<div class="item-inner not-empty-state border-bottom">
+							<a href="#" class="my-language-settings item-inner-bottom display-flex align-items-center justify-content-space-between">
+								<span>
+									Language
+								</span>
+								<i class="f7-icons icon-right"></i>
+							</a>
+							<!--<p class="item-bottom-text">Device has English/Russian language options, you can switch it according to your demand</p>-->
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner not-empty-state border-bottom">
+							<a href="/resolution.setting/" class="item-inner-bottom display-flex align-items-center justify-content-space-between">
+								<span>Resolution</span>
+								<i class="f7-icons icon-right"></i>
+							</a>
+							<!--<p class="item-bottom-text">Two options: Full HD 1080P/Full HD 720P</p>-->
+						</div>
+					</li>
+					<li class="item-content">
 						<a href="/speed.unit.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
 								Speed Unit
@@ -37,7 +57,16 @@
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
+					
 					<li class="item-content">
+						<a href="/version.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between ">
+							<span>
+								Version Check 
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
+					<!--<li class="item-content">
 						<div class="item-inner not-empty-state display-flex justify-content-space-between align-items-center border-bottom">
 							<span class="item-caption">Sound Recording</span>
 							<label class="toggle toggle-init">
@@ -69,7 +98,7 @@
 							</span>
 							<i class="f7-icons icon-right"></i>
 						</a>
-					</li>
+					</li>-->
 				</ul>
             </div>
         </div>
@@ -104,12 +133,17 @@
 				var self = this;
 				var name = self.CamName;
 				var mac = self.Mac;
-				mainView.router.navigate('/my-mac-address/?name='+name+'&mac='+mac);
+				mainView.router.navigate('/my-mac-address/?name='+name.toString()+'&mac='+mac.toString());
 			},
 			navigateIp: function(){
 				var self = this;
 				var ip = self.WiFiRouterIp;
-				mainView.router.navigate('/my-wifi-settings/?ip='+ip);
+				mainView.router.navigate('/my-wifi-settings/?ip='+ip.toString());
+			},
+			navigateLanguage: function(){
+				var self = this;
+				var ip = self.WiFiRouterIp;
+				mainView.router.navigate('/my-language-settings/');
 			},
 		},
         on: {
@@ -160,13 +194,22 @@
 				
 				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-				WifiWizard2.getConnectedSSID().then(response => {						
+				WifiWizard2.getConnectedSSID().then(response => {	
+					App.dialog.alert(JSON.stringify(response));					
 					self.$setState({
                         CamName: JSON.stringify(response),
                     });						
 				});	
 				
-				WifiWizard2.getConnectedBSSID().then(response => {						
+				WifiWizard2.getConnectedNetworkID().then(response => {	
+					App.dialog.alert(JSON.stringify(response));					
+					self.$setState({
+                        CamName: JSON.stringify(response),
+                    });						
+				});	
+				
+				WifiWizard2.getConnectedBSSID().then(response => {	
+					App.dialog.alert(JSON.stringify(response));
 					self.$setState({
                         Mac: JSON.stringify(response),
                     });						
@@ -180,7 +223,7 @@
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
 				myPage.on('click', '.my-wifi-settings', self.navigateIp);
-										
+				myPage.on('click', '.my-language-settings', self.navigateLanguage);					
 			}
 		}
     };

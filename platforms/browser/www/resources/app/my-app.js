@@ -91,6 +91,12 @@ var App = new Framework7({
             var str = '';
             if (name) {
                 switch (name){
+                    case 'currentLanguage':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'currentCamera':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTCAMERA");
                         if(str) {
@@ -133,6 +139,9 @@ var App = new Framework7({
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
                 switch (params.name){
+                    case 'currentLanguage':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE", JSON.stringify(params.data));
+                    break; 
                     case 'currentCamera':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTCAMERA", JSON.stringify(params.data));
                     break; 
