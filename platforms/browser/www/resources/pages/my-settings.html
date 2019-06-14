@@ -195,21 +195,14 @@
 				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
 				WifiWizard2.getConnectedSSID().then(response => {	
-					App.dialog.alert(JSON.stringify(response));					
-					self.$setState({
-                        CamName: JSON.stringify(response),
-                    });						
-				});	
-				
-				WifiWizard2.getConnectedNetworkID().then(response => {	
-					App.dialog.alert(JSON.stringify(response));					
+					//App.dialog.alert(JSON.stringify(response));					
 					self.$setState({
                         CamName: JSON.stringify(response),
                     });						
 				});	
 				
 				WifiWizard2.getConnectedBSSID().then(response => {	
-					App.dialog.alert(JSON.stringify(response));
+					//App.dialog.alert(JSON.stringify(response));
 					self.$setState({
                         Mac: JSON.stringify(response),
                     });						
