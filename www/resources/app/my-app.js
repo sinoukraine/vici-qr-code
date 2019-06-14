@@ -398,7 +398,7 @@ function onDeviceReady(){
 				App.dialog.alert('failed!');
 			  },
 			  '192.168.1.1:10080',
-			  'This is the data i want to send!'
+			  0xFFF00000010000007007000101
 			);
 	  },
 	  
