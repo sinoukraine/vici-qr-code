@@ -1,0 +1,117 @@
+<template>
+	<div class="page setting-page my-settings" data-name="my-settings">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <div class="left">
+                    <a class="panel-open" href="#">
+                        <i class="f7-icons icon-menu"></i>
+                    </a>
+                </div>
+				<div class="title">Settings</div>
+			</div>
+		</div>
+		<div class="page-content">
+			<div class="list-block no-hairlines setting-list">
+				<ul class="left-padding right-padding no-padding-top no-padding-bottom">
+					<li class="item-content no-padding">
+						<a href="#" class="my-mac-address item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Dashcam Name
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
+					<li class="item-content no-padding">
+						<a href="#" class="my-wifi-settings item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Wi-Fi Settings
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
+					<li class="item-content">
+						<a href="/speed.unit.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Speed Unit
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
+					<li class="item-content no-padding">
+						<a href="/my-settings-service/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								After Sales Service
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
+					<li class="item-content no-padding">
+						<a href="/my-settings-note/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Note
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
+				</ul>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+  // script must return component object
+    return { 
+        data: function () {
+            var self = this;
+            var ret = {
+				CamName: 'Dashcam',
+				WiFiRouterIp: '0.0.0.0'
+			};            
+
+            return ret;
+        },
+		methods: {			
+			ssidHandler: function(a){		
+				//setTimeout(function () { // Prepend new list element						
+                    self.$setState({
+                        CamName: a,
+                    });					
+				//}, 2000);
+			},				
+			fail: function(e){	
+				//App.dialog.alert(e);
+			},
+			navigateMacAddress: function(){
+				var self = this;
+				var name = self.CamName;
+				mainView.router.navigate('/my-mac-address/?name='+name);
+			},
+			navigateIp: function(){
+				var self = this;
+				var ip = self.WiFiRouterIp;
+				mainView.router.navigate('/my-wifi-settings/?ip='+ip);
+			},
+		},
+        on: {
+            pageInit: function (e, page) {  
+				var self = this;    
+				//var page = page.$el.find('.page-content'); 
+				
+				var myPage = $$('.my-settings');
+				
+				WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
+				WifiWizard2.getWifiRouterIP().then(curid2 => {						
+					self.$setState({
+                        WiFiRouterIp: JSON.stringify(curid2),
+                    });						
+				});	
+				
+				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
+				myPage.on('click', '.my-wifi-settings', self.navigateIp);
+										
+			}
+		}
+    };
+</script>
+    

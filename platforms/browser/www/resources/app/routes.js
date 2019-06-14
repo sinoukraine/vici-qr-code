@@ -141,6 +141,21 @@ var routes = [{
         componentUrl: './resources/pages/my-hints.html?v=1.64',
     },
 	{
+        name: 'my-settings',
+        path: '/my-settings/',
+        componentUrl: './resources/pages/my-settings.html?v=1.72',
+    },
+	{
+        name: 'my-mac-address',
+        path: '/my-mac-address/',
+        componentUrl: './resources/pages/my-mac-address.html?v=1.70',
+    },
+	{
+        name: 'my-wifi-settings',
+        path: '/my-wifi-settings/',
+        componentUrl: './resources/pages/my-wifi-settings.html?v=1.70',
+    },
+	{
         name: 'my-info',
         path: '/my-info/',
         componentUrl: './resources/pages/my-info.html?v=1.64',

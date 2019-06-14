@@ -590,6 +590,12 @@ function menuList() {
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
+				case 'settings':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "settings")) {
+						loadSettingsPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
 				case 'help':
 					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "help")) {
 						loadHintsPage();
@@ -637,6 +643,17 @@ function loadInfoPage() {
             // FirstName: userInfo.FirstName,
         }
     });
+}
+
+// SETTINGS
+function loadSettingsPage() {	
+	mainView.router.navigate('/my-settings/');
+    /*mainView.router.load({
+        url: 'resources/templates/dashcam.setting.html',
+        context: {
+            // FirstName: userInfo.FirstName,
+        }
+    });*/
 }
 
 function loadDeleteCamPage() {
