@@ -370,6 +370,7 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 
+	loadCarcamPage();
 	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
@@ -379,7 +380,6 @@ function onDeviceReady(){
 		
 	//App.methods.getTest();
 	console.log('ready');
-	loadCarcamPage();
 	
 	window.tlantic.plugins.socket.connect(
 	  function (connectionId) {
@@ -428,8 +428,8 @@ function onDeviceReady(){
 	  App.dialog.alert(error);
 	};
 
-	const data = 0xFFF000000100000000010000;
-//0xFFF000000000400400000000
+	const data = 0xFFF000000000400400000000;
+//0xFFF000000100000000010000
 
 	const successConnectCallback = (connectionId) => {
 	  s.send(
