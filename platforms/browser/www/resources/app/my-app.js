@@ -19,7 +19,7 @@ var createFrame = (command, data) => {
   var COMMAND = str(command);
   var LENGTH = str(data.length);
   var PARAMETER = str(data);
-  var CHECKSUM = bin(VERSION + COMMAND + LENGTH + PARAMETER) & 0xFFFF;
+  var CHECKSUM = (bin(VERSION) + bin(COMMAND) + bin(LENGTH) + bin(PARAMETER)) & 0xFFFF;
 	App.dialog.alert(CHECKSUM);
   return bin(HEADER + str(CHECKSUM) + VERSION + COMMAND + LENGTH + PARAMETER)
 };
