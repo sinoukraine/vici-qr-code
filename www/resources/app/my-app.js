@@ -446,8 +446,8 @@ function onDeviceReady(){
 					errorSendCallback,
 					connection_id,
 					data,
-				  );		
-	};*/
+				  );	*/	
+	};
 
 	
 	const errorConnectCallback = (error) => {
