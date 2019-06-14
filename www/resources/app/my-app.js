@@ -370,7 +370,7 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 
-	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
 		  console.log(ev.metadata.id);      // connection id
@@ -384,8 +384,6 @@ function onDeviceReady(){
 	window.tlantic.plugins.socket.connect(
 	  function (connectionId) {
 		App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
-		
-		
 		
 			window.tlantic.plugins.socket.send(
 			  function () {
@@ -405,7 +403,54 @@ function onDeviceReady(){
 	  },
 	  '192.168.1.1',
 	  10080
+	);*/
+	
+	
+	const s = window.tlantic.plugins.socket;
+	const ip = '192.168.1.1';
+	const port = 10080;
+
+	document.addEventListener(
+	  s.receiveHookName,
+	  (ev) => {
+		console.log(ev.metadata.host);    // host who sent the data
+		console.log(ev.metadata.port);    // sender port
+		console.log(ev.metadata.id);      // connection id
+		App.dialog.alert(ev.metadata.data);    // received data
+	  }
 	);
+
+	const successSendCallback = (result) => {
+	  App.dialog.alert(result);
+	};
+
+	const errorSendCallback = (error) => {
+	  App.dialog.alert(error);
+	};
+
+	const CMD_SYNC_PRODUCT_INFO = 0xFFF000000100000000010000;
+	
+
+	const successConnectCallback = (connectionId) => {
+	  s.send(
+		successSendCallback,
+		errorSendCallback,
+		connectionId,
+		CMD_SYNC_PRODUCT_INFO,
+	  );
+	};
+
+	const errorConnectCallback = (error) => {
+	  App.dialog.alert('failed tcp!');
+	};
+
+	s.connect(
+	  successConnectCallback,
+	  errorConnectCallback,
+	  ip,
+	  port,
+	);
+
 
 	//loadListPage();
 	//loadHintsPage();
