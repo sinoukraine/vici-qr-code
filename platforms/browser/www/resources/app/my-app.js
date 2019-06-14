@@ -2,10 +2,10 @@ var $$ = Dom7;
 window.COM_TIMEFORMAT = 'YYYY-MM-DD HH:mm:ss';
 window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
 
-const s;
+var s;
 const ip = '192.168.1.1';
 const port = 10080;
-const connection_id;
+var connection_id;
 
 // API ADRESS URL
 const LOCAL_ADRESS = 'http://192.168.1.1/';
@@ -374,8 +374,8 @@ document.addEventListener("deviceready", onDeviceReady, false );
 
 		
 function onDeviceReady(){
-	s = window.tlantic.plugins.socket;
 	loadCarcamPage();
+	s = window.tlantic.plugins.socket;
 	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
