@@ -428,16 +428,16 @@ function onDeviceReady(){
 	};
 
 	//const CMD_SYNC_PRODUCT_INFO = 0xFFF000000100000000010000;
-	let frame = CMD.CMD_GREEN_LED_FLASH_START;
+	const frame = 0xFFF000000100000000010000;
 	
 	const successConnectCallback = (connectionId) => {
-		CONNECTION_ID = connectionId;
-		console.log(CONNECTION_ID);
+		//CONNECTION_ID = connectionId;
+		//console.log(CONNECTION_ID);
 		
 		s.send(
 		  successSendCallback,
 		  errorSendCallback,
-		  CONNECTION_ID,
+		  connectionId,
 		  frame,
 		);
 	  /*s.send(
