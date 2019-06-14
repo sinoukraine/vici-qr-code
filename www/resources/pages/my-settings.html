@@ -118,7 +118,7 @@
 				//var page = page.$el.find('.page-content'); 
 				
 				var myPage = $$('.my-settings');
-				
+				/*
 				const successSendCallback = (result) => {
 				  App.dialog.alert(result);
 				};
@@ -142,7 +142,7 @@
 							  '192.168.1.1:10080',
 							  0xFFF00000000100004004
 							);
-						}, 40000);
+						}, 80000);
 				  },
 				  
 				  function () {
@@ -151,7 +151,7 @@
 				  '192.168.1.1',
 				  10080
 				);	
-				
+				*/
 				//0xFFF000001000700F00010001 - 
 				//0xFFF000001000400400000000; - led green
 				//0xFFF000000100000000010000 - info
@@ -160,13 +160,13 @@
 				
 				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-				/*WifiWizard2.getConnectedSSID().then(response => {						
+				WifiWizard2.getConnectedSSID().then(response => {						
 					self.$setState({
                         CamName: JSON.stringify(response),
                     });						
 				});	
 				
-				getConnectedBSSID().then(response => {						
+				WifiWizard2.getConnectedBSSID().then(response => {						
 					self.$setState({
                         Mac: JSON.stringify(response),
                     });						
@@ -176,7 +176,7 @@
 					self.$setState({
                         WiFiRouterIp: JSON.stringify(response),
                     });						
-				});	*/
+				});	
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
 				myPage.on('click', '.my-wifi-settings', self.navigateIp);

@@ -376,13 +376,13 @@ document.addEventListener("deviceready", onDeviceReady, false );
 function onDeviceReady(){
 	loadCarcamPage();
 	//s = window.tlantic.plugins.socket;
-	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
 		  console.log(ev.metadata.id);      // connection id
 		  App.dialog.alert(ev.metadata.data);    // received data
 	});
-		
+		*/
 	console.log('ready');
 	
 	
