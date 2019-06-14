@@ -195,10 +195,19 @@
 				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
 				WifiWizard2.getConnectedSSID().then(response => {	
-					//App.dialog.alert(JSON.stringify(response));					
-					self.$setState({
-                        CamName: JSON.stringify(response),
-                    });						
+					//App.dialog.alert(JSON.stringify(response));	
+
+					let mySSID = JSON.stringify(response);
+					var pattern = /AUTO-VOX/i;
+					var pattern1 = /M-/i;
+					
+					if ((pattern.test(mySSID) || pattern1.test(mySSID))) {	
+						self.$setState({
+							CamName: mySSID.substr(1,mySSID.length -2),
+						});			
+					}else{
+						self.$app.dialog.alert('No Dashcam connected');					
+					}					
 				});	
 				
 				WifiWizard2.getConnectedBSSID().then(response => {	
