@@ -37,6 +37,23 @@
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
+					<li class="item-content">
+						<div class="item-inner not-empty-state display-flex justify-content-space-between align-items-center border-bottom">
+							<span class="item-caption">Sound Recording</span>
+							<label class="toggle toggle-init">
+								<input type="checkbox" name="SoundRecording">
+								<span class="toggle-icon"></span>
+							</label>
+						</div>
+					</li>
+					<li class="item-content no-padding">
+						<a href="/voice.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Voice Prompt
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
 					<li class="item-content no-padding">
 						<a href="/my-settings-service/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
@@ -102,8 +119,25 @@
 				
 				var myPage = $$('.my-settings');
 				
+				const successSendCallback = (result) => {
+				  App.dialog.alert(result);
+				};
+
+				const errorSendCallback = (error) => {
+				  App.dialog.alert(error);
+				};
+					
+				const data = 0xFFF000000000400400000000;
+				//0xFFF000000100000000010000
+				s.send(
+					successSendCallback,
+					errorSendCallback,
+					connection_id,
+					data,
+				  );
+				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-				WifiWizard2.getConnectedSSID().then(response => {						
+				/*WifiWizard2.getConnectedSSID().then(response => {						
 					self.$setState({
                         CamName: JSON.stringify(response),
                     });						
@@ -119,7 +153,7 @@
 					self.$setState({
                         WiFiRouterIp: JSON.stringify(response),
                     });						
-				});	
+				});	*/
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
 				myPage.on('click', '.my-wifi-settings', self.navigateIp);

@@ -2,6 +2,11 @@ var $$ = Dom7;
 window.COM_TIMEFORMAT = 'YYYY-MM-DD HH:mm:ss';
 window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
 
+const s;
+const ip = '192.168.1.1';
+const port = 10080;
+const connection_id;
+
 // API ADRESS URL
 const LOCAL_ADRESS = 'http://192.168.1.1/';
 const API_COMMON_VIDEO_LIST = LOCAL_ADRESS + 'ini.htm?cmd=commonvideolist';
@@ -369,7 +374,7 @@ document.addEventListener("deviceready", onDeviceReady, false );
 
 		
 function onDeviceReady(){
-
+	s = window.tlantic.plugins.socket;
 	loadCarcamPage();
 	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
@@ -403,12 +408,7 @@ function onDeviceReady(){
 	  },
 	  '192.168.1.1',
 	  10080
-	);*/
-	
-	
-	const s = window.tlantic.plugins.socket;
-	const ip = '192.168.1.1';
-	const port = 10080;
+	);*/	
 
 	document.addEventListener(
 	  s.receiveHookName,
@@ -418,28 +418,13 @@ function onDeviceReady(){
 		console.log(ev.metadata.id);      // connection id
 		App.dialog.alert(ev.metadata.data);    // received data
 	  }
-	);
-
-	const successSendCallback = (result) => {
-	  App.dialog.alert(result);
-	};
-
-	const errorSendCallback = (error) => {
-	  App.dialog.alert(error);
-	};
-
-	const data = 0xFFF000000000400400000000;
-//0xFFF000000100000000010000
+	);	
 
 	const successConnectCallback = (connectionId) => {
-	  s.send(
-		successSendCallback,
-		errorSendCallback,
-		connectionId,
-		data,
-	  );
+		connection_id = connectionId;	  
 	};
 
+	
 	const errorConnectCallback = (error) => {
 	  App.dialog.alert('failed tcp!');
 	};
