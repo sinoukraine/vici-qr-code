@@ -425,13 +425,29 @@ function onDeviceReady(){
 //const data = 0xFFF000001000700700010001;
 	let data = 0xFFF00000010000007007000101;
 	//			 0xFFF000000100‎00007007000101
+	
+	//const ip = '192.168.1.1';
+	//const port = 10080;
+
+	window.tlantic.plugins.socket.send(
+	  function () {
+		App.dialog.alert('worked!');  
+	  },
+
+	  function () {
+		App.dialog.alert('failed!');
+	  },
+	  '192.168.1.1:10080',
+	  data
+	);
+/*
 	s.send(
 					successSendCallback,
 					errorSendCallback,
 					connection_id,
 					data,
 				  );		
-	};
+	};*/
 
 	
 	const errorConnectCallback = (error) => {
