@@ -422,6 +422,7 @@ function onDeviceReady(){
 
 	const data = 0xFFF00000000100007007000101;
 	
+	
 	const successConnectCallback = (connectionId) => {
 		connection_id = connectionId;	
 
