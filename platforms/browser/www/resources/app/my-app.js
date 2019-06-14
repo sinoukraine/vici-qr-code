@@ -1,18 +1,17 @@
 var $$ = Dom7;
 window.COM_TIMEFORMAT = 'YYYY-MM-DD HH:mm:ss';
 window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
-
+/*
 var CONNECTION_ID;
 //Socket connection
 
-const ip = '192.168.1.1';
-const port = 10080;
+
 
 const CMD = {
   SYNC_PRODUCT_INFO: 0x0001,
   CMD_GREEN_LED_FLASH_START: 0xFFF000000000400400000000,
 };
-
+*/
 /*
 const CMD = {
   SYNC_PRODUCT_INFO: 0x0001,
@@ -407,7 +406,8 @@ function onDeviceReady(){
 	console.log('ready');
 	loadCarcamPage();
 	
-	
+	const ip = '192.168.1.1';
+const port = 10080;
 	const s = window.tlantic.plugins.socket;
 	document.addEventListener(
 	  s.receiveHookName,
