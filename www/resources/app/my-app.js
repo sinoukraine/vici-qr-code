@@ -393,17 +393,52 @@ function encodeHex(str){
 
 function onDeviceReady(){
 	loadCarcamPage();
-	
+	/*
 	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
 		  console.log(ev.metadata.id);      // connection id
 		  App.dialog.alert(encodeHex(ev.metadata.data));    // received data
-	});
+	});*/
 	
-	let cmd1 = 'FFF0275D01000000100100067802F8334207';
-	let cmd2 = 'FFF00000010000007007000101';
 	
+	var socket = new Socket();
+	
+	socket.onData = function(data) {
+		App.dialog.alert(data.toString('hex'));
+	  // invoked after new batch of data is received (typed array of bytes Uint8Array)
+	};
+	socket.onError = function(errorMessage) {
+		App.dialog.alert('err');
+	  // invoked after error occurs during connection
+	};
+	socket.onClose = function(hasError) {
+		App.dialog.alert('clos');
+	  // invoked after connection close
+	};
+	
+	socket.open(
+	  "192.168.1.1",
+	  10080,
+	  function() {
+		// invoked after successful opening of socket
+	  },
+	  function(errorMessage) {
+		// invoked after unsuccessful opening of socket
+	  });
+	  
+	  /*var dataString = "Hello world";
+		var data = new Uint8Array(dataString.length);
+		for (var i = 0; i < data.length; i++) {
+		  data[i] = dataString.charCodeAt(i);
+		}*/
+		
+	//let cmd1 = 'FFF0275D01000000100100067802F8334207';
+	//let cmd2 = 'FFF00000010000007007000101';
+	socket.write('FFF0275D01000000100100067802F8334207', 'hex');
+	socket.write('FFF00000010000007007000101', 'hex');
+		//socket.write(data);
+	/*
 	window.tlantic.plugins.socket.connect(
 				  function (connectionId) {
 					App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
@@ -442,7 +477,7 @@ function onDeviceReady(){
 				  '192.168.1.1',
 				  10080
 				);	
-	
+	*/
 	/*
 	$.ajax({
 					   type: "GET",
