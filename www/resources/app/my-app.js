@@ -406,9 +406,10 @@ function onDeviceReady(){
 	
 	socket.onData = function(data) {
 		let convertedData = data.reduce((acc, item) => {
-			return acc + item.toString(16);
+		  let code = item.toString(16);
+		  let formattedCode = ('0' + code).slice(-2);
+		  return acc + formattedCode;
 		}, '');
-		
 		App.dialog.alert(convertedData);
 		
 		//.toString('hex').toString(16)
