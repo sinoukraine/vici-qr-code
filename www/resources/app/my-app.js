@@ -381,14 +381,14 @@ function listHandler(a) {
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
 function encodeHex(str){
-    /*str = encodeURIComponent(str).split('%').join('');
-    return str.toLowerCase();*/
-	var result = "";
+    str = encodeURIComponent(str).split('%').join('');
+    return str.toLowerCase();
+	/*var result = "";
     for (i=0; i<str.length; i++) {
         hex = str.charCodeAt(i).toString(16);
         result += ("000"+hex).slice(-2);
     }
-	return result;
+	return result;*/
 }
 
 function onDeviceReady(){
@@ -401,8 +401,8 @@ function onDeviceReady(){
 		  App.dialog.alert(encodeHex(ev.metadata.data));    // received data
 	});
 	
-	let cmd1 = 0xFFF0275D01000000100100067802F8334207;
-	let cmd2 = 0xFFF00000010000007007000101;
+	let cmd1 = 'FFF0275D01000000100100067802F8334207';
+	let cmd2 = 'FFF00000010000007007000101';
 	
 	window.tlantic.plugins.socket.connect(
 				  function (connectionId) {
