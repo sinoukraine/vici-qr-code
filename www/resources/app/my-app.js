@@ -405,7 +405,13 @@ function onDeviceReady(){
 	var socket = new Socket();
 	
 	socket.onData = function(data) {
-		App.dialog.alert(data);//.toString('hex').toString(16)
+		let convertedData = data.reduce((acc, item) => {
+			return acc + item.toString(16);
+		}, '');
+		
+		App.dialog.alert(convertedData);
+		
+		//.toString('hex').toString(16)
 	  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 	};
 	socket.onError = function(errorMessage) {
