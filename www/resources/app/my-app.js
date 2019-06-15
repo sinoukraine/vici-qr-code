@@ -384,27 +384,19 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 	loadCarcamPage();
+	let url = 'http://192.168.1.1/ini.htm?cmd=getiniconf';
+	cordova.plugin.http.get(url, 
+				params, headers, (response) => {
+					App.dialog.alert(JSON.stringify(response));
+			}, function(response) {
+					App.dialog.alert('er');
+			});
 	
-	
-	
-	
+	/*
 	$.ajax({
 					   type: "GET",
 				   dataType: "json", 
-						/*dataFilter: function(raw, type) {
-						console.log(raw, type);
-						return JSON.parse(raw);
-						{ 
-					"filename": "20190523121307_180_720p.MP4", 
-					"duration": 180, 
-					"filesize": 94716138, 
-					"title": "20190523121307.JPG", 
-					"titlesize": 5817, 
-					"thumb": "20190523121307.TGZ", 
-					"thumbsize": 36302, 
-					"time": "20190523121307" 
-				 }
-					},*/
+						
 					  jsonp: false,
 					  //jsonpCallback: "onJsonP",
 						url: 'http://192.168.1.1/ini.htm?cmd=getiniconf',
@@ -417,7 +409,7 @@ function onDeviceReady(){
 					error: function(XMLHttpRequest, textStatus, errorThrown){ 
 					   console.log(textStatus,'error_ini');
 					}
-				});
+				});*/
 				
 				
 				
