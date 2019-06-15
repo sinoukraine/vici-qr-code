@@ -392,8 +392,8 @@ function onDeviceReady(){
 		  App.dialog.alert(ev.metadata.data.toString('hex'));    // received data
 	});
 	
-	let cmd1 = 'FFF0275D01000000100100067802F8334207';
-	let cmd2 = 'FFF00000010000007007000101';
+	let cmd1 = '0xFFF0275D01000000100100067802F8334207';
+	let cmd2 = '0xFFF00000010000007007000101';
 	
 	window.tlantic.plugins.socket.connect(
 				  function (connectionId) {
@@ -402,6 +402,18 @@ function onDeviceReady(){
 							window.tlantic.plugins.socket.send(
 							  function () {
 								App.dialog.alert('worked1!');  
+								
+								window.tlantic.plugins.socket.send(
+								  function () {
+									App.dialog.alert('worked2!');  
+								  },
+
+								  function () {
+									App.dialog.alert('failed!');
+								  },
+								  '192.168.1.1:10080',
+								  cmd2
+								);
 							  },
 
 							  function () {
@@ -411,17 +423,7 @@ function onDeviceReady(){
 							  cmd1
 							);
 							
-							window.tlantic.plugins.socket.send(
-							  function () {
-								App.dialog.alert('worked2!');  
-							  },
-
-							  function () {
-								App.dialog.alert('failed!');
-							  },
-							  '192.168.1.1:10080',
-							  cmd2
-							);
+							
 						//}, 80000);
 				  },
 				  
