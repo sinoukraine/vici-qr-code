@@ -384,23 +384,51 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 	loadCarcamPage();
-	$.ajax({
-					   type: "GET",
-				   dataType: "json", 
-						
-					  jsonp: false,
-					  //jsonpCallback: "onJsonP",
-						url: 'http://192.168.1.1/ini.htm?cmd=getiniconf',
-					  async: true,           
-						crossDomain: true, 
-					  cache: false,
-					success: function (result) {    
-						App.dialog.alert('++');
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-						App.dialog.alert('error_ini');
-					}
-				});
+	
+	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+		  console.log(ev.metadata.host);    // host who sent the data
+		  console.log(ev.metadata.port);    // sender port
+		  console.log(ev.metadata.id);      // connection id
+		  App.dialog.alert(ev.metadata.data);    // received data
+	});
+	
+	
+	window.tlantic.plugins.socket.connect(
+				  function (connectionId) {
+					App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
+						//setTimeout(function () {
+							window.tlantic.plugins.socket.send(
+							  function () {
+								App.dialog.alert('worked1!');  
+							  },
+
+							  function () {
+								App.dialog.alert('failed!');
+							  },
+							  '192.168.1.1:10080',
+							  0xFFF0275D01000000100100067802F8334207
+							);
+							
+							window.tlantic.plugins.socket.send(
+							  function () {
+								App.dialog.alert('worked2!');  
+							  },
+
+							  function () {
+								App.dialog.alert('failed!');
+							  },
+							  '192.168.1.1:10080',
+							  0xFFF00000010000007007000101
+							);
+						//}, 80000);
+				  },
+				  
+				  function () {
+					App.dialog.alert('failed tcp!');
+				  },
+				  '192.168.1.1',
+				  10080
+				);	
 	
 	/*
 	$.ajax({
@@ -424,13 +452,8 @@ function onDeviceReady(){
 				
 				
 	//s = window.tlantic.plugins.socket;
-	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
-		  console.log(ev.metadata.host);    // host who sent the data
-		  console.log(ev.metadata.port);    // sender port
-		  console.log(ev.metadata.id);      // connection id
-		  App.dialog.alert(ev.metadata.data);    // received data
-	});
-		*/
+	
+		
 	console.log('ready');
 	
 	
