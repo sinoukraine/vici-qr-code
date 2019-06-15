@@ -384,6 +384,43 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 	loadCarcamPage();
+	
+	
+	
+	
+	$.ajax({
+					   type: "GET",
+				   dataType: "json", 
+						/*dataFilter: function(raw, type) {
+						console.log(raw, type);
+						return JSON.parse(raw);
+						{ 
+					"filename": "20190523121307_180_720p.MP4", 
+					"duration": 180, 
+					"filesize": 94716138, 
+					"title": "20190523121307.JPG", 
+					"titlesize": 5817, 
+					"thumb": "20190523121307.TGZ", 
+					"thumbsize": 36302, 
+					"time": "20190523121307" 
+				 }
+					},*/
+					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
+						url: 'http://192.168.1.1/ini.htm?cmd=getiniconf',
+					  async: true,           
+						crossDomain: true, 
+					  cache: false,
+					success: function (result) {    
+						App.dialog.alert(JSON.stringify(result));
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){ 
+					   console.log(textStatus,'error_ini');
+					}
+				});
+				
+				
+				
 	//s = window.tlantic.plugins.socket;
 	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
