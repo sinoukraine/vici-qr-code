@@ -405,7 +405,7 @@ function onDeviceReady(){
 	var socket = new Socket();
 	
 	socket.onData = function(data) {
-		App.dialog.alert(data.toString('hex'));
+		App.dialog.alert(data);//.toString('hex').toString(16)
 	  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 	};
 	socket.onError = function(errorMessage) {
@@ -436,6 +436,7 @@ function onDeviceReady(){
 	//let cmd1 = 'FFF0275D01000000100100067802F8334207';
 	//let cmd2 = 'FFF00000010000007007000101';
 	socket.write('FFF0275D01000000100100067802F8334207', 'hex');
+	
 	socket.write('FFF00000010000007007000101', 'hex');
 		//socket.write(data);
 	/*
