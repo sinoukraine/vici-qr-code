@@ -401,6 +401,7 @@ function hexToDec(hex) {
   return result;
 }
 
+
 function onDeviceReady(){
 	loadCarcamPage();
 	/*
