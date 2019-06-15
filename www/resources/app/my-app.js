@@ -389,11 +389,11 @@ function onDeviceReady(){
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
 		  console.log(ev.metadata.id);      // connection id
-		  App.dialog.alert(ev.metadata.data.toString('hex'));    // received data
+		  App.dialog.alert((ev.metadata.data).toString('hex'));    // received data
 	});
 	
-	let cmd1 = '0xFFF0275D01000000100100067802F8334207';
-	let cmd2 = '0xFFF00000010000007007000101';
+	let cmd1 = 0xFFF0275D01000000100100067802F8334207;
+	let cmd2 = 0xFFF00000010000007007000101;
 	
 	window.tlantic.plugins.socket.connect(
 				  function (connectionId) {
