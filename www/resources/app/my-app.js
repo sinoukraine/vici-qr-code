@@ -380,18 +380,17 @@ function listHandler(a) {
 
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
-function encode(str){
+function encodeHex(str){
     /*str = encodeURIComponent(str).split('%').join('');
     return str.toLowerCase();*/
 	var result = "";
     for (i=0; i<str.length; i++) {
         hex = str.charCodeAt(i).toString(16);
-        result += ("000"+hex).slice(-4);
+        result += ("000"+hex).slice(-2);
     }
 	return result;
 }
 
-		
 function onDeviceReady(){
 	loadCarcamPage();
 	
@@ -399,23 +398,23 @@ function onDeviceReady(){
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
 		  console.log(ev.metadata.id);      // connection id
-		  App.dialog.alert(encode(ev.metadata.data));    // received data
+		  App.dialog.alert(encodeHex(ev.metadata.data));    // received data
 	});
 	
-	let cmd1 = 'FFF0275D01000000100100067802F8334207';
-	let cmd2 = 'FFF00000010000007007000101';
+	let cmd1 = 0xFFF0275D01000000100100067802F8334207;
+	let cmd2 = 0xFFF00000010000007007000101;
 	
 	window.tlantic.plugins.socket.connect(
 				  function (connectionId) {
-					//App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
+					App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
 						//setTimeout(function () {
 							window.tlantic.plugins.socket.send(
 							  function () {
-								//App.dialog.alert('worked1!');  
+								App.dialog.alert('worked1!');  
 								
 								window.tlantic.plugins.socket.send(
 								  function () {
-									//App.dialog.alert('worked2!');  
+									App.dialog.alert('worked2!');  
 								  },
 
 								  function () {
