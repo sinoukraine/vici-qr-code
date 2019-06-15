@@ -420,6 +420,7 @@ function onDeviceReady(){
 		App.dialog.alert('clos');
 	  // invoked after connection close
 	};	
+	
 	socket.open(
 	  "192.168.1.1",
 	  10080,
