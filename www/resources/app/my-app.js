@@ -426,8 +426,22 @@ function onDeviceReady(){
 	  10080,
 	  function() {
 		  	  
-	  socket.write('FFF0275D01000000100100067802F8334207', 'hex');	
-	socket.write('FFF00000010000007007000101', 'hex');
+	  //socket.write('FFF0275D01000000100100067802F8334207', 'hex');	
+	  
+	  let dataString = "FFF0275D01000000100100067802F8334207";
+		let data = new Uint8Array(dataString.length);
+		for (let i = 0; i < data.length; i++) {
+		  data[ i ] = parseInt(dataString[i]);
+		}
+		socket.write(data);
+
+		let dataString = "FFF00000010000007007000101";
+		let data = new Uint8Array(dataString.length);
+		for (let i = 0; i < data.length; i++) {
+		  data[ i ] = parseInt(dataString[i]);
+		}
+		socket.write(data);
+	//socket.write('FFF00000010000007007000101', 'hex');
 		// invoked after successful opening of socket
 	  },
 	  function(errorMessage) {
