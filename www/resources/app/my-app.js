@@ -384,13 +384,23 @@ document.addEventListener("deviceready", onDeviceReady, false );
 		
 function onDeviceReady(){
 	loadCarcamPage();
-	let url = 'http://192.168.1.1/ini.htm?cmd=getiniconf';
-	cordova.plugin.http.get(url, 
-				params, headers, (response) => {
-					App.dialog.alert(JSON.stringify(response));
-			}, function(response) {
-					App.dialog.alert('er');
-			});
+	$.ajax({
+					   type: "GET",
+				   dataType: "json", 
+						
+					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
+						url: 'http://192.168.1.1/ini.htm?cmd=getiniconf',
+					  async: true,           
+						crossDomain: true, 
+					  cache: false,
+					success: function (result) {    
+						App.dialog.alert('++');
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){ 
+						App.dialog.alert('error_ini');
+					}
+				});
 	
 	/*
 	$.ajax({
