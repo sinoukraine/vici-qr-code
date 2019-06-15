@@ -408,7 +408,7 @@ function onDeviceReady(){
 								App.dialog.alert('failed!');
 							  },
 							  '192.168.1.1:10080',
-							  cmd1.toString('hex')
+							  cmd1
 							);
 							
 							window.tlantic.plugins.socket.send(
@@ -420,7 +420,7 @@ function onDeviceReady(){
 								App.dialog.alert('failed!');
 							  },
 							  '192.168.1.1:10080',
-							  cmd2.toString('hex')
+							  cmd2
 							);
 						//}, 80000);
 				  },
