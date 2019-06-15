@@ -391,6 +391,16 @@ function encodeHex(str){
 	return result;*/
 }
 
+function hexToDec(hex) {
+  var result = 0, digitValue;
+  hex = hex.toLowerCase();
+  for (var i = 0; i < hex.length; i++) {
+    digitValue = '0123456789ABCDEF'.indexOf(hex[ i ]);
+    result = result * 16 + digitValue;
+  }
+  return result;
+}
+
 function onDeviceReady(){
 	loadCarcamPage();
 	/*
@@ -427,8 +437,20 @@ function onDeviceReady(){
 	  function() {
 		  	  
 	  //socket.write('FFF0275D01000000100100067802F8334207', 'hex');	
-	  
 	  let dataString = "FFF0275D01000000100100067802F8334207";
+	let data = new Uint8Array(dataString.length);
+	for (let i = 0; i < data.length; i++) {
+	  data[ i ] = hexToDec(dataString[i]);
+	}
+	socket.write(data);
+	
+	let dataString = "FFF00000010000007007000101";
+	let data = new Uint8Array(dataString.length);
+	for (let i = 0; i < data.length; i++) {
+	  data[ i ] = hexToDec(dataString[i]);
+	}
+	socket.write(data);
+	  /*let dataString = "FFF0275D01000000100100067802F8334207";
 		let data = new Uint8Array(dataString.length);
 		for (let i = 0; i < data.length; i++) {
 		  data[ i ] = parseInt(dataString[i]);
@@ -440,7 +462,7 @@ function onDeviceReady(){
 		for (let i = 0; i < data.length; i++) {
 		  data[ i ] = parseInt(dataString[i]);
 		}
-		socket.write(data);
+		socket.write(data);*/
 	//socket.write('FFF00000010000007007000101', 'hex');
 		// invoked after successful opening of socket
 	  },
