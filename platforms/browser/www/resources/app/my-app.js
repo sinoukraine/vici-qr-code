@@ -395,7 +395,7 @@ function hexToDec(hex) {
   var result = 0, digitValue;
   hex = hex.toLowerCase();
   for (var i = 0; i < hex.length; i++) {
-    digitValue = '0123456789ABCDEF'.indexOf(hex[ i ]);
+    digitValue = '0123456789abcdef'.indexOf(hex[ i ]);
     result = result * 16 + digitValue;
   }
   return result;
@@ -404,14 +404,6 @@ function hexToDec(hex) {
 
 function onDeviceReady(){
 	loadCarcamPage();
-	/*
-	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
-		  console.log(ev.metadata.host);    // host who sent the data
-		  console.log(ev.metadata.port);    // sender port
-		  console.log(ev.metadata.id);      // connection id
-		  App.dialog.alert(encodeHex(ev.metadata.data));    // received data
-	});*/
-	
 	
 	var socket = new Socket();	
 	socket.onData = function(data) {
@@ -430,231 +422,35 @@ function onDeviceReady(){
 	socket.onClose = function(hasError) {
 		App.dialog.alert('clos');
 	  // invoked after connection close
-	};	
-	
+	};		
 	socket.open(
 	  "192.168.1.1",
 	  10080,
 	  function() {
-		  	  
-	  //socket.write('FFF0275D01000000100100067802F8334207', 'hex');	
-	  //let dataString = "FFF0275D01000000100100067802F8334207";
-	let dataString = "FFF0275D01000000100100067802F8334207";
-let data = new Uint8Array(dataString.length/2);
-for (let i = 0, j = 0; i < data.length; i++, j+=2) {
-  data[ i ] = hexToDec(dataString[j] + dataString[j+1]);
-}
-socket.write(data);
-	
-	//let dataString = "FFF00000010000007007000101";
-	let dataString1 = "FFF00000010000007007000101";
-let data1 = new Uint8Array(dataString1.length/2);
-for (let i = 0, j = 0; i < data1.length; i++, j+=2) {
-  data1[ i ] = hexToDec(dataString1[j] + dataString1[j+1]);
-}
-socket.write(data1);
-	  /*let dataString = "FFF0275D01000000100100067802F8334207";
-		let data = new Uint8Array(dataString.length);
-		for (let i = 0; i < data.length; i++) {
-		  data[ i ] = parseInt(dataString[i]);
+		let dataString = "FFF0275D01000000100100067802F8334207";
+		let data = new Uint8Array(dataString.length/2);
+		for (let i = 0, j = 0; i < data.length; i++, j+=2) {
+		  data[ i ] = hexToDec(dataString[j] + dataString[j+1]);
 		}
 		socket.write(data);
-
-		let dataString = "FFF00000010000007007000101";
-		let data = new Uint8Array(dataString.length);
-		for (let i = 0; i < data.length; i++) {
-		  data[ i ] = parseInt(dataString[i]);
+			
+			let dataString1 = "FFF00000010000007007000101";
+		let data1 = new Uint8Array(dataString1.length/2);
+		for (let i = 0, j = 0; i < data1.length; i++, j+=2) {
+		  data1[ i ] = hexToDec(dataString1[j] + dataString1[j+1]);
 		}
-		socket.write(data);*/
-	//socket.write('FFF00000010000007007000101', 'hex');
-		// invoked after successful opening of socket
+		socket.write(data1);
+	 
 	  },
 	  function(errorMessage) {
 		// invoked after unsuccessful opening of socket
 	  });
-	  /*var dataString = "Hello world";
-		var data = new Uint8Array(dataString.length);
-		for (var i = 0; i < data.length; i++) {
-		  data[i] = dataString.charCodeAt(i);
-		}*/
-		
-	//let cmd1 = 'FFF0275D01000000100100067802F8334207';
-	//let cmd2 = 'FFF00000010000007007000101';
-
-		//socket.write(data);
-	/*
-	window.tlantic.plugins.socket.connect(
-				  function (connectionId) {
-					App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
-						//setTimeout(function () {
-							window.tlantic.plugins.socket.send(
-							  function () {
-								App.dialog.alert('worked1!');  
-								
-								window.tlantic.plugins.socket.send(
-								  function () {
-									App.dialog.alert('worked2!');  
-								  },
-
-								  function () {
-									App.dialog.alert('failed!');
-								  },
-								  '192.168.1.1:10080',
-								  cmd2
-								);
-							  },
-
-							  function () {
-								App.dialog.alert('failed!');
-							  },
-							  '192.168.1.1:10080',
-							  cmd1
-							);
-							
-							
-						//}, 80000);
-				  },
-				  
-				  function () {
-					App.dialog.alert('failed tcp!');
-				  },
-				  '192.168.1.1',
-				  10080
-				);	
-	*/
-	/*
-	$.ajax({
-					   type: "GET",
-				   dataType: "json", 
-						
-					  jsonp: false,
-					  //jsonpCallback: "onJsonP",
-						url: 'http://192.168.1.1/ini.htm?cmd=getiniconf',
-					  async: true,           
-						crossDomain: true, 
-					  cache: false,
-					success: function (result) {    
-						App.dialog.alert(JSON.stringify(result));
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error_ini');
-					}
-				});*/
-				
-				
-				
-	//s = window.tlantic.plugins.socket;
-	
-		
+	  
 	console.log('ready');
 	
 	
-/*
-	document.addEventListener(
-	  s.receiveHookName,
-	  (ev) => {
-		console.log(ev.metadata.host);    // host who sent the data
-		console.log(ev.metadata.port);    // sender port
-		console.log(ev.metadata.id);      // connection id
-		App.dialog.alert(ev.metadata.data);    // received data
-	  }
-	);	
-
-	const successConnectCallback = (connectionId) => {
-		//connection_id = connectionId;	
-//const data = 0xFFF000001000700700010001;
-	let data = 0xFFF00000010000007007000101;
-	//			 0xFFF000000100‎00007007000101
-	
-	//const ip = '192.168.1.1';
-	//const port = 10080;
-
-	window.tlantic.plugins.socket.send(
-	  function () {
-		App.dialog.alert('worked!');  
-	  },
-
-	  function () {
-		App.dialog.alert('failed!');
-	  },
-	  '192.168.1.1:10080',
-	  data
-	);
-
-	s.send(
-					successSendCallback,
-					errorSendCallback,
-					connection_id,
-					data,
-				  );	
-	};
-
-	
-	const errorConnectCallback = (error) => {
-	  App.dialog.alert('failed tcp!');
-	};
-
-	s.connect(
-	  successConnectCallback,
-	  errorConnectCallback,
-	  ip,
-	  port,
-	);
-
-	
-	*/
-
-	//loadListPage();
-	//loadHintsPage();
 	var self = this;
 	
-	//let input = $$(this).siblings('input');
-
-	/*let permissions = cordova.plugins.permissions;
-	if (!permissions) {
-		App.dialog.alert('plugin not supported')
-	} else {
-		permissions.hasPermission(permissions.CHANGE_WIFI_STATE, function(status) {//WRITE_EXTERNAL_STORAGE
-			// App.alert(JSON.stringify(status))
-
-			if (status.hasPermission) {
-				//App.dialog.alert('WIFI permission is turned on');
-				// permission is granted
-				//var uri = encodeURI("http://192.168.1.1/DCIM/104snap/A20190530120227.JPG");
-				
-				//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-				
-				/*navigator.screenshot.save(function(error,res){
-				  if(error){
-					console.error(error);
-				  }else{
-					console.log('ok',res.filePath);
-				  }
-				});*/
-			/*} else {
-				permissions.requestPermission(permissions.CHANGE_WIFI_STATE, success, error);
-
-				function error() {
-					App.dialog.alert('WIFI permission is not turned on');
-				}
-
-				function success(status1) {
-					//App.dialog.alert('WIFI permission is turned on');
-					//DownloadFile("https://ic.pics.livejournal.com/i_m_ho/25019411/3647584/3647584_600.png", "dashcam_001", "alarm_001");
-					/*navigator.screenshot.save(function(error,res){
-					  if(error){
-						console.error(error);
-					  }else{
-						console.log('ok',res.filePath);
-					  }
-					});*/
-					/*if (!status1.hasPermission) error();
-				}
-			}
-		});
-	}
-	*/
-	//App.methods.getPhotoList();
 }
 
 	
