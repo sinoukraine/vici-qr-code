@@ -440,17 +440,17 @@ function onDeviceReady(){
 	  //socket.write('FFF0275D01000000100100067802F8334207', 'hex');	
 	  //let dataString = "FFF0275D01000000100100067802F8334207";
 	let dataString = "FFF0275D01000000100100067802F8334207";
-let data = new Uint8Array(dataString.length);
-for (let i = 0; i < data.length; i++) {
-  data[ i ] = hexToDec(dataString[i]);
+let data = new Uint8Array(dataString.length/2);
+for (let i = 0, j = 0; i < data.length; i++, j+=2) {
+  data[ i ] = hexToDec(dataString[j] + dataString[j+1]);
 }
 socket.write(data);
 	
 	//let dataString = "FFF00000010000007007000101";
 	let dataString1 = "FFF00000010000007007000101";
-let data1 = new Uint8Array(dataString1.length);
-for (let i = 0; i < data1.length; i++) {
-  data1[ i ] = hexToDec(dataString1[i]);
+let data1 = new Uint8Array(dataString1.length/2);
+for (let i = 0, j = 0; i < data1.length; i++, j+=2) {
+  data1[ i ] = hexToDec(dataString1[j] + dataString1[j+1]);
 }
 socket.write(data1);
 	  /*let dataString = "FFF0275D01000000100100067802F8334207";
