@@ -445,14 +445,14 @@ for (let i = 0; i < data.length; i++) {
 data[ i ] = parseInt(dataString[ i ], 16);
 }
 socket.write(data);
-/*	
+	
 	//let dataString = "FFF00000010000007007000101";
-	let dataString = "FFF00000010000007007000101";
-let data = new Uint8Array(dataString.length);
-for (let i = 0; i < data.length; i++) {
-data[ i ] = parseInt(dataString[ i ], 16);
+	let dataString1 = "FFF00000010000007007000101";
+let data1 = new Uint8Array(dataString1.length);
+for (let j = 0; j < data1.length; j++) {
+data1[ j ] = parseInt(dataString1[ j ], 16);
 }
-socket.write(data);*/
+socket.write(data1);
 	  /*let dataString = "FFF0275D01000000100100067802F8334207";
 		let data = new Uint8Array(dataString.length);
 		for (let i = 0; i < data.length; i++) {
