@@ -439,9 +439,8 @@ function onDeviceReady(){
 		  	  
 	  //socket.write('FFF0275D01000000100100067802F8334207', 'hex');	
 	  //let dataString = "FFF0275D01000000100100067802F8334207";
-	/*try {
 	let dataString = "FFF0275D01000000100100067802F8334207";
-let data = new Uint8Array(dataString.length);
+let data = new Uint8Array(dataString.length);/*
 for (let i = 0; i < data.length; i++) {
 data[ i ] = parseInt(dataString[ i ], 16);
 }
@@ -453,9 +452,7 @@ let data = new Uint8Array(dataString.length);
 for (let i = 0; i < data.length; i++) {
 data[ i ] = parseInt(dataString[ i ], 16);
 }
-socket.write(data);
-	}
-catch(e) { App.dialog.alert('not working unit8array');}*/
+socket.write(data);*/
 	  /*let dataString = "FFF0275D01000000100100067802F8334207";
 		let data = new Uint8Array(dataString.length);
 		for (let i = 0; i < data.length; i++) {
