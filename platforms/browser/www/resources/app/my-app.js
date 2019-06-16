@@ -380,18 +380,175 @@ function listHandler(a) {
 
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
+function encodeHex(str){
+    str = encodeURIComponent(str).split('%').join('');
+    return str.toLowerCase();
+	/*var result = "";
+    for (i=0; i<str.length; i++) {
+        hex = str.charCodeAt(i).toString(16);
+        result += ("000"+hex).slice(-2);
+    }
+	return result;*/
+}
+/*
+function hexToDec(hex) {
+  var result = 0, digitValue;
+  hex = hex.toLowerCase();
+  for (var i = 0; i < hex.length; i++) {
+    digitValue = '0123456789ABCDEF'.indexOf(hex[ i ]);
+    result = result * 16 + digitValue;
+  }
+  return result;
+}
+*/
 
-		
 function onDeviceReady(){
 	loadCarcamPage();
-	//s = window.tlantic.plugins.socket;
-	/*document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
+	/*
+	document.addEventListener(window.tlantic.plugins.socket.receiveHookName, function (ev) {
 		  console.log(ev.metadata.host);    // host who sent the data
 		  console.log(ev.metadata.port);    // sender port
 		  console.log(ev.metadata.id);      // connection id
-		  App.dialog.alert(ev.metadata.data);    // received data
-	});
-		*/
+		  App.dialog.alert(encodeHex(ev.metadata.data));    // received data
+	});*/
+	
+	
+	var socket = new Socket();	
+	socket.onData = function(data) {
+		let convertedData = data.reduce((acc, item) => {
+		  let code = item.toString(16);
+		  let formattedCode = ('0' + code).slice(-2);
+		  return acc + formattedCode;
+		}, '');
+		App.dialog.alert(convertedData);		
+	  // invoked after new batch of data is received (typed array of bytes Uint8Array)
+	};
+	socket.onError = function(errorMessage) {
+		App.dialog.alert('err');
+	  // invoked after error occurs during connection
+	};
+	socket.onClose = function(hasError) {
+		App.dialog.alert('clos');
+	  // invoked after connection close
+	};	
+	
+	socket.open(
+	  "192.168.1.1",
+	  10080,
+	  function() {
+		  	  
+	  //socket.write('FFF0275D01000000100100067802F8334207', 'hex');	
+	  //let dataString = "FFF0275D01000000100100067802F8334207";
+	try {
+	let dataString = "FFF0275D01000000100100067802F8334207";
+let data = new Uint8Array(dataString.length);
+for (let i = 0; i < data.length; i++) {
+data[ i ] = parseInt(dataString[ i ], 16);
+}
+socket.write(data);
+	
+	//let dataString = "FFF00000010000007007000101";
+	let dataString = "FFF00000010000007007000101";
+let data = new Uint8Array(dataString.length);
+for (let i = 0; i < data.length; i++) {
+data[ i ] = parseInt(dataString[ i ], 16);
+}
+socket.write(data);
+	}
+catch(e) { App.dialog.alert('not working unit8array');}
+	  /*let dataString = "FFF0275D01000000100100067802F8334207";
+		let data = new Uint8Array(dataString.length);
+		for (let i = 0; i < data.length; i++) {
+		  data[ i ] = parseInt(dataString[i]);
+		}
+		socket.write(data);
+
+		let dataString = "FFF00000010000007007000101";
+		let data = new Uint8Array(dataString.length);
+		for (let i = 0; i < data.length; i++) {
+		  data[ i ] = parseInt(dataString[i]);
+		}
+		socket.write(data);*/
+	//socket.write('FFF00000010000007007000101', 'hex');
+		// invoked after successful opening of socket
+	  },
+	  function(errorMessage) {
+		// invoked after unsuccessful opening of socket
+	  });
+	  /*var dataString = "Hello world";
+		var data = new Uint8Array(dataString.length);
+		for (var i = 0; i < data.length; i++) {
+		  data[i] = dataString.charCodeAt(i);
+		}*/
+		
+	//let cmd1 = 'FFF0275D01000000100100067802F8334207';
+	//let cmd2 = 'FFF00000010000007007000101';
+
+		//socket.write(data);
+	/*
+	window.tlantic.plugins.socket.connect(
+				  function (connectionId) {
+					App.dialog.alert('worked! This is the tcp connection ID: ' + connectionId); 
+						//setTimeout(function () {
+							window.tlantic.plugins.socket.send(
+							  function () {
+								App.dialog.alert('worked1!');  
+								
+								window.tlantic.plugins.socket.send(
+								  function () {
+									App.dialog.alert('worked2!');  
+								  },
+
+								  function () {
+									App.dialog.alert('failed!');
+								  },
+								  '192.168.1.1:10080',
+								  cmd2
+								);
+							  },
+
+							  function () {
+								App.dialog.alert('failed!');
+							  },
+							  '192.168.1.1:10080',
+							  cmd1
+							);
+							
+							
+						//}, 80000);
+				  },
+				  
+				  function () {
+					App.dialog.alert('failed tcp!');
+				  },
+				  '192.168.1.1',
+				  10080
+				);	
+	*/
+	/*
+	$.ajax({
+					   type: "GET",
+				   dataType: "json", 
+						
+					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
+						url: 'http://192.168.1.1/ini.htm?cmd=getiniconf',
+					  async: true,           
+						crossDomain: true, 
+					  cache: false,
+					success: function (result) {    
+						App.dialog.alert(JSON.stringify(result));
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown){ 
+					   console.log(textStatus,'error_ini');
+					}
+				});*/
+				
+				
+				
+	//s = window.tlantic.plugins.socket;
+	
+		
 	console.log('ready');
 	
 	
