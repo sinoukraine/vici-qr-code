@@ -443,9 +443,9 @@ function onDeviceReady(){
 let data = new Uint8Array(dataString.length);
 for (let i = 0; i < data.length; i++) {
 data[ i ] = parseInt(dataString[ i ], 16);
-}/*
+}
 socket.write(data);
-	
+/*	
 	//let dataString = "FFF00000010000007007000101";
 	let dataString = "FFF00000010000007007000101";
 let data = new Uint8Array(dataString.length);
