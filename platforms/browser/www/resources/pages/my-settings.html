@@ -57,6 +57,15 @@
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
+					<li class="item-content">
+						<div class="item-inner not-empty-state display-flex justify-content-space-between align-items-center border-bottom">
+							<span class="item-caption">Sound Recording</span>
+							<label class="toggle toggle-init">
+								<input type="checkbox" name="SoundRecording" {{#if CheckedSoundOn}} checked {{/if}}>
+								<span class="toggle-icon"></span>
+							</label>
+						</div>
+					</li>
 					
 					<li class="item-content">
 						<a href="/version.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between ">
@@ -66,15 +75,7 @@
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
-					<!--<li class="item-content">
-						<div class="item-inner not-empty-state display-flex justify-content-space-between align-items-center border-bottom">
-							<span class="item-caption">Sound Recording</span>
-							<label class="toggle toggle-init">
-								<input type="checkbox" name="SoundRecording">
-								<span class="toggle-icon"></span>
-							</label>
-						</div>
-					</li>
+					<!--
 					<li class="item-content no-padding">
 						<a href="/voice.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
@@ -111,9 +112,11 @@
         data: function () {
             var self = this;
             var ret = {
+				IsConnect: false,
 				CamName: 'Dashcam',
 				WiFiRouterIp: '0.0.0.0',
-				Mac: '00.00.00.00.00.00'
+				Mac: '00.00.00.00.00.00',
+				CheckedSoundOn: false,
 			};            
 
             return ret;
@@ -145,23 +148,53 @@
 				var ip = self.WiFiRouterIp;
 				mainView.router.navigate('/my-language-settings/');
 			},
+			initConnectToCam: function(){
+				var self = this;	
+								
+				self.writeToCam("FFF0275D01000000100100067802F8334207");
+				
+				self.$setState({
+					IsConnect: true,
+				});	
+			},
+			soundToggle: function(data) {
+				var self = this;	
+				let isOn = data;
+				
+				if(isOn){
+					self.writeToCam("FFF00000010000007007000101");
+					console.log('sound on');
+				}else{
+					self.writeToCam("FFF00000010000007007000100");
+					console.log('sound off');				
+				}
+				self.$app.methods.setInStorage({name: 'settingSoundOn', data: isOn});	
+			},
+			writeToCam: function(hex){
+				let dataString = hex;
+				let data = new Uint8Array(dataString.length/2);
+				for (let i = 0, j = 0; i < data.length; i++, j+=2) {
+					 data[ i ] = self.$app.methods.hexToDec(dataString[j] + dataString[j+1]);
+				}
+				socket.write(data);
+			}
 		},
         on: {
             pageInit: function (e, page) {  
-				var self = this;    
-				//var page = page.$el.find('.page-content'); 
-				
+				var self = this;    				
 				var myPage = $$('.my-settings');
 				
 				var socket = new Socket();	
 				
 				socket.onData = function(data) {
+					/*
 					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);		
+					App.dialog.alert(convertedData);	
+					*/					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				socket.onError = function(errorMessage) {
@@ -176,25 +209,31 @@
 				  "192.168.1.1",
 				  10080,
 				  function() {
-					let dataString = "FFF0275D01000000100100067802F8334207";
-					let data = new Uint8Array(dataString.length/2);
-					for (let i = 0, j = 0; i < data.length; i++, j+=2) {
-					  data[ i ] = self.$app.methods.hexToDec(dataString[j] + dataString[j+1]);
-					}
-					socket.write(data);
-						
-						let dataString1 = "FFF00000010000007007000100";
+					self.initConnectToCam();					
+					/*	
+					let dataString1 = "FFF00000010000007007000100";
 					let data1 = new Uint8Array(dataString1.length/2);
 					for (let i = 0, j = 0; i < data1.length; i++, j+=2) {
 					  data1[ i ] = self.$app.methods.hexToDec(dataString1[j] + dataString1[j+1]);
 					}
 					socket.write(data1);
-				 
+					*/
 				  },
 				  function(errorMessage) {
 					// invoked after unsuccessful opening of socket
 				});
 								
+				var currentSoundOn = self.$app.methods.getFromStorage("settingSoundOn");
+				
+				if(currentSoundOn){
+					self.$setState({
+                        CheckedSoundOn: false,
+                    });
+				}else{
+					self.$setState({
+                        CheckedSoundOn: true,
+                    });
+				}	
 				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
 				WifiWizard2.getConnectedSSID().then(response => {	
@@ -228,7 +267,19 @@
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
 				myPage.on('click', '.my-wifi-settings', self.navigateIp);
-				myPage.on('click', '.my-language-settings', self.navigateLanguage);					
+				myPage.on('click', '.my-language-settings', self.navigateLanguage);
+
+				myPage.on('click', '[name="SoundRecording"]', function() {
+					if(self.IsConnect){
+						if($(this).is(":checked")){
+							self.soundToggle(true);
+						}else{
+							self.soundToggle(false);
+						}
+					}else{
+						App.dialog.alert('Please wait, while cam is initialized...');
+					}
+				});				
 			}
 		}
     };
