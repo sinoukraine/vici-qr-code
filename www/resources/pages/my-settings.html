@@ -176,7 +176,7 @@
 				for (let i = 0, j = 0; i < data.length; i++, j+=2) {
 					 data[ i ] = self.$app.methods.hexToDec(dataString[j] + dataString[j+1]);
 				}
-				socket.write(data);
+				self.socket.write(data);
 			}
 		},
         on: {
@@ -184,9 +184,9 @@
 				var self = this;    				
 				var myPage = $$('.my-settings');
 				
-				var socket = new Socket();	
+				var self.socket = new Socket();	
 				
-				socket.onData = function(data) {
+				self.socket.onData = function(data) {
 					/*
 					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
@@ -197,15 +197,15 @@
 					*/					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
-				socket.onError = function(errorMessage) {
+				self.socket.onError = function(errorMessage) {
 					App.dialog.alert('err');
 				  // invoked after error occurs during connection
 				};
-				socket.onClose = function(hasError) {
+				self.socket.onClose = function(hasError) {
 					App.dialog.alert('clos');
 				  // invoked after connection close
 				};		
-				socket.open(
+				self.socket.open(
 				  "192.168.1.1",
 				  10080,
 				  function() {
