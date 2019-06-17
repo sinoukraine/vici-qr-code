@@ -253,7 +253,9 @@
 						//self.$app.methods.openCam();
 						
 						self.$app.dialog.alert('No Dashcam connected');	
-						mainView.router.back();					
+						self.$app.utils.nextFrame(()=>{
+							mainView.router.back();	
+						});				
 										
 					}					
 				});	
