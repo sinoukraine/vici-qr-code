@@ -220,8 +220,7 @@
 				  },
 				  function(errorMessage) {
 					//self.$app.preloader.hide();
-					App.dialog.alert('Cam is not initialized');					
-					self.$app.methods.openCam();
+					App.dialog.alert('Cam is not initialized');	
 					// invoked after unsuccessful opening of socket
 				});
 								
@@ -251,6 +250,8 @@
 						});			
 					}else{
 						self.$app.dialog.alert('No Dashcam connected');		
+										
+						self.$app.methods.openCam();
 					}					
 				});	
 				
