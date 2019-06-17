@@ -149,18 +149,17 @@
 				mainView.router.navigate('/my-language-settings/');
 			},
 			initConnectToCam: function(){
-				var self = this;							
-				
-				self.writeToCam("FFF0275D01000000100100067802F8334207");
+				var self = this;								
 				
 				self.$setState({
 					IsConnect: true,
-				});
-					
+				});					
 			},
 			soundToggle: function(data) {
 				var self = this;	
 				let isOn = data;
+				
+				self.writeToCam("FFF0275D01000000100100067802F8334207");
 				
 				if(isOn){
 					self.writeToCam("FFF00000010000007007000101");
@@ -179,7 +178,6 @@
 					 data[ i ] = self.$app.methods.hexToDec(dataString[j] + dataString[j+1]);
 				}
 				
-				App.dialog.alert('write...');
 				self.socket.write(data);
 			}
 		},
@@ -190,38 +188,29 @@
 				
 				self.socket = new Socket();	
 				
-				self.socket.onData = function(data) {
-					
-					let convertedData = data.reduce((acc, item) => {
+				self.socket.onData = function(data) {					
+					/*let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
 					App.dialog.alert(convertedData);	
-										
+					*/
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				self.socket.onError = function(errorMessage) {
-					App.dialog.alert('err');
+					App.dialog.alert('Can not change this state.');
 				  // invoked after error occurs during connection
 				};
 				self.socket.onClose = function(hasError) {
-					App.dialog.alert('clos');
+					App.dialog.alert('State changed. Please reload Dashcam.');
 				  // invoked after connection close
 				};		
 				self.socket.open(
 				  "192.168.1.1",
 				  10080,
 				  function() {
-					self.initConnectToCam();					
-					/*	
-					let dataString1 = "FFF00000010000007007000100";
-					let data1 = new Uint8Array(dataString1.length/2);
-					for (let i = 0, j = 0; i < data1.length; i++, j+=2) {
-					  data1[ i ] = self.$app.methods.hexToDec(dataString1[j] + dataString1[j+1]);
-					}
-					socket.write(data1);
-					*/
+					self.initConnectToCam();	
 				  },
 				  function(errorMessage) {
 					// invoked after unsuccessful opening of socket
