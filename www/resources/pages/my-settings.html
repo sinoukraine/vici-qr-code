@@ -150,12 +150,13 @@
 			},
 			initConnectToCam: function(){
 				var self = this;	
-								
-				self.writeToCam("FFF0275D01000000100100067802F8334207");
-				
+						
 				self.$setState({
 					IsConnect: true,
-				});	
+				});
+				App.dialog.alert(self.IsConnect);
+				self.writeToCam("FFF0275D01000000100100067802F8334207");
+					
 			},
 			soundToggle: function(data) {
 				var self = this;	
@@ -176,6 +177,8 @@
 				for (let i = 0, j = 0; i < data.length; i++, j+=2) {
 					 data[ i ] = self.$app.methods.hexToDec(dataString[j] + dataString[j+1]);
 				}
+				
+				App.dialog.alert('write...');
 				self.socket.write(data);
 			}
 		},
@@ -187,14 +190,14 @@
 				self.socket = new Socket();	
 				
 				self.socket.onData = function(data) {
-					/*
+					
 					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
 					App.dialog.alert(convertedData);	
-					*/					
+										
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				self.socket.onError = function(errorMessage) {
