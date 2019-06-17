@@ -359,6 +359,15 @@ var App = new Framework7({
 			  console.error(response.error);
 			});	*/	 
 		},
+		hexToDec: function (hex) {	
+		  var result = 0, digitValue;
+		  hex = hex.toLowerCase();
+		  for (var i = 0; i < hex.length; i++) {
+			digitValue = '0123456789abcdef'.indexOf(hex[ i ]);
+			result = result * 16 + digitValue;
+		  }
+		  return result;
+		}
 	}
 });
 
@@ -391,66 +400,12 @@ function encodeHex(str){
 	return result;*/
 }
 
-function hexToDec(hex) {
-  var result = 0, digitValue;
-  hex = hex.toLowerCase();
-  for (var i = 0; i < hex.length; i++) {
-    digitValue = '0123456789abcdef'.indexOf(hex[ i ]);
-    result = result * 16 + digitValue;
-  }
-  return result;
-}
+
 
 
 function onDeviceReady(){
 	loadCarcamPage();
-	
-	var socket = new Socket();	
-	socket.onData = function(data) {
-		let convertedData = data.reduce((acc, item) => {
-		  let code = item.toString(16);
-		  let formattedCode = ('0' + code).slice(-2);
-		  return acc + formattedCode;
-		}, '');
-		App.dialog.alert(convertedData);		
-	  // invoked after new batch of data is received (typed array of bytes Uint8Array)
-	};
-	socket.onError = function(errorMessage) {
-		App.dialog.alert('err');
-	  // invoked after error occurs during connection
-	};
-	socket.onClose = function(hasError) {
-		App.dialog.alert('clos');
-	  // invoked after connection close
-	};		
-	socket.open(
-	  "192.168.1.1",
-	  10080,
-	  function() {
-		let dataString = "FFF0275D01000000100100067802F8334207";
-		let data = new Uint8Array(dataString.length/2);
-		for (let i = 0, j = 0; i < data.length; i++, j+=2) {
-		  data[ i ] = hexToDec(dataString[j] + dataString[j+1]);
-		}
-		socket.write(data);
-			
-			let dataString1 = "FFF00000010000007007000101";
-		let data1 = new Uint8Array(dataString1.length/2);
-		for (let i = 0, j = 0; i < data1.length; i++, j+=2) {
-		  data1[ i ] = hexToDec(dataString1[j] + dataString1[j+1]);
-		}
-		socket.write(data1);
-	 
-	  },
-	  function(errorMessage) {
-		// invoked after unsuccessful opening of socket
-	  });
-	  
 	console.log('ready');
-	
-	
-	var self = this;
-	
 }
 
 	
