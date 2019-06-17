@@ -149,13 +149,13 @@
 				mainView.router.navigate('/my-language-settings/');
 			},
 			initConnectToCam: function(){
-				var self = this;	
-						
+				var self = this;							
+				
+				self.writeToCam("FFF0275D01000000100100067802F8334207");
+				
 				self.$setState({
 					IsConnect: true,
 				});
-				App.dialog.alert(self.IsConnect);
-				self.writeToCam("FFF0275D01000000100100067802F8334207");
 					
 			},
 			soundToggle: function(data) {
@@ -172,6 +172,7 @@
 				self.$app.methods.setInStorage({name: 'settingSoundOn', data: isOn});	
 			},
 			writeToCam: function(hex){
+				var self = this;	
 				let dataString = hex;
 				let data = new Uint8Array(dataString.length/2);
 				for (let i = 0, j = 0; i < data.length; i++, j+=2) {
