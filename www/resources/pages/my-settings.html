@@ -163,7 +163,7 @@
 				
 				self.writeToCam("FFF0275D01000000100100067802F8334207");
 				
-				if(isOn){
+				if(isOn == 'on'){
 					self.writeToCam("FFF00000010000007007000101");
 					console.log('sound on');
 				}else{
@@ -222,7 +222,7 @@
 								
 				var currentSoundOn = self.$app.methods.getFromStorage("settingSoundOn");
 				
-				if(currentSoundOn){
+				if(currentSoundOn == 'on'){
 					self.$setState({
                         CheckedSoundOn: true,
                     });
@@ -269,9 +269,9 @@
 				myPage.on('click', '[name="SoundRecording"]', function() {
 					if(self.IsConnect){
 						if($(this).is(":checked")){
-							self.soundToggle(true);
+							self.soundToggle('on');
 						}else{
-							self.soundToggle(false);
+							self.soundToggle('off');
 						}
 					}else{
 						App.dialog.alert('Please wait, while cam is initialized...');
