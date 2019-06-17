@@ -258,13 +258,13 @@
 							CamName: mySSID.substr(1,mySSID.length -2),
 						});			
 					}else{
+						self.$app.dialog.alert('No Dashcam connected');
+						setTimeout(function () { // Prepend new list element	
+							self.$app.methods.openCam();					
+						 }, 2000);
+						//
 						
-						//self.$app.methods.openCam();
-						
-						self.$app.dialog.alert('No Dashcam connected');	
-						self.$app.utils.nextFrame(()=>{
-							mainView.router.back();	
-						});				
+							
 										
 					}					
 				});	
