@@ -116,6 +116,7 @@
 				CamName: 'Dashcam',
 				WiFiRouterIp: '0.0.0.0',
 				Mac: '00.00.00.00.00.00',
+				phoneMacAddress: '00.00.00.00.00.00',
 				CheckedSoundOn: false,
 			};            
 
@@ -160,12 +161,12 @@
 				let isOn = data;				
 				
 				//7802F8334207
-				if(self.Mac != '00.00.00.00.00.00'){
+				if(self.phoneMacAddress != '00.00.00.00.00.00'){
 					self.$app.preloader.show();
 					
-					let macAddress = self.Mac.replace(/[^A-Za-z0-9]/g, "");
+					let macAddress = self.phoneMacAddress.replace(/[^A-Za-z0-9]/g, "");
 					macAddress = macAddress.substr(1,macAddress.length -2);
-					
+					App.dialog.alert(self.phoneMacAddress);
 					self.socket.open(
 					  "192.168.1.1",
 					  10080,
@@ -208,6 +209,16 @@
             pageInit: function (e, page) {  
 				var self = this;    				
 				var myPage = $$('.my-settings');
+				
+				window.MacAddress.getMacAddress(
+					function(macAddress) {
+						self.$setState({
+							phoneMacAddress: macAddress,
+						});
+					},function(fail) {
+						App.dialog.alert(fail);
+					}
+				);
 				
 				//self.$app.preloader.show();
 				self.socket = new Socket();	

@@ -69,6 +69,7 @@
 	<!--<plugin name="com.tlantic.plugins.socket" source="npm" spec="0.3.2" />-->
 	<plugin spec="https://github.com/Tlantic/cdv-socket-plugin"  source="git"  />	
 	<plugin spec="https://github.com/blocshop/sockets-for-cordova"  source="git"  />
+	<plugin spec="https://github.com/mohamed-salah/MacAddress.git"  source="git"  />
 	
 	
 	
