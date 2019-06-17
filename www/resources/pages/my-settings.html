@@ -165,8 +165,8 @@
 					self.$app.preloader.show();
 					
 					let macAddress = self.phoneMacAddress.replace(/[^A-Za-z0-9]/g, "");
-					macAddress = macAddress.substr(1,macAddress.length -2);
-					App.dialog.alert(self.phoneMacAddress);
+					//macAddress = macAddress.substr(1,macAddress.length -2);
+					//App.dialog.alert(self.phoneMacAddress);
 					self.socket.open(
 					  "192.168.1.1",
 					  10080,
@@ -174,7 +174,7 @@
 						//self.$app.preloader.hide();			
 						//self.initConnectToCam();
 						self.writeToCam("FFF0275D0100000010010006" + macAddress);
-						App.dialog.alert("FFF0275D0100000010010006" + macAddress);
+						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
 					
 						if(isOn == 'on'){
 							self.writeToCam("FFF00000010000007007000101");
@@ -216,7 +216,7 @@
 							phoneMacAddress: macAddress,
 						});
 					},function(fail) {
-						App.dialog.alert(fail);
+						App.dialog.alert('Phone Mac Address was not found');
 					}
 				);
 				
