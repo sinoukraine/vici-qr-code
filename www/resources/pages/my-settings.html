@@ -112,7 +112,7 @@
         data: function () {
             var self = this;
             var ret = {
-				IsConnect: false,
+				//IsConnect: false,
 				CamName: 'Dashcam',
 				WiFiRouterIp: '0.0.0.0',
 				Mac: '00.00.00.00.00.00',
@@ -148,29 +148,43 @@
 				var ip = self.WiFiRouterIp;
 				mainView.router.navigate('/my-language-settings/');
 			},
-			initConnectToCam: function(){
+			/*initConnectToCam: function(){
 				var self = this;								
 				
 				self.$setState({
 					IsConnect: true,
 				});					
-			},
+			},*/
 			soundToggle: function(data) {
 				var self = this;	
 				let isOn = data;				
 				
                 self.$app.preloader.show();
 				
-				self.writeToCam("FFF0275D01000000100100067802F8334207");
+				self.socket.open(
+				  "192.168.1.1",
+				  10080,
+				  function() {		
+					//self.$app.preloader.hide();			
+					//self.initConnectToCam();
+					self.writeToCam("FFF0275D01000000100100067802F8334207");
 				
-				if(isOn == 'on'){
-					self.writeToCam("FFF00000010000007007000101");
-					console.log('sound on');
-				}else{
-					self.writeToCam("FFF00000010000007007000100");
-					console.log('sound off');				
-				}
-				self.$app.methods.setInStorage({name: 'settingSoundOn', data: isOn});	
+					if(isOn == 'on'){
+						self.writeToCam("FFF00000010000007007000101");
+						console.log('sound on');
+					}else{
+						self.writeToCam("FFF00000010000007007000100");
+						console.log('sound off');				
+					}
+					self.$app.methods.setInStorage({name: 'settingSoundOn', data: isOn});					
+				  },
+				  function(errorMessage) {
+					//self.$app.preloader.hide();
+					App.dialog.alert('Cam is not initialized');	
+					// invoked after unsuccessful opening of socket
+				});
+				
+					
 			},
 			writeToCam: function(hex){
 				var self = this;	
@@ -208,21 +222,16 @@
 				};
 				self.socket.onClose = function(hasError) {
 					self.$app.preloader.hide();
-					App.dialog.alert('State changed. Please reload Dashcam.');
+					
+					/*self.$setState({
+						IsConnect: false,
+					});	*/
+					
+					App.dialog.alert('Set successfully.');
 				  // invoked after connection close
 				};		
-				self.socket.open(
-				  "192.168.1.1",
-				  10080,
-				  function() {		
-					//self.$app.preloader.hide();			
-					self.initConnectToCam();	
-				  },
-				  function(errorMessage) {
-					//self.$app.preloader.hide();
-					App.dialog.alert('Cam is not initialized');	
-					// invoked after unsuccessful opening of socket
-				});
+				
+				//init start data
 								
 				var currentSoundOn = self.$app.methods.getFromStorage("settingSoundOn");
 				
@@ -278,15 +287,15 @@
 				myPage.on('click', '.my-language-settings', self.navigateLanguage);
 
 				myPage.on('click', '[name="SoundRecording"]', function() {
-					if(self.IsConnect){
+					//if(!self.IsConnect){
 						if($(this).is(":checked")){
 							self.soundToggle('on');
 						}else{
 							self.soundToggle('off');
 						}
-					}else{
-						App.dialog.alert('Please wait while cam is initializing.');
-					}
+					/*}else{
+						App.dialog.alert('Please wait while state is changing.');
+					}*/
 				});				
 			}
 		}
