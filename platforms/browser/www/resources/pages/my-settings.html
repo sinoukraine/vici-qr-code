@@ -59,7 +59,7 @@
 					</li>
 					<li class="item-content">
 						<div class="item-inner not-empty-state display-flex justify-content-space-between align-items-center border-bottom">
-							<span class="item-caption">Sound Recording</span>
+							<span class="item-caption">Sound Recording {{CheckedSoundOn}}</span>
 							<label class="toggle toggle-init">
 								<input type="checkbox" name="SoundRecording" {{#if CheckedSoundOn}} checked {{/if}}>
 								<span class="toggle-icon"></span>
@@ -157,7 +157,9 @@
 			},
 			soundToggle: function(data) {
 				var self = this;	
-				let isOn = data;
+				let isOn = data;				
+				
+                self.$app.preloader.show();
 				
 				self.writeToCam("FFF0275D01000000100100067802F8334207");
 				
@@ -199,10 +201,12 @@
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				self.socket.onError = function(errorMessage) {
+					self.$app.preloader.hide();
 					App.dialog.alert('Can not change this state.');
 				  // invoked after error occurs during connection
 				};
 				self.socket.onClose = function(hasError) {
+					self.$app.preloader.hide();
 					App.dialog.alert('State changed. Please reload Dashcam.');
 				  // invoked after connection close
 				};		
@@ -220,11 +224,11 @@
 				
 				if(currentSoundOn){
 					self.$setState({
-                        CheckedSoundOn: false,
+                        CheckedSoundOn: true,
                     });
 				}else{
 					self.$setState({
-                        CheckedSoundOn: true,
+                        CheckedSoundOn: false,
                     });
 				}	
 				
