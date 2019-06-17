@@ -159,32 +159,38 @@
 				var self = this;	
 				let isOn = data;				
 				
-                self.$app.preloader.show();
-				
-				self.socket.open(
-				  "192.168.1.1",
-				  10080,
-				  function() {		
-					//self.$app.preloader.hide();			
-					//self.initConnectToCam();
-					self.writeToCam("FFF0275D01000000100100067802F8334207");
-				
-					if(isOn == 'on'){
-						self.writeToCam("FFF00000010000007007000101");
-						console.log('sound on');
-					}else{
-						self.writeToCam("FFF00000010000007007000100");
-						console.log('sound off');				
-					}
-					self.$app.methods.setInStorage({name: 'settingSoundOn', data: isOn});					
-				  },
-				  function(errorMessage) {
-					//self.$app.preloader.hide();
-					App.dialog.alert('Cam is not initialized');	
-					// invoked after unsuccessful opening of socket
-				});
-				
+				//7802F8334207
+				if(self.Mac != '00.00.00.00.00.00'){
+					self.$app.preloader.show();
 					
+					let macAddress = self.Mac.replace(/.`'"/g,"");
+					App.dialog.alert(macAddress);
+					
+					self.socket.open(
+					  "192.168.1.1",
+					  10080,
+					  function() {		
+						//self.$app.preloader.hide();			
+						//self.initConnectToCam();
+						self.writeToCam("FFF0275D0100000010010006" + macAddress);
+					
+						if(isOn == 'on'){
+							self.writeToCam("FFF00000010000007007000101");
+							console.log('sound on');
+						}else{
+							self.writeToCam("FFF00000010000007007000100");
+							console.log('sound off');				
+						}
+						self.$app.methods.setInStorage({name: 'settingSoundOn', data: isOn});					
+					  },
+					  function(errorMessage) {
+						//self.$app.preloader.hide();
+						App.dialog.alert('Cam is not initialized');	
+						// invoked after unsuccessful opening of socket
+					});
+				}else{
+					App.dialog.alert('Mac address is invalid');						
+				}					
 			},
 			writeToCam: function(hex){
 				var self = this;	
@@ -259,7 +265,9 @@
 						});			
 					}else{
 						self.$app.dialog.alert('No Dashcam connected');
+						self.$app.preloader.show();
 						setTimeout(function () { // Prepend new list element	
+							self.$app.preloader.hide();
 							self.$app.methods.openCam();					
 						 }, 2000);
 						//
