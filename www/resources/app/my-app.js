@@ -183,7 +183,7 @@ var App = new Framework7({
             }
         },
 		getRecordPhoto: function(resolve, reject){ 			
-			/*return new Promise((resolve, reject) => {
+			return new Promise((resolve, reject) => {
 				let url = 'http://192.168.1.1/DCIM/104snap/';
 				let params = {};
 				let headers = {};
@@ -198,14 +198,14 @@ var App = new Framework7({
 							}
 						});
 						
-						console.log(newArr);					
+						//console.log(newArr);					
 						resolve(newArr);
 				}, function(response) {
 				  console.error(response.error);
 				  reject();
 				});	
-			});	*/
-			
+			});	
+			/*
 			return new Promise((resolve, reject) => {
 				$.ajax({
 					   type: "GET",
@@ -228,7 +228,7 @@ var App = new Framework7({
 					}
 					
 				});		
-			});   
+			});   */
 			
 		},
 		getRecordVideo: function (resolve, reject) {	
@@ -273,11 +273,11 @@ var App = new Framework7({
 			let dataObj = data;
 			//let sortArr = [];
 			let dateArr = [];
-			let dataArr = [];
 			//console.log(dataObj);
 			//App.dialog.alert(dataObj.length);
 			// info array push
 			for (let i = dataObj.length - 1; i >= 0; i--) {
+				let dataArr = [];
 				/*infoArr.push({
 					data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
 					photoName: dataObj.mp4data[i].title

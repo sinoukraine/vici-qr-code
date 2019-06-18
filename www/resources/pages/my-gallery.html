@@ -26,21 +26,21 @@
 						{{/if}}
 					</a>
 				</div>
-				<!--<div class="subnavbar">
+				<div class="subnavbar">
 					<div class="toolbar tabbar" id="toolbar-menu">
 						<div class="toolbar-inner">
 							<a href="#photo" class="tab-link tab-link-active" >
-								<span class="tabbar-label"><b>Photo</b></span>
+								<span class="tabbar-label"><b>Gesture</b></span>
 							</a>
 							<a href="#video" class="tab-link">
-								<span class="tabbar-label"><b>Video</b></span>
+								<span class="tabbar-label"><b>Alarm</b></span>
 							</a>
 						</div>
 					</div>
-				</div>-->
+				</div>
 			</div>
 		</div>
-		<div class="ptr-content">
+		<div class="tabs ptr-content">
 			<!-- First tab, active -->
 			<div class="page-content tab tab-active" id="photo">
 				<div class="block">
@@ -96,7 +96,7 @@
 					
 				var self = this;  
 
-				/*self.$app.preloader.show();
+				self.$app.preloader.show();
 				self.$app.methods.getRecordPhoto().then(response => {			
 					self.$app.methods.setInStorage({name: 'photoList', data: response});
                     self.$setState({
@@ -110,8 +110,8 @@
 					self.$app.preloader.hide(); 
 					console.log('Error occured at Get Alarm Photo List');
                     self.$app.dialog.alert('Error occured at Get Alarm Photo List');
-				});		*/		
-				
+				});			
+				/*
                 self.$app.preloader.show();
 				self.$app.methods.getRecordPhoto().then(response => {		
 					self.$app.methods.setInStorage({name: 'photoList', data: response.mp4data});
@@ -128,23 +128,8 @@
 					console.log('No Dashcam connected');
                     self.$app.dialog.alert('No Dashcam connected');
 				});
+				*/
 				
-				/*self.$app.preloader.show();
-				self.$app.methods.getRecordVideo().then(response => {			
-					//self.methods.setPhotoList({list: response.mp4data});	
-					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
-                    self.$setState({
-                        ShowVideoList: true,
-                    });
-                    self.$app.utils.nextFrame(()=>{
-                        self.initVideoList(response.mp4data);
-                    });					
-					self.$app.preloader.hide(); 	
-				}, error => {
-					self.$app.preloader.hide(); 
-					console.log('Error occured at Get Video List');
-                    self.$app.dialog.alert('Error occured at Get Video List');
-				});*/
             },
             initPhotoList: function(photoListArr = []){
                 var self = this;
@@ -152,10 +137,13 @@
                 var listEl = self.$el.find('.photosList'); 
                 //var listSearchEl = self.$el.find('.searchbar');    
                 var photoList = self.$app.methods.getFromStorage("photoList");
-				let dateArr = self.$app.methods.sortDatePhoto(photoList);           
-               
-				if(self.IsReverse) {dateArr.reverse();}
 				
+				let dateArr = self.$app.methods.sortParseDatePhoto(photoList); 
+				dateArr.length = 1;				
+               //dateArr.push(AlldateArr[1]);
+			   //dateArr.push(AlldateArr[4]);
+				if(self.IsReverse) {dateArr.reverse();}
+				//console.log(dateArr);
                 /*if (photoListArr.length) {
                     photoListArr.sort(function(a,b){
                         if(a.AccountName < b.AccountName) return -1;
@@ -182,23 +170,25 @@
                     //List of array items
                     items: dateArr,
                     height: function(item){  
-						let height = 0.00;
-                        let heightHeader = 34.94;
-                        let heightElement = 100.00;
+						let height = 0;
+                        let heightHeader = 40;
+                        let heightElement = 94;
 						let dataLength = 0;
-						for (let d = 0; d < item.data.length; d ++){
+						/*for (let d = 0; d < item.data.length; d ++){
 							dataLength += item.data[d].associateddata.length;					
-						}		
+						}*/	
+						dataLength = item.data.length;					
 						//
 						if(dataLength%2){
-							height = heightHeader + heightElement*((dataLength+1)/2);
+							height = heightHeader + heightElement*parseFloat((dataLength+1)/2);
 						}else{
-							height = heightHeader + heightElement*(dataLength/2);
+							height = heightHeader + heightElement*parseFloat(dataLength/2);
 						}
+						console.log(height);
                         return height;
                     },
                     // Display the each item using Template7 template parameter
-                    renderItem: function (item, index) {    
+                    renderItem: function (item, index) {    console.log(index);
                         var ret = '';
 						
 						ret += '<div class="list media-list">';
@@ -212,7 +202,28 @@
 						ret += '		  <div class="item-text">';
 						ret += '			<div class="row">';
 						
-						
+						for (let d = 0; d < item.data.length; d ++){	
+							//let time = item.data[d];
+							//for (let a = 0; a < item.data[d].associateddata.length; a ++){
+								self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
+								ret += '			  <div class="col-50">';
+									ret +='<label class="checkbox check-item photo-check-item display-none">';
+									ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d]+'" value="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'"/>';
+									ret +='<i class="f7-icons">check</i>';
+									ret +='</label>';
+								ret += 					'<a href="#" class="pb-standalone-dark" data-index="'+photoIndex+'" data-photo="'+item.data[d]+'">' +
+														'<div class="item-content">' +
+														'<div class="item-media photo-item-media">' +
+														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'">' +
+														
+														'</div>' +
+														'</div>' +
+														'</a>';
+								ret += '			  </div> ';	
+								photoIndex ++;		
+							//}						
+						}
+						/*
 						for (let d = 0; d < item.data.length; d ++){	
 							let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
 							for (let a = 0; a < item.data[d].associateddata.length; a ++){
@@ -233,7 +244,7 @@
 								ret += '			  </div> ';	
 								photoIndex ++;		
 							}						
-						}
+						}*/
 						
 						ret += '			</div>';
 						ret += '		  </div>';

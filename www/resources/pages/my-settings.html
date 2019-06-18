@@ -271,12 +271,12 @@
 				self.socket = new Socket();	
 				
 				self.socket.onData = function(data) {					
-					let convertedData = data.reduce((acc, item) => {
+					/*let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);	
+					App.dialog.alert(convertedData);*/	
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
