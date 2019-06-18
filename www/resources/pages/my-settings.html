@@ -270,7 +270,8 @@
 				//self.$app.preloader.show();
 				self.socket = new Socket();	
 				
-				self.socket.onData = function(data) {					
+				self.socket.onData = function(data) {
+				
 					/*let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);

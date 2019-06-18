@@ -303,6 +303,7 @@ var App = new Framework7({
 				}
 			}
 			
+			
 			return dateArr;
 		},
         sortDatePhoto: function(data){
