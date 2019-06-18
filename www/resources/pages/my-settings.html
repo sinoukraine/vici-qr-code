@@ -80,6 +80,15 @@
 								will record 1 frames per second.</p>
 						</div>
 					</li>
+
+					<li class="item-content">
+						<a href="#" class="my-sync item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Sync the mobile phone time to device
+							</span>
+							<!-- <i class="f7-icons icon-right"></i> -->
+						</a>
+					</li>
 					
 					<li class="item-content">
 						<a href="/version.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between ">
@@ -171,6 +180,36 @@
 					IsConnect: true,
 				});					
 			},*/
+			feedCommand: function(hex) {
+				var self = this;					
+				
+				//7802F8334207
+				if(self.phoneMacAddress != '00.00.00.00.00.00'){
+					self.$app.preloader.show();
+					
+					let macAddress = self.phoneMacAddress.replace(/[^A-Za-z0-9]/g, "");
+					//macAddress = macAddress.substr(1,macAddress.length -2);
+					//App.dialog.alert(self.phoneMacAddress);
+					self.socket.open(
+					  "192.168.1.1",
+					  10080,
+					  function() {		
+						//self.$app.preloader.hide();			
+						//self.initConnectToCam();
+						self.writeToCam("FFF0275D0100000010010006" + macAddress);
+						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
+					
+						self.writeToCam(hex);										
+					  },
+					  function(errorMessage) {
+						//self.$app.preloader.hide();
+						App.dialog.alert('Cam is not initialized');	
+						// invoked after unsuccessful opening of socket
+					});
+				}else{
+					App.dialog.alert('Mac address is invalid');						
+				}					
+			},
 			stateToggle: function(hex, name, data) {
 				var self = this;					
 				
@@ -348,7 +387,12 @@
 					/*}else{
 						App.dialog.alert('Please wait while state is changing.');
 					}*/
-				});					
+				});
+
+				myPage.on('click', '.my-sync', function() {
+					self.feedCommand('FFF00000010000003002');						
+				});
+				
 			}
 		}
     };
