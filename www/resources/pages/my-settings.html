@@ -68,6 +68,20 @@
 					</li>
 					
 					<li class="item-content">
+						<div class="item-inner not-empty-state border-bottom">
+							<div class="item-inner-bottom display-flex align-items-center justify-content-space-between">
+								<span class="item-caption">Parked Vehicles Surveillance</span>
+								<label class="toggle toggle-init">
+									<input type="checkbox" name="Surveillance" {{#if CheckedSurveillance}} checked {{/if}}>
+									<span class="toggle-icon"></span>
+								</label>
+							</div>
+							<p class="item-bottom-text">After starting this, the device will judge vehicle status automatically: When the vehicle is in driving conditions, the device will record 30 frames per second ‘s video loop; When the vehicle is in parking conditions, the device
+								will record 1 frames per second.</p>
+						</div>
+					</li>
+					
+					<li class="item-content">
 						<a href="/version.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between ">
 							<span>
 								Version Check 
@@ -118,6 +132,7 @@
 				Mac: '00.00.00.00.00.00',
 				phoneMacAddress: '00.00.00.00.00.00',
 				CheckedSoundOn: false,
+				CheckedSurveillance: false
 			};            
 
             return ret;
@@ -156,9 +171,8 @@
 					IsConnect: true,
 				});					
 			},*/
-			soundToggle: function(data) {
-				var self = this;	
-				let isOn = data;				
+			stateToggle: function(hex, name, data) {
+				var self = this;					
 				
 				//7802F8334207
 				if(self.phoneMacAddress != '00.00.00.00.00.00'){
@@ -176,14 +190,8 @@
 						self.writeToCam("FFF0275D0100000010010006" + macAddress);
 						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
 					
-						if(isOn == 'on'){
-							self.writeToCam("FFF00000010000007007000101");
-							console.log('sound on');
-						}else{
-							self.writeToCam("FFF00000010000007007000100");
-							console.log('sound off');				
-						}
-						self.$app.methods.setInStorage({name: 'settingSoundOn', data: isOn});					
+						self.writeToCam(hex);						
+						self.$app.methods.setInStorage({name: name, data: state});					
 					  },
 					  function(errorMessage) {
 						//self.$app.preloader.hide();
@@ -224,13 +232,13 @@
 				self.socket = new Socket();	
 				
 				self.socket.onData = function(data) {					
-					/*let convertedData = data.reduce((acc, item) => {
+					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
 					App.dialog.alert(convertedData);	
-					*/
+					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				self.socket.onError = function(errorMessage) {
@@ -262,6 +270,18 @@
                         CheckedSoundOn: false,
                     });
 				}	
+				
+				var currentSurveillance = self.$app.methods.getFromStorage("settingSurveillance");
+				
+				if(currentSurveillance == 'on'){
+					self.$setState({
+                        CheckedSurveillance: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedSurveillance: false,
+                    });
+				}
 				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
 				WifiWizard2.getConnectedSSID().then(response => {	
@@ -309,14 +329,26 @@
 				myPage.on('click', '[name="SoundRecording"]', function() {
 					//if(!self.IsConnect){
 						if($(this).is(":checked")){
-							self.soundToggle('on');
+							self.stateToggle('FFF00000010000007007000101', 'settingSoundOn', 'on');
 						}else{
-							self.soundToggle('off');
+							self.stateToggle('FFF00000010000007007000100', 'settingSoundOn', 'off');
 						}
 					/*}else{
 						App.dialog.alert('Please wait while state is changing.');
 					}*/
-				});				
+				});	
+
+				myPage.on('click', '[name="Surveillance"]', function() {
+					//if(!self.IsConnect){
+						if($(this).is(":checked")){
+							self.stateToggle('FFF00000010000007011000101', 'settingSurveillance', 'on');
+						}else{
+							self.stateToggle('FFF00000010000007007000100', 'settingSurveillance', 'off');
+						}
+					/*}else{
+						App.dialog.alert('Please wait while state is changing.');
+					}*/
+				});					
 			}
 		}
     };

@@ -91,6 +91,12 @@ var App = new Framework7({
             var str = '';
             if (name) {
                 switch (name){
+                    case 'settingSurveillance':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGSURVEILLANCE");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'settingSoundOn':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGSOUNDON");
                         if(str) {
@@ -145,6 +151,9 @@ var App = new Framework7({
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
                 switch (params.name){
+                    case 'settingSurveillance':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGSURVEILLANCE", JSON.stringify(params.data));
+                    break; 
                     case 'settingSoundOn':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGSOUNDON", JSON.stringify(params.data));
                     break; 
