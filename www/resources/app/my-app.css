@@ -722,17 +722,17 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 }
 
 /*custom*/
-
+/*
 .photo-list, .photo-list ul, .photo-list ul .list{
 	height: 100%;
-}
+}*/
 
 .block{
 	/*height: 120%;	*/
 }
 
 .photo-list ul{
-	height: 100% !important;
+	/*height: 100% !important;*/
 }
 
 .video-list, .video-list ul, .video-list ul .list{
@@ -809,4 +809,12 @@ label.check-item input[type=checkbox]:checked~.check-item {
 
 .item-content .row{
 	width: 100%;
+}
+
+.my-gallery .list .item-text{
+	max-height: initial;
+}
+
+.my-gallery .item-inner:after{
+	display: none;
 }

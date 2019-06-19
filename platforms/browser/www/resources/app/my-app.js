@@ -121,8 +121,20 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
                     break; 
-                    case 'photoList':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST");
+                    case 'alarmPhotoList':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.ALARMPHOTOLIST");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break;  
+                    case 'gesturePhotoList':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.GESTUREPHOTOLIST");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break;  
+                    case 'parkingPhotoList':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.PARKINGPHOTOLIST");
                         if(str) {
                             ret = JSON.parse(str);
                         }
@@ -169,9 +181,15 @@ var App = new Framework7({
                     case 'normalList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.NORMALLIST", JSON.stringify(params.data));
                     break; 
-                    case 'photoList':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.PHOTOLIST", JSON.stringify(params.data));
-                    break;       
+                    case 'alarmPhotoList':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.ALARMPHOTOLIST", JSON.stringify(params.data));
+                    break;  
+                    case 'gesturePhotoList':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.GESTUREPHOTOLIST", JSON.stringify(params.data));
+                    break; 
+                    case 'parkingPhotoList':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.PARKINGPHOTOLIST", JSON.stringify(params.data));
+                    break;      
                     case 'videoList':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST", JSON.stringify(params.data));
                     break;                      
