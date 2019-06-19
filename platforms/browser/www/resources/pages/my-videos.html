@@ -1,6 +1,7 @@
 <template>
 	<div data-name="my-videos" class="page gallery my-videos">
 		<div class="navbar">
+			<span class="progressbar-infinite display-none"></span>
 			<div class="navbar-inner">
 				<div class="left">
 					{{#if IsCheckAll}}
@@ -94,7 +95,8 @@
 
 				
                 self.$app.preloader.show();
-				self.$app.methods.getRecordPhoto().then(response => {		
+				self.$app.methods.getRecordPhoto().then(response => {				
+					console.log(response);
 					self.$app.methods.setInStorage({name: 'normalList', data: response.mp4data});
                     self.$setState({
                         ShowNormalList: true,
@@ -111,7 +113,7 @@
 				
 				
 				self.$app.preloader.show();
-				self.$app.methods.getRecordVideo().then(response => {			
+				self.$app.methods.getRecordVideo().then(response => {	
 					//self.methods.setPhotoList({list: response.mp4data});	
 					self.$app.methods.setInStorage({name: 'videoList', data: response.mp4data});
                     self.$setState({
@@ -323,6 +325,12 @@
 						for (let d = 0; d < item.data.length; d ++){	
 							let time = item.data[d].time.substring(6, 8) + '.' + item.data[d].time.substring(4, 6)+' '+item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(10, 12);
 							
+							let res = '1080p';							
+							let pattern = /720p/i;							
+							if(pattern.test(item.data[d].filename)) {
+								res = '720p';
+							}
+							
 							ret += '			  <div class="col-50">';
 							ret +='<label class="checkbox check-item photo-check-item display-none">';
 							ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'"/>';
@@ -333,7 +341,7 @@
 													'<div class="item-media video-item-media">' +
 													'<img class="item-path" src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
 													'<div class="item-media-bottom">' +
-													'<div class="item-media-quality">720p</div>' +
+													'<div class="item-media-quality">' + res + '</div>' +
 													'<div class="item-media-time">'+time+'</div>' +
 													'</div>' +
 													'</div>' +

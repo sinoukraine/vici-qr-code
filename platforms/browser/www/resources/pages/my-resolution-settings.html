@@ -15,7 +15,7 @@
 				<ul class="padding-left padding-right">
 					<li>
 						<label class="item-radio item-content no-padding">
-								<input type="radio" name="resolution" class="Resolution" value="720"  {{#if Checked720p}} checked {{/if}} />
+								<input type="radio" name="resolution" class="Resolution" value="720p"  {{#if Checked720p}} checked {{/if}} />
 								<i class="icon icon-radio"></i>
 								<div class="item-inner">
 								  <div class="item-title">720 P</div>
@@ -24,7 +24,7 @@
 					</li>
 					<li>
 						<label class="item-radio item-content no-padding">
-								<input type="radio" name="resolution" class="Resolution" value="1080"  {{#if Checked1080p}} checked {{/if}}/>
+								<input type="radio" name="resolution" class="Resolution" value="1080p"  {{#if Checked1080p}} checked {{/if}}/>
 								<i class="icon icon-radio"></i>
 								<div class="item-inner">
 								  <div class="item-title">1080 P</div>
@@ -97,15 +97,15 @@
             pageInit: function (e, page) {  
 				var self = this;    				
 				var myPage = $$('.my-resolution-settings');
-				myPage.on('click', '.Resolution', function() {alert(666);
+				myPage.on('click', '.Resolution', function() {
 					let state = $(this).val();
-console.log(state);					
-						/*if($(this).is(":checked")){
-							//self.stateToggle('FFF00000010000007007000101', 'settingResolution', 'on');
+						if(state == '1080p'){
+							self.stateToggle('FFF0000001000000700F000101', 'currentResolution', '1080p');
 						}else{
-							//self.stateToggle('FFF00000010000007007000100', 'settingResolution', 'off');
-						}*/
+							self.stateToggle('FFF0000001000000700F000100', 'currentResolution', '720p');
+						}
 				});	
+				
 				window.MacAddress.getMacAddress(
 					function(macAddress) {
 						self.$setState({
@@ -125,7 +125,7 @@ console.log(state);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);*/	
+					App.dialog.alert(convertedData);*/
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
@@ -143,7 +143,7 @@ console.log(state);
 				
 				//init start data
 								
-				var currentResolution = self.$app.methods.getFromStorage("settingResolution");
+				var currentResolution = self.$app.methods.getFromStorage("currentResolution");
 				
 				if(currentResolution == '1080p'){
 					self.$setState({

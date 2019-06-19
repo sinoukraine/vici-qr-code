@@ -373,7 +373,8 @@ var App = new Framework7({
 		},
 		downloadFiles: function(arr = []){
 			if(arr.length){						
-                App.preloader.show();
+                //App.preloader.show();
+				$$('.navbar .progressbar-infinite').show();
 				//App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
 				arr.forEach(function(value, index) {
 					DownloadFile(value.url, value.dir, value.name);
@@ -486,11 +487,11 @@ function filetransfer(download_link, fp) {
 	fileTransfer.download(download_link, fp,
 		function (entry) {
 			//alert("download complete: " + entry.fullPath);
-			window.plugins.scanmedia.scanFile(fp, function (msg) {
-				App.preloader.hide(); 
+			window.plugins.scanmedia.scanFile(fp, function (msg) {				
+				$$('.navbar .progressbar-infinite').show();
 				App.dialog.alert("File uploaded");
 			}, function (err) {
-				App.preloader.hide(); 
+				$$('.navbar .progressbar-infinite').show();
 				App.dialog.alert("File not uploaded");
 			})
 		},
