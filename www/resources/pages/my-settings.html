@@ -42,7 +42,7 @@
 					</li>
 					<li class="item-content">
 						<div class="item-inner not-empty-state border-bottom">
-							<a href="/resolution.setting/" class="item-inner-bottom display-flex align-items-center justify-content-space-between">
+							<a href="/my-resolution-settings/" class=" item-inner-bottom display-flex align-items-center justify-content-space-between">
 								<span>Resolution</span>
 								<i class="f7-icons icon-right"></i>
 							</a>
@@ -76,7 +76,7 @@
 									<span class="toggle-icon"></span>
 								</label>
 							</div>
-							<p class="item-bottom-text">After starting this, the device will judge vehicle status automatically: When the vehicle is in driving conditions, the device will record 30 frames per second ‘s video loop; When the vehicle is in parking conditions, the device
+							<p class="item-bottom-text">After starting this, the device will judge vehicle status automatically: When the vehicle is in driving conditions, the device will record 30 frames per second's video loop; When the vehicle is in parking conditions, the device
 								will record 1 frames per second.</p>
 						</div>
 					</li>
@@ -172,6 +172,10 @@
 				var self = this;
 				var ip = self.WiFiRouterIp;
 				mainView.router.navigate('/my-language-settings/');
+			},
+			navigateResolution: function(){
+				var self = this;
+				mainView.router.navigate('/my-resolution-settings/');
 			},
 			/*initConnectToCam: function(){
 				var self = this;								
@@ -337,10 +341,10 @@
 							CamName: mySSID.substr(1,mySSID.length -2),
 						});			
 					}else{
-						self.$app.dialog.alert('No Dashcam connected');
 						self.$app.preloader.show();
 						setTimeout(function () { // Prepend new list element	
-							self.$app.preloader.hide();
+							self.$app.preloader.hide();							
+							self.$app.dialog.alert('No Dashcam connected');
 							self.$app.methods.openCam();					
 						 }, 2000);
 						//
@@ -366,6 +370,7 @@
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
 				myPage.on('click', '.my-wifi-settings', self.navigateIp);
 				myPage.on('click', '.my-language-settings', self.navigateLanguage);
+				myPage.on('click', '.my-resolution', self.navigateResolution);
 
 				myPage.on('click', '[name="SoundRecording"]', function() {
 					//if(!self.IsConnect){

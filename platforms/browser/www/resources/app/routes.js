@@ -116,6 +116,11 @@ var routes = [{
         componentUrl: './resources/pages/my-home.html?v=1.64',
     },
 	{
+        name: 'my-resolution-settings',
+        path: '/my-resolution-settings/',
+        componentUrl: './resources/pages/my-resolution-settings.html?v=1.73',
+    },
+	{
         name: 'my-list',
         path: '/my-list/',
         componentUrl: './resources/pages/my-list.html?v=1.64',
@@ -143,7 +148,7 @@ var routes = [{
 	{
         name: 'my-settings',
         path: '/my-settings/',
-        componentUrl: './resources/pages/my-settings.html?v=1.72',
+        componentUrl: './resources/pages/my-settings.html?v=1.75',
     },
 	{
         name: 'my-mac-address',
