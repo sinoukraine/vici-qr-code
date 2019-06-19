@@ -377,7 +377,7 @@ var App = new Framework7({
 				//$$('.view-main .progressbar-infinite').removeClass('display-none');
 				//App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
 				arr.forEach(function(value, index) {
-					if(value.url > 0 && value.dir > 0 && value.name > 0){
+					if(value.url.length > 0 && value.dir.length > 0 && value.name.length > 0){
 						$$('.view-main .progressbar-infinite').removeClass('display-none');
 						DownloadFile(value.url, value.dir, value.name);
 					}else{						
