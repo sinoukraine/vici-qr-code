@@ -1,6 +1,7 @@
 <template>
 	<div data-name="my-gallery" class="page gallery my-gallery">
 		<div class="navbar">
+			<span class="progressbar-infinite display-none"></span>
 			<div class="navbar-inner">
 				<div class="left">
 					{{#if IsCheckAll}}
@@ -762,6 +763,12 @@
 					
 					var currentCamera = self.$app.methods.getFromStorage("currentCamera");
 				
+					if(currentCamera.length > 0){
+						App.dialog.alert(currentCamera);
+					}else{
+						App.dialog.alert('empty name cam');
+					}
+					
 					var downloadItems = $$('[name="photo-check"]');
 					downloadItems.forEach(function() {
 						if($(this).is(":checked")){

@@ -374,10 +374,15 @@ var App = new Framework7({
 		downloadFiles: function(arr = []){
 			if(arr.length){						
                 //App.preloader.show();
-				$$('.view-main .progressbar-infinite').removeClass('display-none');
+				//$$('.view-main .progressbar-infinite').removeClass('display-none');
 				//App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
 				arr.forEach(function(value, index) {
-					DownloadFile(value.url, value.dir, value.name);
+					if(value.url > 0 && value.dir > 0 && value.name > 0){
+						$$('.view-main .progressbar-infinite').removeClass('display-none');
+						DownloadFile(value.url, value.dir, value.name);
+					}else{						
+						App.dialog.alert('Can not download this file');
+					}
 				});
 			}else{
 				App.dialog.alert('Please choose files');
