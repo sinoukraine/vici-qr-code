@@ -408,14 +408,14 @@
 				
 					var arrItems = [];			
 					
-					var currentCamera = self.$app.methods.getFromStorage("currentCamera");
+					//var currentCamera = self.$app.methods.getFromStorage("currentCamera");
 				
 					var downloadItems = $$('[name="photo-check"]');
 					downloadItems.forEach(function() {
 						if($(this).is(":checked")){
 							let objItem = {
 								name: $(this).attr('file-name'),
-								dir: currentCamera,
+								dir: 'dashcam',
 								url: $(this).val()
 							}
 							arrItems.push(objItem);
