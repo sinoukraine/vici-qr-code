@@ -182,32 +182,7 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
-		getRecordPhoto: function(resolve, reject){ 			
-			return new Promise((resolve, reject) => {
-				let url = 'http://192.168.1.1/DCIM/104snap/';
-				let params = {};
-				let headers = {};
-				let newArr = [];
-				cordova.plugin.http.get(url, 
-					params, headers, (response) => {
-						App.dialog.alert('rec_good');
-						var arrParse = response.data.split('</a>');
-						arrParse.forEach(function(value, index) {
-							var valParse = value.split('>');						
-							if(index > 0 && index < arrParse.length - 1){
-								newArr.push(valParse[1]);					
-							}
-						});
-						
-						//console.log(newArr);					
-						resolve(newArr);
-				}, function(response) {
-						App.dialog.alert(response.error);
-				  console.error(response.error);
-				  reject();
-				});	
-			});	
-			/*
+		getRecordPhoto: function(resolve, reject){ 		
 			return new Promise((resolve, reject) => {
 				$.ajax({
 					   type: "GET",
@@ -230,8 +205,33 @@ var App = new Framework7({
 					}
 					
 				});		
-			});   */
-			
+			});   			
+		},
+		getVRecordPhoto: function(resolve, reject){ 			
+			return new Promise((resolve, reject) => {
+				let url = 'http://192.168.1.1/DCIM/104snap/';
+				let params = {};
+				let headers = {};
+				let newArr = [];
+				cordova.plugin.http.get(url, 
+					params, headers, (response) => {
+						//App.dialog.alert('rec_good');
+						var arrParse = response.data.split('</a>');
+						arrParse.forEach(function(value, index) {
+							var valParse = value.split('>');						
+							if(index > 0 && index < arrParse.length - 1){
+								newArr.push(valParse[1]);					
+							}
+						});
+						
+						//console.log(newArr);					
+						resolve(newArr);
+				}, function(response) {
+						//App.dialog.alert(response.error);
+				  console.error(response.error);
+				  reject();
+				});	
+			});				
 		},
 		getRecordVideo: function (resolve, reject) {	
 			return new Promise((resolve, reject) => {
@@ -269,8 +269,7 @@ var App = new Framework7({
 					}
 				});		
 			});   
-		},
-		
+		},		
         sortParseDatePhoto: function(data){
 			//let infoArr = [];
 			let dataObj = data;

@@ -98,7 +98,7 @@
 				var self = this;  
 
 				self.$app.preloader.show();
-				self.$app.methods.getRecordPhoto().then(response => {			
+				self.$app.methods.getVRecordPhoto().then(response => {			
 					self.$app.methods.setInStorage({name: 'photoList', data: response});
                     self.$setState({
                         ShowPhotoList: true,
@@ -110,7 +110,7 @@
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Error occured at Get Alarm Photo List');
-                    //self.$app.dialog.alert('Error occured at Get Alarm Photo List');
+                    self.$app.dialog.alert(error);
 				});		
 				
 				/*

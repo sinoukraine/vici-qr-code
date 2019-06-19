@@ -95,7 +95,7 @@
 				
                 self.$app.preloader.show();
 				self.$app.methods.getRecordPhoto().then(response => {		
-					self.$app.methods.setInStorage({name: 'photoList', data: response.mp4data});
+					self.$app.methods.setInStorage({name: 'normalList', data: response.mp4data});
                     self.$setState({
                         ShowNormalList: true,
                     });
@@ -132,7 +132,7 @@
                 
                 var listEl = self.$el.find('.normalList'); 
                 //var listSearchEl = self.$el.find('.searchbar');    
-                var normalList = self.$app.methods.getFromStorage("photoList");
+                var normalList = self.$app.methods.getFromStorage("normalList");
 				//let dateArr = self.$app.methods.sortDateNormal(normalList);           
                let dateArr = [{
 				'data': normalList
