@@ -159,6 +159,7 @@ var App = new Framework7({
             }
             return ret;
 		},
+		
         setInStorage: function(params){
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
