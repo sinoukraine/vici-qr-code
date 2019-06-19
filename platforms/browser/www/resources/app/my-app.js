@@ -190,6 +190,7 @@ var App = new Framework7({
 				let newArr = [];
 				cordova.plugin.http.get(url, 
 					params, headers, (response) => {
+						App.dialog.alert('rec_good');
 						var arrParse = response.data.split('</a>');
 						arrParse.forEach(function(value, index) {
 							var valParse = value.split('>');						
@@ -201,6 +202,7 @@ var App = new Framework7({
 						//console.log(newArr);					
 						resolve(newArr);
 				}, function(response) {
+						App.dialog.alert(response.error);
 				  console.error(response.error);
 				  reject();
 				});	
