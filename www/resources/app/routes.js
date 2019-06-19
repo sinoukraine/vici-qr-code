@@ -166,6 +166,11 @@ var routes = [{
         componentUrl: './resources/pages/my-language-settings.html?v=1.75',
     },
 	{
+        name: 'my-conflict-sensitivity',
+        path: '/my-conflict-sensitivity/',
+        componentUrl: './resources/pages/my-conflict-sensitivity.html?v=1.75',
+    },
+	{
         name: 'my-info',
         path: '/my-info/',
         componentUrl: './resources/pages/my-info.html?v=1.64',
