@@ -33,7 +33,7 @@
 							<a href="#alarm" class="tab-link tab-link-active" >
 								<span class="tabbar-label"><b>Alarm</b></span>
 							</a>
-							<a href="#gesture" class="tab-link tab-link-active" >
+							<a href="#gesture" class="tab-link" >
 								<span class="tabbar-label"><b>Gesture</b></span>
 							</a>
 							<a href="#parking" class="tab-link">
@@ -116,7 +116,9 @@
 			var ret = {
 				IsReverse: false,
 				IsCheckAll: false,
-				photoBrowserArr: [],
+				alarmPhotoBrowserArr: [],
+				gesturePhotoBrowserArr: [],
+				parkingPhotoBrowserArr: [],
                 VirtualAlarmList: false,
                 VirtualGestureList: false,
                 VirtualParkingList: false,
@@ -202,7 +204,7 @@
                     });
                 }*/
 				
-				self.photoBrowserArr.length = 0;
+				self.alarmPhotoBrowserArr.length = 0;
 				var photoIndex = 0;
 				         
                 self.VirtualAlarmList = App.virtualList.create({
@@ -257,13 +259,13 @@
 						for (let d = 0; d < item.data.length; d ++){	
 							//let time = item.data[d];
 							//for (let a = 0; a < item.data[d].associateddata.length; a ++){
-								self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
+								self.alarmPhotoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
 								ret += '			  <div class="col-50">';
 									ret +='<label class="checkbox check-item photo-check-item display-none">';
 									ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d]+'" value="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'"/>';
 									ret +='<i class="f7-icons">check</i>';
 									ret +='</label>';
-								ret += 					'<a href="#" class="pb-standalone-dark" data-index="'+photoIndex+'" data-photo="'+item.data[d]+'">' +
+								ret += 					'<a href="#" class="pb-standalone-dark pb-standalone-dark-alarm" data-index="'+photoIndex+'" data-photo="'+item.data[d]+'">' +
 														'<div class="item-content">' +
 														'<div class="item-media photo-item-media">' +
 														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'">' +
@@ -310,13 +312,13 @@
                     }
                 });				
 				
-				self.PhotoBrowserObj = self.$app.photoBrowser.create({
+				self.alarmPhotoBrowserObj = self.$app.photoBrowser.create({
 					theme : 'dark',
 					toolbar : false,
 					renderNavbar : function() {
-						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Photo</div></div></div>    ';
+						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Alarm Photo</div></div></div>    ';
 					},
-					photos : self.photoBrowserArr
+					photos : self.alarmPhotoBrowserArr
 				});
 				
 				/*window.plugins.html5Video.initialize({
@@ -346,7 +348,7 @@
                     });
                 }*/
 				
-				self.photoBrowserArr.length = 0;
+				self.gesturePhotoBrowserArr.length = 0;
 				var photoIndex = 0;
 				         
                 self.VirtualGestureList = App.virtualList.create({
@@ -401,13 +403,13 @@
 						for (let d = 0; d < item.data.length; d ++){	
 							//let time = item.data[d];
 							//for (let a = 0; a < item.data[d].associateddata.length; a ++){
-								self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
+								self.gesturePhotoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
 								ret += '			  <div class="col-50">';
 									ret +='<label class="checkbox check-item photo-check-item display-none">';
 									ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d]+'" value="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'"/>';
 									ret +='<i class="f7-icons">check</i>';
 									ret +='</label>';
-								ret += 					'<a href="#" class="pb-standalone-dark" data-index="'+photoIndex+'" data-photo="'+item.data[d]+'">' +
+								ret += 					'<a href="#" class="pb-standalone-dark pb-standalone-dark-gesture" data-index="'+photoIndex+'" data-photo="'+item.data[d]+'">' +
 														'<div class="item-content">' +
 														'<div class="item-media photo-item-media">' +
 														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'">' +
@@ -454,13 +456,15 @@
                     }
                 });				
 				
-				self.PhotoBrowserObj = self.$app.photoBrowser.create({
+						
+				
+				self.gesturePhotoBrowserObj = self.$app.photoBrowser.create({
 					theme : 'dark',
 					toolbar : false,
 					renderNavbar : function() {
-						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Photo</div></div></div>    ';
+						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Gesture Photo</div></div></div>    ';
 					},
-					photos : self.photoBrowserArr
+					photos : self.gesturePhotoBrowserArr
 				});
 				
 				/*window.plugins.html5Video.initialize({
@@ -490,7 +494,7 @@
                     });
                 }*/
 				
-				self.photoBrowserArr.length = 0;
+				self.parkingPhotoBrowserArr.length = 0;
 				var photoIndex = 0;
 				         
                 self.VirtualParkingList = App.virtualList.create({
@@ -546,13 +550,13 @@
 						for (let d = 0; d < item.data.length; d ++){	
 							//let time = item.data[d];
 							//for (let a = 0; a < item.data[d].associateddata.length; a ++){
-								self.photoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
+								self.parkingPhotoBrowserArr.push('http://192.168.1.1/DCIM/104snap/'+item.data[d]);
 								ret += '			  <div class="col-50">';
 									ret +='<label class="checkbox check-item photo-check-item display-none">';
 									ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d]+'" value="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'"/>';
 									ret +='<i class="f7-icons">check</i>';
 									ret +='</label>';
-								ret += 					'<a href="#" class="pb-standalone-dark" data-index="'+photoIndex+'" data-photo="'+item.data[d]+'">' +
+								ret += 					'<a href="#" class="pb-standalone-dark pb-standalone-dark-parking" data-index="'+photoIndex+'" data-photo="'+item.data[d]+'">' +
 														'<div class="item-content">' +
 														'<div class="item-media photo-item-media">' +
 														'<img class="item-path photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d]+'">' +
@@ -599,13 +603,14 @@
                     }
                 });				
 				
-				self.PhotoBrowserObj = self.$app.photoBrowser.create({
+				
+				self.parkingPhotoBrowserObj = self.$app.photoBrowser.create({
 					theme : 'dark',
 					toolbar : false,
 					renderNavbar : function() {
-						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Photo</div></div></div>    ';
+						return '<div class="navbar"><div class="navbar-inner"><div class="left"><a href="#" class="back link"><i class="f7-icons icon-left"></i></a></div><div class="title">Parking Photo</div></div></div>    ';
 					},
-					photos : self.photoBrowserArr
+					photos : self.parkingPhotoBrowserArr
 				});
 				
 				/*window.plugins.html5Video.initialize({
@@ -713,8 +718,16 @@
 
 				var page = page.$el.find('.page-content'); 
 
-                page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open(+($(this).attr('data-index')));
+                page.on('click', '.pb-standalone-dark-alarm', function(e){
+					self.alarmPhotoBrowserObj.open(+($(this).attr('data-index')));
+				});
+				
+                page.on('click', '.pb-standalone-dark-gesture', function(e){
+					self.gesturePhotoBrowserObj.open(+($(this).attr('data-index')));
+				});
+				
+                page.on('click', '.pb-standalone-dark-parking', function(e){
+					self.parkingPhotoBrowserObj.open(+($(this).attr('data-index')));
 				});
 				
 				page.on('taphold', '.item-path', function(e){
