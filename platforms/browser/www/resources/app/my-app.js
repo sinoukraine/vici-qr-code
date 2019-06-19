@@ -250,6 +250,7 @@ var App = new Framework7({
 					"time": "20190523121307" 
 				 }
 					},*/
+					
 					  jsonp: false,
 					  //jsonpCallback: "onJsonP",
 						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
