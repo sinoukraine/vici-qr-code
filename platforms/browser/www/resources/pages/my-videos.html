@@ -27,10 +27,10 @@
 				<div class="subnavbar">
 					<div class="toolbar tabbar" id="toolbar-menu">
 						<div class="toolbar-inner">
-							<a href="#normal" class="tab-link tab-link-active" >
+							<a href="#video" class="tab-link tab-link-active" >
 								<span class="tabbar-label"><b>Loop Video</b></span>
 							</a>
-							<a href="#video" class="tab-link">
+							<a href="#normal" class="tab-link">
 								<span class="tabbar-label"><b>Incident Video</b></span>
 							</a>
 						</div>
@@ -204,6 +204,11 @@
 						for (let d = 0; d < item.data.length; d ++){	
 							let time = item.data[d].time.substring(6, 8) + '.' + item.data[d].time.substring(4, 6)+' '+item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(10, 12);
 							
+							let res = '1080p';							
+							let pattern = /720p/i;							
+							if(pattern.test(item.data[d].filename)) {
+								res = '720p';
+							}
 							ret += '			  <div class="col-50">';
 							ret +='<label class="checkbox check-item photo-check-item display-none">';
 							ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/101video/'+item.data[d].filename+'"/>';
@@ -215,7 +220,7 @@
 													'<div class="item-media video-item-media">' +
 													'<img class="item-path" src="http://192.168.1.1/DCIM/105thumb/'+item.data[d].title+'">' +
 													'<div class="item-media-bottom">' +
-													'<div class="item-media-quality">720p</div>' +
+													'<div class="item-media-quality">' + res + '</div>' +
 													'<div class="item-media-time">'+time+'</div>' +
 													'</div>' +
 													'</div>' +

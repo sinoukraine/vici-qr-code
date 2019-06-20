@@ -103,6 +103,12 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
                     break; 
+                    case 'settingVoiceParking':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEPARKING");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'currentSensitivity':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTSENSITIVITY");
                         if(str) {
@@ -181,6 +187,9 @@ var App = new Framework7({
                     break; 
                     case 'settingSoundOn':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGSOUNDON", JSON.stringify(params.data));
+                    break; 
+                    case 'settingVoiceParking':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEPARKING", JSON.stringify(params.data));
                     break; 
                     case 'currentLanguage':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE", JSON.stringify(params.data));

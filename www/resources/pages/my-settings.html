@@ -29,17 +29,14 @@
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
-					<li class="item-content">
-						<div class="item-inner not-empty-state border-bottom">
-							<a href="#" class="my-language-settings item-inner-bottom display-flex align-items-center justify-content-space-between">
-								<span>
-									Language
-								</span>
-								<i class="f7-icons icon-right"></i>
-							</a>
-							<!--<p class="item-bottom-text">Device has English/Russian language options, you can switch it according to your demand</p>-->
-						</div>
-					</li>
+					<!--<li class="item-content no-padding">
+						<a href="/my-voice-prompt/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Voice Prompt
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>-->
 					<li class="item-content">
 						<div class="item-inner not-empty-state border-bottom">
 							<a href="/my-resolution-settings/" class=" item-inner-bottom display-flex align-items-center justify-content-space-between">
@@ -50,14 +47,6 @@
 						</div>
 					</li>
 					<li class="item-content">
-						<a href="/speed.unit.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
-							<span>
-								Speed Unit
-							</span>
-							<i class="f7-icons icon-right"></i>
-						</a>
-					</li>
-					<li class="item-content">
 						<div class="item-inner not-empty-state display-flex justify-content-space-between align-items-center border-bottom">
 							<span class="item-caption">Sound Recording</span>
 							<label class="toggle toggle-init">
@@ -65,8 +54,16 @@
 								<span class="toggle-icon"></span>
 							</label>
 						</div>
-					</li>
-					
+					</li> 
+					<li class="item-content no-padding">
+						<div class="item-inner display-flex align-items-center justify-content-space-between">
+							<span class="item-caption">Parking Voice Prompt</span>
+							<label class="toggle toggle-init">
+								<input type="checkbox" name="VoiceParking" {{#if CheckedVoiceParking}} checked {{/if}}>
+								<span class="toggle-icon"></span>
+							</label>
+						</div>
+					</li>					
 					<li class="item-content">
 						<div class="item-inner not-empty-state border-bottom">
 							<div class="item-inner-bottom display-flex align-items-center justify-content-space-between">
@@ -79,8 +76,7 @@
 							<p class="item-bottom-text">After starting this, the device will judge vehicle status automatically: When the vehicle is in driving conditions, the device will record 30 frames per second's video loop; When the vehicle is in parking conditions, the device
 								will record 1 frames per second.</p>
 						</div>
-					</li>
-<!--
+					</li><!--
 					<li class="item-content">
 						<a href="#" class="my-sync item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
@@ -100,7 +96,25 @@
 								device will replace early pictures. The sensitivity has low, medium, high standards.</p>
 						</div>
 					</li>
-					
+					<li class="item-content">
+						<a href="/speed.unit.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Speed Unit
+							</span>
+							<i class="f7-icons icon-right"></i>
+						</a>
+					</li>
+					<li class="item-content">
+						<div class="item-inner not-empty-state border-bottom">
+							<a href="#" class="my-language-settings item-inner-bottom display-flex align-items-center justify-content-space-between">
+								<span>
+									Language
+								</span>
+								<i class="f7-icons icon-right"></i>
+							</a>
+							<!--<p class="item-bottom-text">Device has English/Russian language options, you can switch it according to your demand</p>-->
+						</div>
+					</li>					
 					<li class="item-content">
 						<a href="/version.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between ">
 							<span>
@@ -110,14 +124,6 @@
 						</a>
 					</li>
 					<!--
-					<li class="item-content no-padding">
-						<a href="/voice.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
-							<span>
-								Voice Prompt
-							</span>
-							<i class="f7-icons icon-right"></i>
-						</a>
-					</li>
 					<li class="item-content no-padding">
 						<a href="/my-settings-service/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
@@ -152,7 +158,8 @@
 				Mac: '00.00.00.00.00.00',
 				phoneMacAddress: '00.00.00.00.00.00',
 				CheckedSoundOn: false,
-				CheckedSurveillance: false
+				CheckedSurveillance: false,
+				CheckedVoiceParking: false
 			};            
 
             return ret;
@@ -288,12 +295,12 @@
 				self.socket.onData = function(data) {
 
 				
-					/*let convertedData = data.reduce((acc, item) => {
+					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);*/	
+					App.dialog.alert(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
@@ -336,6 +343,18 @@
 				}else{
 					self.$setState({
                         CheckedSurveillance: false,
+                    });
+				}
+				
+				var currentVoiceParking = self.$app.methods.getFromStorage("settingVoiceParking");
+				
+				if(currentVoiceParking == 'on'){
+					self.$setState({
+                        CheckedVoiceParking: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedVoiceParking: false,
                     });
 				}
 				
@@ -407,6 +426,19 @@
 					}*/
 				});
 
+				myPage.on('click', '[name="VoiceParking"]', function() {
+					//if(!self.IsConnect){
+						if($(this).is(":checked")){
+							self.stateToggle('FFF00000010000007111000101', 'settingVoiceParking', 'on');
+						}else{
+							self.stateToggle('FFF00000010000007111000100', 'settingVoiceParking', 'off');
+						}
+					/*}else{
+						App.dialog.alert('Please wait while state is changing.');
+					}*/
+				});
+
+				
 				myPage.on('click', '.my-sync', function() {
 					self.feedCommand('FFF00000010000003002');						
 				});

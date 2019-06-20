@@ -18,7 +18,7 @@
 							<input type="radio" name="sensible" class="Sensitivity" value="high" {{#if CheckedHigh}} checked {{/if}} />
 							<i class="icon icon-radio"></i>
 							<div class="item-inner">
-								<div class="item-title">Hige</div>
+								<div class="item-title">High</div>
 							</div>
 						</label>
 					</li>
@@ -42,7 +42,7 @@
 							</div>
 						</label>
 					</li>
-
+<!--
 					<li>
 						<label class="item-radio item-content no-padding">
 							<input type="radio" name="sensible" class="Sensitivity" value="shutdown" {{#if CheckedShutdown}} checked {{/if}}/>
@@ -51,7 +51,7 @@
 								<div class="item-title">Shutdown</div>
 							</div>
 						</label>
-					</li>
+					</li>-->
 
 				</ul>
 			</div>
@@ -123,14 +123,12 @@
 				var myPage = $$('.my-conflict-sensitivity');
 				myPage.on('click', '.Sensitivity', function() {
 					let state = $(this).val();
-						if(state == 'high'){
-							self.stateToggle('FFF000000100000070090001FF', 'currentSensitivity', 'high');
+						if(state == 'low'){
+							self.stateToggle('FFF00000010000007009000106', 'currentSensitivity', 'low');
 						}else if(state == 'medium'){
 							self.stateToggle('FFF0000001000000700900010F', 'currentSensitivity', 'medium');
-						}else if(state == 'low'){
-							self.stateToggle('FFF00000010000007009000106', 'currentSensitivity', 'low');
-						}else {
-							self.stateToggle('FFF00000010000007009000100', 'currentSensitivity', 'shutdown');
+						}else{
+							self.stateToggle('FFF000000100000070090001FF', 'currentSensitivity', 'high');
 						}
 				});	
 				
@@ -148,12 +146,12 @@
 				self.socket = new Socket();	
 				
 				self.socket.onData = function(data) {				
-					let convertedData = data.reduce((acc, item) => {
+					/*let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);
+					App.dialog.alert(convertedData);*/
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
@@ -174,14 +172,6 @@
 				var currentSensitivity = self.$app.methods.getFromStorage("currentSensitivity");
 						
 				switch(currentSensitivity){
-					case 'high': 
-						self.$setState({
-							CheckedHigh: true,
-							CheckedMedium: false,
-							CheckedLow: false,
-							CheckedShutdown: false,
-						});
-					break;
 					case 'medium': 
 						self.$setState({
 							CheckedHigh: false,
@@ -200,12 +190,17 @@
 					break;
 					default: 
 						self.$setState({
+							CheckedHigh: true,
+							CheckedMedium: false,
+							CheckedLow: false,
+							CheckedShutdown: false,
+						});
+						/*self.$setState({
 							CheckedHigh: false,
 							CheckedMedium: false,
 							CheckedLow: false,
 							CheckedShutdown: true,
-						});
-					break;
+						});*/
 				}
 			}
 		}
