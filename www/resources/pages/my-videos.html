@@ -40,22 +40,7 @@
 		</div>
 		<div class="tabs ptr-content">
 			<!-- First tab, active -->
-			<div class="page-content tab tab-active" id="normal">
-				<div class="block">
-					<div class="ptr-preloader">
-						<div class="preloader"></div>
-						<div class="ptr-arrow"></div>
-					</div>
-					<div class="list virtual-list video-list no-hairlines">
-					{{#if ShowNormalList}}
-						<div key="VirtualNormalList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found normalList">
-						</div> 
-					{{/if}}
-					</div>
-				</div>
-			</div>
-			<!-- First tab, active -->
-			<div class="page-content tab" id="video">
+			<div class="page-content tab tab-active" id="video">
 				<div class="block">
 					<div class="ptr-preloader">
 						<div class="preloader"></div>
@@ -67,6 +52,21 @@
 						</div> 
 					{{/if}}
 					</div>					
+				</div>
+			</div>
+			<!-- Second tab -->
+			<div class="page-content tab" id="normal">
+				<div class="block">
+					<div class="ptr-preloader">
+						<div class="preloader"></div>
+						<div class="ptr-arrow"></div>
+					</div>
+					<div class="list virtual-list video-list no-hairlines">
+					{{#if ShowNormalList}}
+						<div key="VirtualNormalList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found normalList">
+						</div> 
+					{{/if}}
+					</div>
 				</div>
 			</div>
 		</div>
