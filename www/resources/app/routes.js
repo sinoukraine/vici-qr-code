@@ -171,9 +171,9 @@ var routes = [{
         componentUrl: './resources/pages/my-conflict-sensitivity.html?v=1.75',
     },
 	{
-        name: 'my-voice-prompt',
-        path: '/my-voice-prompt/',
-        componentUrl: './resources/pages/my-voice-prompt.html?v=1.75',
+        name: 'my-manage-card',
+        path: '/my-manage-card/',
+        componentUrl: './resources/pages/my-manage-card.html?v=1.75',
     },
 	{
         name: 'my-info',

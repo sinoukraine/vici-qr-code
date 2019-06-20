@@ -1,5 +1,5 @@
 <template>
-	<div class="page my-conflict-sensitivity" data-name="my-conflict-sensitivity">
+	<div class="page my-manage-card" data-name="my-manage-card">
         <div class="navbar">
 			<div class="navbar-inner">
 				<div class="left">
@@ -7,52 +7,65 @@
 						<i class="f7-icons icon-left"></i>
 					</a>
 				</div>
-				<div class="title">Sensitivity</div>
+				<div class="title">Manage the TF Card</div>
 			</div>
 		</div>
 		<div class="page-content">
-			<div class="list no-hairlines no-margin sensitivity-list">
+			<div class="list no-hairlines no-margin tablet-inset">
 				<ul class="padding-left padding-right">
 					<li>
-						<label class="item-radio item-content no-padding">
-							<input type="radio" name="sensible" class="Sensitivity" value="high" {{#if CheckedHigh}} checked {{/if}} />
-							<i class="icon icon-radio"></i>
-							<div class="item-inner">
-								<div class="item-title">High</div>
+						<div class="item-content no-padding">
+							<div class="item-inner display-flex align-items-center justify-content-space-between row">
+								<div class="item-title col-70">Total capacity</div>
+								<div class="color-theme col-20 text-align-right">2340B</div>
+								<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>
 							</div>
-						</label>
+						</div>
 					</li>
-
 					<li>
-						<label class="item-radio item-content no-padding">
-							<input type="radio" name="sensible" class="Sensitivity" value="medium" {{#if CheckedMedium}} checked {{/if}}/>
-							<i class="icon icon-radio"></i>
-							<div class="item-inner">
-								<div class="item-title">Medium</div>
+						<div class="item-content no-padding">
+							<div class="item-inner display-flex align-items-center justify-content-space-between row">
+								<div class="item-title col-70">Free space</div>
+								<div class="color-theme col-20 text-align-right">1240B</div>
+								<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>
 							</div>
-						</label>
+						</div>
 					</li>
-
 					<li>
-						<label class="item-radio item-content no-padding">
-							<input type="radio" name="sensible" class="Sensitivity" value="low" {{#if CheckedLow}} checked {{/if}}/>
-							<i class="icon icon-radio"></i>
-							<div class="item-inner">
-								<div class="item-title">Low</div>
+						<div class="item-content no-padding">
+							<div class="item-inner display-flex align-items-center justify-content-space-between row">
+								<div class="item-title col-70">Cycling video space</div>
+								<div class="color-theme col-20 text-align-right">0B</div>
+								<a href="#" id="videoSpace" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
 							</div>
-						</label>
+						</div>
 					</li>
-<!--
 					<li>
-						<label class="item-radio item-content no-padding">
-							<input type="radio" name="sensible" class="Sensitivity" value="shutdown" {{#if CheckedShutdown}} checked {{/if}}/>
-							<i class="icon icon-radio"></i>
-							<div class="item-inner">
-								<div class="item-title">Shutdown</div>
+						<div class="item-content no-padding">
+							<div class="item-inner display-flex align-items-center justify-content-space-between row">
+								<div class="item-title col-70">Capture and waring video space</div>
+								<div class="color-theme col-20 text-align-right">0B</div>
+								<a href="#" id="clearVideo" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
 							</div>
-						</label>
-					</li>-->
-
+						</div>
+					</li>
+					<li>
+						<div class="item-content no-padding">
+							<div class="item-inner display-flex align-items-center justify-content-space-between row">
+								<div class="item-title col-70">Capture and waring pictures space</div>
+								<div class="color-theme col-20 text-align-right">0B</div>
+								<a href="#" id="clearPictures" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
+							</div>
+						</div>
+					</li>
+					<li>
+						<div class="item-content no-padding">
+							<div class="item-inner display-flex align-items-center justify-content-space-between row">
+								<div class="item-title col-70">Format</div>
+								<a href="#" id="format" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
+							</div>
+						</div>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -66,10 +79,6 @@
             var self = this;
             var ret = {
 				phoneMacAddress: '00.00.00.00.00.00',
-				CheckedHigh: true,
-				CheckedMedium: false,
-				CheckedLow: false,
-				CheckedShutdown: false
 			};            
 
             return ret;
@@ -119,9 +128,10 @@
 		},
         on: {
             pageInit: function (e, page) {  
-				var self = this;    				
+				var self = this;    			
+				
 				var myPage = $$('.my-conflict-sensitivity');
-				myPage.on('click', '.Sensitivity', function() {
+				/*myPage.on('click', '.Sensitivity', function() {
 					let state = $(this).val();
 						if(state == 'low'){
 							self.stateToggle('FFF00000010000007009000106', 'currentSensitivity', 'low');
@@ -130,7 +140,7 @@
 						}else{
 							self.stateToggle('FFF000000100000070090001FF', 'currentSensitivity', 'high');
 						}
-				});	
+				});	*/
 				
 				window.MacAddress.getMacAddress(
 					function(macAddress) {
@@ -167,41 +177,6 @@
 				  // invoked after connection close
 				};		
 				
-				//init start data
-								
-				var currentSensitivity = self.$app.methods.getFromStorage("currentSensitivity");
-						
-				switch(currentSensitivity){
-					case 'medium': 
-						self.$setState({
-							CheckedHigh: false,
-							CheckedMedium: true,
-							CheckedLow: false,
-							CheckedShutdown: false,
-						});
-					break;
-					case 'low': 
-						self.$setState({
-							CheckedHigh: false,
-							CheckedMedium: false,
-							CheckedLow: true,
-							CheckedShutdown: false,
-						});
-					break;
-					default: 
-						self.$setState({
-							CheckedHigh: true,
-							CheckedMedium: false,
-							CheckedLow: false,
-							CheckedShutdown: false,
-						});
-						/*self.$setState({
-							CheckedHigh: false,
-							CheckedMedium: false,
-							CheckedLow: false,
-							CheckedShutdown: true,
-						});*/
-				}
 			}
 		}
     };
