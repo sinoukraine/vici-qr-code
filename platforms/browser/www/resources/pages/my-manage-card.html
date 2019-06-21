@@ -128,18 +128,22 @@
 			},
 			parseHex: function(hex){
 				var self = this;	
-				
-				let trimHexCommand = hex.substring(16, 4);				
+				let trimHexCommand = hex.substring(16, 4);	
+
+				App.dialog.alert(trimHex);				
 				if(trimHex == '8008'){
 					let trimHexOk = hex.substring(24, 2);
+					App.dialog.alert(trimHexOk);	
 					if(trimHexOk == '01'){
 						let trimHexTotalSpace = hex.substring(26, 16);
 						let trimHexFreeSpace = hex.substring(42, 16);
+						App.dialog.alert(trimHexTotalSpace);
+						App.dialog.alert(trimHexFreeSpace);
 						self.$setState({
-							trimHexTotalSpace: trimHexTotalSpace,
+							totalSpace: parseInt(trimHexTotalSpace, 16),
 						});
 						self.$setState({
-							trimHexFreeSpace: trimHexFreeSpace,
+							freeSpace: parseInt(trimHexFreeSpace, 16),
 						});
 					}
 				}
@@ -181,7 +185,7 @@
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);
+					//App.dialog.alert(convertedData);
 					self.parseHex(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
