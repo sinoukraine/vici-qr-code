@@ -384,6 +384,8 @@
 				});*/
             },
 			removeFiles: function(arr = []){
+				var self = this;	
+				
 				if(arr.length){						
 				   arr.forEach(function(value, index) {
 						if(value.length > 0){
@@ -398,7 +400,9 @@
 					App.dialog.alert('Please choose files');
 				}				
 			},  
-			removeFile: function(data){				
+			removeFile: function(data){		
+				var self = this;	
+				
 				lengthData = parseInt(data.length, 16);
 				lengthDataToHex = self.$app.methods.pad(lengthData, 4);
 				self.feedCommand('FFF00000010000008003' + lengthDataToHex + data);	
