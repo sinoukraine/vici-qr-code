@@ -404,8 +404,8 @@
 				var self = this;	
 				
 				let lengthData = parseInt(data.length, 16);
-				App.dialog.alert(lengthData);
-				let lengthDataToHex = self.$app.methods.pad(lengthData, 4);
+				//let lengthDataToHex = self.$app.methods.pad(lengthData, 4);
+				let lengthDataToHex = String('0000' + lengthData).slice(-4);
 				App.dialog.alert(lengthDataToHex);
 				self.feedCommand('FFF00000010000008003' + lengthDataToHex + data);	
 			},
