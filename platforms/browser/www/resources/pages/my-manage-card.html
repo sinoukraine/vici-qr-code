@@ -130,8 +130,8 @@
 				var self = this;	
 				let trimHexCommand = hex.substring(16, 4);	
 
-				App.dialog.alert(trimHex);				
-				if(trimHex == '8008'){
+				App.dialog.alert(trimHexCommand);				
+				if(trimHexCommand == '8008'){
 					let trimHexOk = hex.substring(24, 2);
 					App.dialog.alert(trimHexOk);	
 					if(trimHexOk == '01'){
