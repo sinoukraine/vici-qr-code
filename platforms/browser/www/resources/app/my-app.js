@@ -477,13 +477,11 @@ function encodeHex(str){
 	return result;*/
 }
 
-
-
-
 function onDeviceReady(){
 	loadCarcamPage();
 	console.log('ready');
-	console.log(UInt64("0x0000000077232000"));
+	//App.dialog.alert(UInt64("0x0000000077232000"));	
+	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }
 
 	

@@ -17,7 +17,7 @@
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
 								<div class="item-title col-70">Total capacity</div>
-								<div class="color-theme col-20 text-align-right">2340B</div>
+								<div class="color-theme col-20 text-align-right">{{totalSpace}}GB</div>
 								<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>
 							</div>
 						</div>
@@ -26,7 +26,7 @@
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
 								<div class="item-title col-70">Free space</div>
-								<div class="color-theme col-20 text-align-right">1240B</div>
+								<div class="color-theme col-20 text-align-right">{{freeSpace}}GB</div>
 								<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>
 							</div>
 						</div>
@@ -79,6 +79,8 @@
             var self = this;
             var ret = {
 				phoneMacAddress: '00.00.00.00.00.00',
+				totalSpace: '0',
+				freeSpace: '0',
 			};            
 
             return ret;
@@ -123,6 +125,24 @@
 				}
 				
 				self.socket.write(data);
+			},
+			parseHex: function(hex){
+				var self = this;	
+				
+				let trimHexCommand = hex.substring(16, 4);				
+				if(trimHex == '8008'){
+					let trimHexOk = hex.substring(24, 2);
+					if(trimHexOk == '01'){
+						let trimHexTotalSpace = hex.substring(26, 16);
+						let trimHexFreeSpace = hex.substring(42, 16);
+						self.$setState({
+							trimHexTotalSpace: trimHexTotalSpace,
+						});
+						self.$setState({
+							trimHexFreeSpace: trimHexFreeSpace,
+						});
+					}
+				}
 			}
 		},
         on: {
@@ -162,6 +182,7 @@
 					  return acc + formattedCode;
 					}, '');
 					App.dialog.alert(convertedData);
+					self.parseHex(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
