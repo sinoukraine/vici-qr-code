@@ -84,7 +84,7 @@
             return ret;
         },
 		methods: {			
-			stateToggle: function(hex, name, data) {
+			feedCommand: function(hex) {
 				var self = this;					
 				
 				//7802F8334207
@@ -103,8 +103,7 @@
 						self.writeToCam("FFF0275D0100000010010006" + macAddress);
 						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
 					
-						self.writeToCam(hex);						
-						self.$app.methods.setInStorage({name: name, data: data});					
+						self.writeToCam(hex);										
 					  },
 					  function(errorMessage) {
 						//self.$app.preloader.hide();
@@ -130,7 +129,7 @@
             pageInit: function (e, page) {  
 				var self = this;    			
 				
-				var myPage = $$('.my-conflict-sensitivity');
+				var myPage = $$('.my-manage-card');
 				/*myPage.on('click', '.Sensitivity', function() {
 					let state = $(this).val();
 						if(state == 'low'){
@@ -147,6 +146,7 @@
 						self.$setState({
 							phoneMacAddress: macAddress,
 						});
+						self.feedCommand('FFF00000010000008007000100');
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
@@ -156,12 +156,12 @@
 				self.socket = new Socket();	
 				
 				self.socket.onData = function(data) {				
-					/*let convertedData = data.reduce((acc, item) => {
+					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);*/
+					App.dialog.alert(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
