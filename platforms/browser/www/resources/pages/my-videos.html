@@ -390,7 +390,7 @@
 				   arr.forEach(function(value, index) {
 						if(value.length > 0){
 							//$$('.view-main .progressbar-infinite').removeClass('display-none');
-							
+							App.dialog.alert(value);
 							self.removeFile(value);
 						}else{						
 							App.dialog.alert('Can not remove file');
