@@ -440,6 +440,10 @@ var App = new Framework7({
 			result = result * 16 + digitValue;
 		  }
 		  return result;
+		},
+		pad: function (str, max) {
+		  str = str.toString();
+		  return str.length < max ? pad("0" + str, max) : str;
 		}
 	}
 });
@@ -479,6 +483,7 @@ function encodeHex(str){
 function onDeviceReady(){
 	loadCarcamPage();
 	console.log('ready');
+	console.log(UInt64("0x0000000077232000"));
 }
 
 	
