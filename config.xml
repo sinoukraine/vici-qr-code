@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.sinopacific.dashcamtest" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="1">
+<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.atga.dashcam" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="1">
     <name>DashCam</name>
     <description>
         DashCam
     </description>
-    <author email="support@sinopacific.co" href="http://sinopacific.co">
+    <author email="info@atga.com.au" href="http://sinopacific.co">
         Sinopacific Co Limited
     </author>
     <content src="index.html" />
