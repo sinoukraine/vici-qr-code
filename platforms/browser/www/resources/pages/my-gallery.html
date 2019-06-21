@@ -135,9 +135,9 @@
 
 				self.$app.preloader.show();
 				self.$app.methods.getVRecordPhoto().then(response => {			
-					let alarmPhotos = response.filter(el => el[0] == "A");	
+					let alarmPhotos = response.filter(el => el[0] == "B");	
 					let gesturePhotos = response.filter(el => el[0] == "G");	
-					let parkingPhotos = response.filter(el => el[0] == "P");
+					let parkingPhotos = response.filter(el => el[0] == "T");
 					self.$app.methods.setInStorage({name: 'alarmPhotoList', data: alarmPhotos});
 					self.$app.methods.setInStorage({name: 'gesturePhotoList', data: gesturePhotos});
 					self.$app.methods.setInStorage({name: 'parkingPhotoList', data: parkingPhotos});
