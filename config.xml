@@ -55,7 +55,7 @@
     </platform>
     
 	
-    <plugin name="cordova-plugin-console" source="npm" spec="1.0.7" /><!-- needed -->  
+    <!--ios<plugin name="cordova-plugin-console" source="npm" spec="1.0.7" />--><!-- needed -->  
     <plugin name="cordova-plugin-device" source="npm" spec="2.0.2" /><!-- needed -->  
     <plugin name="cordova-plugin-buildinfo" source="npm" spec="2.0.2" />    <!-- needed -->  
     <plugin name="cordova-plugin-dialogs" source="npm" spec="1.2.1" /><!-- needed -->  
