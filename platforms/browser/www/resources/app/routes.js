@@ -180,4 +180,9 @@ var routes = [{
         path: '/my-info/',
         componentUrl: './resources/pages/my-info.html?v=1.64',
     },
+	{
+        name: 'my-swiper',
+        path: '/my-swiper/',
+        componentUrl: './resources/pages/my-swiper.html?v=1.65',
+    },
 ]

@@ -30,6 +30,7 @@ var App = new Framework7({
     precompileTemplates: true,
     template7Pages: true,
     tapHold: false, //enable tap hold events
+	theme: 'auto',
     root: '#app',
     name: 'DashCam',
     id: 'com.quiktrak.dashcam',
@@ -663,6 +664,12 @@ function menuList() {
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
+				case 'swiper':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "swiper")) {
+						loadSwiperPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
 				default:
 					console.log('No Found list menu');
 			}
@@ -670,6 +677,11 @@ function menuList() {
 	//}else{		
 	//	App.dialog.alert('Please connect to camera');		
 	//}	
+}
+
+
+function loadSwiperPage() {
+	mainView.router.navigate('/my-swiper/');
 }
 
 function loadCarcamPage() {
