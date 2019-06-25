@@ -21,7 +21,7 @@
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
                         <a class="btn-cs" href="#" id='connectCam'>
-                            connect
+                            live
                         </a>
                     </div>
                 </div>
@@ -70,14 +70,27 @@
 				
 				var myPage = $$('.cam');
 				
-				WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-				
+				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
+								
 				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
 					App.dialog.alert(JSON.stringify(curid2));
 				});*/
 				
 				myPage.on('click', '#connectCam', function(e){
-					VideoPlayer.play(API_LIVE_STREAM);
+					self.$app.preloader.show();
+				
+					WifiWizard2.getConnectedSSID().then(response => {	
+						let mySSID = JSON.stringify(response);
+						var pattern = /AUTO-VOX/i;
+						var pattern1 = /M-/i;
+						
+						self.$app.preloader.hide();		
+						if ((pattern.test(mySSID) || pattern1.test(mySSID))) {	
+							VideoPlayer.play(API_LIVE_STREAM);									
+						}else{					
+							self.$app.dialog.alert('No Dashcam connected');									
+						}					
+					});
 				});
 
                 /*page.on('click', '.pb-standalone-dark', function(e){

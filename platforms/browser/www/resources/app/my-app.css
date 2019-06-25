@@ -850,3 +850,10 @@ label.check-item input[type=checkbox]:checked~.check-item {
 .demo-swiper.demo-swiper-auto .swiper-slide:nth-child(3n) {
   width: 30%;
 }
+.demo-swiper{
+	height: 100%;
+	margin-bottom: none !important;
+}
+.demo-swiper .swiper-slide{
+	border: none;
+}
