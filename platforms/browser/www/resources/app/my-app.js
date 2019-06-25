@@ -285,23 +285,8 @@ var App = new Framework7({
 				$.ajax({
 					   type: "GET",
 				   dataType: "json", 
-						/*dataFilter: function(raw, type) {
-						console.log(raw, type);
-						return JSON.parse(raw);
-						{ 
-					"filename": "20190523121307_180_720p.MP4", 
-					"duration": 180, 
-					"filesize": 94716138, 
-					"title": "20190523121307.JPG", 
-					"titlesize": 5817, 
-					"thumb": "20190523121307.TGZ", 
-					"thumbsize": 36302, 
-					"time": "20190523121307" 
-				 }
-					},*/
 					
 					  jsonp: false,
-					  //jsonpCallback: "onJsonP",
 						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
 					  async: true,           
 						crossDomain: true, 
@@ -318,24 +303,14 @@ var App = new Framework7({
 			});   
 		},		
         sortParseDatePhoto: function(data){
-			//let infoArr = [];
 			let dataObj = data;
-			//let sortArr = [];
 			let dateArr = [];
-			//console.log(dataObj);
-			//App.dialog.alert(dataObj.length);
-			// info array push
 			for (let i = dataObj.length - 1; i >= 0; i--) {
 				let dataArr = [];
-				/*infoArr.push({
-					data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
-					photoName: dataObj.mp4data[i].title
-				});*/
 				let timeArr = dataObj[i].split('.');
 				//console.log(timeArr);
 				let filename = timeArr[0];
 				let time = timeArr[0].substring(1, 15);
-				//alert(time);
 								
 				let newDate = (time.substring(0, 8)).substring(0, 4) + '/' + (time.substring(0, 8)).substring(4, 6) + '/' + (time.substring(0, 8)).substring(6, 9);
 					
@@ -356,19 +331,12 @@ var App = new Framework7({
 			return dateArr;
 		},
         sortDatePhoto: function(data){
-			//console.log(data);
-			//let infoArr = [];
 			let dataObj = data;
-			//let sortArr = [];
 			let dateArr = [];
 			
 			// info array push
 			for (let i = 0; i < dataObj.length; i++) {
 				let dataArr = [];
-				/*infoArr.push({
-					data: (dataObj.mp4data[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj.mp4data[i].time.substring(0, 8)).substring(6, 9),
-					photoName: dataObj.mp4data[i].title
-				});*/
 				
 				let newDate = (dataObj[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj[i].time.substring(0, 8)).substring(6, 9);
 					
@@ -391,10 +359,7 @@ var App = new Framework7({
 			VideoPlayer.play(url);			
 		},
 		downloadFiles: function(arr = []){
-			if(arr.length){						
-                //App.preloader.show();
-				//$$('.view-main .progressbar-infinite').removeClass('display-none');
-				//App.dialog.alert('Please wait for downloading files, it can takes few minutes...'); 
+			if(arr.length){					
 				arr.forEach(function(value, index) {
 					if(value.url.length > 0 && value.dir.length > 0 && value.name.length > 0){
 						$$('.view-main .progressbar-infinite').removeClass('display-none');
@@ -413,26 +378,6 @@ var App = new Framework7({
 		openCam: function(){
 			loadCarcamPage();		
 		},
-		getTest: function () {	
-			/*let url = 'http://192.168.1.1/DCIM/104snap/';
-			let params = {};
-			let headers = {};
-			let newArr = [];
-			cordova.plugin.http.get(url, 
-				params, headers, (response) => {
-					var arrParse = response.data.split('</a>');
-					arrParse.forEach(function(value, index) {
-						var valParse = value.split('>');						
-						if(index > 0 && index < arrParse.length - 1){
-							newArr.push(valParse[1]);					
-						}
-					});
-					
-					console.log(newArr);
-			}, function(response) {
-			  console.error(response.error);
-			});	*/	 
-		},
 		hexToDec: function (hex) {	
 		  var result = 0, digitValue;
 		  hex = hex.toLowerCase();
@@ -449,21 +394,6 @@ var App = new Framework7({
 	}
 });
 
-/*start wifi manage*/
-
-/*function ssidHandler(s) {
-	App.dialog.alert('Current SSID is '+s);
-}
-
-function getCurrentSSID() {
-    WifiWizard.getCurrentSSID(ssidHandler, fail);
-}
-
-function listHandler(a) {
-    alert(a);
-}*/
-
-/*end wifi manage*/
 
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
@@ -528,39 +458,7 @@ function filetransfer(download_link, fp) {
 		}
     );
 }
-/*
-function readfile(Folder_Name, File_Name) {	
-	window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
-	
-	function fileSystemSuccess(fileSystem) {
-		var directoryEntry = fileSystem.root; // to get root path of directory
-		directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
-		var rootdir = fileSystem.root;
-		var fp = rootdir.toURL(); 
-		//var fp = cordova.file.dataDirectory;
-		//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
-		//var fp = "file:///storage/sdcard0'";
-		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
-		fp = fp + "/" + Folder_Name + "/" + File_Name + "." + ext; // fullpath and name of the file which we want to give
-		// download function call
-		filetransfer(download_link, fp);
-	}
-	
-	function onDirectorySuccess(parent) {
-		// Directory created successfuly
-	}
 
-	function onDirectoryFail(error) {
-		//Error while creating directory
-		App.dialog.alert("Unable to read new directory: " + error.code);
-	}
-
-	function fileSystemFail(evt) {
-		//Unable to access file system
-		App.dialog.alert(evt.target.error.code);
-	}
-}
-*/
 function download(URL, Folder_Name, File_Name) {
 //step to request a file system 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
@@ -609,16 +507,7 @@ function menuList() {
 		if (listId) {
 			switch (listId) {
 				case 'carcam':
-					// if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "delete.cam")) {
-					//     loadCarcamPage();
-					//     console.log('open cam');
-					//     App.panel.close($$('.panel-left'), true);
-					// }
 					loadCarcamPage();
-					/*mainView.router.back({
-						pageName: 'home',
-						force: true
-					});*/
 					App.panel.close($$('.panel-left'), true);
 					break;
 				case 'delete.cam':
@@ -674,9 +563,6 @@ function menuList() {
 					console.log('No Found list menu');
 			}
 		}
-	//}else{		
-	//	App.dialog.alert('Please connect to camera');		
-	//}	
 }
 
 
@@ -713,7 +599,6 @@ function loadInfoPage() {
     mainView.router.load({
         url: 'resources/templates/info.html',
         context: {
-            // FirstName: userInfo.FirstName,
         }
     });
 }
@@ -721,341 +606,9 @@ function loadInfoPage() {
 // SETTINGS
 function loadSettingsPage() {	
 	mainView.router.navigate('/my-settings/');
-    /*mainView.router.load({
-        url: 'resources/templates/dashcam.setting.html',
-        context: {
-            // FirstName: userInfo.FirstName,
-        }
-    });*/
 }
 
 function loadDeleteCamPage() {
 	mainView.router.navigate('/my-delete-cam/');
 }
-/* ---
-function getDate(data) {
-    let arr = [];
-    let dateTime = [];
-    // class date, time
-    function Obj(dateArr, timeArr) {
-        this.date = dateArr.substring(0, 4) + '/' + dateArr.substring(4, 6) + '/' + dateArr.substring(6, 9);
-        this.time = timeArr.substring(0, 2) + '.' + timeArr.substring(2, 4) + '.' + timeArr.substring(4, 7);
-    }
-
-    // add in arr datetime 
-    for (let i = 0; i < data.mp4data.length; i++) {
-        arr.push(data.mp4data[i].time);
-    }
-
-    // add in arr object with date and time
-    for (let i = 0; i < arr.length; i++) {
-        let newDataTime = new Obj(arr[i].substring(0, 8), arr[i].substring(8, 14));
-        dateTime.push(newDataTime);
-    }
-
-    return dateTime;
-}*/
-
-
-/*---
-$$(document).on('page:init', '.page[data-name="gallery"]', function(e) {
-    let toolbarLinks = $$('.tab-link');
-    let getPhotoJson = { 
-		"type": "alarmvideo", 
-		"mp4folder": "DCIM/101video", 
-		"titlefolder": "DCIM/105thumb", 
-		"imagefolder": "DCIM/104snap", 
-		"mp4data": [] 
-	};
-	
-	getRecordPhoto().then(response => {
-		getPhotoJson = response;
-		console.log('2',getPhotoJson);	
-		
-		let dateItems = [];
-		let dateObj = getDate(getPhotoJson);
-		let dateArr = sortDatePhoto(getPhotoJson);
-		
-		
-
-		let loadPhotoList = App.virtualList.create({
-			el: '.photo-list',
-			items: dateArr,
-			searchAll: function(query, items) {
-				let found = [];
-				for (let i = 0; i < items.length; i++) {
-					if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-				}
-				return found;
-			},	
-			renderItem: function (item, index) {   	
-			
-				var ret = '';
-				
-				ret += '<div class="list media-list">';
-				ret += '  <ul>';
-				ret += '	<li>';
-				ret += '	  <div class="item-content">      ';  
-				ret += '		<div class="item-inner">';
-				ret += '		  <div class="item-title-row">';
-				ret += '			<div class="item-title">' + item.title + '</div>  ';          
-				ret += '		  </div>          ';
-				ret += '		  <div class="item-text">';
-				ret += '			<div class="row">';
-				
-				for (let d = 0; d < item.data.length; d ++){	
-					let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
-					for (let a = 0; a < item.data[d].associateddata.length; a ++){
-					
-						ret += '			  <div class="col-50">';
-						ret += 					'<a href="/photo/?code=http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" class="" data-photo="'+item.data[d].associateddata[a].image+'">' +
-												'<div class="item-content">' +
-												'<div class="item-media photo-item-media">' +
-												'<img class="photo-path" data-path="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'" src="http://192.168.1.1/DCIM/104snap/'+item.data[d].associateddata[a].image+'">' +
-												
-												'</div>' +
-												'</div>' +
-												'</a>';
-						ret += '			  </div> ';			
-					}						
-				}
-				
-				ret += '			</div>';
-				ret += '		  </div>';
-				ret += '		</div>';
-				ret += '	  </div>';
-				ret += '	</li>';
-				ret += '  </ul>';
-				ret += '</div>';
-				
-				return ret;
-			},
-			
-			height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
-		});
-		
-	}, error => {
-        console.log('something wrong...');
-    });
-	
-	
-	//upload video list
-	
-	let getVideoJson = { 
-		"type": "commonvideo", 
-		"mp4folder": "DCIM/100video", 
-		"titlefolder": "DCIM/103thumb", 
-		"thumbfolder": "DCIM/102thumb", 
-		"mp4data": [] 
-	};
-	
-	getRecordVideo().then(response => {
-		getVideoJson = response;
-		console.log('1',getVideoJson);	
-		
-		let dateItems = [];
-		let dateObj = getDate(getVideoJson);
-		let dateArr = sortDatePhoto(getVideoJson);
-		let loadVideoList = App.virtualList.create({
-			el: '.video-list',
-			items: dateArr,
-			searchAll: function(query, items) {
-				let found = [];
-				for (let i = 0; i < items.length; i++) {
-					if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-				}
-				return found;
-			},	
-			renderItem: function (item, index) {   	
-			
-				var ret = '';
-				
-				ret += '<div class="list media-list">';
-				ret += '  <ul>';
-				ret += '	<li>';
-				ret += '	  <div class="item-content">      ';  
-				ret += '		<div class="item-inner">';
-				ret += '		  <div class="item-title-row">';
-				ret += '			<div class="item-title">' + item.title + '</div>  ';          
-				ret += '		  </div>          ';
-				ret += '		  <div class="item-text">';
-				ret += '			<div class="row">';
-				
-				for (let d = 0; d < item.data.length; d ++){	
-					let time = item.data[d].time.substring(8, 10) + ':' + item.data[d].time.substring(12, 14);
-					
-					ret += '			  <div class="col-50">';
-					ret += 					'<a href="#" onclick="openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
-											'<div class="item-content">' +
-											'<div class="item-media video-item-media">' +
-											'<img src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
-											'<div class="item-media-bottom">' +
-											'<div class="item-media-quality">720p</div>' +
-											'<div class="item-media-time">'+time+'</div>' +
-											'</div>' +
-											'</div>' +
-											'</div>' +
-											'</a>';
-					ret += '			  </div> ';					
-				}
-				
-				ret += '			</div>';
-				ret += '		  </div>';
-				ret += '		</div>';
-				ret += '	  </div>';
-				ret += '	</li>';
-				ret += '  </ul>';
-				ret += '</div>';
-				
-				return ret;
-			},
-			height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
-		});
-	
-	}, error => {
-        console.log('something wrong...');
-    });
-	
-});
-*/
-
-
-// INIT DELETE CAM
-/*---
-$$(document).on('page:init', '.page[data-name="delete.cam"]', function(e) {
-
-    var items = [];
-    for (var i = 1; i <= 1; i++) {
-        items.push({
-            title: 'AUTO-VOX D6PRO 06ac',
-            value: i,
-        });
-    }
-
-    var deletecamList = App.virtualList.create({
-        // List Element
-        el: '.delete-cam-list',
-        // Pass array with items
-        items: items,
-        // Custom search function for searchbar
-        searchAll: function(query, items) {
-            var found = [];
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-            }
-            return found; //return array with mathced indexes
-        },
-        // List item Template7 template
-        itemTemplate: '<li>' +
-            '<label class="item-checkbox item-content">' +
-            '<input type="checkbox" name="demo-checkbox" value="{{value}}" />' +
-            '<div class="item-media">' +
-            '<div class="item-media-inner">' +
-            '<p>DC</p>' +
-            '</div>' +
-            '</div>' +
-            '<div class="item-inner">' +
-            '<div class="item-title">{{title}}</div>' +
-            '</div>' +
-            '<i class="icon icon-checkbox"></i>' +
-            '</label>' +
-            '</li>',
-        // Item height
-        height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
-    });
-});
--->
-
-// INIT OPEN PAGE DASHCAM LIST
-/*---
-$$(document).on('page:init', '.page[data-name="open.dashcam"]', function(e) {
-
-    var items = [];
-    for (var i = 1; i <= 1; i++) {
-        items.push({
-            title: 'AUTO-VOX D6PRO 06ac',
-            value: i,
-        });
-    }
-
-    var deletecamList = App.virtualList.create({
-        // List Element
-        el: '.open-cam-list',
-        // Pass array with items
-        items: items,
-        // Custom search function for searchbar
-        searchAll: function(query, items) {
-            var found = [];
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-            }
-            return found; //return array with mathced indexes
-        },
-        // List item Template7 template
-        itemTemplate: '<li>' +
-            '<label class="item-radio item-content">' +
-            '<input type="radio" name="demo-radio" value="{{value}}" checked="checked"/>' +
-            '<div class="item-media">' +
-            '<div class="item-media-inner">' +
-            '<p>DC</p>' +
-            '</div>' +
-            '</div>' +
-            '<div class="item-inner">' +
-            '<div class="item-title">{{title}}</div>' +
-            '</div>' +
-            '<i class="icon icon-radio"></i>' +
-            '</label>' +
-            '</li>',
-        // Item height
-        height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
-    });
-});*/
-
-
-//$('.view-main').on('click', '#toolbarDeleteCam', function () {  	
-	//WifiWizard.disconnectNetwork('AUTO-VOX D6PRO 06ac', winDelete, failDelete);
-//});
-/*
-function winDelete(){	
-	App.dialog.alert('Camera AUTO-VOX D6PRO 06ac deleted');	
-	validWiFi = false;
-	loadListPage();
-}
-
-function failDelete(){	
-	App.dialog.alert('Camera not deleted');
-}*/
-
-// INIT NORMAL VIDEO LIST PAGE
-
-$$(document).on('page:init', '.page[data-name="normal.dashcam"]', function(e) {
-
-    var items = [];
-    for (var i = 1; i <= 3; i++) {
-        items.push({
-            title: 'Dachcam name #' + i,
-            value: i,
-        });
-    }
-
-    var showNormalVideoList = App.virtualList.create({
-        // List Element
-        el: '.show-normal-list',
-        // Pass array with items
-        items: items,
-        // Custom search function for searchbar
-        searchAll: function(query, items) {
-            var found = [];
-            for (var i = 0; i < items.length; i++) {
-                if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
-            }
-            return found; //return array with mathced indexes
-        },
-        // List item Template7 template
-        itemTemplate: '<li>' +
-            '</li>',
-        // Item height
-        height: app.theme === 'ios' ? 73 : (app.theme === 'md' ? 73 : 73),
-    });
-});
 
