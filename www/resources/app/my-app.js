@@ -32,10 +32,10 @@ var App = new Framework7({
     precompileTemplates: true,
     template7Pages: true,
     tapHold: false, //enable tap hold events
-	theme: 'ios',
+	theme: 'auto',
     root: '#app',
     name: 'DashCam',
-    id: 'com.dashcam.app',
+    id: 'com.quiktrak.dashcam',
 	  touch: {
 		tapHold: true //enable tap hold events
 	  },
