@@ -53,7 +53,15 @@
 
             return ret;
         },
-		methods: {
+		methods: {			
+			ssidHandler: function(a){		
+				/*setTimeout(function () { // Prepend new list element	
+					App.dialog.alert('You connected to: '+a);					
+				  }, 2000);*/
+			},		
+			fail: function(e){	
+				App.dialog.alert(e);
+			},
 		},
         on: {
             pageInit: function (e, page) {  
@@ -62,33 +70,15 @@
 				
 				var myPage = $$('.cam');
 				
-				myPage.on('click', '#connectCam', function(e){
-					//self.$app.preloader.show();
+				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
+								
+				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
+					App.dialog.alert(JSON.stringify(curid2));
+				});*/
 				
-					// Play Video from Application Directory or Stream Online
-					//HKVideoPlayer.play(API_LIVE_STREAM);
-					
-					 var videoUrl = API_LIVE_STREAM;
-
-					  // Just play a video
-					  window.plugins.streamingMedia.playVideo(videoUrl);
-
-					  // Play a video with callbacks
-					  var options = {
-						successCallback: function() {
-						  App.dialog.log("Video was closed without error.");
-						},
-						errorCallback: function(errMsg) {
-						  App.dialog.log("Error! " + errMsg);
-						},
-						orientation: 'landscape',
-						shouldAutoClose: true,  // true(default)/false
-						controls: true // true(default)/false. Used to hide controls on fullscreen
-					  };
-					  window.plugins.streamingMedia.playVideo(videoUrl, options);
-					  
-					  
-					/*ios
+				myPage.on('click', '#connectCam', function(e){
+					self.$app.preloader.show();
+				
 					WifiWizard2.getConnectedSSID().then(response => {	
 						let mySSID = JSON.stringify(response);
 						var pattern = /AUTO-VOX/i;
@@ -100,8 +90,20 @@
 						}else{					
 							self.$app.dialog.alert('No Dashcam connected');									
 						}					
-					});*/
+					});
 				});
+				
+
+                /*page.on('click', '.pb-standalone-dark', function(e){
+					self.PhotoBrowserObj.open();
+				});*/
+						
+				
+				//page.on('click', '#connectCam', function(e){				
+				//$$('#connectCam').on('click', function() {    
+					
+					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
+				//});				
 			}
 		}
     };
