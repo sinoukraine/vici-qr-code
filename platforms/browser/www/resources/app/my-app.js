@@ -6,6 +6,8 @@ var s;
 const ip = '192.168.1.1';
 const port = 10080;
 var connection_id;
+// Define On Top 
+//declare var HKVideoPlayer;
 
 // API ADRESS URL
 const LOCAL_ADRESS = 'http://192.168.1.1/';
@@ -30,10 +32,10 @@ var App = new Framework7({
     precompileTemplates: true,
     template7Pages: true,
     tapHold: false, //enable tap hold events
-	theme: 'auto',
+	theme: 'ios',
     root: '#app',
     name: 'DashCam',
-    id: 'com.quiktrak.dashcam',
+    id: 'com.dashcam.app',
 	  touch: {
 		tapHold: true //enable tap hold events
 	  },
@@ -411,6 +413,7 @@ function encodeHex(str){
 function onDeviceReady(){
 	loadCarcamPage();
 	console.log('ready');
+	App.dialog.alert(device.uuid);
 	//App.dialog.alert(UInt64("0x0000000077232000"));	
 	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }

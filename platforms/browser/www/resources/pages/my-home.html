@@ -53,15 +53,7 @@
 
             return ret;
         },
-		methods: {			
-			ssidHandler: function(a){		
-				/*setTimeout(function () { // Prepend new list element	
-					App.dialog.alert('You connected to: '+a);					
-				  }, 2000);*/
-			},		
-			fail: function(e){	
-				App.dialog.alert(e);
-			},
+		methods: {
 		},
         on: {
             pageInit: function (e, page) {  
@@ -70,15 +62,12 @@
 				
 				var myPage = $$('.cam');
 				
-				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-								
-				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
-					App.dialog.alert(JSON.stringify(curid2));
-				});*/
-				
 				myPage.on('click', '#connectCam', function(e){
-					self.$app.preloader.show();
+					//self.$app.preloader.show();
 				
+					// Play Video from Application Directory or Stream Online
+					HKVideoPlayer.play(API_LIVE_STREAM);
+					/*ios
 					WifiWizard2.getConnectedSSID().then(response => {	
 						let mySSID = JSON.stringify(response);
 						var pattern = /AUTO-VOX/i;
@@ -90,20 +79,8 @@
 						}else{					
 							self.$app.dialog.alert('No Dashcam connected');									
 						}					
-					});
+					});*/
 				});
-				
-
-                /*page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open();
-				});*/
-						
-				
-				//page.on('click', '#connectCam', function(e){				
-				//$$('#connectCam').on('click', function() {    
-					
-					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
-				//});				
 			}
 		}
     };
