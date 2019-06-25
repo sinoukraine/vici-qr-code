@@ -66,7 +66,28 @@
 					//self.$app.preloader.show();
 				
 					// Play Video from Application Directory or Stream Online
-					HKVideoPlayer.play(API_LIVE_STREAM);
+					//HKVideoPlayer.play(API_LIVE_STREAM);
+					
+					 var videoUrl = API_LIVE_STREAM;
+
+					  // Just play a video
+					  window.plugins.streamingMedia.playVideo(videoUrl);
+
+					  // Play a video with callbacks
+					  var options = {
+						successCallback: function() {
+						  App.dialog.log("Video was closed without error.");
+						},
+						errorCallback: function(errMsg) {
+						  App.dialog.log("Error! " + errMsg);
+						},
+						orientation: 'landscape',
+						shouldAutoClose: true,  // true(default)/false
+						controls: true // true(default)/false. Used to hide controls on fullscreen
+					  };
+					  window.plugins.streamingMedia.playVideo(videoUrl, options);
+					  
+					  
 					/*ios
 					WifiWizard2.getConnectedSSID().then(response => {	
 						let mySSID = JSON.stringify(response);

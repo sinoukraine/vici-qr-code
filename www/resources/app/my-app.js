@@ -6,8 +6,6 @@ var s;
 const ip = '192.168.1.1';
 const port = 10080;
 var connection_id;
-// Define On Top 
-//declare var HKVideoPlayer;
 
 // API ADRESS URL
 const LOCAL_ADRESS = 'http://192.168.1.1/';
