@@ -253,7 +253,7 @@ var App = new Framework7({
 					
 				});		
 			});   			
-		},
+		},/*
 		getVRecordPhoto: function(resolve, reject){ 			
 			return new Promise((resolve, reject) => {
 				let url = 'http://192.168.1.1/DCIM/104snap/';
@@ -279,7 +279,7 @@ var App = new Framework7({
 				  reject();
 				});	
 			});				
-		},
+		},*/
 		getRecordVideo: function (resolve, reject) {	
 			return new Promise((resolve, reject) => {
 				$.ajax({
@@ -411,7 +411,7 @@ function encodeHex(str){
 function onDeviceReady(){
 	loadCarcamPage();
 	console.log('ready');
-	App.dialog.alert(device.uuid);
+	//App.dialog.alert(device.uuid);
 	//App.dialog.alert(UInt64("0x0000000077232000"));	
 	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }
@@ -422,7 +422,7 @@ var mainView = App.views.create('.view-main');
 /*start download file*/
 
 //First step check parameters mismatch and checking network connection if available call    download function
-function DownloadFile(URL, Folder_Name, File_Name) {
+function DownloadFile(URL, Folder_Name, File_Name) {/*
 	//Parameters mismatch check
 	if (URL == null && Folder_Name == null && File_Name == null) {
 		return;
@@ -435,9 +435,9 @@ function DownloadFile(URL, Folder_Name, File_Name) {
 		} else {
 			download(URL, Folder_Name, File_Name); //If available download function call
 		}
-	}
+	}*/
 }
-
+/*
 
 function filetransfer(download_link, fp) {	
 	var fileTransfer = new FileTransfer();
@@ -495,7 +495,7 @@ function download(URL, Folder_Name, File_Name) {
 		App.dialog.alert(evt.target.error.code);
 	}
 }
-
+*/
 /*end download file*/
 
 $$('#mainMenu li').on('click', menuList)
