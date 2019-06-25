@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.atga.dashcam" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="2" ios-CFBundleVersion="17"><!--com.dashcam.app-->
+<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.dashcam.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="22"><!--com.atga.dashcam-->
     <name>DashCam</name>
     <description>
         DashCam
@@ -35,8 +35,8 @@
     <!-- <preference name="StatusBarBackgroundColor" value="#333" /> -->
     <preference name="StatusBarStyle" value="blacktranslucent" />
     <preference name="phonegap-version" value="cli-7.1.0" />
-    <preference name="loadUrlTimeoutValue" value="60000" />
-	<preference name="Fullscreen" value="true" />
+    <!--IOS3<preference name="loadUrlTimeoutValue" value="60000" />-->
+	<!--ios3<preference name="Fullscreen" value="true" />-->
 	<preference name="AllowInlineMediaPlayback" value="true"/>
 	<preference name="AndroidPersistentFileLocation" value="Compatibility" />
 		
@@ -44,17 +44,16 @@
 	
 	
     <!--
-    <plugin name="phonegap-plugin-push" source="npm" spec="2.1.2">  
+    <plugin name="phonegap-plugin-push" source="npm" spec="2.1.2"> needed 
         <variable name="SENDER_ID" value="1097482483564" />
     </plugin>
     <platform name="android">
-      <resource-file src="google-services.json" target="google-services.json" />
+      <resource-file src="google-services.json" target="google-services.json" />needed 
     </platform>
     <platform name="ios">
-      <resource-file src="GoogleService-Info.plist" /> 
+      <resource-file src="GoogleService-Info.plist" />needed 
     </platform>
-	-->
-    
+    -->  
 	
     <!--ios<plugin name="cordova-plugin-console" source="npm" spec="1.0.7" />--><!-- needed -->  
     <plugin name="cordova-plugin-device" source="npm" spec="2.0.2" /><!-- needed -->  
@@ -65,23 +64,24 @@
     <plugin name="cordova-plugin-camera" source="npm" spec="4.0.3"  /><!-- needed -->  
     <plugin spec="https://github.com/phonegap/phonegap-mobile-accessibility.git" source="git" /><!-- needed -->  
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
-	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
-	<plugin name="cordova-plugin-android-permissions" spec="1.0.0" />
+	<!--ios<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />-->
+	<!--ios<plugin name="cordova-plugin-android-permissions" spec="1.0.0" />-->
 	<!--<plugin name="com.tlantic.plugins.socket" source="npm" spec="0.3.2" />-->
 	<!--ios<plugin spec="https://github.com/Tlantic/cdv-socket-plugin"  source="git"  />	-->
-	<plugin spec="https://github.com/blocshop/sockets-for-cordova"  source="git"  />
-	<plugin spec="https://github.com/mohamed-salah/MacAddress.git"  source="git"  />
+	<!--ios<plugin spec="https://github.com/blocshop/sockets-for-cordova"  source="git"  />-->
+	<!--ios<plugin spec="https://github.com/mohamed-salah/MacAddress.git"  source="git"  />-->
 		
 	
 	
-	<plugin spec="https://github.com/parsonsmatt/WifiWizard.git"  source="git"  />	
+	<!--ios<plugin spec="https://github.com/parsonsmatt/WifiWizard.git"  source="git"  />	-->
     <!--<plugin spec="https://github.com/gitawego/cordova-screenshot.git" source="git"  />-->
     <!--<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />-->
-	<plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />
+	<!--ios<plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />-->
     <!--<plugin spec="https://github.com/jaeger25/Html5Video.git" source="git"  />-->
-    <plugin spec="https://github.com/apache/cordova-plugin-file-transfer" source="git"  />
-    <plugin spec="https://github.com/alatvanas9/cordova-mediascanner-plugin" source="git"  />
-    <plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />
+    <!--ios<plugin spec="https://github.com/apache/cordova-plugin-file-transfer" source="git"  />-->
+    <!--ios<plugin spec="https://github.com/alatvanas9/cordova-mediascanner-plugin" source="git"  />-->
+    <!--ios<plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />-->
+	
 	
 	
 
