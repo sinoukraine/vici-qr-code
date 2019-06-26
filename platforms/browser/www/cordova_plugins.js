@@ -348,6 +348,14 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.permissions"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-streaming-media-xtreme/www/StreamingMedia.js",
+        "id": "cordova-plugin-streaming-media-xtreme.StreamingMedia",
+        "pluginId": "cordova-plugin-streaming-media-xtreme",
+        "clobbers": [
+            "streamingMedia"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -364,7 +372,8 @@ module.exports.metadata =
     "cordova-launch-review": "3.1.1",
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-advanced-http": "2.0.9",
-    "cordova-plugin-android-permissions": "1.0.0"
+    "cordova-plugin-android-permissions": "1.0.0",
+    "cordova-plugin-streaming-media-xtreme": "2.3.1"
 }
 // BOTTOM OF METADATA
 });

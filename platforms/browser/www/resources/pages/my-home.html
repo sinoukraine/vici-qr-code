@@ -68,7 +68,7 @@
 					// Play Video from Application Directory or Stream Online
 					//HKVideoPlayer.play(API_LIVE_STREAM);
 					
-					 var videoUrl = API_LIVE_STREAM;
+					 /*var videoUrl = API_LIVE_STREAM;
 
 					  // Just play a video
 					  window.plugins.streamingMedia.playVideo(videoUrl);
@@ -85,7 +85,30 @@
 						shouldAutoClose: true,  // true(default)/false
 						controls: true // true(default)/false. Used to hide controls on fullscreen
 					  };
-					  window.plugins.streamingMedia.playVideo(videoUrl, options);
+					  window.plugins.streamingMedia.playVideo(videoUrl, options);*/
+					  
+					  /*
+					  let options: StreamingVideoOptions = {
+						  successCallback: () => { App.dialog.log("Video was closed without error.") },
+						  errorCallback: (e) => { App.dialog.log("Error! " + e) },
+						  orientation: 'landscape',
+						  shouldAutoClose: true,
+						  controls: false
+						};
+
+						this.streamingMedia.playVideo(API_LIVE_STREAM, options);
+						*/
+						
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia
+						  // play streaming video from a remove resource
+						  //https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+						  StreamingMedia.playiOS(API_LIVE_STREAM)
+						  //StreamingMedia.playLocaliOS("local file path")
+						}else{
+							App.dialog.log("Error video!");
+						}
+						
 					  
 					  
 					/*ios

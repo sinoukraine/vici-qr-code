@@ -39,6 +39,9 @@
         },
         "cordova-plugin-android-permissions": {
             "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "cordova-plugin-streaming-media-xtreme": {
+            "PACKAGE_NAME": "com.dashcam.app"
         }
     },
     "dependent_plugins": {
