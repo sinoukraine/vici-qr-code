@@ -64,6 +64,7 @@
 				
 				myPage.on('click', '#connectCam', function(e){
 					
+						/*
 					  let options: StreamingVideoOptions = {
 						  successCallback: () => { App.dialog.log("Video was closed without error.") },
 						  errorCallback: (e) => { App.dialog.log("Error! " + e) },
@@ -73,8 +74,7 @@
 						};
 
 						this.streamingMedia.playVideo(API_LIVE_STREAM, options);
-						
-						/*
+						*/
 						if(window && window.plugins && window.plugins.streamingMedia) {
 						  let StreamingMedia = window.plugins.streamingMedia;
 						  // play streaming video from a remove resource
@@ -83,7 +83,7 @@
 						  //StreamingMedia.playLocaliOS("local file path")
 						}else{
 							App.dialog.log("Error video!");
-						}*/
+						}
 				});
 			}
 		}
