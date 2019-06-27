@@ -54,7 +54,7 @@
             return ret;
         },
 		methods: {			
-			openLive: function(a){		
+			openLive: function(){		
 				var self = this;    
 			
 							WifiWizard2.getConnectedSSID().then(response => {	
@@ -81,6 +81,8 @@
 				
 				var myPage = $$('.cam');
 				
+				let permissions = cordova.plugins.permissions;
+				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
 								
 				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
@@ -88,27 +90,33 @@
 				});*/
 				
 				myPage.on('click', '#connectCam', function(e){
-				
 					self.$app.preloader.show();
-					permissions.hasPermission(permissions.ACCESS_COARSE_LOCATION, function(status) {
-						if (status.hasPermission) {
-							self.openLive();							
-						} else {
-							permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, success, error);
-							
-							function error() {
-								self.$app.preloader.hide();		
-								App.dialog.alert('Changing permission failed');
-							}
-
-							function success(status1) {
-								self.openLive();
+					if (!permissions) {
+						App.dialog.alert('Permissions plugin not supported');
+						self.openLive();
+					} else {
+						permissions.hasPermission(permissions.ACCESS_COARSE_LOCATION, function(status) {
+							if (status.hasPermission) {
+								self.openLive();							
+							} else {
+								permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, success, error);
 								
-								if (!status1.hasPermission) error();
+								function error() {
+									self.$app.preloader.hide();		
+									App.dialog.alert('Changing permission failed');
+								}
+
+								function success(status1) {
+									self.openLive();
+									
+									if (!status1.hasPermission) {
+										self.$app.preloader.hide();	
+										error();
+									}
+								}
 							}
-						}
-					});
-					
+						});
+					}
 				});
 				
 
