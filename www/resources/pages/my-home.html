@@ -61,6 +61,7 @@
 				
 				page.$el.on('click', '#connectCam', function(e){
 					
+					App.dialog.alert("start");
 						
 					  let options = {
 						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
@@ -70,7 +71,7 @@
 						  controls: false
 						};
 
-						this.streamingMedia.playVideo(API_LIVE_STREAM, options);
+						window.plugins.streamingMedia.playVideo(API_LIVE_STREAM, options);
 						
 						
 						/*
