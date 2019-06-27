@@ -56,7 +56,7 @@
 		methods: {			
 			openLive: function(){		
 				var self = this;    
-			
+					self.$app.preloader.show();
 							WifiWizard2.getConnectedSSID().then(response => {	
 								let mySSID = JSON.stringify(response);
 								var pattern = /AUTO-VOX/i;
@@ -90,7 +90,10 @@
 				});*/
 				
 				myPage.on('click', '#connectCam', function(e){
-					self.$app.preloader.show();
+					
+					
+					self.openLive();
+					/*
 					if (!permissions) {
 						App.dialog.alert('Permissions plugin not supported');
 						self.openLive();
@@ -116,7 +119,7 @@
 								}
 							}
 						});
-					}
+					}*/
 				});
 				
 
