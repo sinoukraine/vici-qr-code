@@ -11,6 +11,13 @@
                     </div>
                 </div>
 
+                <!--<div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a class="btn-cs" href="#" id='openCamList'>
+                            list
+                        </a>
+                    </div>
+                </div>-->
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
                         <a class="btn-cs" href="#" id='connectCam'>
@@ -22,7 +29,11 @@
 
                 <div class="page-content">
                     <div class="inner-content">
-                        
+                        <!--<p><a href="/open.dashcam/">open</a></p>
+                        <p><a href="/air.dashcam/">open</a></p>
+<video id="myvideo" controls="controls" width="400">
+    <source src="file:///android_asset/www/gruppenruf.mp4" />
+ </video>-->
                         <img class="main-bg" src="./resources/images/main.png" alt="main">
 						<!--<p class="text-content">Click the CONNECT button to start watching live stream.</p>-->
                         <!--<p class="text-content">You have not had any connections to the dashcam.</p>-->
@@ -42,17 +53,47 @@
 
             return ret;
         },
+		methods: {
+		},
         on: {
             pageInit: function (e, page) {  
-				var self = this;    			
+				var self = this;    
 				
 				page.$el.on('click', '#connectCam', function(e){
+					
+						
+					  let options: StreamingVideoOptions = {
+						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
+						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
+						  orientation: 'landscape',
+						  shouldAutoClose: true,
+						  controls: false
+						};
+
+						this.streamingMedia.playVideo(API_LIVE_STREAM, options);
+						
+						
+						/*
+						
+						page.$el.on('click', '#connectCam', function(e){
 						if(window && window.plugins && window.plugins.streamingMedia) {
 						  let StreamingMedia = window.plugins.streamingMedia;
 						  StreamingMedia.playiOS(API_LIVE_STREAM);
 						}else{
 							App.dialog.alert("Error video!");
 						}
+				});
+				
+				
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  // play streaming video from a remove resource
+						  //https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+						  StreamingMedia.playiOS(API_LIVE_STREAM);
+						  //StreamingMedia.playLocaliOS("local file path")
+						}else{
+							App.dialog.log("Error video!");
+						}*/
 				});
 			}
 		}

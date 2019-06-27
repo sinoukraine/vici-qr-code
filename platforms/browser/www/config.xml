@@ -49,4 +49,6 @@
     <preference name="phonegap-version" value="cli-7.1.0" />
     <preference name="AllowInlineMediaPlayback" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="UseSwiftLanguageVersion" value="4.2" />
+    <preference name="swift-version" value="4.2" />
 </widget>
