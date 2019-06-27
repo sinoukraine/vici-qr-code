@@ -76,8 +76,9 @@
 	<!--ios<plugin spec="https://github.com/parsonsmatt/WifiWizard.git"  source="git"  />	-->
     <!--<plugin spec="https://github.com/gitawego/cordova-screenshot.git" source="git"  />-->
     <!--<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />-->
-	<!--<plugin name="cordova-plugin-streaming-media-xtreme" source="npm" spec="2.3.1" />-->
-	<plugin spec="https://github.com/smccamley/cordova-plugin-streaming-media.git" source="git" />
+	<plugin name="cordova-plugin-streaming-media-xtreme" source="npm" spec="2.3.1" />
+	
+	<!--<plugin spec="https://github.com/smccamley/cordova-plugin-streaming-media.git" source="git" />-->
 	
 	
 	<!--ios<plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />-->
