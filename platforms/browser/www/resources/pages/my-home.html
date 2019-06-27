@@ -62,7 +62,7 @@
 				page.$el.on('click', '#connectCam', function(e){
 					
 						
-					  let options: StreamingVideoOptions = {
+					  let options = {
 						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
 						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
 						  orientation: 'landscape',
