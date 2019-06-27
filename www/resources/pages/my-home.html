@@ -61,7 +61,7 @@
 				
 				page.$el.on('click', '#connectCam', function(e){
 					
-					App.dialog.alert("start");
+					//App.dialog.alert("start");
 						
 					  let options = {
 						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
@@ -71,7 +71,7 @@
 						  controls: false
 						};
 
-						window.plugins.streamingMedia.playVideo(API_LIVE_STREAM, options);
+						window.plugins.streamingMedia.playVideo('https://s2.ipcamlive.com/streams/025d05f4453102a9f/stream.m3u8', options);
 						
 						
 						/*

@@ -316,6 +316,15 @@
                     // Display the each item using Template7 template parameter
                     renderItem: function (item, index) {                 
                         var ret = '';
+						let options = {
+						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
+						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
+						  orientation: 'landscape',
+						  shouldAutoClose: true,
+						  controls: false
+						};
+
+						
 						
 						ret += '<div class="list media-list">';
 						ret += '  <ul>';
@@ -342,7 +351,7 @@
 							ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'"/>';
 							ret +='<i class="f7-icons">check</i>';
 							ret +='</label>';
-							ret += 					'<a href="#" onclick="App.methods.openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
+							ret += 					'<a href="#" onclick="window.plugins.streamingMedia.playVideo(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
 													'<div class="item-content">' +
 													'<div class="item-media video-item-media">' +
 													'<img class="item-path" src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
@@ -377,7 +386,7 @@
 					},
 					photos : self.photoBrowserArr
 				});*/
-            },
+            },/*
 			removeFiles: function(arr = []){
 				var self = this;	
 				
@@ -432,14 +441,14 @@
 				}else{
 					App.dialog.alert('Mac address is invalid');						
 				}					
-			},
+			},*/
         },
         on: {
             pageInit: function (e, page) {  
 				var self = this;                                              
                 console.log('page init');				
 				
-				window.MacAddress.getMacAddress(
+				/*window.MacAddress.getMacAddress(
 					function(macAddress) {
 						self.$setState({
 							phoneMacAddress: macAddress,
@@ -447,12 +456,12 @@
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
-				);
+				);*/
 				
                 self.getGalleryList();	
 
 				//self.$app.preloader.show();
-				self.socket = new Socket();	
+				/*self.socket = new Socket();	
 				
 				self.socket.onData = function(data) {
 					let convertedData = data.reduce((acc, item) => {
@@ -472,14 +481,11 @@
 				self.socket.onClose = function(hasError) {
 					self.$app.preloader.hide();
 					
-					/*self.$setState({
-						IsConnect: false,
-					});	*/
 					
 					App.dialog.alert('Set successfully.');
 				  // invoked after connection close
 				};	
-
+*/
 				var page = page.$el.find('.page-content'); 
 
                 page.on('click', '.pb-standalone-dark', function(e){
@@ -533,7 +539,7 @@
 					self.$app.methods.downloadFiles(arrItems);
 					arrItems.length = 0;
 				});	
-				
+				/*
 				myPage.on('click', '.remove-items', function(e){
 				
 					var arrItems = [];			
@@ -557,7 +563,7 @@
 					self.removeFiles(arrItems);
 					arrItems.length = 0;
 				});					
-				
+				*/
 				
 				// Pull to refresh content
 				var $ptrContent = $$('.ptr-content');
