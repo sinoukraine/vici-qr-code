@@ -4,12 +4,12 @@
     width: 100%;
     max-width: 300px;
     height: 57px;
-    background: linear-gradient(to right, #48c6ef, #6f86d6);
+    background: linear-gradient(to right, rgb(34, 177, 76), rgb(32, 170, 73));
     color: white;
     font-size: 19px;
     text-transform: uppercase;
     text-align: center;
-    border-radius: 30px;
+    border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -21,9 +21,13 @@
 }
 
 .navbar {
-    background: linear-gradient(to right, #48c6ef, #6f86d6);
+    background: transparent;
     color: white;
     font-size: 19px;
+}
+
+.navbar:before{
+	display:none;
 }
 
 .page input:-internal-autofill-selected {
@@ -173,9 +177,9 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 
 /* LOGO MENU */
 
-#mainMenu {
+/*#mainMenu {
     background: linear-gradient(to right, #48c6ef, #6f86d6);
-}
+}*/
 
 #mainMenu .logoMenu {
     width: 100%;
