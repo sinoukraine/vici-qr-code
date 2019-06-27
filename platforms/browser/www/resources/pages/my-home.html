@@ -11,13 +11,6 @@
                     </div>
                 </div>
 
-                <!--<div class="toolbar toolbar-bottom">
-                    <div class="toolbar-inner">
-                        <a class="btn-cs" href="#" id='openCamList'>
-                            list
-                        </a>
-                    </div>
-                </div>-->
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
                         <a class="btn-cs" href="#" id='connectCam'>
@@ -29,11 +22,7 @@
 
                 <div class="page-content">
                     <div class="inner-content">
-                        <!--<p><a href="/open.dashcam/">open</a></p>
-                        <p><a href="/air.dashcam/">open</a></p>
-<video id="myvideo" controls="controls" width="400">
-    <source src="file:///android_asset/www/gruppenruf.mp4" />
- </video>-->
+                        
                         <img class="main-bg" src="./resources/images/main.png" alt="main">
 						<!--<p class="text-content">Click the CONNECT button to start watching live stream.</p>-->
                         <!--<p class="text-content">You have not had any connections to the dashcam.</p>-->
@@ -53,60 +42,18 @@
 
             return ret;
         },
-		methods: {			
-			ssidHandler: function(a){		
-				/*setTimeout(function () { // Prepend new list element	
-					App.dialog.alert('You connected to: '+a);					
-				  }, 2000);*/
-			},		
-			fail: function(e){	
-				App.dialog.alert(e);
-			},
-		},
         on: {
             pageInit: function (e, page) {  
-				var self = this;    
-				var page = page.$el.find('.page-content'); 
+				var self = this;    			
 				
-				var myPage = $$('.cam');
-				
-				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-								
-				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
-					App.dialog.alert(JSON.stringify(curid2));
-				});*/
-				
-				myPage.on('click', '#connectCam', function(e){
-					self.$app.preloader.show();
-				
-					WifiWizard2.getConnectedSSID().then(response => {	
-						let mySSID = JSON.stringify(response);
-						var pattern = /AUTO-VOX/i;
-						var pattern1 = /M-/i;
-						
-						self.$app.preloader.hide();		
-						if ((pattern.test(mySSID) || pattern1.test(mySSID))) {	
-							VideoPlayer.play(API_LIVE_STREAM);									
-						}else{					
-							self.$app.dialog.alert('No Dashcam connected');									
-						}					
-					}).catch((error) => {
-						self.$app.preloader.hide();		
-						self.$app.dialog.alert('Please turn on location permission on your device');						
-					});
+				page.$el.on('click', '#connectCam', function(e){
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  StreamingMedia.playiOS(API_LIVE_STREAM);
+						}else{
+							App.dialog.alert("Error video!");
+						}
 				});
-				
-
-                /*page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open();
-				});*/
-						
-				
-				//page.on('click', '#connectCam', function(e){				
-				//$$('#connectCam').on('click', function() {    
-					
-					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
-				//});				
 			}
 		}
     };
