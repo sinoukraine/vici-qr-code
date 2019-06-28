@@ -5,8 +5,11 @@
     max-width: 300px;
     height: 57px;
     font-weight: 400;
-	background: linear-gradient(to right, rgb(255, 224, 119), rgb(255, 201, 14));
-	/*background: linear-gradient(to right, rgb(34, 177, 76), rgb(32, 170, 73));*/
+	background: rgb(255, 201, 14);
+	
+	/*background: linear-gradient(to right, rgb(255, 224, 119), rgb(255, 201, 14));
+	
+	background: linear-gradient(to right, rgb(34, 177, 76), rgb(32, 170, 73));*/
     color: white;
     font-size: 19px;
     text-transform: uppercase;
@@ -292,7 +295,7 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 
 .toolbar-bottom {
 	bottom: 10px;
-    height: 90px;
+    height: 140px;
     background-color: transparent;
 }
 
@@ -910,7 +913,12 @@ label.check-item input[type=checkbox]:checked~.check-item {
 
 .item_asset_div{
 	
+    text-align: center;
     justify-content: center;
+}
+
+.toolbar-inner{
+	align-items: flex-end;
 }
 
 .item_asset_img{
