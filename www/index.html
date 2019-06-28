@@ -181,25 +181,47 @@
 				<div class="navbar-inner">
 					<div class="left">
 						<a class="panel-open" href="#">
-							<i class="f7-icons icon-menu"></i>
-						</a>
+                                
+						<i class="f7-icons icon-menu"></i>
+						<!--<i class="f7-icons color-white">bars</i>
+						--></a>
 					</div>
 					<div class="title"></div>
 				</div>
 			</div>
+			
+			
+			
+			
+									<div style="margin-top:65px;position: absolute; z-index:3000;width:100%;">
+										<div  style="text-align:center;">
+										   <br><br><span style="color:white;font-size:28px;font-weight:700;text-shadow: 0px 1px 0px #1919195c, 0 0 1em #1e1e1e;">Hamburger King Size</span>
+										   <br><span style="color:white;margin-top:5px;font-size:24px;font-weight:700;text-transform: uppercase;text-shadow: 0px 1px 0px #1919195c, 0 0 1em #1e1e1e;">$20</span>
+										</div>
+									</div>
+									
 			<div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
                         <a class="btn-cs" href="#" id='connectCam'>
-                            Order dish
+							Order dish
                         </a>
+						<!--
+                                <i class="f7-icons color-white">check</i><a class="btn-cs btn-pn" href="#" id='connectCam'>
+                                <i class="f7-icons color-white">close</i>
+                        </a>-->
                     </div>
                 </div>
             <div class="">
 				<div class="inner-content">
 					<div class="swiper-container swiper-init demo-swiper">
-					  <div class="swiper-wrapper">
-						<div class="swiper-slide"><img src="./resources/images/burger-600.jpg"></div>
-					  </div>
+						<div data-pagination='{"el": "#swiper-pagination"}' data-space-between="10" data-slides-per-view="auto" data-centered-slides="true" class="swiper-container swiper-init demo-swiper demo-swiper-auto swiper-container-initialized swiper-container-horizontal">
+							<div class="swiper-pagination" id="swiper-pagination"></div>
+							  <div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<img src="./resources/images/burger-600.jpg"></div>
+							  </div>
+							  
+						</div>
 					</div>
 				</div>
 			</div>
