@@ -908,3 +908,15 @@ label.check-item input[type=checkbox]:checked~.check-item {
     width: 100%;
 }
 
+.item_asset_div{
+	
+    justify-content: center;
+}
+
+.item_asset_img{
+	    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid rgba(255,255,255,1);
+}
