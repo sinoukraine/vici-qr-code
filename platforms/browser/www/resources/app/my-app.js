@@ -428,7 +428,9 @@ function onDeviceReady(){
 	
 	var swiper = App.swiper.create('.swiper-container', {
 					speed: 400,
-					spaceBetween: 100
+					spaceBetween: 0,
+					pagination:'.swiper-pagination',
+					direction:"vertical",
 				});
 				
 				var swiper = App.swiper.get('.swiper-container');
