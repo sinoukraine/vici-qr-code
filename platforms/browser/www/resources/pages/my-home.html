@@ -34,12 +34,15 @@
 <video id="myvideo" controls="controls" width="400">
     <source src="file:///android_asset/www/gruppenruf.mp4" />
  </video>-->
-                        <img class="main-bg" src="./resources/images/main.png" alt="main">
-						<!--<p class="text-content">Click the CONNECT button to start watching live stream.</p>-->
-                        <!--<p class="text-content">You have not had any connections to the dashcam.</p>-->
-                        <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
-						<br><a href="/my-hints/">How to connect?</a>
+                        <!--<img class="main-bg" src="./resources/images/main.png" alt="main">
+					   <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
+						<br><a href="/my-hints/">How to connect?</a>-->
 						
+						<video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+							<source src="http://192.168.1.1/livesubstream.h264" type="application/x-mpegURL">
+						</video-js>
+						
+						<!--
 						<video
                             id="my-player"
 							
@@ -52,7 +55,7 @@
                           <p class="vjs-no-js">
                             To view this video please enable JavaScript
                           </p>
-                        </video>
+                        </video>-->
                     </div>
                 </div>
             </div>
@@ -73,6 +76,7 @@
             pageInit: function (e, page) {  
 				var self = this;    
 				
+    var player = videojs('my_video_1');
 				page.$el.on('click', '#connectCam', function(e){
 					
 					//App.dialog.alert("start");
