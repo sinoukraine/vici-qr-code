@@ -65,7 +65,7 @@
     <plugin name="cordova-plugin-camera" source="npm" spec="4.0.3"  /><!-- needed -->  
     <plugin spec="https://github.com/phonegap/phonegap-mobile-accessibility.git" source="git" /><!-- needed -->  
     <plugin name="cordova-launch-review" source="npm" spec="3.1.1" />
-    <plugin spec="https://github.com/pengyanb/com.pengyanb.vlcstreamplayer" source="git" />
+    <!--<plugin spec="https://github.com/pengyanb/com.pengyanb.vlcstreamplayer" source="git" />-->
 	
 	<!--ios<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />-->
 	<!--ios<plugin name="cordova-plugin-android-permissions" spec="1.0.0" />-->
