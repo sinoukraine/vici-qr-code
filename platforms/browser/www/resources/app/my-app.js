@@ -423,8 +423,17 @@ function encodeHex(str){
 }
 
 function onDeviceReady(){
-	loadCarcamPage();
+	//loadCarcamPage();
 	console.log('ready');
+	
+	var swiper = App.swiper.create('.swiper-container', {
+					speed: 400,
+					spaceBetween: 0,
+					pagination:'.swiper-pagination',
+					direction:"vertical",
+				});
+				
+				var swiper = App.swiper.get('.swiper-container');
 	//App.dialog.alert(UInt64("0x0000000077232000"));	
 	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }
