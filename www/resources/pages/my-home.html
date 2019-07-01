@@ -87,7 +87,7 @@
 						 error => {}
 					);*/
 					//App.dialog.alert("start");
-						/*
+						
 					  let options = {
 						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
 						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
@@ -96,7 +96,7 @@
 						  controls: false
 						};
 
-						window.plugins.streamingMedia.playVideo('https://s2.ipcamlive.com/streams/025d05f4453102a9f/stream.m3u8', options);*/
+						window.plugins.streamingMedia.playVideo('http://192.168.1.1/DCIM/101video/20190620153223_10_720p.MP4', options);
 						/*var pc = new cordova.plugins.iosrtc.RTCPeerConnection({
 						  iceServers: []
 						});
@@ -127,14 +127,14 @@
 						}
 				});
 				
-				*/
+				
 						if(window && window.plugins && window.plugins.streamingMedia) {
 						  let StreamingMedia = window.plugins.streamingMedia;
 						  StreamingMedia.playiOS("http://192.168.1.1/livesubstream.h264");
 						  //StreamingMedia.playLocaliOS("local file path")
 						}else{
 							App.dialog.alert("Error video!");
-						}
+						}*/
 				});
 			}
 		}
