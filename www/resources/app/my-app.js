@@ -285,8 +285,22 @@ var App = new Framework7({
 				$.ajax({
 					   type: "GET",
 				   dataType: "json", 
-					
+						/*dataFilter: function(raw, type) {
+						console.log(raw, type);
+						return JSON.parse(raw);
+						{ 
+					"filename": "20190523121307_180_720p.MP4", 
+					"duration": 180, 
+					"filesize": 94716138, 
+					"title": "20190523121307.JPG", 
+					"titlesize": 5817, 
+					"thumb": "20190523121307.TGZ", 
+					"thumbsize": 36302, 
+					"time": "20190523121307" 
+				 }
+					},*/
 					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
 						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
 					  async: true,           
 						crossDomain: true, 
@@ -297,10 +311,10 @@ var App = new Framework7({
 						resolve(result);
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error_video');
+					   console.log(textStatus,'error');
 					}
 				});		
-			});   
+			});     
 		},		
         sortParseDatePhoto: function(data){
 			let dataObj = data;
@@ -411,7 +425,6 @@ function encodeHex(str){
 function onDeviceReady(){
 	loadCarcamPage();
 	console.log('ready');
-	//App.dialog.alert(device.uuid);
 	//App.dialog.alert(UInt64("0x0000000077232000"));	
 	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }
@@ -422,7 +435,7 @@ var mainView = App.views.create('.view-main');
 /*start download file*/
 
 //First step check parameters mismatch and checking network connection if available call    download function
-function DownloadFile(URL, Folder_Name, File_Name) {/*
+function DownloadFile(URL, Folder_Name, File_Name) {
 	//Parameters mismatch check
 	if (URL == null && Folder_Name == null && File_Name == null) {
 		return;
@@ -435,9 +448,9 @@ function DownloadFile(URL, Folder_Name, File_Name) {/*
 		} else {
 			download(URL, Folder_Name, File_Name); //If available download function call
 		}
-	}*/
+	}
 }
-/*
+
 
 function filetransfer(download_link, fp) {	
 	var fileTransfer = new FileTransfer();
@@ -495,7 +508,7 @@ function download(URL, Folder_Name, File_Name) {
 		App.dialog.alert(evt.target.error.code);
 	}
 }
-*/
+
 /*end download file*/
 
 $$('#mainMenu li').on('click', menuList)
