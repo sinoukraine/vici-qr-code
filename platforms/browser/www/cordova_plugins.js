@@ -356,6 +356,20 @@ module.exports = [
         "clobbers": [
             "streamingMedia"
         ]
+    },
+    {
+        "file": "plugins/es6-promise-plugin/www/promise.js",
+        "id": "es6-promise-plugin.Promise",
+        "pluginId": "es6-promise-plugin",
+        "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-rtsp-vlc/www/VideoPlayerVLC.js",
+        "id": "cordova-plugin-rtsp-vlc.VideoPlayerVLC",
+        "pluginId": "cordova-plugin-rtsp-vlc",
+        "clobbers": [
+            "window.VideoPlayerVLC"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -373,7 +387,9 @@ module.exports.metadata =
     "cordova-plugin-file": "6.0.1",
     "cordova-plugin-advanced-http": "2.0.9",
     "cordova-plugin-android-permissions": "1.0.0",
-    "cordova-plugin-streaming-media-xtreme": "2.3.1"
+    "cordova-plugin-streaming-media-xtreme": "2.3.1",
+    "es6-promise-plugin": "4.2.2",
+    "cordova-plugin-rtsp-vlc": "3.0.5"
 }
 // BOTTOM OF METADATA
 });

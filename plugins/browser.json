@@ -42,11 +42,17 @@
         },
         "cordova-plugin-streaming-media-xtreme": {
             "PACKAGE_NAME": "com.dashcam.app"
+        },
+        "cordova-plugin-rtsp-vlc": {
+            "PACKAGE_NAME": "com.dashcam.app"
         }
     },
     "dependent_plugins": {
         "cordova-plugin-file": {
             "PACKAGE_NAME": "com.sinopacific.dashcamtest"
+        },
+        "es6-promise-plugin": {
+            "PACKAGE_NAME": "com.dashcam.app"
         }
     }
 }

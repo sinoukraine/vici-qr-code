@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+		xmlns="http://schemas.android.com/apk/res/androoid"
+		id="cordova-plugin-rtsp-vlc"
+		version="3.0.5">
+
+		<name>vlcstreamplayer</name>
+		<description>VLC Stream Player</description>
+		<author>Yossi Neiman</author>
+		<license>Apache 2.0</license>
+		<keywords>cordova, VLC, stream, rtsp, rtp</keywords>
+
+		<js-module src="www/VideoPlayerVLC.js" name="VideoPlayerVLC">
+			<clobbers target="window.VideoPlayerVLC" />
+		</js-module>
+        
+		<!-- ES6 promise polyfill -->
+    	<dependency id="es6-promise-plugin" version="4.1.0" />
+
+
+		<platform name="android">	
+			<framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+		
+			<config-file target="res/xml/config.xml" parent="/*">
+				<feature name="VideoPlayerVLC">
+					<param name="android-package" value="com.libVLC.VideoPlayerVLC"/>
+				</feature>
+			</config-file>
+			
+			<config-file target="AndroidManifest.xml" parent="/manifest">
+				<uses-permission android:name="android.permission.INTERNET" />
+			</config-file>
+
+			<config-file target="AndroidManifest.xml" parent="/manifest/application">
+				<activity android:name="com.libVLC.VLCActivity"/>
+			</config-file>
+			
+			<source-file src="src/android/com/libVLC/VideoPlayerVLC.java" target-dir="src/com/libVLC"/>
+			<source-file src="src/android/com/libVLC/VLCActivity.java" target-dir="src/com/libVLC"/>
+			
+			<resource-file src="src/android/res/layout/vlc_player.xml" target="res/layout/vlc_player.xml" />
+			
+			<resource-file src="src/android/res/drawable-hdpi/ic_pause_white_24dp.png" target="res/drawable-hdpi/ic_pause_white_24dp.png" />
+			<resource-file src="src/android/res/drawable-hdpi/ic_play_arrow_white_24dp.png" target="res/drawable-hdpi/ic_play_arrow_white_24dp.png" />
+			
+			<resource-file src="src/android/res/drawable-mdpi/ic_pause_white_24dp.png" target="res/drawable-mdpi/ic_pause_white_24dp.png" />
+			<resource-file src="src/android/res/drawable-mdpi/ic_play_arrow_white_24dp.png" target="res/drawable-mdpi/ic_play_arrow_white_24dp.png" />
+			
+			<resource-file src="src/android/res/drawable-xhdpi/ic_pause_white_24dp.png" target="res/drawable-xhdpi/ic_pause_white_24dp.png" />
+			<resource-file src="src/android/res/drawable-xhdpi/ic_play_arrow_white_24dp.png" target="res/drawable-xhdpi/ic_play_arrow_white_24dp.png" />
+			
+			<resource-file src="src/android/res/drawable-xxhdpi/ic_pause_white_24dp.png" target="res/drawable-xxhdpi/ic_pause_white_24dp.png" />
+			<resource-file src="src/android/res/drawable-xxhdpi/ic_play_arrow_white_24dp.png" target="res/drawable-xxhdpi/ic_play_arrow_white_24dp.png" />
+			
+			<resource-file src="src/android/res/drawable-xxxhdpi/ic_pause_white_24dp.png" target="res/drawable-xxxhdpi/ic_pause_white_24dp.png" />
+			<resource-file src="src/android/res/drawable-xxxhdpi/ic_play_arrow_white_24dp.png" target="res/drawable-xxxhdpi/ic_play_arrow_white_24dp.png" />
+		</platform>
+        
+        <platform name="ios">
+            <config-file target="config.xml" parent="/*">
+                <feature name="VideoPlayerVLC">
+                    <param name="ios-package" value="VideoPlayerVLC"/>
+                </feature>
+                <feature name="VideoPlayerVLCViewController">
+                    <param name="ios-package" value="VideoPlayerVLCViewController" />
+                </feature>
+            </config-file>
+ 	          
+            <header-file src="src/ios/VideoPlayerVLC.h" />
+            <source-file src="src/ios/VideoPlayerVLC.m" />
+            <header-file src="src/ios/VideoPlayerVLCViewController.h" />
+            <source-file src="src/ios/VideoPlayerVLCViewController.m" />
+            <framework src="MobileVLCKit" type="podspec" spec=">3.1.0" />
+            <framework src="/usr/lib/libbz2.dylib" />
+            <framework src="/usr/lib/libiconv.dylib" />
+            <framework src="/usr/lib/libstdc++.dylib" />
+            <framework src="/usr/lib/libz.dylib" />
+            <framework src="Security.framework" />
+            <framework src="QuartzCore.framework" />
+            <framework src="OpenGLES.framework" />
+            <framework src="CoreText.framework" />
+            <framework src="CFNetwork.framework" />
+            <framework src="AudioToolbox.framework" />
+            <framework src="CoreAudio.framework" />
+            <framework src="UIKit.framework" />
+            <framework src="Foundation.framework" />
+        </platform>
+</plugin>

@@ -92,6 +92,12 @@
         },
         "cordova-plugin-streaming-media-xtreme": {
             "PACKAGE_NAME": "com.dashcam.app"
+        },
+        "es6-promise-plugin": {
+            "PACKAGE_NAME": "com.dashcam.app"
+        },
+        "cordova-plugin-rtsp-vlc": {
+            "PACKAGE_NAME": "com.dashcam.app"
         }
     },
     "dependent_plugins": {},
@@ -452,6 +458,20 @@
             "clobbers": [
                 "streamingMedia"
             ]
+        },
+        {
+            "file": "plugins/es6-promise-plugin/www/promise.js",
+            "id": "es6-promise-plugin.Promise",
+            "pluginId": "es6-promise-plugin",
+            "runs": true
+        },
+        {
+            "file": "plugins/cordova-plugin-rtsp-vlc/www/VideoPlayerVLC.js",
+            "id": "cordova-plugin-rtsp-vlc.VideoPlayerVLC",
+            "pluginId": "cordova-plugin-rtsp-vlc",
+            "clobbers": [
+                "window.VideoPlayerVLC"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -467,6 +487,8 @@
         "cordova-plugin-file": "6.0.1",
         "cordova-plugin-advanced-http": "2.0.9",
         "cordova-plugin-android-permissions": "1.0.0",
-        "cordova-plugin-streaming-media-xtreme": "2.3.1"
+        "cordova-plugin-streaming-media-xtreme": "2.3.1",
+        "es6-promise-plugin": "4.2.2",
+        "cordova-plugin-rtsp-vlc": "3.0.5"
     }
 }

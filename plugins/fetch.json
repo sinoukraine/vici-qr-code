@@ -112,5 +112,21 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-rtsp-vlc": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-rtsp-vlc@3.0.5"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "es6-promise-plugin": {
+        "source": {
+            "type": "registry",
+            "id": "es6-promise-plugin"
+        },
+        "is_top_level": false,
+        "variables": {}
     }
 }
