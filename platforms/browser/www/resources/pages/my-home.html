@@ -79,8 +79,8 @@
 				
     //var player = videojs('my_video_1');
 				page.$el.on('click', '#connectCam', function(e){
-					window.PYB.vlcStreamPlayer.openPlayerForStreamURL(function(){}, function(){}, "https://s2.ipcamlive.com/streams/025d05f4453102a9f/stream.m3u8");
-					
+					/*window.PYB.vlcStreamPlayer.openPlayerForStreamURL(function(){}, function(){}, "https://s2.ipcamlive.com/streams/025d05f4453102a9f/stream.m3u8");
+					*/
 					/*window.VideoPlayerVLC.play(
 						 "http://192.168.1.1/livesubstream.h264",
 						 done => {},
@@ -127,16 +127,14 @@
 						}
 				});
 				
-				
+				*/
 						if(window && window.plugins && window.plugins.streamingMedia) {
 						  let StreamingMedia = window.plugins.streamingMedia;
-						  // play streaming video from a remove resource
-						  //https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
-						  StreamingMedia.playiOS(API_LIVE_STREAM);
+						  StreamingMedia.playiOS("http://192.168.1.1/livesubstream.h264");
 						  //StreamingMedia.playLocaliOS("local file path")
 						}else{
-							App.dialog.log("Error video!");
-						}*/
+							App.dialog.alert("Error video!");
+						}
 				});
 			}
 		}
