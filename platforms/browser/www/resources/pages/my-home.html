@@ -37,11 +37,11 @@
                         <!--<img class="main-bg" src="./resources/images/main.png" alt="main">
 					   <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
 						<br><a href="/my-hints/">How to connect?</a>-->
-						
+						<!--
 						<video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="640" height="268">
 							<source src="http://192.168.1.1/livesubstream.h264" type="application/x-mpegURL">
 						</video-js>
-						
+						-->
 						
 						<!--
 						<video
@@ -77,9 +77,9 @@
             pageInit: function (e, page) {  
 				var self = this;    
 				
-    var player = videojs('my_video_1');
+    //var player = videojs('my_video_1');
 				page.$el.on('click', '#connectCam', function(e){
-					
+					window.PYB.vlcStreamPlayer.openPlayerForStreamURL(function(){App.dialog.alert("1");}, function(){App.dialog.alert("2");}, API_LIVE_STREAM);
 					//App.dialog.alert("start");
 						/*
 					  let options = {
