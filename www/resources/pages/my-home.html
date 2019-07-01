@@ -79,12 +79,13 @@
 				
     //var player = videojs('my_video_1');
 				page.$el.on('click', '#connectCam', function(e){
-					/*window.PYB.vlcStreamPlayer.openPlayerForStreamURL(function(){App.dialog.alert("1");}, function(){App.dialog.alert("2");}, API_LIVE_STREAM);*/
-					window.VideoPlayerVLC.play(
+					window.PYB.vlcStreamPlayer.openPlayerForStreamURL(function(){}, function(){}, "http://192.168.1.1/livesubstream.h264");
+					
+					/*window.VideoPlayerVLC.play(
 						 "http://192.168.1.1/livesubstream.h264",
 						 done => {},
 						 error => {}
-					);
+					);*/
 					//App.dialog.alert("start");
 						/*
 					  let options = {

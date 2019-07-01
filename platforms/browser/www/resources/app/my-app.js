@@ -253,7 +253,7 @@ var App = new Framework7({
 					
 				});		
 			});   			
-		},/*
+		},
 		getVRecordPhoto: function(resolve, reject){ 			
 			return new Promise((resolve, reject) => {
 				let url = 'http://192.168.1.1/DCIM/104snap/';
@@ -279,7 +279,7 @@ var App = new Framework7({
 				  reject();
 				});	
 			});				
-		},*/
+		},
 		getRecordVideo: function (resolve, reject) {	
 			return new Promise((resolve, reject) => {
 				$.ajax({
