@@ -39,6 +39,20 @@
                         <!--<p class="text-content">You have not had any connections to the dashcam.</p>-->
                         <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
 						<br><a href="/my-hints/">How to connect?</a>
+						
+						<video
+                            id="my-player"
+							
+                            class="video-js"
+                            controls
+                            preload="auto"
+                            poster="//vjs.zencdn.net/v/oceans.png"
+                            data-setup='{}'>
+                          <source src="http://192.168.1.1/livesubstream.h264" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+                          <p class="vjs-no-js">
+                            To view this video please enable JavaScript
+                          </p>
+                        </video>
                     </div>
                 </div>
             </div>
@@ -53,86 +67,66 @@
 
             return ret;
         },
-		methods: {			
-			openLive: function(){		
-				var self = this;    
-					self.$app.preloader.show();
-							WifiWizard2.getConnectedSSID().then(response => {	
-								let mySSID = JSON.stringify(response);
-								var pattern = /AUTO-VOX/i;
-								var pattern1 = /M-/i;
-								
-								self.$app.preloader.hide();		
-								if ((pattern.test(mySSID) || pattern1.test(mySSID))) {	
-									VideoPlayer.play(API_LIVE_STREAM);									
-								}else{					
-									self.$app.dialog.alert('No Dashcam connected');									
-								}					
-							}).catch((error) => {
-								self.$app.preloader.hide();		
-								self.$app.dialog.alert('Please check DashCam connection and turn on location permission on your device');						
-							});
-			},
+		methods: {
 		},
         on: {
             pageInit: function (e, page) {  
 				var self = this;    
-				var page = page.$el.find('.page-content'); 
 				
-				var myPage = $$('.cam');
-				
-				let permissions = cordova.plugins.permissions;
-				
-				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-								
-				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
-					App.dialog.alert(JSON.stringify(curid2));
-				});*/
-				
-				myPage.on('click', '#connectCam', function(e){
+				page.$el.on('click', '#connectCam', function(e){
 					
-					
-					self.openLive();
-					/*
-					if (!permissions) {
-						App.dialog.alert('Permissions plugin not supported');
-						self.openLive();
-					} else {
-						permissions.hasPermission(permissions.ACCESS_COARSE_LOCATION, function(status) {
-							if (status.hasPermission) {
-								self.openLive();							
-							} else {
-								permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, success, error);
-								
-								function error() {
-									self.$app.preloader.hide();		
-									App.dialog.alert('Changing permission failed');
-								}
+					//App.dialog.alert("start");
+						/*
+					  let options = {
+						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
+						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
+						  orientation: 'landscape',
+						  shouldAutoClose: true,
+						  controls: false
+						};
 
-								function success(status1) {
-									self.openLive();
-									
-									if (!status1.hasPermission) {
-										self.$app.preloader.hide();	
-										error();
-									}
-								}
-							}
+						window.plugins.streamingMedia.playVideo('https://s2.ipcamlive.com/streams/025d05f4453102a9f/stream.m3u8', options);*/
+						/*var pc = new cordova.plugins.iosrtc.RTCPeerConnection({
+						  iceServers: []
 						});
-					}*/
+
+						cordova.plugins.iosrtc.getUserMedia(
+						  // constraints
+						  { audio: true, video: true },
+						  // success callback
+						  function (stream) {
+							console.log('got local MediaStream: ', stream);
+
+							pc.addStream(stream);
+						  },
+						  // failure callback
+						  function (error) {
+							console.error('getUserMedia failed: ', error);
+						  }
+						);
+						URL.createObjectURL(stream)*/
+						/*
+						
+						page.$el.on('click', '#connectCam', function(e){
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  StreamingMedia.playiOS(API_LIVE_STREAM);
+						}else{
+							App.dialog.alert("Error video!");
+						}
 				});
 				
-
-                /*page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open();
-				});*/
-						
 				
-				//page.on('click', '#connectCam', function(e){				
-				//$$('#connectCam').on('click', function() {    
-					
-					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
-				//});				
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  // play streaming video from a remove resource
+						  //https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+						  StreamingMedia.playiOS(API_LIVE_STREAM);
+						  //StreamingMedia.playLocaliOS("local file path")
+						}else{
+							App.dialog.log("Error video!");
+						}*/
+				});
 			}
 		}
     };

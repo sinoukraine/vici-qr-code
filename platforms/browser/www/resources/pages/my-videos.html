@@ -85,6 +85,7 @@
                 VirtualVideoList: false,
 				ShowNormalList: false,	
 				ShowVideoList: false,	
+				phoneMacAddress: '00.00.00.00.00.00',		
             }; 			
             return ret;
         },
@@ -315,6 +316,15 @@
                     // Display the each item using Template7 template parameter
                     renderItem: function (item, index) {                 
                         var ret = '';
+						let options = {
+						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
+						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
+						  orientation: 'landscape',
+						  shouldAutoClose: true,
+						  controls: false
+						};
+
+						
 						
 						ret += '<div class="list media-list">';
 						ret += '  <ul>';
@@ -341,7 +351,7 @@
 							ret +='<input type="checkbox" name="photo-check" file-name="'+item.data[d].filename+'" value="http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'"/>';
 							ret +='<i class="f7-icons">check</i>';
 							ret +='</label>';
-							ret += 					'<a href="#" onclick="App.methods.openPlayer(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
+							ret += 					'<a href="#" onclick="window.plugins.streamingMedia.playVideo(\'http://192.168.1.1/DCIM/100video/'+item.data[d].filename+'\')" class="" data-video="'+item.data[d].filename+'">' +
 													'<div class="item-content">' +
 													'<div class="item-media video-item-media">' +
 													'<img class="item-path" src="http://192.168.1.1/DCIM/103thumb/'+item.data[d].title+'">' +
@@ -376,15 +386,106 @@
 					},
 					photos : self.photoBrowserArr
 				});*/
-            },
+            },/*
+			removeFiles: function(arr = []){
+				var self = this;	
+				
+				if(arr.length){						
+				   arr.forEach(function(value, index) {
+						if(value.length > 0){
+							//$$('.view-main .progressbar-infinite').removeClass('display-none');
+							
+							self.removeFile(value);
+						}else{						
+							App.dialog.alert('Can not remove file');
+						}
+					});
+				}else{
+					App.dialog.alert('Please choose files');
+				}				
+			},  
+			removeFile: function(data){		
+				var self = this;	
+				App.dialog.alert(data);
+				let lengthData = data.length.toString(16);
+				let lengthDataToHex = String('0000' + lengthData).slice(-4);
+				App.dialog.alert('FFF00000010000008003' + lengthDataToHex + data);
+				self.feedCommand('FFF00000010000008003' + lengthDataToHex + data);	
+			},
+			feedCommand: function(hex) {
+				var self = this;					
+				
+				//7802F8334207
+				if(self.phoneMacAddress != '00.00.00.00.00.00'){
+					self.$app.preloader.show();
+					
+					let macAddress = self.phoneMacAddress.replace(/[^A-Za-z0-9]/g, "");
+					//macAddress = macAddress.substr(1,macAddress.length -2);
+					//App.dialog.alert(self.phoneMacAddress);
+					self.socket.open(
+					  "192.168.1.1",
+					  10080,
+					  function() {		
+						//self.$app.preloader.hide();			
+						//self.initConnectToCam();
+						self.writeToCam("FFF0275D0100000010010006" + macAddress);
+						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
+						App.dialog.alert("my"+hex);
+						self.writeToCam(hex);										
+					  },
+					  function(errorMessage) {
+						//self.$app.preloader.hide();
+						App.dialog.alert('Cam is not initialized');	
+						// invoked after unsuccessful opening of socket
+					});
+				}else{
+					App.dialog.alert('Mac address is invalid');						
+				}					
+			},*/
         },
         on: {
             pageInit: function (e, page) {  
 				var self = this;                                              
-                console.log('page init');
+                console.log('page init');				
+				
+				/*window.MacAddress.getMacAddress(
+					function(macAddress) {
+						self.$setState({
+							phoneMacAddress: macAddress,
+						});
+					},function(fail) {
+						App.dialog.alert('Phone Mac Address was not found');
+					}
+				);*/
 				
                 self.getGalleryList();	
 
+				//self.$app.preloader.show();
+				/*self.socket = new Socket();	
+				
+				self.socket.onData = function(data) {
+					let convertedData = data.reduce((acc, item) => {
+					  let code = item.toString(16);
+					  let formattedCode = ('0' + code).slice(-2);
+					  return acc + formattedCode;
+					}, '');
+					App.dialog.alert(convertedData);
+					
+				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
+				};
+				self.socket.onError = function(errorMessage) {
+					self.$app.preloader.hide();
+					App.dialog.alert('Can not change this state.');
+				  // invoked after error occurs during connection
+				};
+				self.socket.onClose = function(hasError) {
+					self.$app.preloader.hide();
+					
+					
+					App.dialog.alert('Set successfully.');
+				  // invoked after connection close
+				};	
+*/
 				var page = page.$el.find('.page-content'); 
 
                 page.on('click', '.pb-standalone-dark', function(e){
@@ -438,8 +539,31 @@
 					self.$app.methods.downloadFiles(arrItems);
 					arrItems.length = 0;
 				});	
-								
+				/*
+				myPage.on('click', '.remove-items', function(e){
 				
+					var arrItems = [];			
+					
+					//var currentCamera = self.$app.methods.getFromStorage("currentCamera");
+				
+					var downloadItems = $$('[name="photo-check"]');
+					downloadItems.forEach(function() {
+						if($(this).is(":checked")){
+							arrItems.push($(this).attr('file-name'));
+						}											
+						$(this).removeAttr("checked");
+					});
+					
+					self.$setState({
+                        IsCheckAll: false,
+                    });
+										
+					$('.photo-check-item').toggleClass('display-none');
+					
+					self.removeFiles(arrItems);
+					arrItems.length = 0;
+				});					
+				*/
 				
 				// Pull to refresh content
 				var $ptrContent = $$('.ptr-content');
