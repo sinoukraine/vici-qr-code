@@ -427,7 +427,7 @@ function onDeviceReady(){
 	console.log('ready');
 	
 	var swiper = App.swiper.create('.swiper-container', {
-					speed: 200,
+					speed: 300,
 					effect: 'slide',
 					spaceBetween: 1,
 					pagination:'.swiper-pagination',

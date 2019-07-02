@@ -927,3 +927,21 @@ label.check-item input[type=checkbox]:checked~.check-item {
     border: 0px solid rgba(255,255,255,1);
    
 }
+
+.menu-panel:after{
+	content: '';
+    position: absolute;
+    background-color: var(--f7-list-item-border-color);
+    display: block;
+    z-index: 15;
+    top: auto;
+    right: auto;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    transform-origin: 50% 100%;
+    transform: scaleY(calc(1 / var(--f7-device-pixel-ratio)));
+}
+
+
