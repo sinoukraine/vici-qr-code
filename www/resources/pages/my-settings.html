@@ -156,7 +156,7 @@
 				CamName: 'Dashcam',
 				WiFiRouterIp: '0.0.0.0',
 				Mac: '00.00.00.00.00.00',
-				phoneMacAddress: '00.00.00.00.00.00',
+				phoneMacAddress: 'A4F1E8493C64',//00.00.00.00.00.00
 				CheckedSoundOn: false,
 				CheckedSurveillance: false,
 				CheckedVoiceParking: false
@@ -235,7 +235,7 @@
 			stateToggle: function(hex, name, data) {
 				var self = this;					
 				
-				//7802F8334207
+				//7802F8334207 A4F1E8493C64
 				if(self.phoneMacAddress != '00.00.00.00.00.00'){
 					self.$app.preloader.show();
 					
@@ -279,29 +279,37 @@
 				var self = this;    				
 				var myPage = $$('.my-settings');
 				
-				window.MacAddress.getMacAddress(
+				/*window.MacAddress.getMacAddress(
 					function(macAddress) {
+						App.dialog.alert(macAddress);
 						self.$setState({
 							phoneMacAddress: macAddress,
 						});
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
-				);
+				);*/
+				
+				var params = {};
+				addressimpl.request("getMACAddress", JSON.stringify(params), function(message) {
+						App.dialog.alert(message);
+					}, function() {
+						App.dialog.alert("failed on get mac address");
+					});
 				
 				//self.$app.preloader.show();
 				self.socket = new Socket();	
 				
 				self.socket.onData = function(data) {
 
-				/*
+				
 					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
 					App.dialog.alert(convertedData);
-					*/
+					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				self.socket.onError = function(errorMessage) {
@@ -359,7 +367,7 @@
 				}
 				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-				WifiWizard2.getConnectedSSID().then(response => {	
+				/*WifiWizard2.getConnectedSSID().then(response => {	
 					//App.dialog.alert(JSON.stringify(response));	
 
 					let mySSID = JSON.stringify(response);
@@ -382,9 +390,9 @@
 							
 										
 					}					
-				});	
+				});	*/
 				
-				WifiWizard2.getConnectedBSSID().then(response => {	
+				/*WifiWizard2.getConnectedBSSID().then(response => {	
 					//App.dialog.alert(JSON.stringify(response));
 					self.$setState({
                         Mac: JSON.stringify(response),
@@ -395,7 +403,7 @@
 					self.$setState({
                         WiFiRouterIp: JSON.stringify(response),
                     });						
-				});	
+				});	*/
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
 				myPage.on('click', '.my-wifi-settings', self.navigateIp);
