@@ -422,7 +422,7 @@ var mainView = App.views.create('.view-main');
 /*start download file*/
 
 //First step check parameters mismatch and checking network connection if available call    download function
-function DownloadFile(URL, Folder_Name, File_Name) {/*
+function DownloadFile(URL, Folder_Name, File_Name) {
 	//Parameters mismatch check
 	if (URL == null && Folder_Name == null && File_Name == null) {
 		return;
@@ -435,9 +435,9 @@ function DownloadFile(URL, Folder_Name, File_Name) {/*
 		} else {
 			download(URL, Folder_Name, File_Name); //If available download function call
 		}
-	}*/
+	}
 }
-/*
+
 
 function filetransfer(download_link, fp) {	
 	var fileTransfer = new FileTransfer();
@@ -478,6 +478,7 @@ function download(URL, Folder_Name, File_Name) {
 		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
 		fp = fp + "/" + Folder_Name + "/" + File_Name;// + "." + ext; // fullpath and name of the file which we want to give
 		// download function call
+		App.dialog.alert(fp);
 		filetransfer(download_link, fp);
 	}
 
@@ -495,7 +496,7 @@ function download(URL, Folder_Name, File_Name) {
 		App.dialog.alert(evt.target.error.code);
 	}
 }
-*/
+
 /*end download file*/
 
 $$('#mainMenu li').on('click', menuList)
