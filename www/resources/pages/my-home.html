@@ -99,9 +99,13 @@
 
 						window.plugins.streamingMedia.playVideo('http://192.168.1.1/DCIM/101video/20190620153223_10_720p.MP4', options);
 						*/
-						
+	/*					
 						cordova.plugins.rtsplayer.watchVideo({ path: 'http://192.168.1.1/livesubstream.h264', x: 0, y: 60, width: 500, height: 500 }, function () { }, function () { });
- 
+*/ 
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  StreamingMedia.playiOS('http://192.168.1.1/livesubstream.h264');
+						}
 						
 						/*var pc = new cordova.plugins.iosrtc.RTCPeerConnection({
 						  iceServers: []

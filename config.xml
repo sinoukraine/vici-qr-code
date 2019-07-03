@@ -92,7 +92,7 @@
     <!--ios<plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />-->
 	
 	
-    <plugin spec="https://github.com/sezerkorkmaz/cordova-plugin-rtspplayer" source="git"  />
+    <plugin spec="https://github.com/joaoduartemariucio/cordova-plugin-streaming-native.git" source="git"  />
 	
 
     <edit-config target="NSCameraUsageDescription" file="*-Info.plist" mode="merge">
