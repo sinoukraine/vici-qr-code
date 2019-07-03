@@ -72,7 +72,7 @@
 	
 	
 	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
-	<!--<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />-->
+	<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
 	<!--ios<plugin name="cordova-plugin-android-permissions" spec="1.0.0" />-->
 	<!--<plugin name="com.tlantic.plugins.socket" source="npm" spec="0.3.2" />-->
 	<!--ios<plugin spec="https://github.com/Tlantic/cdv-socket-plugin"  source="git"  />	-->
@@ -82,8 +82,8 @@
 	<!--ios<plugin spec="https://github.com/mohamed-salah/MacAddress.git"  source="git"  />-->
 	<!--ios<plugin spec="https://github.com/parsonsmatt/WifiWizard.git"  source="git"  />	-->
     <!--<plugin spec="https://github.com/gitawego/cordova-screenshot.git" source="git"  />	
-	<plugin spec="https://github.com/BasqueVoIPMafia/cordova-plugin-iosrtc" source="git"  />-->
-	<plugin name="rtsp-live555" source="npm" spec="1.8.7" />
+	<plugin spec="https://github.com/BasqueVoIPMafia/cordova-plugin-iosrtc" source="git"  />
+	<plugin name="cordova-plugin-streaming-media-secure" source="npm" spec="2.3.2" />-->
 	<!--<plugin spec="https://github.com/smccamley/cordova-plugin-streaming-media.git" source="git" />-->	
 	<!--ios<plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />-->
     <!--<plugin spec="https://github.com/jaeger25/Html5Video.git" source="git"  />-->
@@ -91,6 +91,7 @@
     <!--ios<plugin spec="https://github.com/alatvanas9/cordova-mediascanner-plugin" source="git"  />-->
     <!--ios<plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />-->
 	
+    <plugin spec="https://github.com/ChihChengYang/wfs.js" source="git"  />
 	
     <!--<plugin spec="https://github.com/joaoduartemariucio/cordova-plugin-streaming-native.git" source="git"  />-->
 	
