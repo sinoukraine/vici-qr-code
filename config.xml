@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.dashcam.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="41"><!--com.atga.dashcam-->
+<widget xmlns:hardwareAccelerated="true" xmlns:cdv="http://cordova.apache.org/ns/1.0" id="com.dashcam.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" defaultlocale="en-US" android-versionCode="1" ios-CFBundleVersion="42"><!--com.atga.dashcam-->
     <name>DashCam</name>
     <description>
         DashCam
