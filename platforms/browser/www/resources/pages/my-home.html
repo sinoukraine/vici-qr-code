@@ -88,7 +88,7 @@
 					);*/
 					//App.dialog.alert("start");
 						
-					  let options = {
+					  /*let options = {
 						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
 						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
 						  orientation: 'landscape',
@@ -98,6 +98,11 @@
 						
 
 						window.plugins.streamingMedia.playVideo('http://192.168.1.1/DCIM/101video/20190620153223_10_720p.MP4', options);
+						*/
+						
+						cordova.plugins.rtsplayer.watchVideo({ path: 'http://192.168.1.1/livesubstream.h264', x: 0, y: 60, width: 500, height: 500 }, function () { }, function () { });
+ 
+						
 						/*var pc = new cordova.plugins.iosrtc.RTCPeerConnection({
 						  iceServers: []
 						});
