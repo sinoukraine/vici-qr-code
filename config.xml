@@ -72,7 +72,7 @@
 	
 	
 	<plugin name="cordova-plugin-advanced-http" source="npm" spec="2.0.9" />
-	<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />
+	<!--<plugin spec="https://github.com/nchutchind/cordova-plugin-streaming-media" source="git"  />-->
 	<!--ios<plugin name="cordova-plugin-android-permissions" spec="1.0.0" />-->
 	<!--<plugin name="com.tlantic.plugins.socket" source="npm" spec="0.3.2" />-->
 	<!--ios<plugin spec="https://github.com/Tlantic/cdv-socket-plugin"  source="git"  />	-->
