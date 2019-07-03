@@ -102,11 +102,19 @@
 	/*					
 						cordova.plugins.rtsplayer.watchVideo({ path: 'http://192.168.1.1/livesubstream.h264', x: 0, y: 60, width: 500, height: 500 }, function () { }, function () { });
 */ 
-						if(window && window.plugins && window.plugins.streamingMedia) {
+						/*if(window && window.plugins && window.plugins.streamingMedia) {
 						  let StreamingMedia = window.plugins.streamingMedia;
 						  StreamingMedia.playiOS('http://192.168.1.1/livesubstream.h264');
-						}
+						}*/
 						
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  // play streaming video from a remove resource
+						  //https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+						  StreamingMedia.playiOS('http://192.168.1.1/livesubstream.h264');
+						  //StreamingMedia.playLocaliOS("local file path")
+						}
+
 						/*var pc = new cordova.plugins.iosrtc.RTCPeerConnection({
 						  iceServers: []
 						});
