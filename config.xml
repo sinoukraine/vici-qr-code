@@ -83,7 +83,7 @@
 	<!--ios<plugin spec="https://github.com/parsonsmatt/WifiWizard.git"  source="git"  />	-->
     <!--<plugin spec="https://github.com/gitawego/cordova-screenshot.git" source="git"  />	
 	<plugin spec="https://github.com/BasqueVoIPMafia/cordova-plugin-iosrtc" source="git"  />-->
-	<plugin name="cordova-plugin-streaming-media-secure" source="npm" spec="2.3.2" />
+	<plugin name="rtsp-live555" source="npm" spec="1.8.7" />
 	<!--<plugin spec="https://github.com/smccamley/cordova-plugin-streaming-media.git" source="git" />-->	
 	<!--ios<plugin spec="https://github.com/dawsonloudon/VideoPlayer.git"  source="git" />-->
     <!--<plugin spec="https://github.com/jaeger25/Html5Video.git" source="git"  />-->
