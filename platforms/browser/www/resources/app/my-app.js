@@ -285,8 +285,22 @@ var App = new Framework7({
 				$.ajax({
 					   type: "GET",
 				   dataType: "json", 
-					
+						/*dataFilter: function(raw, type) {
+						console.log(raw, type);
+						return JSON.parse(raw);
+						{ 
+					"filename": "20190523121307_180_720p.MP4", 
+					"duration": 180, 
+					"filesize": 94716138, 
+					"title": "20190523121307.JPG", 
+					"titlesize": 5817, 
+					"thumb": "20190523121307.TGZ", 
+					"thumbsize": 36302, 
+					"time": "20190523121307" 
+				 }
+					},*/
 					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
 						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
 					  async: true,           
 						crossDomain: true, 
@@ -297,10 +311,10 @@ var App = new Framework7({
 						resolve(result);
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error_video');
+					   console.log(textStatus,'error');
 					}
 				});		
-			});   
+			});     
 		},		
         sortParseDatePhoto: function(data){
 			let dataObj = data;
@@ -359,15 +373,10 @@ var App = new Framework7({
 			VideoPlayer.play(url);			
 		},
 		downloadFiles: function(arr = []){
-			App.dialog.alert('start ' + arr.length);
-			if(arr.length){
-					App.dialog.alert('cont ' + arr.length);
+			if(arr.length){					
 				arr.forEach(function(value, index) {
-					App.dialog.alert(value.url + value.dir + value.name);
 					if(value.url.length > 0 && value.dir.length > 0 && value.name.length > 0){
 						$$('.view-main .progressbar-infinite').removeClass('display-none');
-						
-					App.dialog.alert('down');
 						DownloadFile(value.url, value.dir, value.name);
 					}else{						
 						App.dialog.alert('Can not download this file');
@@ -414,9 +423,18 @@ function encodeHex(str){
 }
 
 function onDeviceReady(){
-	loadCarcamPage();
+	//loadCarcamPage();
 	console.log('ready');
-	//App.dialog.alert(device.uuid);
+	
+	var swiper = App.swiper.create('.swiper-container', {
+					speed: 300,
+					effect: 'slide',
+					spaceBetween: 1,
+					pagination:'.swiper-pagination',
+					direction:"vertical",
+				});
+				
+				var swiper = App.swiper.get('.swiper-container');
 	//App.dialog.alert(UInt64("0x0000000077232000"));	
 	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }
@@ -428,24 +446,16 @@ var mainView = App.views.create('.view-main');
 
 //First step check parameters mismatch and checking network connection if available call    download function
 function DownloadFile(URL, Folder_Name, File_Name) {
-	App.dialog.alert('get d');
 	//Parameters mismatch check
 	if (URL == null && Folder_Name == null && File_Name == null) {
-		App.dialog.alert('retur d');
 		return;
 	}
 	else {
-		App.dialog.alert('net d');
 		//checking Internet connection availablity
 		var networkState = navigator.connection.type;
-		
-		App.dialog.alert(networkState);
 		if (networkState == Connection.NONE) {
-			App.dialog.alert('eq');
 			return;
 		} else {
-				
-		App.dialog.alert('do');
 			download(URL, Folder_Name, File_Name); //If available download function call
 		}
 	}
@@ -473,18 +483,11 @@ function filetransfer(download_link, fp) {
     );
 }
 
-
 function download(URL, Folder_Name, File_Name) {
-	
-		App.dialog.alert('nex');
 //step to request a file system 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
-		App.dialog.alert('sys');
-		App.dialog.alert(LocalFileSystem.PERSISTENT);
 	function fileSystemSuccess(fileSystem) {
-		
-		App.dialog.alert('ok');
 		var download_link = encodeURI(URL);
 		ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
 
@@ -498,7 +501,6 @@ function download(URL, Folder_Name, File_Name) {
 		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
 		fp = fp + "/" + Folder_Name + "/" + File_Name;// + "." + ext; // fullpath and name of the file which we want to give
 		// download function call
-		App.dialog.alert(fp);
 		filetransfer(download_link, fp);
 	}
 
