@@ -29,16 +29,46 @@
 
                 <div class="page-content">
                     <div class="inner-content">
-                        <!--<p><a href="/open.dashcam/">open</a></p>
+					
+					<video src="rtsp://192.168.1.1/livesubstream.h264" controls>
+  Nope
+</video>
+					
+					<!--
+					<video id=example-video width=960 height=540 class="video-js vjs-default-skin" controls>
+  <source
+     src="http://192.168.1.1/livesubstream.h264"
+     type="application/x-mpegURL">
+</video>-->
+					
+                        <!--https://s1.ipcamlive.com/streams/015d1743575440812/stream.m3u8<p><a href="/open.dashcam/">open</a></p>
                         <p><a href="/air.dashcam/">open</a></p>
 <video id="myvideo" controls="controls" width="400">
     <source src="file:///android_asset/www/gruppenruf.mp4" />
  </video>-->
-                        <img class="main-bg" src="./resources/images/main.png" alt="main">
-						<!--<p class="text-content">Click the CONNECT button to start watching live stream.</p>-->
-                        <!--<p class="text-content">You have not had any connections to the dashcam.</p>-->
-                        <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
-						<br><a href="/my-hints/">How to connect?</a>
+                        <!--<img class="main-bg" src="./resources/images/main.png" alt="main">
+					   <p class="text-content">Select in the connection settings Wi-Fi your dashcam and click the CONNECT button.</p>
+						<br><a href="/my-hints/">How to connect?</a>-->
+						<!--
+						<video-js id="my_video_1" class="vjs-default-skin" controls preload="auto" width="640" height="268">
+							<source src="http://192.168.1.1/livesubstream.h264" type="application/x-mpegURL">
+						</video-js>
+						-->
+						
+						<!--
+						<video
+                            id="my-player"
+							
+                            class="video-js"
+                            controls
+                            preload="auto"
+                            poster="//vjs.zencdn.net/v/oceans.png"
+                            data-setup='{}'>
+                          <source src="http://192.168.1.1/livesubstream.h264" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'></source>
+                          <p class="vjs-no-js">
+                            To view this video please enable JavaScript
+                          </p>
+                        </video>-->
                     </div>
                 </div>
             </div>
@@ -53,86 +83,137 @@
 
             return ret;
         },
-		methods: {			
-			openLive: function(){		
-				var self = this;    
-					self.$app.preloader.show();
-							WifiWizard2.getConnectedSSID().then(response => {	
-								let mySSID = JSON.stringify(response);
-								var pattern = /AUTO-VOX/i;
-								var pattern1 = /M-/i;
-								
-								self.$app.preloader.hide();		
-								if ((pattern.test(mySSID) || pattern1.test(mySSID))) {	
-									VideoPlayer.play(API_LIVE_STREAM);									
-								}else{					
-									self.$app.dialog.alert('No Dashcam connected');									
-								}					
-							}).catch((error) => {
-								self.$app.preloader.hide();		
-								self.$app.dialog.alert('Please check DashCam connection and turn on location permission on your device');						
-							});
-			},
+		methods: {
 		},
         on: {
             pageInit: function (e, page) {  
 				var self = this;    
-				var page = page.$el.find('.page-content'); 
 				
-				var myPage = $$('.cam');
+    //var player = videojs('my_video_1');
+				page.$el.on('click', '#connectCam', function(e){
 				
-				let permissions = cordova.plugins.permissions;
+					var player = videojs('example-video');
+					player.play();
 				
-				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-								
-				/*WifiWizard2.getWifiRouterIP().then(curid2 => {						
-					App.dialog.alert(JSON.stringify(curid2));
-				});*/
-				
-				myPage.on('click', '#connectCam', function(e){
+					/*var player = videojs('example-video');
+					player.src({ src: 'http://192.168.1.1/livesubstream.h264', type: 'application/dash+xml'});
+					player.play();
 					
 					
-					self.openLive();
-					/*
-					if (!permissions) {
-						App.dialog.alert('Permissions plugin not supported');
-						self.openLive();
-					} else {
-						permissions.hasPermission(permissions.ACCESS_COARSE_LOCATION, function(status) {
-							if (status.hasPermission) {
-								self.openLive();							
-							} else {
-								permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, success, error);
-								
-								function error() {
-									self.$app.preloader.hide();		
-									App.dialog.alert('Changing permission failed');
-								}
+					var player = videojs('example-video');
+					  player.src({ src: 'https://s2.ipcamlive.com/streams/025d05f4453102a9f/stream.m3u8', type: 'application/dash+xml'});
+					  player.play();*/
+					
+					
+					
+					/*window.PYB.vlcStreamPlayer.openPlayerForStreamURL(function(){}, function(){}, "https://s2.ipcamlive.com/streams/025d05f4453102a9f/stream.m3u8");
+					*/
+					/*window.VideoPlayerVLC.play(
+						 "http://192.168.1.1/livesubstream.h264",
+						 done => {},
+						 error => {}
+					);*/
+					//App.dialog.alert("start");
+						
+					  /*let options = {
+						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
+						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
+						  orientation: 'landscape',
+						  shouldAutoClose: true,
+						  controls: false
+						};
+						
 
-								function success(status1) {
-									self.openLive();
-									
-									if (!status1.hasPermission) {
-										self.$app.preloader.hide();	
-										error();
-									}
-								}
+						window.plugins.streamingMedia.playVideo('http://192.168.1.1/DCIM/101video/20190620153223_10_720p.MP4', options);
+						*/
+	/*					
+						cordova.plugins.rtsplayer.watchVideo({ path: 'http://192.168.1.1/livesubstream.h264', x: 0, y: 60, width: 500, height: 500 }, function () { }, function () { });
+*/ 
+						/*if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  StreamingMedia.playiOS('http://192.168.1.1/livesubstream.h264');
+						}*/
+						
+						/*
+						var rtsp = null;
+						try {
+							rtsp = require('rtsp-live555');
+						} catch (e) {
+							rtsp = require('./lib/rtsp-live555.js');
+						}
+						var _url = 'http://192.168.1.1/livesubstream.h264';//test address
+						var stream = new rtsp.Live555Client({ input: _url });
+						stream.on('start', () => {
+							App.dialog.alert("start");
+						});
+						 
+						stream.on('stop', () => {
+							App.dialog.alert("stop");
+						});
+						var _hasrecv = false;
+						stream.on('data', (data) => {
+							//you can write your method here
+							//data is flv stream
+							if (!_hasrecv) {
+								App.dialog.alert("recv stream");
+								//console.log('recv stream:', data.length);
+								stream.stop();
+								App.dialog.alert("close stream");
+								//console.log('close stream:', _url);
+								_hasrecv = true;
 							}
 						});
-					}*/
+						*/
+						
+						
+						
+						/*if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  // play streaming video from a remove resource
+						  //https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s/f08e80da-bf1d-4e3d-8899-f0f6155f6efa.m3u8
+						  StreamingMedia.playiOS('http://192.168.1.1/livesubstream.h264');
+						  //StreamingMedia.playLocaliOS("local file path")
+						}*/
+
+						/*var pc = new cordova.plugins.iosrtc.RTCPeerConnection({
+						  iceServers: []
+						});
+
+						cordova.plugins.iosrtc.getUserMedia(
+						  // constraints
+						  { audio: true, video: true },
+						  // success callback
+						  function (stream) {
+							console.log('got local MediaStream: ', stream);
+
+							pc.addStream(stream);
+						  },
+						  // failure callback
+						  function (error) {
+							console.error('getUserMedia failed: ', error);
+						  }
+						);
+						URL.createObjectURL(stream)*/
+						/*
+						
+						page.$el.on('click', '#connectCam', function(e){
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  StreamingMedia.playiOS(API_LIVE_STREAM);
+						}else{
+							App.dialog.alert("Error video!");
+						}
 				});
 				
-
-                /*page.on('click', '.pb-standalone-dark', function(e){
-					self.PhotoBrowserObj.open();
-				});*/
-						
 				
-				//page.on('click', '#connectCam', function(e){				
-				//$$('#connectCam').on('click', function() {    
-					
-					//window.plugins.videoPlayer.play(API_LIVE_STREAM);
-				//});				
+						if(window && window.plugins && window.plugins.streamingMedia) {
+						  let StreamingMedia = window.plugins.streamingMedia;
+						  StreamingMedia.playiOS("http://192.168.1.1/livesubstream.h264");
+						  //StreamingMedia.playLocaliOS("local file path")
+						}else{
+							App.dialog.alert("Error video!");
+						}*/
+				});
 			}
 		}
     };

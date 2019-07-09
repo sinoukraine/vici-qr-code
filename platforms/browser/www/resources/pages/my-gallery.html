@@ -46,6 +46,7 @@
 			</div>
 		</div>
 		<div class="tabs ptr-content">
+		
 			<!-- First tab, active -->
 			<div class="page-content tab tab-active" id="alarm">
 				<div class="block">
@@ -68,6 +69,10 @@
 						<div class="preloader"></div>
 						<div class="ptr-arrow"></div>
 					</div>
+					
+                        <a class="btn-cs" href="#" id='downloadAll'>
+                            download
+                        </a>
 					<div class="list virtual-list photo-list no-hairlines">
 					{{#if ShowPhotoList}}
 						<div key="VirtualPhotoList" class="list media-list virtual-list no-hairlines no-margin no-chevron searchbar-found gesturePhotosList">
@@ -741,23 +746,9 @@
 				
 				var myPage = $$('.my-gallery');
 				
-				myPage.on('click', '.toggle-check-item', function(e){
-					let newState = !self.IsCheckAll;
-					self.$setState({
-                        IsCheckAll: newState,
-                    });
-					$('.photo-check-item').toggleClass('display-none');
-				});				
+				
+				page.on('click', '#downloadAll', function(e){
 					
-				myPage.on('click', '.sort-photos', function(e){				
-					let newState = !self.IsReverse;
-					self.$setState({
-                        IsReverse: newState,
-                    });
-					self.getGalleryList();
-				});						
-					
-				myPage.on('click', '.download-items', function(e){
 				
 					var arrItems = [];			
 					
@@ -788,6 +779,61 @@
 										
 					$('.photo-check-item').toggleClass('display-none');
 					
+					self.$app.methods.downloadFiles(arrItems);
+					arrItems.length = 0;
+				});
+				
+				
+				myPage.on('click', '.toggle-check-item', function(e){
+					let newState = !self.IsCheckAll;
+					self.$setState({
+                        IsCheckAll: newState,
+                    });
+					$('.photo-check-item').toggleClass('display-none');
+				});				
+					
+				myPage.on('click', '.sort-photos', function(e){				
+					let newState = !self.IsReverse;
+					self.$setState({
+                        IsReverse: newState,
+                    });
+					self.getGalleryList();
+				});						
+					
+				myPage.on('click', '.download-items', function(e){
+				
+					var arrItems = [];			
+					
+					/*var currentCamera = self.$app.methods.getFromStorage("currentCamera");
+				
+					if(currentCamera.length > 0){
+						App.dialog.alert(currentCamera);
+					}else{
+						App.dialog.alert('empty name cam');
+					}*/
+					
+					
+					var downloadItems = $$('[name="photo-check"]');
+					downloadItems.forEach(function() {
+						if($(this).is(":checked")){
+							let objItem = {
+								name: $(this).attr('file-name'),
+								dir: 'dashcam',
+								url: $(this).val()
+							}
+							arrItems.push(objItem);
+						}											
+						$(this).removeAttr("checked");
+					});
+					
+					self.$setState({
+                        IsCheckAll: false,
+                    });
+										
+					$('.photo-check-item').toggleClass('display-none');
+					
+					
+					App.dialog.alert(arrItems.length);
 					self.$app.methods.downloadFiles(arrItems);
 					arrItems.length = 0;
 				});	
