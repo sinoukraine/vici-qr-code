@@ -30,9 +30,6 @@
                 <div class="page-content">
                     <div class="inner-content">
 					
-					<video src="rtsp://192.168.1.1/livesubstream.h264" controls>
-  Nope
-</video>
 					
 					<!--
 					<video id=example-video width=960 height=540 class="video-js vjs-default-skin" controls>
@@ -91,11 +88,11 @@
 				
     //var player = videojs('my_video_1');
 				page.$el.on('click', '#connectCam', function(e){
-				
+				/*
 					var player = videojs('example-video');
 					player.play();
 				
-					/*var player = videojs('example-video');
+					var player = videojs('example-video');
 					player.src({ src: 'http://192.168.1.1/livesubstream.h264', type: 'application/dash+xml'});
 					player.play();
 					
@@ -115,7 +112,7 @@
 					);*/
 					//App.dialog.alert("start");
 						
-					  /*let options = {
+					  let options = {
 						  successCallback: () => { App.dialog.alert("Video was closed without error.") },
 						  errorCallback: (e) => { App.dialog.alert("Error! " + e) },
 						  orientation: 'landscape',
@@ -125,7 +122,7 @@
 						
 
 						window.plugins.streamingMedia.playVideo('http://192.168.1.1/DCIM/101video/20190620153223_10_720p.MP4', options);
-						*/
+						
 	/*					
 						cordova.plugins.rtsplayer.watchVideo({ path: 'http://192.168.1.1/livesubstream.h264', x: 0, y: 60, width: 500, height: 500 }, function () { }, function () { });
 */ 
