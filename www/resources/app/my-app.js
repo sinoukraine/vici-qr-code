@@ -361,13 +361,10 @@ var App = new Framework7({
 		downloadFiles: function(arr = []){
 			App.dialog.alert('start ' + arr.length);
 			if(arr.length){
-					App.dialog.alert('cont ' + arr.length);
 				arr.forEach(function(value, index) {
-					App.dialog.alert(value.url + value.dir + value.name);
 					if(value.url.length > 0 && value.dir.length > 0 && value.name.length > 0){
 						$$('.view-main .progressbar-infinite').removeClass('display-none');
 						
-					App.dialog.alert('down');
 						DownloadFile(value.url, value.dir, value.name);
 					}else{						
 						App.dialog.alert('Can not download this file');
@@ -428,26 +425,21 @@ var mainView = App.views.create('.view-main');
 
 //First step check parameters mismatch and checking network connection if available call    download function
 function DownloadFile(URL, Folder_Name, File_Name) {
-	App.dialog.alert('get d');
 	//Parameters mismatch check
 	if (URL == null && Folder_Name == null && File_Name == null) {
-		App.dialog.alert('retur d');
 		return;
 	}
 	else {
-		App.dialog.alert('net d');
 		//checking Internet connection availablity
 		var networkState = navigator.connection.type;
 		
-		App.dialog.alert(networkState);
-		if (networkState == Connection.NONE) {
-			App.dialog.alert('eq');
+		/*if (networkState == Connection.NONE) {
 			return;
-		} else {
+		} else {*/
 				
 		App.dialog.alert('do');
-			download(URL, Folder_Name, File_Name); //If available download function call
-		}
+		download(URL, Folder_Name, File_Name); //If available download function call
+		/*}*/
 	}
 }
 
@@ -474,16 +466,14 @@ function filetransfer(download_link, fp) {
 }
 
 
-function download(URL, Folder_Name, File_Name) {
-	
+function download(URL, Folder_Name, File_Name) {	
 		App.dialog.alert('nex');
-//step to request a file system 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+		//step to request a file system 
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
 		App.dialog.alert('sys');
 		App.dialog.alert(LocalFileSystem.PERSISTENT);
-	function fileSystemSuccess(fileSystem) {
-		
+	function fileSystemSuccess(fileSystem) {		
 		App.dialog.alert('ok');
 		var download_link = encodeURI(URL);
 		ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
