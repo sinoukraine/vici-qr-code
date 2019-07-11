@@ -437,8 +437,7 @@ function DownloadFile(URL, Folder_Name, File_Name) {
 			return;
 		} else {*/
 				
-		App.dialog.alert('do');
-		download(URL, Folder_Name, File_Name); //If available download function call
+		download(URL, Folder_Name, File_Name); //If available download function call smc.version = 0
 		/*}*/
 	}
 }
@@ -467,13 +466,54 @@ function filetransfer(download_link, fp) {
 
 
 function download(URL, Folder_Name, File_Name) {	
-		App.dialog.alert('nex');
 		//step to request a file system 
-		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+		//window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
+	let f_name = File_Name;
+	let f_url = URL;
+	//let download_link = encodeURI(URL);
+	//let ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
+	//Folder_Name + "/" + f_name;// + "." + ext;
+	
+	//var download_link = encodeURI(URL);
+	
+		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+			//console.log('file system open: ' + fs.name);
+			fs.root.getFile(f_name, { create: true, exclusive: false }, function (fileEntry) {
+				//console.log('fileEntry is file? ' + fileEntry.isFile.toString());
+				var oReq = new XMLHttpRequest();
+				// Make sure you add the domain name to the Content-Security-Policy <meta> element.
+				oReq.open("GET", f_url, true);
+				// Define how you want the XHR data to come back
+				oReq.responseType = "blob";
+				oReq.onload = function (oEvent) {
+					var blob = oReq.response; // Note: not oReq.responseText
+						App.dialog.alert(blob);
+					if (blob) {
+						// Create a URL based on the blob, and set an <img> tag's src to it.
+						var url = window.URL.createObjectURL(blob);
+						App.dialog.alert(url);
+						/*document.getElementById('bot-img').src = url;
+						// Or read the data with a FileReader
+						var reader = new FileReader();
+						reader.addEventListener("loadend", function() {
+							App.dialog.alert("loadend");
+						   // reader.result contains the contents of blob as text
+						});
+						reader.readAsText(blob);*/
+					} else {
+						//console.error('we didnt get an XHR response!');
+						App.dialog.alert('we didnt get an XHR response!');
+					}
+				};
+				oReq.send(null);
+			}, function (err) { App.dialog.alert('error getting file! ' + err);
+				//console.error('error getting file! ' + err); 
+			});
+		}, function (err) { App.dialog.alert('error getting persistent fs! ' + err);
+			//console.error('error getting persistent fs! ' + err); 
+		});
 
-		App.dialog.alert('sys');
-		App.dialog.alert(LocalFileSystem.PERSISTENT);
-	function fileSystemSuccess(fileSystem) {		
+	/*function fileSystemSuccess(fileSystem) {		
 		App.dialog.alert('ok');
 		var download_link = encodeURI(URL);
 		ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
@@ -504,7 +544,7 @@ function download(URL, Folder_Name, File_Name) {
 	function fileSystemFail(evt) {
 		//Unable to access file system
 		App.dialog.alert(evt.target.error.code);
-	}
+	}*/
 }
 
 /*end download file*/
