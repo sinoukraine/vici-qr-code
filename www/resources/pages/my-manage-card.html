@@ -141,10 +141,10 @@
 						App.dialog.alert(trimHexTotalSpace);
 						App.dialog.alert(trimHexFreeSpace);
 						self.$setState({
-							totalSpace: parseInt(trimHexTotalSpace, 16),
+							totalSpace: 0.000000001*parseInt(trimHexTotalSpace, 16),
 						});
 						self.$setState({
-							freeSpace: parseInt(trimHexFreeSpace, 16),
+							freeSpace: 0.000000001*parseInt(trimHexFreeSpace, 16),
 						});
 					}
 				}
@@ -171,7 +171,8 @@
 						self.$setState({
 							phoneMacAddress: macAddress,
 						});
-						self.feedCommand('FFF000000100000080070000');
+						//self.feedCommand('FFF000000100000080070000');
+						self.feedCommand('FFF000000100000080130000');
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
@@ -186,8 +187,8 @@
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					//App.dialog.alert(convertedData);
-					self.parseHex(convertedData);
+					App.dialog.alert(convertedData);
+					//self.parseHex(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
