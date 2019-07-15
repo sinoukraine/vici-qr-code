@@ -172,7 +172,8 @@
 							phoneMacAddress: macAddress,
 						});
 						//self.feedCommand('FFF000000100000080070000');
-						self.feedCommand('FFF000000100000080130000');
+						//self.feedCommand('FFF000000100000080130000'); //deleting alarm video
+						self.feedCommand('FFF000000100000080150000'); //deleting common video
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
