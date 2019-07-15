@@ -128,15 +128,16 @@
 			},
 			parseHex: function(hex){
 				var self = this;	
-				let trimHexCommand = hex.substring(16, 4);	
+				let trimHexCommand = hex.substring(16, 19);	
 
+				App.dialog.alert(hex);	
 				App.dialog.alert(trimHexCommand);				
 				if(trimHexCommand == '8008'){
-					let trimHexOk = hex.substring(24, 2);
+					let trimHexOk = hex.substring(24, 25);
 					App.dialog.alert(trimHexOk);	
 					if(trimHexOk == '01'){
-						let trimHexTotalSpace = hex.substring(26, 16);
-						let trimHexFreeSpace = hex.substring(42, 16);
+						let trimHexTotalSpace = hex.substring(26, 41);
+						let trimHexFreeSpace = hex.substring(42, 57);
 						App.dialog.alert(trimHexTotalSpace);
 						App.dialog.alert(trimHexFreeSpace);
 						self.$setState({
