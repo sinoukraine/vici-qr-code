@@ -155,26 +155,22 @@
 				var self = this;    			
 				
 				var myPage = $$('.my-manage-card');
-				/*myPage.on('click', '.Sensitivity', function() {
-					let state = $(this).val();
-						if(state == 'low'){
-							self.stateToggle('FFF00000010000007009000106', 'currentSensitivity', 'low');
-						}else if(state == 'medium'){
-							self.stateToggle('FFF0000001000000700900010F', 'currentSensitivity', 'medium');
-						}else{
-							self.stateToggle('FFF000000100000070090001FF', 'currentSensitivity', 'high');
-						}
-				});	*/
+				myPage.on('click', '#videoSpace', function() {
+					self.feedCommand('FFF000000100000080150000'); //deleting common video
+				});
+				myPage.on('click', '#clearVideo', function() {
+					self.feedCommand('FFF000000100000080130000'); //deleting alarm video
+				});
+				myPage.on('click', '#clearPictures', function() {
+					self.feedCommand('FFF000000100000080110000'); //deleting all photos
+				});
 				
 				window.MacAddress.getMacAddress(
 					function(macAddress) {
 						self.$setState({
 							phoneMacAddress: macAddress,
 						});
-						//self.feedCommand('FFF000000100000080070000');
-						//self.feedCommand('FFF000000100000080130000'); //deleting alarm video
-						//self.feedCommand('FFF000000100000080150000'); //deleting common video
-						self.feedCommand('FFF000000100000080110000'); //deleting common video
+						self.feedCommand('FFF000000100000080070000');
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
@@ -189,7 +185,7 @@
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);
+					//App.dialog.alert(convertedData);
 					//self.parseHex(convertedData);
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
