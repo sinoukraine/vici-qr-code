@@ -144,6 +144,8 @@
 						self.$setState({
 							freeSpace: (0.000000001*parseInt(trimHexFreeSpace, 16)).toFixed(2),
 						});
+						
+						self.feedCommand('FFF000000100000080090000');
 					}
 				}else if(trimHexCommand == '800A'){				
 					let trimHexOk = hex.substring(24, 26);
@@ -207,7 +209,6 @@
 							phoneMacAddress: macAddress,
 						});
 						self.feedCommand('FFF000000100000080070000');
-						self.feedCommand('FFF000000100000080090000');
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
@@ -235,7 +236,7 @@
 				self.socket.onClose = function(hasError) {
 					self.$app.preloader.hide();
 					
-					App.dialog.alert('Set successfully.');
+					//App.dialog.alert('Set successfully.');
 				  // invoked after connection close
 				};		
 				
