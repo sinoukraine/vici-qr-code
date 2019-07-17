@@ -145,7 +145,6 @@
 							freeSpace: (0.000000001*parseInt(trimHexFreeSpace, 16)).toFixed(2),
 						});
 						
-						self.feedCommand('FFF000000100000080090000');
 					}
 				}else if(trimHexCommand == '800A'){				
 					let trimHexOk = hex.substring(24, 26);
@@ -155,7 +154,7 @@
 						let trimHexAlarmVideo = hex.substring(42, 58);
 						let trimHexPhotos = hex.substring(58, 74);
 						
-						App.dialog.alert(trimHexCommonVideo);	
+						//App.dialog.alert(trimHexCommonVideo);	
 						self.$setState({
 							commonVideoSpace: (0.000000001*parseInt(trimHexCommonVideo, 16)).toFixed(2),
 						});
@@ -167,6 +166,12 @@
 						});
 					}
 				}else{}
+			},
+			checkTotal: function(hex){
+				var self = this;	
+				if(self.totalSpace != '0'){						
+					self.feedCommand('FFF000000100000080090000');
+				}
 			}
 		},
         on: {
@@ -235,6 +240,7 @@
 				};
 				self.socket.onClose = function(hasError) {
 					self.$app.preloader.hide();
+					self.checkTotal();
 					
 					//App.dialog.alert('Set successfully.');
 				  // invoked after connection close
