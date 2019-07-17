@@ -138,29 +138,30 @@
 					if(trimHexOk == '01'){
 						let trimHexTotalSpace = hex.substring(26, 42);
 						let trimHexFreeSpace = hex.substring(42, 58);
-						App.dialog.alert(trimHexTotalSpace);
-						App.dialog.alert(trimHexFreeSpace);
 						self.$setState({
-							totalSpace: 0.000000001*parseInt(trimHexTotalSpace, 16),
+							totalSpace: (0.000000001*parseInt(trimHexTotalSpace, 16)).toFixed(2),
 						});
 						self.$setState({
-							freeSpace: 0.000000001*parseInt(trimHexFreeSpace, 16),
+							freeSpace: (0.000000001*parseInt(trimHexFreeSpace, 16)).toFixed(2),
 						});
 					}
-				}else if(trimHexCommand == '800A'){					
+				}else if(trimHexCommand == '800A'){				
 					let trimHexOk = hex.substring(24, 26);
+						App.dialog.alert(trimHexOk);
 					if(trimHexOk == '01'){
 						let trimHexCommonVideo = hex.substring(26, 42);
 						let trimHexAlarmVideo = hex.substring(42, 58);
 						let trimHexPhotos = hex.substring(58, 74);
+						
+						App.dialog.alert(trimHexCommonVideo);	
 						self.$setState({
-							commonVideoSpace: 0.000000001*parseInt(trimHexCommonVideo, 16),
+							commonVideoSpace: (0.000000001*parseInt(trimHexCommonVideo, 16)).toFixed(2),
 						});
 						self.$setState({
-							alarmVideoSpace: 0.000000001*parseInt(trimHexAlarmVideo, 16),
+							alarmVideoSpace: (0.000000001*parseInt(trimHexAlarmVideo, 16)).toFixed(2),
 						});
 						self.$setState({
-							photoSpace: 0.000000001*parseInt(trimHexPhotos, 16),
+							photoSpace: (0.000000001*parseInt(trimHexPhotos, 16)).toFixed(2),
 						});
 					}
 				}else{}
