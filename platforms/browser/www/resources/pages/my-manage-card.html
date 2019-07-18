@@ -17,8 +17,8 @@
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
 								<div class="item-title col-70">Total capacity</div>
-								<div class="color-theme col-30 text-align-right">{{totalSpace}}GB</div>
-								<!--<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>-->
+								<div class="color-theme col-20 text-align-right">{{totalSpace}}GB</div>
+								<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>
 							</div>
 						</div>
 					</li>
@@ -26,35 +26,35 @@
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
 								<div class="item-title col-70">Free space</div>
-								<div class="color-theme col-30 text-align-right">{{freeSpace}}GB</div>
-								<!--<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>-->
+								<div class="color-theme col-20 text-align-right">{{freeSpace}}GB</div>
+								<a href="#" class="col-10"><i class="icon-f7 icon"></i></a>
 							</div>
 						</div>
 					</li>
 					<li>
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
-								<div class="item-title col-70">Cycling video </div>
-								<a href="#" id="videoSpace"><div class="color-theme col-30 text-align-right"><b>CLEAN</b></div></a>
-								<!--<a href="#" id="videoSpace" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>-->
+								<div class="item-title col-70">Cycling video space</div>
+								<div class="color-theme col-20 text-align-right">0B</div>
+								<a href="#" id="videoSpace" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
 							</div>
 						</div>
 					</li>
 					<li>
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
-								<div class="item-title col-70">Capture and waring video </div>
-								<a href="#" id="clearVideo" ><div class="color-theme col-30 text-align-right"><b>CLEAN</b></div></a>
-								<!--<a href="#" id="clearVideo" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>-->
+								<div class="item-title col-70">Capture and waring video space</div>
+								<div class="color-theme col-20 text-align-right">0B</div>
+								<a href="#" id="clearVideo" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
 							</div>
 						</div>
 					</li>
 					<li>
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
-								<div class="item-title col-70">Capture and waring pictures </div>
-								<a href="#" id="clearPictures" ><div class="color-theme col-30 text-align-right"><b>CLEAN</b></div></a>
-								<!--<a href="#" id="clearPictures" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>-->
+								<div class="item-title col-70">Capture and waring pictures space</div>
+								<div class="color-theme col-20 text-align-right">0B</div>
+								<a href="#" id="clearPictures" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
 							</div>
 						</div>
 					</li>
@@ -62,8 +62,7 @@
 						<div class="item-content no-padding">
 							<div class="item-inner display-flex align-items-center justify-content-space-between row">
 								<div class="item-title col-70">Format</div>
-								<a href="#" id="format"><div class="color-theme col-30 text-align-right"><b>CLEAN</b></div></a>
-								<!--<a href="#" id="format" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>-->
+								<a href="#" id="format" class="col-10"><i class="icon-f7 icon-basket color-theme"></i></a>
 							</div>
 						</div>
 					</li>
@@ -82,10 +81,6 @@
 				phoneMacAddress: '00.00.00.00.00.00',
 				totalSpace: '0',
 				freeSpace: '0',
-				commonVideoSpace: '0',
-				alarmVideoSpace: '0',
-				photoSpace: '0',
-				deleteFiles: false
 			};            
 
             return ret;
@@ -133,49 +128,24 @@
 			},
 			parseHex: function(hex){
 				var self = this;	
-				let trimHexCommand = hex.substring(16, 20);	
-	
+				let trimHexCommand = hex.substring(16, 4);	
+
+				App.dialog.alert(trimHexCommand);				
 				if(trimHexCommand == '8008'){
-					let trimHexOk = hex.substring(24, 26);
+					let trimHexOk = hex.substring(24, 2);
+					App.dialog.alert(trimHexOk);	
 					if(trimHexOk == '01'){
-						let trimHexTotalSpace = hex.substring(26, 42);
-						let trimHexFreeSpace = hex.substring(42, 58);
+						let trimHexTotalSpace = hex.substring(26, 16);
+						let trimHexFreeSpace = hex.substring(42, 16);
+						App.dialog.alert(trimHexTotalSpace);
+						App.dialog.alert(trimHexFreeSpace);
 						self.$setState({
-							totalSpace: (0.000000001*parseInt(trimHexTotalSpace, 16)).toFixed(2),
+							totalSpace: parseInt(trimHexTotalSpace, 16),
 						});
 						self.$setState({
-							freeSpace: (0.000000001*parseInt(trimHexFreeSpace, 16)).toFixed(2),
-						});
-						
-					}
-				}else if(trimHexCommand == '800A'){				
-					let trimHexOk = hex.substring(24, 26);
-						
-					if(trimHexOk == '01'){
-						let trimHexCommonVideo = hex.substring(26, 42);
-						let trimHexAlarmVideo = hex.substring(42, 58);
-						let trimHexPhotos = hex.substring(58, 74);
-						
-						//App.dialog.alert(trimHexCommonVideo);	
-						self.$setState({
-							commonVideoSpace: (0.000000001*parseInt(trimHexCommonVideo, 16)).toFixed(2),
-						});
-						self.$setState({
-							alarmVideoSpace: (0.000000001*parseInt(trimHexAlarmVideo, 16)).toFixed(2),
-						});
-						self.$setState({
-							photoSpace: (0.000000001*parseInt(trimHexPhotos, 16)).toFixed(2),
+							freeSpace: parseInt(trimHexFreeSpace, 16),
 						});
 					}
-				}else{}
-			},
-			checkTotal: function(){
-				var self = this;				
-				if(self.deleteFiles){
-					self.$setState({
-						deleteFiles: false,
-					});
-					self.feedCommand('FFF000000100000080070000');
 				}
 			}
 		},
@@ -184,31 +154,16 @@
 				var self = this;    			
 				
 				var myPage = $$('.my-manage-card');
-				myPage.on('click', '#videoSpace', function() {
-					self.feedCommand('FFF000000100000080150000'); //deleting common video					
-					self.$setState({
-						deleteFiles: true,
-					});
-				});
-				myPage.on('click', '#clearVideo', function() {
-					self.feedCommand('FFF000000100000080130000'); //deleting alarm video
-					self.$setState({
-						deleteFiles: true,
-					});
-				});
-				myPage.on('click', '#clearPictures', function() {
-					self.feedCommand('FFF000000100000080110000'); //deleting all photos
-					self.$setState({
-						deleteFiles: true,
-					});
-				});
-				
-				myPage.on('click', '#format', function() {
-					self.feedCommand('FFF000000100000080100000'); //deleting all files
-					self.$setState({
-						deleteFiles: true,
-					});
-				});
+				/*myPage.on('click', '.Sensitivity', function() {
+					let state = $(this).val();
+						if(state == 'low'){
+							self.stateToggle('FFF00000010000007009000106', 'currentSensitivity', 'low');
+						}else if(state == 'medium'){
+							self.stateToggle('FFF0000001000000700900010F', 'currentSensitivity', 'medium');
+						}else{
+							self.stateToggle('FFF000000100000070090001FF', 'currentSensitivity', 'high');
+						}
+				});	*/
 				
 				window.MacAddress.getMacAddress(
 					function(macAddress) {
@@ -242,9 +197,8 @@
 				};
 				self.socket.onClose = function(hasError) {
 					self.$app.preloader.hide();
-					self.checkTotal();
 					
-					//App.dialog.alert('Set successfully.');
+					App.dialog.alert('Set successfully.');
 				  // invoked after connection close
 				};		
 				
