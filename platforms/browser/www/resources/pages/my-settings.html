@@ -57,6 +57,24 @@
 					</li> 
 					<li class="item-content no-padding">
 						<div class="item-inner display-flex align-items-center justify-content-space-between">
+							<span class="item-caption">Alarm Voice Prompt</span>
+							<label class="toggle toggle-init">
+								<input type="checkbox" name="VoiceAlarm" {{#if CheckedVoiceAlarm}} checked {{/if}}>
+								<span class="toggle-icon"></span>
+							</label>
+						</div>
+					</li>
+					<li class="item-content no-padding">
+						<div class="item-inner display-flex align-items-center justify-content-space-between">
+							<span class="item-caption">Gesture Voice Prompt</span>
+							<label class="toggle toggle-init">
+								<input type="checkbox" name="VoiceGesture" {{#if CheckedVoiceGesture}} checked {{/if}}>
+								<span class="toggle-icon"></span>
+							</label>
+						</div>
+					</li>
+					<li class="item-content no-padding">
+						<div class="item-inner display-flex align-items-center justify-content-space-between">
 							<span class="item-caption">Parking Voice Prompt</span>
 							<label class="toggle toggle-init">
 								<input type="checkbox" name="VoiceParking" {{#if CheckedVoiceParking}} checked {{/if}}>
@@ -102,7 +120,7 @@
 							<div class="range-slider-box">
 								<div class="range-slider range-slider-init range-block no-margin range-slider-valume-interval">
 									
-									<input type="range" name="rangeInput" min="0" max="4" value="0" step="1" >
+									<input type="range" name="rangeInput" min="0" max="4" value="2" step="1" >
 								</div>
 							</div>
 							<!--<div class="block no-margin overflow-hidde">
@@ -175,7 +193,9 @@
 				phoneMacAddress: '00.00.00.00.00.00',
 				CheckedSoundOn: false,
 				CheckedSurveillance: false,
-				CheckedVoiceParking: false
+				CheckedVoiceParking: false,
+				CheckedVoiceAlarm: false,
+				CheckedVoiceGesture: false
 			};            
 
             return ret;
@@ -307,10 +327,10 @@
                         change: function (e, val) {
 							let volume = '0000';
 							switch(val){
-								case 1: volume = '0050'; break;
-								case 2: volume = '0100'; break;
-								case 3: volume = '0150'; break;
-								case 4: volume = '0200'; break;
+								case 1: volume = '0032'; break;
+								case 2: volume = '0064'; break;
+								case 3: volume = '0096'; break;
+								case 4: volume = '00C8'; break;
 							}
 							self.feedCommand('FFF000000100000070030001' + volume);
                             /*trackingIntervalParams.value = val;
@@ -363,7 +383,21 @@
 				};		
 				
 				//init start data
-								
+				
+				/*
+				var currentVolume = self.$app.methods.getFromStorage("settingVolume");
+				
+				if(currentSoundOn == 'on'){
+					self.$setState({
+                        CheckedSoundOn: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedSoundOn: false,
+                    });
+				}
+*/
+
 				var currentSoundOn = self.$app.methods.getFromStorage("settingSoundOn");
 				
 				if(currentSoundOn == 'on'){
@@ -374,7 +408,7 @@
 					self.$setState({
                         CheckedSoundOn: false,
                     });
-				}	
+				}				
 				
 				var currentSurveillance = self.$app.methods.getFromStorage("settingSurveillance");
 				
@@ -397,6 +431,30 @@
 				}else{
 					self.$setState({
                         CheckedVoiceParking: false,
+                    });
+				}
+				
+				var currentVoiceAlarm = self.$app.methods.getFromStorage("settingVoiceAlarm");
+				
+				if(currentVoiceAlarm == 'on'){
+					self.$setState({
+                        CheckedVoiceAlarm: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedVoiceAlarm: false,
+                    });
+				}
+				
+				var currentVoiceGesture = self.$app.methods.getFromStorage("settingVoiceGesture");
+				
+				if(currentVoiceGesture == 'on'){
+					self.$setState({
+                        CheckedVoiceGesture: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedVoiceGesture: false,
                     });
 				}
 				
@@ -476,6 +534,30 @@
 							self.stateToggle('FFF00000010000007111000101', 'settingVoiceParking', 'on');
 						}else{
 							self.stateToggle('FFF00000010000007111000100', 'settingVoiceParking', 'off');
+						}
+					/*}else{
+						App.dialog.alert('Please wait while state is changing.');
+					}*/
+				});
+				
+				myPage.on('click', '[name="VoiceAlarm"]', function() {
+					//if(!self.IsConnect){
+						if($(this).is(":checked")){
+							self.stateToggle('FFF00000010000007109000101', 'settingVoiceAlarm', 'on');
+						}else{
+							self.stateToggle('FFF00000010000007109000100', 'settingVoiceAlarm', 'off');
+						}
+					/*}else{
+						App.dialog.alert('Please wait while state is changing.');
+					}*/
+				});
+				
+				myPage.on('click', '[name="VoiceGesture"]', function() {
+					//if(!self.IsConnect){
+						if($(this).is(":checked")){
+							self.stateToggle('FFF00000010000007107000101', 'settingVoiceGesture', 'on');
+						}else{
+							self.stateToggle('FFF00000010000007107000100', 'settingVoiceGesture', 'off');
 						}
 					/*}else{
 						App.dialog.alert('Please wait while state is changing.');

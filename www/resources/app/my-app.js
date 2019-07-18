@@ -110,6 +110,18 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
                     break; 
+                    case 'settingVoiceAlarm':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
+                    case 'settingVoiceGesture':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'currentSensitivity':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTSENSITIVITY");
                         if(str) {
@@ -191,6 +203,12 @@ var App = new Framework7({
                     break; 
                     case 'settingVoiceParking':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEPARKING", JSON.stringify(params.data));
+                    break; 
+                    case 'settingVoiceAlarm':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM", JSON.stringify(params.data));
+                    break; 
+                    case 'settingVoiceGesture':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE", JSON.stringify(params.data));
                     break; 
                     case 'currentLanguage':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE", JSON.stringify(params.data));
@@ -413,8 +431,8 @@ var App = new Framework7({
 				
 				cordova.plugin.http.get(url, 
 					params, headers, (response) => {
-						App.dialog.alert('Set successfully. Please reconnect with new password.');
-						var arrParse = response.data;
+						App.dialog.alert('Set successfully.');
+						console.log(response);
 				}, function(response) {
 						App.dialog.alert('Can not change password');
 						console.error(response.error);
