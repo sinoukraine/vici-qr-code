@@ -404,7 +404,23 @@ var App = new Framework7({
 		pad: function (str, max) {
 		  str = str.toString();
 		  return str.length < max ? pad("0" + str, max) : str;
-		}
+		},
+		changePassword: function (data) {	
+			//return new Promise((resolve, reject) => {
+				let url = 'http://192.168.1.1/ini.htm?cmd=setwifipasswd&passwd=' + data;				
+				let params = {};
+				let headers = {};
+				
+				cordova.plugin.http.get(url, 
+					params, headers, (response) => {
+						App.dialog.alert('Set successfully. Please reconnect with new password.');
+						var arrParse = response.data;
+				}, function(response) {
+						App.dialog.alert('Can not change password');
+						console.error(response.error);
+				});	
+				 
+		}, 
 	}
 });
 

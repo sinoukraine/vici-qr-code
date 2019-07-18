@@ -22,7 +22,7 @@
 						</a>
 					</li>
 					<li class="item-content no-padding">
-						<a href="#" class="my-wifi-settings item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+						<a href="/my-wifi-settings/" class="my-wifi-settings item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
 								Wi-Fi Settings
 							</span>
@@ -97,6 +97,22 @@
 						</div>
 					</li>
 					<li class="item-content">
+						<div class="item-inner not-empty-state align-items-center justify-content-space-between border-bottom">
+							<span class="item-caption">Volume</span>
+							<div class="range-slider-box">
+								<div class="range-slider range-slider-init range-block no-margin range-slider-valume-interval">
+									
+									<input type="range" name="rangeInput" min="0" max="4" value="0" step="1" >
+								</div>
+							</div>
+							<!--<div class="block no-margin overflow-hidde">
+								<div class="range-slider range-slider-tracking-interval">
+									<input type="range" name="rangeInput" min="0" max="4" value="0" step="1">
+								</div>
+							</div>-->
+						</div>
+					</li>
+					<li class="item-content">
 						<a href="/speed.unit.setting/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
 								Speed Unit
@@ -164,7 +180,10 @@
 
             return ret;
         },
-		methods: {			
+		methods: {	
+			rrr: function(){
+				console.log(4);
+			},
 			ssidHandler: function(a){		
 				//setTimeout(function () { // Prepend new list element						
                     self.$setState({
@@ -183,8 +202,8 @@
 			},
 			navigateIp: function(){
 				var self = this;
-				var ip = self.WiFiRouterIp;
-				mainView.router.navigate('/my-wifi-settings/?ip='+ip.toString());
+				//var ip = self.WiFiRouterIp;
+				mainView.router.navigate('/my-wifi-settings/');
 			},
 			navigateLanguage: function(){
 				var self = this;
@@ -279,6 +298,29 @@
 				var self = this;    				
 				var myPage = $$('.my-settings');
 				
+				var rangeEl = page.$el.find('.range-slider-valume-interval');
+                //var trackingPeriodEl = myPage.$el.find('input[name="tracking-period"]'); 
+                //var upgradeNowButtonEl = myPage.$el.find('.upgradeNowButton');
+                var range = App.range.create({
+                    el: rangeEl,                    
+                    on: {
+                        change: function (e, val) {
+							let volume = '0000';
+							switch(val){
+								case 1: volume = '0050'; break;
+								case 2: volume = '0100'; break;
+								case 3: volume = '0150'; break;
+								case 4: volume = '0200'; break;
+							}
+							self.feedCommand('FFF000000100000070030001' + volume);
+                            /*trackingIntervalParams.value = val;
+                            trackingIntervalParams.trackingPeriod = page.$el.find('[name="tracking-period"]:checked').val();
+
+                            self.updateTrackingHint(trackingIntervalParams);*/
+                        }
+                    }
+                });
+				
 				window.MacAddress.getMacAddress(
 					function(macAddress) {
 						self.$setState({
@@ -294,14 +336,14 @@
 				
 				self.socket.onData = function(data) {
 
-				/*
+				
 					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
 					App.dialog.alert(convertedData);
-					*/
+					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				self.socket.onError = function(errorMessage) {
@@ -398,9 +440,11 @@
 				});	
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
-				myPage.on('click', '.my-wifi-settings', self.navigateIp);
+				//myPage.on('click', '.my-wifi-settings', self.navigateIp);
 				myPage.on('click', '.my-language-settings', self.navigateLanguage);
 				myPage.on('click', '.my-resolution', self.navigateResolution);
+				
+				
 
 				myPage.on('click', '[name="SoundRecording"]', function() {
 					//if(!self.IsConnect){
