@@ -22,21 +22,21 @@
 						</a>
 					</li>
 					<li class="item-content no-padding">
-						<a href="#" class="my-wifi-settings item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+						<a href="/my-wifi-settings/" class="my-wifi-settings item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
 								Wi-Fi Settings
 							</span>
 							<i class="f7-icons icon-right"></i>
 						</a>
 					</li>
-					<!--<li class="item-content no-padding">
+					<!----><li class="item-content no-padding">
 						<a href="/my-manage-card/" class="item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
 							<span>
 								Manage the TF Card 
 							</span>
 							<i class="f7-icons icon-right"></i>
 						</a>
-					</li>-->
+					</li>
 					<li class="item-content">
 						<div class="item-inner not-empty-state border-bottom">
 							<a href="/my-resolution-settings/" class=" item-inner-bottom display-flex align-items-center justify-content-space-between">
@@ -55,6 +55,24 @@
 							</label>
 						</div>
 					</li> 
+					<li class="item-content no-padding">
+						<div class="item-inner display-flex align-items-center justify-content-space-between">
+							<span class="item-caption">Alarm Voice Prompt</span>
+							<label class="toggle toggle-init">
+								<input type="checkbox" name="VoiceAlarm" {{#if CheckedVoiceAlarm}} checked {{/if}}>
+								<span class="toggle-icon"></span>
+							</label>
+						</div>
+					</li>
+					<li class="item-content no-padding">
+						<div class="item-inner display-flex align-items-center justify-content-space-between">
+							<span class="item-caption">Gesture Voice Prompt</span>
+							<label class="toggle toggle-init">
+								<input type="checkbox" name="VoiceGesture" {{#if CheckedVoiceGesture}} checked {{/if}}>
+								<span class="toggle-icon"></span>
+							</label>
+						</div>
+					</li>
 					<li class="item-content no-padding">
 						<div class="item-inner display-flex align-items-center justify-content-space-between">
 							<span class="item-caption">Parking Voice Prompt</span>
@@ -85,6 +103,13 @@
 						</a>
 					</li>
 					<li class="item-content">
+						<a href="#" class="my-gesture-s item-inner not-empty-state display-flex align-items-center justify-content-space-between border-bottom">
+							<span>
+								Sens gest
+							</span>
+						</a>
+					</li>
+					<li class="item-content">
 						<div class="item-inner not-empty-state border-bottom">
 							<a href="/my-conflict-sensitivity/" class="item-inner-bottom display-flex align-items-center justify-content-space-between">
 								<span>
@@ -94,6 +119,22 @@
 							</a>
 							<p class="item-bottom-text">After starting this, if the vehicle has the conflict during the driving condition, the device will save real-time pictures automatically, meanwhile, the pictures will sync with mobile phone. When the device is out of storage, the
 								device will replace early pictures. The sensitivity has low, medium, high standards.</p>
+						</div>
+					</li>
+					<li class="item-content">
+						<div class="item-inner not-empty-state align-items-center justify-content-space-between border-bottom">
+							<span class="item-caption">Volume</span>
+							<div class="range-slider-box">
+								<div class="range-slider range-slider-init range-block no-margin range-slider-valume-interval">
+									
+									<input type="range" name="rangeInput" min="0" max="4" value="2" step="1" >
+								</div>
+							</div>
+							<!--<div class="block no-margin overflow-hidde">
+								<div class="range-slider range-slider-tracking-interval">
+									<input type="range" name="rangeInput" min="0" max="4" value="0" step="1">
+								</div>
+							</div>-->
 						</div>
 					</li>
 					<li class="item-content">
@@ -156,15 +197,20 @@
 				CamName: 'Dashcam',
 				WiFiRouterIp: '0.0.0.0',
 				Mac: '00.00.00.00.00.00',
-				phoneMacAddress: 'A4A1E4493C74',//00.00.00.00.00.00 A4F1E8493C64
+				phoneMacAddress: '00.00.00.00.00.00',
 				CheckedSoundOn: false,
 				CheckedSurveillance: false,
-				CheckedVoiceParking: false
+				CheckedVoiceParking: false,
+				CheckedVoiceAlarm: false,
+				CheckedVoiceGesture: false
 			};            
 
             return ret;
         },
-		methods: {			
+		methods: {	
+			rrr: function(){
+				console.log(4);
+			},
 			ssidHandler: function(a){		
 				//setTimeout(function () { // Prepend new list element						
                     self.$setState({
@@ -183,8 +229,8 @@
 			},
 			navigateIp: function(){
 				var self = this;
-				var ip = self.WiFiRouterIp;
-				mainView.router.navigate('/my-wifi-settings/?ip='+ip.toString());
+				//var ip = self.WiFiRouterIp;
+				mainView.router.navigate('/my-wifi-settings/');
 			},
 			navigateLanguage: function(){
 				var self = this;
@@ -235,7 +281,7 @@
 			stateToggle: function(hex, name, data) {
 				var self = this;					
 				
-				//7802F8334207 A4F1E8493C64
+				//7802F8334207
 				if(self.phoneMacAddress != '00.00.00.00.00.00'){
 					self.$app.preloader.show();
 					
@@ -279,23 +325,38 @@
 				var self = this;    				
 				var myPage = $$('.my-settings');
 				
-				/*window.MacAddress.getMacAddress(
+				var rangeEl = page.$el.find('.range-slider-valume-interval');
+                //var trackingPeriodEl = myPage.$el.find('input[name="tracking-period"]'); 
+                //var upgradeNowButtonEl = myPage.$el.find('.upgradeNowButton');
+                var range = App.range.create({
+                    el: rangeEl,                    
+                    on: {
+                        change: function (e, val) {
+							let volume = '0000';
+							switch(val){
+								case 1: volume = '0032'; break;
+								case 2: volume = '0064'; break;
+								case 3: volume = '0096'; break;
+								case 4: volume = '00C8'; break;
+							}
+							self.feedCommand('FFF000000100000070030001' + volume);
+                            /*trackingIntervalParams.value = val;
+                            trackingIntervalParams.trackingPeriod = page.$el.find('[name="tracking-period"]:checked').val();
+
+                            self.updateTrackingHint(trackingIntervalParams);*/
+                        }
+                    }
+                });
+				
+				window.MacAddress.getMacAddress(
 					function(macAddress) {
-						App.dialog.alert(macAddress);
 						self.$setState({
 							phoneMacAddress: macAddress,
 						});
 					},function(fail) {
 						App.dialog.alert('Phone Mac Address was not found');
 					}
-				);*/
-				
-				var params = {};
-				addressimpl.request("getMACAddress", JSON.stringify(params), function(message) {
-						App.dialog.alert(message);
-					}, function() {
-						App.dialog.alert("failed on get mac address");
-					});
+				);
 				
 				//self.$app.preloader.show();
 				self.socket = new Socket();	
@@ -303,12 +364,12 @@
 				self.socket.onData = function(data) {
 
 				
-					let convertedData = data.reduce((acc, item) => {
+					/*let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
-					App.dialog.alert(convertedData);
+					App.dialog.alert(convertedData);*/
 					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
@@ -329,7 +390,21 @@
 				};		
 				
 				//init start data
-								
+				
+				/*
+				var currentVolume = self.$app.methods.getFromStorage("settingVolume");
+				
+				if(currentSoundOn == 'on'){
+					self.$setState({
+                        CheckedSoundOn: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedSoundOn: false,
+                    });
+				}
+*/
+
 				var currentSoundOn = self.$app.methods.getFromStorage("settingSoundOn");
 				
 				if(currentSoundOn == 'on'){
@@ -340,7 +415,7 @@
 					self.$setState({
                         CheckedSoundOn: false,
                     });
-				}	
+				}				
 				
 				var currentSurveillance = self.$app.methods.getFromStorage("settingSurveillance");
 				
@@ -366,8 +441,32 @@
                     });
 				}
 				
+				var currentVoiceAlarm = self.$app.methods.getFromStorage("settingVoiceAlarm");
+				
+				if(currentVoiceAlarm == 'on'){
+					self.$setState({
+                        CheckedVoiceAlarm: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedVoiceAlarm: false,
+                    });
+				}
+				
+				var currentVoiceGesture = self.$app.methods.getFromStorage("settingVoiceGesture");
+				
+				if(currentVoiceGesture == 'on'){
+					self.$setState({
+                        CheckedVoiceGesture: true,
+                    });
+				}else{
+					self.$setState({
+                        CheckedVoiceGesture: false,
+                    });
+				}
+				
 				//WifiWizard.getCurrentSSID(self.ssidHandler, self.fail);
-				/*WifiWizard2.getConnectedSSID().then(response => {	
+				WifiWizard2.getConnectedSSID().then(response => {	
 					//App.dialog.alert(JSON.stringify(response));	
 
 					let mySSID = JSON.stringify(response);
@@ -390,9 +489,9 @@
 							
 										
 					}					
-				});	*/
+				});	
 				
-				/*WifiWizard2.getConnectedBSSID().then(response => {	
+				WifiWizard2.getConnectedBSSID().then(response => {	
 					//App.dialog.alert(JSON.stringify(response));
 					self.$setState({
                         Mac: JSON.stringify(response),
@@ -403,12 +502,14 @@
 					self.$setState({
                         WiFiRouterIp: JSON.stringify(response),
                     });						
-				});	*/
+				});	
 				
 				myPage.on('click', '.my-mac-address', self.navigateMacAddress);
-				myPage.on('click', '.my-wifi-settings', self.navigateIp);
+				//myPage.on('click', '.my-wifi-settings', self.navigateIp);
 				myPage.on('click', '.my-language-settings', self.navigateLanguage);
 				myPage.on('click', '.my-resolution', self.navigateResolution);
+				
+				
 
 				myPage.on('click', '[name="SoundRecording"]', function() {
 					//if(!self.IsConnect){
@@ -445,7 +546,35 @@
 						App.dialog.alert('Please wait while state is changing.');
 					}*/
 				});
+				
+				myPage.on('click', '[name="VoiceAlarm"]', function() {
+					//if(!self.IsConnect){
+						if($(this).is(":checked")){
+							self.stateToggle('FFF00000010000007109000101', 'settingVoiceAlarm', 'on');
+						}else{
+							self.stateToggle('FFF00000010000007109000100', 'settingVoiceAlarm', 'off');
+						}
+					/*}else{
+						App.dialog.alert('Please wait while state is changing.');
+					}*/
+				});
+				
+				myPage.on('click', '[name="VoiceGesture"]', function() {
+					//if(!self.IsConnect){
+						if($(this).is(":checked")){
+							self.stateToggle('FFF00000010000007107000101', 'settingVoiceGesture', 'on');
+						}else{
+							self.stateToggle('FFF00000010000007107000100', 'settingVoiceGesture', 'off');
+						}
+					/*}else{
+						App.dialog.alert('Please wait while state is changing.');
+					}*/
+				});
 
+							
+				myPage.on('click', '.my-gesture-s', function() {
+					self.feedCommand('FFF00000010000007017000101');						
+				});
 				
 				myPage.on('click', '.my-sync', function() {
 					self.feedCommand('FFF00000010000006003000100');						
