@@ -110,6 +110,18 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
                     break; 
+                    case 'settingVoiceAlarm':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
+                    case 'settingVoiceGesture':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'currentSensitivity':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTSENSITIVITY");
                         if(str) {
@@ -191,6 +203,12 @@ var App = new Framework7({
                     break; 
                     case 'settingVoiceParking':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEPARKING", JSON.stringify(params.data));
+                    break; 
+                    case 'settingVoiceAlarm':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM", JSON.stringify(params.data));
+                    break; 
+                    case 'settingVoiceGesture':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE", JSON.stringify(params.data));
                     break; 
                     case 'currentLanguage':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE", JSON.stringify(params.data));
@@ -285,8 +303,22 @@ var App = new Framework7({
 				$.ajax({
 					   type: "GET",
 				   dataType: "json", 
-					
+						/*dataFilter: function(raw, type) {
+						console.log(raw, type);
+						return JSON.parse(raw);
+						{ 
+					"filename": "20190523121307_180_720p.MP4", 
+					"duration": 180, 
+					"filesize": 94716138, 
+					"title": "20190523121307.JPG", 
+					"titlesize": 5817, 
+					"thumb": "20190523121307.TGZ", 
+					"thumbsize": 36302, 
+					"time": "20190523121307" 
+				 }
+					},*/
 					  jsonp: false,
+					  //jsonpCallback: "onJsonP",
 						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
 					  async: true,           
 						crossDomain: true, 
@@ -297,10 +329,10 @@ var App = new Framework7({
 						resolve(result);
 					},
 					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error_video');
+					   console.log(textStatus,'error');
 					}
 				});		
-			});   
+			});     
 		},		
         sortParseDatePhoto: function(data){
 			let dataObj = data;
@@ -359,12 +391,10 @@ var App = new Framework7({
 			VideoPlayer.play(url);			
 		},
 		downloadFiles: function(arr = []){
-			App.dialog.alert('start ' + arr.length);
-			if(arr.length){
+			if(arr.length){					
 				arr.forEach(function(value, index) {
 					if(value.url.length > 0 && value.dir.length > 0 && value.name.length > 0){
 						$$('.view-main .progressbar-infinite').removeClass('display-none');
-						
 						DownloadFile(value.url, value.dir, value.name);
 					}else{						
 						App.dialog.alert('Can not download this file');
@@ -392,7 +422,23 @@ var App = new Framework7({
 		pad: function (str, max) {
 		  str = str.toString();
 		  return str.length < max ? pad("0" + str, max) : str;
-		}
+		},
+		changePassword: function (data) {	
+			//return new Promise((resolve, reject) => {
+				let url = 'http://192.168.1.1/ini.htm?cmd=setwifipasswd&passwd=' + data;				
+				let params = {};
+				let headers = {};
+				
+				cordova.plugin.http.get(url, 
+					params, headers, (response) => {
+						App.dialog.alert('Set successfully.');
+						console.log(response);
+				}, function(response) {
+						App.dialog.alert('Can not change password');
+						console.error(response.error);
+				});	
+				 
+		}, 
 	}
 });
 
@@ -413,7 +459,6 @@ function encodeHex(str){
 function onDeviceReady(){
 	loadCarcamPage();
 	console.log('ready');
-	//App.dialog.alert(device.uuid);
 	//App.dialog.alert(UInt64("0x0000000077232000"));	
 	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }
@@ -432,13 +477,11 @@ function DownloadFile(URL, Folder_Name, File_Name) {
 	else {
 		//checking Internet connection availablity
 		var networkState = navigator.connection.type;
-		
-		/*if (networkState == Connection.NONE) {
+		if (networkState == Connection.NONE) {
 			return;
-		} else {*/
-				
-		download(URL, Folder_Name, File_Name); //If available download function call smc.version = 0
-		/*}*/
+		} else {
+			download(URL, Folder_Name, File_Name); //If available download function call
+		}
 	}
 }
 
@@ -464,57 +507,11 @@ function filetransfer(download_link, fp) {
     );
 }
 
+function download(URL, Folder_Name, File_Name) {
+//step to request a file system 
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
 
-function download(URL, Folder_Name, File_Name) {	
-		//step to request a file system 
-		//window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
-	let f_name = File_Name;
-	let f_url = URL;
-	//let download_link = encodeURI(URL);
-	//let ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
-	//Folder_Name + "/" + f_name;// + "." + ext;
-	
-	//var download_link = encodeURI(URL);
-	
-		window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-			//console.log('file system open: ' + fs.name);
-			fs.root.getFile(f_name, { create: true, exclusive: false }, function (fileEntry) {
-				//console.log('fileEntry is file? ' + fileEntry.isFile.toString());
-				var oReq = new XMLHttpRequest();
-				// Make sure you add the domain name to the Content-Security-Policy <meta> element.
-				oReq.open("GET", f_url, true);
-				// Define how you want the XHR data to come back
-				oReq.responseType = "blob";
-				oReq.onload = function (oEvent) {
-					var blob = oReq.response; // Note: not oReq.responseText
-						App.dialog.alert(blob);
-					if (blob) {
-						// Create a URL based on the blob, and set an <img> tag's src to it.
-						var url = window.URL.createObjectURL(blob);
-						App.dialog.alert(url);
-						/*document.getElementById('bot-img').src = url;
-						// Or read the data with a FileReader
-						var reader = new FileReader();
-						reader.addEventListener("loadend", function() {
-							App.dialog.alert("loadend");
-						   // reader.result contains the contents of blob as text
-						});
-						reader.readAsText(blob);*/
-					} else {
-						//console.error('we didnt get an XHR response!');
-						App.dialog.alert('we didnt get an XHR response!');
-					}
-				};
-				oReq.send(null);
-			}, function (err) { App.dialog.alert('error getting file! ' + err);
-				//console.error('error getting file! ' + err); 
-			});
-		}, function (err) { App.dialog.alert('error getting persistent fs! ' + err);
-			//console.error('error getting persistent fs! ' + err); 
-		});
-
-	/*function fileSystemSuccess(fileSystem) {		
-		App.dialog.alert('ok');
+	function fileSystemSuccess(fileSystem) {
 		var download_link = encodeURI(URL);
 		ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
 
@@ -528,7 +525,6 @@ function download(URL, Folder_Name, File_Name) {
 		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
 		fp = fp + "/" + Folder_Name + "/" + File_Name;// + "." + ext; // fullpath and name of the file which we want to give
 		// download function call
-		App.dialog.alert(fp);
 		filetransfer(download_link, fp);
 	}
 
@@ -544,7 +540,7 @@ function download(URL, Folder_Name, File_Name) {
 	function fileSystemFail(evt) {
 		//Unable to access file system
 		App.dialog.alert(evt.target.error.code);
-	}*/
+	}
 }
 
 /*end download file*/

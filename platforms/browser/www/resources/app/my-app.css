@@ -857,3 +857,19 @@ label.check-item input[type=checkbox]:checked~.check-item {
 .demo-swiper .swiper-slide{
 	border: none;
 }
+
+.overflow-hidde {
+    overflow: hidden;
+}
+
+.no-margin {
+    margin: 0!important;
+}
+
+.range-block{
+	padding: 0 16px;
+}
+
+.range-slider-box{
+	width:76vw;
+}
