@@ -334,10 +334,10 @@
                         change: function (e, val) {
 							let volume = '0000';
 							switch(val){
-								case 1: volume = '0005'; break;
-								case 2: volume = '0010'; break;
-								case 3: volume = '0015'; break;
-								case 4: volume = '0020'; break;
+								case 1: volume = '0001'; break;
+								case 2: volume = '000A'; break;
+								case 3: volume = '000F'; break;
+								case 4: volume = '0014'; break;
 							}
 							self.feedCommand('FFF000000100000070030001' + volume);
                             /*trackingIntervalParams.value = val;
