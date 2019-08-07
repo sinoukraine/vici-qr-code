@@ -185,4 +185,9 @@ var routes = [{
         path: '/my-swiper/',
         componentUrl: './resources/pages/my-swiper.html?v=1.65',
     },
+	{
+        name: 'my-gesture-induction',
+        path: '/my-gesture-induction/',
+        componentUrl: './resources/pages/my-gesture-induction.html?v=1.65',
+    },	
 ]

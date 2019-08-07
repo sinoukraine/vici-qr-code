@@ -128,6 +128,12 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
                     break; 
+                    case 'currentGestureInduction':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTGESTUREINDUCTION");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'currentLanguage':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE");
                         if(str) {
@@ -210,6 +216,9 @@ var App = new Framework7({
                     case 'settingVoiceGesture':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE", JSON.stringify(params.data));
                     break; 
+                    case 'currentGestureInduction':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTGESTUREINDUCTION", JSON.stringify(params.data));
+                    break; 
                     case 'currentLanguage':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE", JSON.stringify(params.data));
                     break; 
@@ -249,6 +258,21 @@ var App = new Framework7({
         },
 		getRecordPhoto: function(resolve, reject){ 		
 			return new Promise((resolve, reject) => {
+				
+				/*let url = 'http://192.168.1.1/ini.htm?cmd=alarmvideolist';
+				let params = {};
+				let headers = {};
+				let newArr = [];
+				cordova.plugin.http.get(url, 
+					params, headers, (response) => {
+						let array = JSON.parse(response.data);
+						
+						//array.length = 1;
+						console.log(array);
+						resolve(array);
+				}, function(response) {
+				  reject();
+				});	*/
 				$.ajax({
 					   type: "GET",
 				   dataType: "json", 
@@ -269,7 +293,7 @@ var App = new Framework7({
 						//}  
 					}
 					
-				});		
+				});	
 			});   			
 		},
 		getVRecordPhoto: function(resolve, reject){ 			
