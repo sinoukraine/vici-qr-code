@@ -27,7 +27,7 @@
 						<div class="item-inner display-flex align-items-center justify-content-space-between">
 							<span class="item-caption">Gesture Induction Photograph</span>
 							<label class="toggle toggle-init">
-									<input type="checkbox" name="gestureInduction" {{#if CheckedLow}} {{else}} checked {{/if}}>
+									<input type="checkbox" name="gestureInduction" {{#if CheckedLow}} {{else}} checked {{/if}}/>
 									<span class="toggle-icon"></span>
 								</label>
 						</div>
@@ -103,37 +103,6 @@
 						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
 					
 						self.writeToCam(hex);										
-					  },
-					  function(errorMessage) {
-						//self.$app.preloader.hide();
-						App.dialog.alert('Cam is not initialized');	
-						// invoked after unsuccessful opening of socket
-					});
-				}else{
-					App.dialog.alert('Mac address is invalid');						
-				}					
-			},
-			stateToggle: function(hex, name, data) {
-				var self = this;					
-				
-				//7802F8334207
-				if(self.phoneMacAddress != '00.00.00.00.00.00'){
-					self.$app.preloader.show();
-					
-					let macAddress = self.phoneMacAddress.replace(/[^A-Za-z0-9]/g, "");
-					//macAddress = macAddress.substr(1,macAddress.length -2);
-					//App.dialog.alert(self.phoneMacAddress);
-					self.socket.open(
-					  "192.168.1.1",
-					  10080,
-					  function() {		
-						//self.$app.preloader.hide();			
-						//self.initConnectToCam();
-						self.writeToCam("FFF0275D0100000010010006" + macAddress);
-						//App.dialog.alert("FFF0275D0100000010010006" + macAddress);
-					
-						self.writeToCam(hex);						
-						self.$app.methods.setInStorage({name: name, data: data});					
 					  },
 					  function(errorMessage) {
 						//self.$app.preloader.hide();
@@ -226,7 +195,7 @@
 					//console.log(induction);
 					if(induction == 'High'){
 						self.feedCommand('FFF00000010000007017000102');
-					}else if(induction == 'Medium'){{
+					}else if(induction == 'Medium'){
 						self.feedCommand('FFF00000010000007017000101');					
 					}else{
 						self.feedCommand('FFF00000010000007017000100');					
