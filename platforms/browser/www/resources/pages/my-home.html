@@ -61,9 +61,10 @@
 								let mySSID = JSON.stringify(response);
 								var pattern = /AUTO-VOX/i;
 								var pattern1 = /M-/i;
+								var pattern2 = /ATGA/i;
 								
 								self.$app.preloader.hide();		
-								if ((pattern.test(mySSID) || pattern1.test(mySSID))) {	
+								if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {	
 									VideoPlayer.play(API_LIVE_STREAM);									
 								}else{					
 									self.$app.dialog.alert('No Dashcam connected');									
