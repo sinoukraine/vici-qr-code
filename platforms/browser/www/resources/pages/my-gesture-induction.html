@@ -19,6 +19,7 @@
 			</div>
 		</div>
 
+		
 		<div class="page-content">
 			<div class="list no-hairlines no-margin language-list">
 				<ul class="padding-left padding-right">
@@ -26,7 +27,7 @@
 						<div class="item-inner display-flex align-items-center justify-content-space-between">
 							<span class="item-caption">Gesture Induction Photograph</span>
 							<label class="toggle toggle-init">
-									<input type="checkbox" name="gestureInduction" {{#if CheckedHigh||CheckedMedium}} checked {{/if}}>
+									<input type="checkbox" name="gestureInduction" {{#if CheckedLow}} {{else}} checked {{/if}}>
 									<span class="toggle-icon"></span>
 								</label>
 						</div>
@@ -194,15 +195,9 @@
 				self.socket.onClose = function(hasError) {
 					self.$app.preloader.hide();
 					
-					/*self.$setState({
-						IsConnect: false,
-					});	*/
-					
 					App.dialog.alert('Set successfully.');
 				  // invoked after connection close
 				};	
-				
-				
 			
 				var currentGestureInduction = self.$app.methods.getFromStorage("currentGestureInduction");
 				if(currentGestureInduction == 'High'){
@@ -239,7 +234,6 @@
 				});	
 				
 				myPage.on('click', '[name="gestureInduction"]', function() {
-					//if(!self.IsConnect){
 						if($(this).is(":checked")){
 							self.$app.methods.setInStorage({name: 'currentGestureInduction', data: 'Medium'});	
 							self.feedCommand('FFF00000010000007017000101');	
@@ -247,10 +241,9 @@
 							self.$app.methods.setInStorage({name: 'currentGestureInduction', data: 'Low'});	
 							self.feedCommand('FFF00000010000007017000100');
 						}
-					/*}else{
-						App.dialog.alert('Please wait while state is changing.');
-					}*/
 				});	
+				
+				
 			}
 		}
     };
