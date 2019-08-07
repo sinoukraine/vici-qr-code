@@ -27,7 +27,7 @@
 						<div class="item-inner display-flex align-items-center justify-content-space-between">
 							<span class="item-caption">Gesture Induction Photograph</span>
 							<label class="toggle toggle-init">
-									<input type="checkbox" name="gestureInduction" {{#if CheckedLow}} {{else}} checked {{/if}}/>
+									<input type="checkbox" name="gestureInduction" {{#if CheckedInduction}} checked {{/if}}/>
 									<span class="toggle-icon"></span>
 								</label>
 						</div>
@@ -76,6 +76,7 @@
 				CheckedHigh: false,
 				CheckedMedium: false,
 				CheckedLow: true,
+				CheckedInduction: false,
 				phoneMacAddress: '00.00.00.00.00.00',
 			};            
 
@@ -174,18 +175,21 @@
                         CheckedHigh: true,
                         CheckedMedium: false,
                         CheckedLow: false,
+                        CheckedInduction: true,
                     });
 				}else if(currentGestureInduction == 'Medium'){
 					self.$setState({
                         CheckedHigh: false,
                         CheckedMedium: true,
                         CheckedLow: false,
+                        CheckedInduction: true,
                     });
 				}else{
 					self.$setState({
                         CheckedHigh: false,
                         CheckedMedium: false,
                         CheckedLow: true,
+                        CheckedInduction: false,
                     });
 				}		
 				
@@ -194,24 +198,57 @@
 					self.$app.methods.setInStorage({name: 'currentGestureInduction', data: induction});	
 					//console.log(induction);
 					if(induction == 'High'){
+						self.$setState({
+							CheckedHigh: true,
+							CheckedMedium: false,
+							CheckedLow: false,
+							CheckedInduction: true,
+						});
 						self.feedCommand('FFF00000010000007017000102');
-					}else if(induction == 'Medium'){
+					}else if(induction == 'Medium'){						
+						self.$setState({
+							CheckedHigh: false,
+							CheckedMedium: true,
+							CheckedLow: false,
+							CheckedInduction: true,
+						});
 						self.feedCommand('FFF00000010000007017000101');					
-					}else{
+					}else{					
+						self.$setState({
+							CheckedHigh: false,
+							CheckedMedium: false,
+							CheckedLow: true,
+							CheckedInduction: false,
+						});
 						self.feedCommand('FFF00000010000007017000100');					
 					}
 				});	
 				
 				myPage.on('click', '[name="gestureInduction"]', function() {
 						if($(this).is(":checked")){
-							self.$app.methods.setInStorage({name: 'currentGestureInduction', data: 'Medium'});	
-							self.feedCommand('FFF00000010000007017000101');	
+							self.$app.methods.setInStorage({name: 'currentGestureInduction', data: 'High'});					
+							self.$setState({
+								CheckedHigh: true,
+								CheckedMedium: false,
+								CheckedLow: false,
+								CheckedInduction: true,
+							});							
+							self.feedCommand('FFF00000010000007017000102');	
 						}else{
-							self.$app.methods.setInStorage({name: 'currentGestureInduction', data: 'Low'});	
+							self.$app.methods.setInStorage({name: 'currentGestureInduction', data: 'Low'});						
+							self.$setState({
+								CheckedHigh: false,
+								CheckedMedium: false,
+								CheckedLow: true,
+								CheckedInduction: false,
+							});
 							self.feedCommand('FFF00000010000007017000100');
 						}
 				});	
 				
+				myPage.on('click', '#sendWifiPass', function() {
+					self.feedCommand('FFF0000001000000700B000100');						
+				});
 				
 			}
 		}
