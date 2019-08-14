@@ -57,7 +57,7 @@
 					</li> 
 					<li class="item-content no-padding">
 						<div class="item-inner display-flex align-items-center justify-content-space-between border-bottom">
-							<span class="item-caption">Alarm Voice Prompt</span>
+							<span class="item-caption">Alarm noise prompt</span>
 							<label class="toggle toggle-init">
 								<input type="checkbox" name="VoiceAlarm" {{#if CheckedVoiceAlarm}} checked {{/if}}>
 								<span class="toggle-icon"></span>
@@ -66,7 +66,7 @@
 					</li>
 					<li class="item-content no-padding">
 						<div class="item-inner display-flex align-items-center justify-content-space-between border-bottom">
-							<span class="item-caption">Gesture Voice Prompt</span>
+							<span class="item-caption">Gesture noise prompt</span>
 							<label class="toggle toggle-init">
 								<input type="checkbox" name="VoiceGesture" {{#if CheckedVoiceGesture}} checked {{/if}}>
 								<span class="toggle-icon"></span>
@@ -75,7 +75,7 @@
 					</li>
 					<li class="item-content no-padding">
 						<div class="item-inner display-flex align-items-center justify-content-space-between border-bottom">
-							<span class="item-caption">Parking Voice Prompt</span>
+							<span class="item-caption">Parking noise prompt</span>
 							<label class="toggle toggle-init">
 								<input type="checkbox" name="VoiceParking" {{#if CheckedVoiceParking}} checked {{/if}}>
 								<span class="toggle-icon"></span>
@@ -275,11 +275,11 @@
 					  },
 					  function(errorMessage) {
 						//self.$app.preloader.hide();
-						App.dialog.alert('Cam is not initialized');	
+						App.dialog.alert('Something wrong.');	
 						// invoked after unsuccessful opening of socket
 					});
 				}else{
-					App.dialog.alert('Mac address is invalid');						
+					App.dialog.alert('Something wrong.');						
 				}					
 			},
 			stateToggle: function(hex, name, data) {
@@ -306,11 +306,11 @@
 					  },
 					  function(errorMessage) {
 						//self.$app.preloader.hide();
-						App.dialog.alert('Cam is not initialized');	
+						App.dialog.alert('Something wrong.');	
 						// invoked after unsuccessful opening of socket
 					});
 				}else{
-					App.dialog.alert('Mac address is invalid');						
+					App.dialog.alert('Something wrong.');						
 				}					
 			},
 			writeToCam: function(hex){
@@ -359,7 +359,7 @@
 							phoneMacAddress: macAddress,
 						});
 					},function(fail) {
-						App.dialog.alert('Phone Mac Address was not found');
+						App.dialog.alert('Something wrong.');
 					}
 				);
 				
@@ -477,8 +477,9 @@
 					let mySSID = JSON.stringify(response);
 					var pattern = /AUTO-VOX/i;
 					var pattern1 = /M-/i;
+					var pattern2 = /ATGA/i;
 					
-					if ((pattern.test(mySSID) || pattern1.test(mySSID))) {	
+					if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {	
 						self.$setState({
 							CamName: mySSID.substr(1,mySSID.length -2),
 						});			
@@ -486,7 +487,7 @@
 						self.$app.preloader.show();
 						setTimeout(function () { // Prepend new list element	
 							self.$app.preloader.hide();							
-							self.$app.dialog.alert('No Dashcam connected');
+							self.$app.dialog.alert('Something wrong.');
 							self.$app.methods.openCam();					
 						 }, 2000);
 						//

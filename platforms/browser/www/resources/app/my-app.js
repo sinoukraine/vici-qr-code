@@ -455,7 +455,7 @@ var App = new Framework7({
 				
 				cordova.plugin.http.get(url, 
 					params, headers, (response) => {
-						App.dialog.alert('Set successfully.');
+						App.dialog.alert('Set successfully. Please power cycle the DC100 before it takes effect.');
 						console.log(response);
 				}, function(response) {
 						App.dialog.alert('Can not change password');
