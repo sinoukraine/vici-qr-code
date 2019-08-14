@@ -79,6 +79,22 @@ var routes = [{
         url: './resources/templates/equipment.common.faq.html',
     },
     {
+        path: '/camera.functions.faq/',
+        url: './resources/templates/camera.functions.faq.html',
+    },
+    {
+        path: '/dash.camera.connection.faq/',
+        url: './resources/templates/dash.camera.connection.faq.html',
+    },
+    {
+        path: '/sd.card.requirements.faq/',
+        url: './resources/templates/sd.card.requirements.faq.html',
+    },
+    {
+        path: '/media.and.data.faq/',
+        url: './resources/templates/media.and.data.faq.html',
+    },
+    {
         path: '/connection.faq/',
         url: './resources/templates/connection.faq.html',
     },
@@ -144,6 +160,11 @@ var routes = [{
         name: 'my-hints',
         path: '/my-hints/',
         componentUrl: './resources/pages/my-hints.html?v=1.64',
+    },
+	{
+        name: 'my-faq',
+        path: '/my-faq/',
+        componentUrl: './resources/pages/my-faq.html?v=1.64',
     },
 	{
         name: 'my-settings',

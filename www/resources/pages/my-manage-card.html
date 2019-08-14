@@ -114,11 +114,11 @@
 					  },
 					  function(errorMessage) {
 						//self.$app.preloader.hide();
-						App.dialog.alert('Cam is not initialized');	
+						App.dialog.alert('Something wrong.');	
 						// invoked after unsuccessful opening of socket
 					});
 				}else{
-					App.dialog.alert('Mac address is invalid');						
+					App.dialog.alert('Something wrong.');						
 				}					
 			},
 			writeToCam: function(hex){
@@ -217,7 +217,7 @@
 						});
 						self.feedCommand('FFF000000100000080070000');
 					},function(fail) {
-						App.dialog.alert('Phone Mac Address was not found');
+						App.dialog.alert('Something wrong.');
 					}
 				);
 				
@@ -244,7 +244,7 @@
 					self.$app.preloader.hide();
 					self.checkTotal();
 					
-					//App.dialog.alert('Set successfully.');
+					App.dialog.alert('Operation success');
 				  // invoked after connection close
 				};		
 				

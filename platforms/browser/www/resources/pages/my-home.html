@@ -67,7 +67,7 @@
 								if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {	
 									VideoPlayer.play(API_LIVE_STREAM);									
 								}else{					
-									self.$app.dialog.alert('No Dashcam connected');									
+									self.$app.dialog.alert('Something wrong.');									
 								}					
 							}).catch((error) => {
 								self.$app.preloader.hide();		

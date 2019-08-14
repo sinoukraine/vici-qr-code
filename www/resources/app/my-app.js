@@ -619,6 +619,12 @@ function menuList() {
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
+				case 'faq':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "faq")) {
+						loadFAQPage();
+						App.panel.close($$('.panel-left'), true);
+					}
+					break;
 				case 'help':
 					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "help")) {
 						loadHintsPage();
@@ -665,6 +671,16 @@ function loadHintsPage() {
 	mainView.router.navigate('/my-hints/');
 }
 
+// FAQ
+function loadFAQPage() {
+	//mainView.router.navigate('/my-faq/');
+	//mainView.router.navigate('/my-info/');
+    mainView.router.load({
+        url: 'resources/templates/info.html',
+        context: {
+        }
+    });
+}
 // INFO
 function loadInfoPage() {	
 	//mainView.router.navigate('/my-info/');

@@ -108,7 +108,7 @@
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
-                    self.$app.dialog.alert('No Dashcam connected');
+                    self.$app.dialog.alert('Something wrong.');
 				});
 				
 				
@@ -126,7 +126,7 @@
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
-                    self.$app.dialog.alert('No Dashcam connected');
+                    //self.$app.dialog.alert('No Dashcam connected');
 				});
             },
             initNormalList: function(normalListArr = []){

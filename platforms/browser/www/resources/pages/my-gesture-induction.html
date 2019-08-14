@@ -107,11 +107,11 @@
 					  },
 					  function(errorMessage) {
 						//self.$app.preloader.hide();
-						App.dialog.alert('Cam is not initialized');	
+						App.dialog.alert('Something wrong.');	
 						// invoked after unsuccessful opening of socket
 					});
 				}else{
-					App.dialog.alert('Mac address is invalid');						
+					App.dialog.alert('Something wrong.');						
 				}					
 			},
 			writeToCam: function(hex){
@@ -138,7 +138,7 @@
 							phoneMacAddress: macAddress,
 						});
 					},function(fail) {
-						App.dialog.alert('Phone Mac Address was not found');
+						App.dialog.alert('Something wrong.');
 					}
 				);
 				
