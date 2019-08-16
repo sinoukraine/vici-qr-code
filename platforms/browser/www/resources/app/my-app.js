@@ -110,26 +110,8 @@ var App = new Framework7({
                             ret = JSON.parse(str);
                         }
                     break; 
-                    case 'settingVoiceAlarm':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'settingVoiceGesture':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
                     case 'currentSensitivity':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTSENSITIVITY");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'currentGestureInduction':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTGESTUREINDUCTION");
                         if(str) {
                             ret = JSON.parse(str);
                         }
@@ -210,15 +192,6 @@ var App = new Framework7({
                     case 'settingVoiceParking':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEPARKING", JSON.stringify(params.data));
                     break; 
-                    case 'settingVoiceAlarm':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM", JSON.stringify(params.data));
-                    break; 
-                    case 'settingVoiceGesture':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE", JSON.stringify(params.data));
-                    break; 
-                    case 'currentGestureInduction':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTGESTUREINDUCTION", JSON.stringify(params.data));
-                    break; 
                     case 'currentLanguage':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE", JSON.stringify(params.data));
                     break; 
@@ -258,21 +231,6 @@ var App = new Framework7({
         },
 		getRecordPhoto: function(resolve, reject){ 		
 			return new Promise((resolve, reject) => {
-				
-				/*let url = 'http://192.168.1.1/ini.htm?cmd=alarmvideolist';
-				let params = {};
-				let headers = {};
-				let newArr = [];
-				cordova.plugin.http.get(url, 
-					params, headers, (response) => {
-						let array = JSON.parse(response.data);
-						
-						//array.length = 1;
-						console.log(array);
-						resolve(array);
-				}, function(response) {
-				  reject();
-				});	*/
 				$.ajax({
 					   type: "GET",
 				   dataType: "json", 
@@ -293,7 +251,7 @@ var App = new Framework7({
 						//}  
 					}
 					
-				});	
+				});		
 			});   			
 		},
 		getVRecordPhoto: function(resolve, reject){ 			
@@ -446,23 +404,7 @@ var App = new Framework7({
 		pad: function (str, max) {
 		  str = str.toString();
 		  return str.length < max ? pad("0" + str, max) : str;
-		},
-		changePassword: function (data) {	
-			//return new Promise((resolve, reject) => {
-				let url = 'http://192.168.1.1/ini.htm?cmd=setwifipasswd&passwd=' + data;				
-				let params = {};
-				let headers = {};
-				
-				cordova.plugin.http.get(url, 
-					params, headers, (response) => {
-						App.dialog.alert('Set successfully. Please power cycle the DC100 before it takes effect.');
-						console.log(response);
-				}, function(response) {
-						App.dialog.alert('Can not change password');
-						console.error(response.error);
-				});	
-				 
-		}, 
+		}
 	}
 });
 
@@ -481,8 +423,19 @@ function encodeHex(str){
 }
 
 function onDeviceReady(){
-	loadCarcamPage();
+	//loadCarcamPage();
 	console.log('ready');
+	
+	var swiper = App.swiper.create('.swiper-container', {
+					speed: 300,
+					effect: 'slide',
+					spaceBetween: 0,
+					pagination:'.swiper-pagination',
+					direction:"vertical",
+
+				});
+				
+				var swiper = App.swiper.get('.swiper-container');
 	//App.dialog.alert(UInt64("0x0000000077232000"));	
 	//var num2 = ctypes.UInt64("-0x1234567890ABCDEF");
 }
@@ -582,9 +535,9 @@ function menuList() {
 					loadCarcamPage();
 					App.panel.close($$('.panel-left'), true);
 					break;
-				case 'delete.cam':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "delete.cam")) {
-						loadDeleteCamPage();
+				case 'options':
+					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "options")) {
+						loadOptionsPage();
 						console.log('open del');
 						App.panel.close($$('.panel-left'), true);
 					}
@@ -616,12 +569,6 @@ function menuList() {
 				case 'settings':
 					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "settings")) {
 						loadSettingsPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'faq':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "faq")) {
-						loadFAQPage();
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
@@ -671,16 +618,6 @@ function loadHintsPage() {
 	mainView.router.navigate('/my-hints/');
 }
 
-// FAQ
-function loadFAQPage() {
-	//mainView.router.navigate('/my-faq/');
-	//mainView.router.navigate('/my-info/');
-    mainView.router.load({
-        url: 'resources/templates/info.html',
-        context: {
-        }
-    });
-}
 // INFO
 function loadInfoPage() {	
 	//mainView.router.navigate('/my-info/');
@@ -696,7 +633,7 @@ function loadSettingsPage() {
 	mainView.router.navigate('/my-settings/');
 }
 
-function loadDeleteCamPage() {
-	mainView.router.navigate('/my-delete-cam/');
+function loadOptionsPage() {
+	mainView.router.navigate('/my-options/');
 }
 

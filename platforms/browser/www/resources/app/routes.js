@@ -79,22 +79,6 @@ var routes = [{
         url: './resources/templates/equipment.common.faq.html',
     },
     {
-        path: '/camera.functions.faq/',
-        url: './resources/templates/camera.functions.faq.html',
-    },
-    {
-        path: '/dash.camera.connection.faq/',
-        url: './resources/templates/dash.camera.connection.faq.html',
-    },
-    {
-        path: '/sd.card.requirements.faq/',
-        url: './resources/templates/sd.card.requirements.faq.html',
-    },
-    {
-        path: '/media.and.data.faq/',
-        url: './resources/templates/media.and.data.faq.html',
-    },
-    {
         path: '/connection.faq/',
         url: './resources/templates/connection.faq.html',
     },
@@ -162,11 +146,6 @@ var routes = [{
         componentUrl: './resources/pages/my-hints.html?v=1.64',
     },
 	{
-        name: 'my-faq',
-        path: '/my-faq/',
-        componentUrl: './resources/pages/my-faq.html?v=1.64',
-    },
-	{
         name: 'my-settings',
         path: '/my-settings/',
         componentUrl: './resources/pages/my-settings.html?v=1.75',
@@ -206,9 +185,4 @@ var routes = [{
         path: '/my-swiper/',
         componentUrl: './resources/pages/my-swiper.html?v=1.65',
     },
-	{
-        name: 'my-gesture-induction',
-        path: '/my-gesture-induction/',
-        componentUrl: './resources/pages/my-gesture-induction.html?v=1.65',
-    },	
 ]
