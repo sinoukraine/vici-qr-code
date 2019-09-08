@@ -442,7 +442,8 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 
 .tab-50 {
     bottom: 0px;
-    background-color: grey !important;
+    background-color: #191919 !important;
+	opacity:0.3;
 }
 .tabbar a.tab-link,
 .tabbar-labels a.tab-link {
