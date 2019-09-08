@@ -435,11 +435,15 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 }
 
 #app .tabbar .tab-link-highlight {
-    bottom: 7px;
+    bottom: 0px;
     /* width: 30% !important; */
-    background-color: #fff !important;
+    background-color: #fff;
 }
 
+.tab-50 {
+    bottom: 0px;
+    background-color: grey !important;
+}
 .tabbar a.tab-link,
 .tabbar-labels a.tab-link {
     color: white;
@@ -947,4 +951,11 @@ label.check-item input[type=checkbox]:checked~.check-item {
     transform: scaleY(calc(1 / var(--f7-device-pixel-ratio)));
 }
 
+.tabbar a.tab-link:not(.tab-link-active), .tabbar-labels a.tab-link:not(.tab-link-active) {
+    background-color: #fff;
+}
+
+.tabbar a.tab-link, .tabbar-labels a.tab-link {
+	color: #191919;
+}
 
