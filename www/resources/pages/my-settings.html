@@ -294,14 +294,14 @@
 				
 				self.socket.onData = function(data) {
 
-				/*
+				
 					let convertedData = data.reduce((acc, item) => {
 					  let code = item.toString(16);
 					  let formattedCode = ('0' + code).slice(-2);
 					  return acc + formattedCode;
 					}, '');
 					App.dialog.alert(convertedData);
-					*/
+					
 				  // invoked after new batch of data is received (typed array of bytes Uint8Array)
 				};
 				self.socket.onError = function(errorMessage) {
@@ -440,7 +440,7 @@
 
 				
 				myPage.on('click', '.my-sync', function() {
-					self.feedCommand('FFF00000010000006003000100');						
+					self.feedCommand('FFF00000010000006003000720190924171717');						
 				});
 				
 			}
