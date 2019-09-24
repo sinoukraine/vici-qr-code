@@ -15,7 +15,6 @@
 		
     <link rel="stylesheet" href="resources/fonts/fontastic/styles.css">
     <link rel="stylesheet" href="resources/app/font.css">
-	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway|Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resources/libraries/leaflet/leaflet.css">
     <link rel="stylesheet" href="resources/libraries/video-js.css">
     <link rel="stylesheet" href="resources/app/my-app.css">
@@ -68,27 +67,19 @@
             </div>
         </div>
         <div class="statusbar"></div>
-		
-		  
 
-        <div class="panel panel-left panel-cover" id="mainMenu">
-                    <!--<div style="padding:15px;">
-                                <a class="" href="#">
-                                    <div class="item-title" style="font-size:20px; font-weight: 500;width:100%;color:#191919;font-family: 'Open Sans', sans-serif;">Vlad</div>
-                                </a>
-                            </div>-->
-            <div class="list" style="margin-top:50px">
+        <div class="panel panel-left panel-reveal panel-resizable" id="mainMenu">
+            <div class="list no-hairlines">
                 <div class="list-group">
                     <ul>
-                        <!--<li class="item-content list-panel-all no-padding margin-bottom">
+                        <li class="item-content list-panel-all no-padding margin-bottom">
                             <div class="item-inner no-padding no-border">
-                                <a class="" href="#">
-                                    <div class="item-title" style="width:100%;color:#191919;font-family: 'Open Sans', sans-serif;">Vlad</div>
-									
+                                <a class="logoLink" href="#">
+                                    <img class="logoMenu" class="" src="resources/images/logo.png" alt="logo">
                                 </a>
                             </div>
                         </li>
-                        <li class="item-content no-padding" id="list">
+                        <!--<li class="item-content no-padding" id="list">
                             <div class="item-media">
                                 <i class="f7-icons color-red">home_fill</i>
                             </div>
@@ -97,76 +88,77 @@
                                     <div class="item-title">Home</div>
                                 </div>
                             </div>
-                        </li>
+                        </li>-->
                         <li class="item-content no-padding" id="carcam">
                             <div class="item-media">
-                                <i class="f7-icons  color-black" style="color:#191919">home</i>
+                                <i class="f7-icons icon-cam color-theme"></i>
                             </div>
                             <div class="item-inner no-border">
                                 <div class="item-text">
-                                    <div class="item-title" style="color:#191919">My profile</div>
+                                    <div class="item-title">Carcam</div>
                                 </div>
                             </div>
-                        </li>-->
-                        <!---->
-                        <li class="item-content no-padding" id="settings">
+                        </li>
+                        <li class="item-content no-padding" id="videos">
+                            <div class="item-media">
+                                <i class="f7-icons color-theme">play_round_fill</i>
+                            </div>
                             <div class="item-inner no-border">
                                 <div class="item-text">
-                                    <div class="item-title" style="color:#191919;font-family: 'Open Sans', sans-serif;">Заказы</div>
+                                    <div class="item-title">Videos</div>
                                 </div>
                             </div>
                         </li>
                         <li class="item-content no-padding" id="gallery">
-                            <!--<div class="item-media">
-                                <i class="f7-icons" style="color:#191919">card</i>
-                            </div>-->
-                            <div class="item-inner no-border">
-                                <div class="item-text">
-                                    <div class="item-title" style="color:#191919;font-family: 'Open Sans', sans-serif;">Способы оплаты</div>
-                                </div>
-                            </div>
-                        </li><!--<li class="item-content no-padding" id="videos" >
                             <div class="item-media">
-                                <i class="f7-icons color-black" style="color:#191919">data</i>
+                                <i class="f7-icons icon-gallery color-theme"></i>
                             </div>
                             <div class="item-inner no-border">
                                 <div class="item-text">
-                                    <div class="item-title" style="color:#191919">Dishes next</div>
-                                </div>
-                            </div>
-                        </li>-->
-						<li class="item-content no-padding" id="info">
-                            <!--<div class="item-media">
-                                <i class="f7-icons" style="color:#191919">bag</i>
-                            </div>-->
-                            <div class="item-inner no-border">
-                                <div class="item-text">
-                                    <div class="item-title" style="color:#191919;font-family: 'Open Sans', sans-serif;">Мои заказы</div>
+                                    <div class="item-title">Phone Gallery</div>
                                 </div>
                             </div>
                         </li>
-                        <li class="item-content no-padding" id="swiper">
-                            <!--<div class="item-media">
-                                <i class="f7-icons" style="color:#191919">help_round</i>
-                            </div>-->
+                        <li class="item-content no-padding" id="info">
+                            <div class="item-media">
+                                <i class="f7-icons icon-info color-theme"></i>
+                            </div>
                             <div class="item-inner no-border">
                                 <div class="item-text">
-                                    <div class="item-title" style="color:#191919;font-family: 'Open Sans', sans-serif;">Частые вопросы</div>
+                                    <div class="item-title">Info</div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="item-content no-padding" id="settings">
+                            <div class="item-media">
+                                <i class="f7-icons color-theme">settings_fill</i>
+                            </div>
+                            <div class="item-inner no-border">
+                                <div class="item-text">
+                                    <div class="item-title">Settings</div>
                                 </div>
                             </div>
                         </li>
                         <li class="item-content no-padding" id="help">
-                            <!--<div class="item-media">
-                                <i class="f7-icons" style="color:#191919">email</i>
-                            </div>-->
+                            <div class="item-media">
+                                <i class="f7-icons color-theme">help_fill</i>
+                            </div>
                             <div class="item-inner no-border">
                                 <div class="item-text">
-                                    <div class="item-title" style="color:#191919;font-family: 'Open Sans', sans-serif;">Помощь</div>
+                                    <div class="item-title">Help</div>
+                                </div>
+                            </div>
+                        </li><!--
+                        <li class="item-content no-padding" id="swiper">
+                            <div class="item-media">
+                                <i class="f7-icons color-theme">food_fill</i>
+                            </div>
+                            <div class="item-inner no-border">
+                                <div class="item-text">
+                                    <div class="item-title">Swiper</div>
                                 </div>
                             </div>
                         </li>
-						
-						<!--
                         <li class="item-content no-padding" id="delete.cam">
                             <div class="item-media">
                                 <i class="f7-icons icon-basket color-red"></i>
@@ -179,172 +171,11 @@
                         </li>-->
                     </ul>
                 </div>
-				<div style="padding:15px;">
-                                <a class="" href="#">
-                                    <div class="item-title" style="font-size:20px; font-weight: 500;width:100%;color:#191919;font-family: 'Open Sans', sans-serif;">Выйти</div>
-									<!--<img class="logoMenu" class="" src="resources/images/logo.png" alt="logo">background-color:#ffe077;-->
-                                </a>
-                            </div>
             </div>
         </div>
 
         <div class="view view-main">
-			<div class="navbar" style="background-color:#ffe077;opacity:1;height:60px;">
-				<div class="navbar-inner" style="height:60px;">
-					<div class="left" style="padding-left:5px;padding-top:2px">
-						<a class="panel-open" href="#">
-						<!--<i class="f7-icons color-white" style="color:#191919;font-size:22px">chevron_left</i>
-                         <i class="f7-icons color-white" >close</i>       
-						<i class="f7-icons "  style="color:#191919">bars</i>  
-						<i class="icon material-icons md-only" style="color:#191919">person_outline</i>
-						--><div style="font-size:18px;font-weight:700;color:#464646;opacity:1;font-family: 'Open Sans', sans-serif;">Мої замовлення</div></a>
-					</div>
-					<div class="title"></div>
-					<div class="right" style="padding-right:15px;">
-					<a class="panel-open" href="#">
-						<i class="f7-icons color-white" style="color:white"></i>
-                            <!--    <div style="    color: white;
-    position: absolute;
-    padding: 11px;">12</div>
-						<i class="f7-icons color-white" style="color:white:font-size:24px;">circle</i>
-						</a>-->
-						<!--<a class="panel-open" href="#">
-                                <i class="f7-icons color-white" style="color:white"></i>
-						<i class="f7-icons color-white" style="color:white">filter</i>
-						</a>-->
-					</div>
-				</div>
-			</div>
-			<!--
-                       <div class="toolbar tabbar search_tabbar" style="margin-top:60px;height: 56px;">
-                            
-                            <div class="toolbar-inner">
-                                <a href="#tab-imei" class="tab-link active" style="font-size:14px;font-weight:1000;color:#191919;opacity:0.8;font-family: 'Open Sans', sans-serif;">Активні</a>
-                                <a href="#tab-imsi" class="tab-link" style="font-size:14px;font-weight:1000;color:#191919;opacity:0.8;font-family: 'Open Sans', sans-serif;">Історія</a>
-								<span class="tab-link-highlight tab-50" style="width: 50%; transform: translate3d(0%, 0px, 0px);"></span>
-                                </div>
-                        </div>-->
-						
-							<br><br><br><br><br><br>
-						<!--<div style="display:flex;padding:15px 25px"><i class="icon material-icons md-only" style="color:#191919;opacity:0.8;">search</i>
-						<div style="padding:0px 20px;font-size:16px;font-weight:700;color:#191919;opacity:0.8;font-family: 'Open Sans', sans-serif;">Знайти улюблену страву</div></div>
-				
-						<div style="display:flex;padding:15px 25px"><i class="icon material-icons md-only" style="color:#191919;opacity:0.8;">my_location</i>
-						<div style="padding:0px 20px;font-size:16px;font-weight:700;color:#191919;opacity:0.8;font-family: 'Open Sans', sans-serif;">Всі страви поруч зі мною</div></div>
-						
-						<div class="block">
-  
-</div>--><!--
-<center>
-<a class="col button button-fill button-round" href="#" id='connectCam' style="font-family: 'Open Sans', sans-serif;font-size:14px;border-radius:3px;border:0px solid #191919;width:180px;background-color:#e3e3e3;
-     max-width: inherit;color:#191919;font-weight:700;padding:4px;height:40px;
-    ">
-							<div style="display:flex;padding:15px 25px"><i class="icon material-icons md-only" style="color:#191919;opacity:0.8;">my_location</i>
-						<div style="padding:0px 20px;font-size:16px;font-weight:700;color:#191919;opacity:0.8;font-family: 'Open Sans', sans-serif;">Всі страви поруч зі мною</div></div>
-                        </a></center>
-			
-                            <div class="tabs">
-                                <div id="tab-imei" class="tab active">
-                                    <div class="content-block">
-                                    </div>
-                                </div>
-                                <div id="tab-imsi" class="tab">
-                                    <div class="content-block">
-                                    </div>
-                                </div>
-                            </div>
-			-->
-			
-			<div class="toolbar tabbar tabbar-labels toolbar-bottom" style="height:60px;">
-				<div class="toolbar-inner">
-				
-				<a href="#tab-5" class="tab-link">
-				  <i class="icon f7-icons if-not-md">today<span class="badge color-red">7</span></i>
-				  <i class="icon material-icons md-only" style="color:#191919">query_builder<!--<span class="badge color-red">7</span>--></i>
-				  <span class="tabbar-label">Calendar</span>
-				</a>
-				<!--<a href="#tab-6" class="tab-link">
-				  <i class="icon f7-icons if-not-md">chat_bubble_outline<span class="badge color-red">1</span></i>
-				  <i class="icon material-icons md-only" style="color:#191919">search</i>
-				  <span class="tabbar-label">Upload</span>
-				</a>
-				<a href="#tab-6" class="tab-link">
-				  <i class="icon f7-icons if-not-md">chat_bubble_outline<span class="badge color-red">1</span></i>
-				  <i class="icon material-icons md-only" style="color:#191919">filter_center_focus</i>
-				  <span class="tabbar-label">Upload</span>
-				</a>-->
-				<a href="#tab-6" class="tab-link">
-				  <i class="icon f7-icons if-not-md">chat_bubble_outline<span class="badge color-red">1</span></i>
-				  <i class="icon material-icons md-only" style="color:#191919">chat_bubble_outline</i>
-				  <span class="tabbar-label">Upload</span>
-				</a><!--<span class="badge color-red">1</span>-->
-				<!--<a href="#tab-7" class="tab-link">
-				  <i class="icon f7-icons if-not-md">cloud<span class="badge color-red">1</span></i>
-				  <i class="icon material-icons md-only" style="color:#191919">person</i>
-				  <span class="tabbar-label">Upload</span>
-				</a>-->
-				<a href="#tab-1" class="tab-link tab-link-active">
-				  <i class="icon icon-fill f7-icons if-not-md">email_fill<span class="badge color-green">5</span></i>
-				  <i class="icon material-icons md-only" style="color:#191919">card_giftcard</i>
-				  <span class="tabbar-label">Inbox</span>
-				</a><!--<span class="badge color-green">5</span>-->
-				</div>
-			  </div>
-						
-<!-- FAB Right Bottom (Orange) 
-  <div class="fab fab-right-bottom color-white">
-  <a href="#" class="">
-  <i class="icon material-icons md-only" style="color: #191919">add</i>
-      </a>
-    </div>					
-								-->
-								
-										   <!--<br><div style="color:#515152;margin-left:40px;font-family: 'Open Sans', sans-serif;font-size:20px;font-weight:700;">1. Вода</div>
-										   <div style="color:#191919;margin-top:5px;margin-left:40px;font-family: 'Open Sans', sans-serif;font-size:20px;font-weight:700;">2. Кава</div>
-										   <div style="color:#191919;margin-top:5px;margin-left:40px;font-family: 'Open Sans', sans-serif;font-size:20px;font-weight:700;">3. Сік</div>-->
-									
-			
-				
-				
-				
-				
-				<!--
-            <div class="">
-				<div class="inner-content">
-					<div class="swiper-container swiper-init demo-swiper">
-						<div data-pagination='{"el": ".swiper-pagination"}' data-space-between="0" data-direction="vertical" class="swiper-container swiper-init demo-swiper">
-							<div class="swiper-pagination" id="swiper-pagination"></div>
-									<div style="margin-top:65px; position:fixed;z-index:3000;width:100%;">
-										<div  style="text-align:center;">
-											<br>
-										   <br>
-										   <div class="item_asset_div">
-										   </div>
-										   <br><span style="transition:all .15s ease;
-  color:white;font-size:32px;font-weight:700;text-shadow: 0px 1px 0px rgba(25, 25, 25,0.5), 0 0 1em #1e1e1e;opacity:1;font-family: 'Open Sans', sans-serif;">Пицца "Che"</span>
-  
-										   <br><span style="color:white;margin-top:8px;font-size:22px;font-weight:600;text-transform: uppercase;text-shadow: 0px 1px 0px rgba(25, 25, 25,0.5), 0 0 1em #1e1e1e;opacity:1;font-family: 'Open Sans', sans-serif;">150 грн</span>
-										   <br>
-										   <i class="f7-icons" style="margin-top:8px;color:#ffffff;font-size:16px;">stopwatch</i> <span style="color:white;font-size:16px;font-weight:600;text-shadow: 0px 1px 0px rgba(25, 25, 25,0.5), 0 0 1em #1e1e1e;opacity:1;font-family: 'Open Sans', sans-serif;">30 мин</span>
-										</div>
-									</div>
-							  <div class="swiper-wrapper">
-								<div class="swiper-slide" style="height:100vh">
-							
-									<img class="cardbox" src="./resources/images/PizzaMargarita.jpg" class="lazy">
-								</div>
-								<div class="swiper-slide" style="height:100vh">
-									<img class="cardbox" src="./resources/images/d0493e0df01534e3fdb73ad315d3a519.jpg" class="lazy">
-								</div>
-								<div class="swiper-slide">
-									<img class="cardbox" src="./resources/images/b23ebba4.jpg" class="lazy">
-								</div>
-							  </div>							  
-						</div>
-					</div>
-				</div>
-			</div>
-			<img class="cardbox" src="./resources/images/PizzaMargarita.jpg" class="lazy" style="width: 100%;">-->
+            
         </div>
 
     </div>

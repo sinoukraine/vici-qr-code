@@ -96,7 +96,7 @@
 				
                 self.$app.preloader.show();
 				self.$app.methods.getRecordPhoto().then(response => {				
-					console.log(response);
+					//console.log(response);
 					self.$app.methods.setInStorage({name: 'normalList', data: response.mp4data});
                     self.$setState({
                         ShowNormalList: true,
@@ -108,7 +108,7 @@
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
-                    self.$app.dialog.alert('No Dashcam connected');
+                    //self.$app.dialog.alert('Something wrong.');
 				});
 				
 				
@@ -126,7 +126,7 @@
 				}, error => {
 					self.$app.preloader.hide(); 
 					console.log('Please check connect to Dashcam');
-                    self.$app.dialog.alert('No Dashcam connected');
+                    //self.$app.dialog.alert('No Dashcam connected');
 				});
             },
             initNormalList: function(normalListArr = []){
