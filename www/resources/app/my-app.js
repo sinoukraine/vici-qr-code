@@ -60,7 +60,7 @@ var App = new Framework7({
 					'				<i class="f7-icons icon-menu"></i>'+
 					'			</a>'+
 					'		</div>'+
-					*/'		<div class="title">Connection</div>'+
+					*/'		<div class="title">ATGA DC100</div>'+
 					'	</div>'+
 					'</div>'+
 
@@ -75,8 +75,8 @@ var App = new Framework7({
 					'<div class="page-content">'+
 					'	<div class="block">'+
 					'		<p class="item-title open-title">'+
-					'			For using ATGA DC100 you need codec for h264 streaming. You can download one of such codecs bellow:'+
-					'		</p><p class="item-title open-title"><img class="main-bg" src="http://bezprogramm.net/uploads/posts/2015-02/1423690212_kmplayer.png" width="50" alt="main"></p><p class="item-title open-title"><b>KMD Player</b></p><p class="item-title open-title"><img class="main-bg" src="https://img.utdstc.com/icons/reproductor-mx-android.png:l" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p>'+
+					'			For using ATGA DC100 your device need have codec for h264 streaming. You can download one of such codecs bellow  on Google Play:'+
+					'		</p><p class="item-title open-title"><img class="main-bg" src="./resources/images/kmp.png" width="50" alt="main"></p><p class="item-title open-title"><b>KMD Player</b></p><p class="item-title open-title"><img class="main-bg" src="./resources/images/mx.png" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p>'+
 					'	</div>'+
 					'	<div class="list virtual-list open-cam-list no-hairlines">'+
 					'	</div>'+
