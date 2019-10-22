@@ -656,9 +656,9 @@ function showUserGuide(){
 								var pattern1 = /M-/i;
 								var pattern2 = /ATGA/i;
 								
-								self.$app.preloader.hide();		
+								//self.$app.preloader.hide();		
 								if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {										
-									self.$app.dialog.alert('Connect to the internet to view this file');									
+									App.dialog.alert('Connect to the internet to view this file');									
 								}else{					
 									if (typeof navigator !== "undefined" && navigator.app) {                
 										navigator.app.loadUrl(href, {openExternal: true}); 
@@ -667,8 +667,8 @@ function showUserGuide(){
 									}								
 								}					
 							}).catch((error) => {
-								self.$app.preloader.hide();		
-								self.$app.dialog.alert('Connect to the internet to view this file');						
+								//self.$app.preloader.hide();		
+								App.dialog.alert('Connect to the internet to view this file');						
 							});
 	//PDFViewer.openPDF(href);
 	
