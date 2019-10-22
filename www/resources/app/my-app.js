@@ -650,13 +650,29 @@ function showUserGuide(){
 	
     var href = 'resources/images/app-user-guide.pdf';
     
-	PDFViewer.openPDF(href);
+	WifiWizard2.getConnectedSSID().then(response => {	
+								let mySSID = JSON.stringify(response);
+								var pattern = /AUTO-VOX/i;
+								var pattern1 = /M-/i;
+								var pattern2 = /ATGA/i;
+								
+								self.$app.preloader.hide();		
+								if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {										
+									self.$app.dialog.alert('Connect to the internet to view this file');									
+								}else{					
+									if (typeof navigator !== "undefined" && navigator.app) {                
+										navigator.app.loadUrl(href, {openExternal: true}); 
+									} else {
+										window.open(href,'_blank');
+									}								
+								}					
+							}).catch((error) => {
+								self.$app.preloader.hide();		
+								self.$app.dialog.alert('Connect to the internet to view this file');						
+							});
+	//PDFViewer.openPDF(href);
 	
-	/*if (typeof navigator !== "undefined" && navigator.app) {                
-        navigator.app.loadUrl(href, {openExternal: true}); 
-    } else {
-        window.open(href,'_blank');
-    }
+	/*
 	
 	window.open(encodeURI(href), '_blank', 'location=yes,EnableViewPortScale=yes');*/
 }
