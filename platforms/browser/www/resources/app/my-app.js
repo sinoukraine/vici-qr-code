@@ -15,8 +15,8 @@ const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
 const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
-const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
-//const URL_USERGUIDE = 'https://support.rv-eye.co/manual/DC100-user-guide.pdf';
+//const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
+const URL_USERGUIDE = 'http://sinopacificukraine.com/app/DC100-user-guide.pdf';
 
 //var MapTrack = null;
 var PHOTOLIST = {};
@@ -50,6 +50,25 @@ var App = new Framework7({
     },
     on: {
         init: function() {
+			// Create dynamic Popup
+			var dynamicPopup = app.popup.create({
+			  content: '<div class="popup">'+
+						  '<div class="block">'+
+							'<p>Popup created dynamically.</p>'+
+							'<p><a href="#" class="link popup-close">Close me</a></p>'+
+						  '</div>'+
+						'</div>',
+			  // Events
+			  on: {
+				open: function (popup) {
+				  console.log('Popup open');
+				},
+				opened: function (popup) {
+				  console.log('Popup opened');
+				},
+			  }
+			});
+			//App.dialog.alert('Please ');
             // console.log('App initialized');
         },
         pageInit: function() {
@@ -658,7 +677,7 @@ function showUserGuide(){
 								
 								//self.$app.preloader.hide();		
 								if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {										
-									App.dialog.alert('Connect to the internet to view this file');									
+									App.dialog.alert('Connect to the internet to download user guide file');									
 								}else{					
 									if (typeof navigator !== "undefined" && navigator.app) {                
 										navigator.app.loadUrl(href, {openExternal: true}); 
