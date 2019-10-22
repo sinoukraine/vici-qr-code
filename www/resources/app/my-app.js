@@ -648,7 +648,7 @@ function menuList() {
 
 function showUserGuide(){
 	
-    var href = URL_USERGUIDE;
+    var href = 'resources/images/app-user-guide.pdf';
     
 	PDFViewer.openPDF(href);
 	
@@ -656,7 +656,9 @@ function showUserGuide(){
         navigator.app.loadUrl(href, {openExternal: true}); 
     } else {
         window.open(href,'_blank');
-    }*/
+    }
+	
+	window.open(encodeURI(href), '_blank', 'location=yes,EnableViewPortScale=yes');*/
 }
 
 function loadSwiperPage() {
