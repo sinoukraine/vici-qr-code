@@ -52,12 +52,43 @@ var App = new Framework7({
         init: function() {
 			// Create dynamic Popup
 			var dynamicPopup = App.popup.create({
-			  content: '<div class="popup">'+
+			  content: '<div class="page open-dashcam-page popup">'+
+					'<div class="navbar">'+
+					'	<div class="navbar-inner">'+
+					/*'		<div class="left">'+
+					'			<a class="panel-open" href="#">'+
+					'				<i class="f7-icons icon-menu"></i>'+
+					'			</a>'+
+					'		</div>'+
+					*/'		<div class="title">Connection</div>'+
+					'	</div>'+
+					'</div>'+
+
+					'<div class="toolbar toolbar-bottom">'+
+					'	<div class="toolbar-inner item-title open-title">'+
+					'		<a class="link popup-close " href="#">'+
+					'			Ok, I understand'+
+					'		</a>'+
+					'	</div>'+
+					'</div>'+
+
+					'<div class="page-content">'+
+					'	<div class="block">'+
+					'		<p class="item-title open-title">'+
+					'			For using ATGA DC100 you need codec for h264 streaming. You can download one of such codecs bellow:'+
+					'		</p><p class="item-title open-title"><img class="main-bg" src="http://bezprogramm.net/uploads/posts/2015-02/1423690212_kmplayer.png" width="50" alt="main"></p><p class="item-title open-title"><b>KMD Player</b></p><p class="item-title open-title"><img class="main-bg" src="https://img.utdstc.com/icons/reproductor-mx-android.png:l" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p>'+
+					'	</div>'+
+					'	<div class="list virtual-list open-cam-list no-hairlines">'+
+					'	</div>'+
+					'</div>'+
+				'</div>',
+			  
+			  /*content: '<div class="popup">'+
 						  '<div class="block">'+
 							'<p>Popup created dynamically.</p>'+
 							'<p><a href="#" class="link popup-close">Close me</a></p>'+
 						  '</div>'+
-						'</div>',
+						'</div>',*/
 			  // Events
 			  on: {
 				open: function (popup) {
