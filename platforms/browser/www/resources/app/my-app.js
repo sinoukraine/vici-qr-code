@@ -51,7 +51,7 @@ var App = new Framework7({
     on: {
         init: function() {
 			// Create dynamic Popup
-			var dynamicPopup = app.popup.create({
+			var dynamicPopup = App.popup.create({
 			  content: '<div class="popup">'+
 						  '<div class="block">'+
 							'<p>Popup created dynamically.</p>'+
