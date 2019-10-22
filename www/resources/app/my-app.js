@@ -15,8 +15,8 @@ const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
 const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
-//const URL_USERGUIDE = 'resources/images/DC100-user-guide.pdf';
-const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
+const URL_USERGUIDE = 'resources/images/app-user-guide.pdf';
+//const URL_USERGUIDE = 'https://support.rv-eye.co/manual/DC100-user-guide.pdf';
 
 //var MapTrack = null;
 var PHOTOLIST = {};
@@ -647,12 +647,16 @@ function menuList() {
 }
 
 function showUserGuide(){
+	
     var href = URL_USERGUIDE;
-    if (typeof navigator !== "undefined" && navigator.app) {                
+    
+	PDFViewer.openPDF(href);
+	
+	/*if (typeof navigator !== "undefined" && navigator.app) {                
         navigator.app.loadUrl(href, {openExternal: true}); 
     } else {
         window.open(href,'_blank');
-    }
+    }*/
 }
 
 function loadSwiperPage() {
