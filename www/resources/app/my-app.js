@@ -15,6 +15,8 @@ const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
 const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
+const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
+
 //var MapTrack = null;
 var PHOTOLIST = {};
 var VIDEOLIST = {};
@@ -625,6 +627,10 @@ function menuList() {
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
+				case 'menuUserManual':
+					showUserGuide();
+					break;
+
 				case 'help':
 					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "help")) {
 						loadHintsPage();
@@ -643,6 +649,14 @@ function menuList() {
 		}
 }
 
+function showUserGuide(){
+    var href = URL_USERGUIDE;
+    if (typeof navigator !== "undefined" && navigator.app) {                
+        navigator.app.loadUrl(href, {openExternal: true}); 
+    } else {
+        window.open(href,'_blank');
+    }
+}
 
 function loadSwiperPage() {
 	mainView.router.navigate('/my-swiper/');
