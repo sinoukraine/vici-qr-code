@@ -68,6 +68,8 @@ var App = new Framework7({
 				},
 			  }
 			});
+			
+			 dynamicPopup.open();
 			//App.dialog.alert('Please ');
             // console.log('App initialized');
         },
