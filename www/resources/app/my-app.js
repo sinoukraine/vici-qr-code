@@ -15,7 +15,7 @@ const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
 const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
-const URL_USERGUIDE = 'resources/images/app-user-guide.pdf';
+const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
 //const URL_USERGUIDE = 'https://support.rv-eye.co/manual/DC100-user-guide.pdf';
 
 //var MapTrack = null;
@@ -648,7 +648,7 @@ function menuList() {
 
 function showUserGuide(){
 	
-    var href = 'resources/images/app-user-guide.pdf';
+    var href = URL_USERGUIDE;
     
 	WifiWizard2.getConnectedSSID().then(response => {	
 								let mySSID = JSON.stringify(response);
