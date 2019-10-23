@@ -75,8 +75,8 @@ var App = new Framework7({
 					'<div class="page-content">'+
 					'	<div class="block">'+
 					'		<p class="item-title open-title">'+
-					'			For using ATGA DC100 your device need have codec for h264 streaming. You can download one of such codecs bellow  on Google Play:'+
-					'		</p><p class="item-title open-title"><img class="main-bg" src="./resources/images/kmp.png" width="50" alt="main"></p><p class="item-title open-title"><b>KMD Player</b></p><p class="item-title open-title"><img class="main-bg" src="./resources/images/mx.png" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p>'+
+					'			Please download either of the media players below to live view and view historical images and video'+
+					'		</p><p class="item-title open-title"><img class="main-bg" src="./resources/images/mx.png" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p><p class="item-title open-title"><img class="main-bg" src="./resources/images/kmp.png" width="50" alt="main"></p><p class="item-title open-title"><b>KM Player</b></p><p class="item-title open-title">Thanks you</p>'+
 					'	</div>'+
 					'	<div class="list virtual-list open-cam-list no-hairlines">'+
 					'	</div>'+
@@ -710,7 +710,7 @@ function showUserGuide(){
 								
 								//self.$app.preloader.hide();		
 								if ((pattern.test(mySSID) || pattern1.test(mySSID) || pattern2.test(mySSID))) {										
-									App.dialog.alert('Connect to the internet to download user guide file');									
+									App.dialog.alert('In order to access the user guide please disconnect from the DC100 and try again');									
 								}else{					
 									if (typeof navigator !== "undefined" && navigator.app) {                
 										navigator.app.loadUrl(href, {openExternal: true}); 
@@ -720,7 +720,7 @@ function showUserGuide(){
 								}					
 							}).catch((error) => {
 								//self.$app.preloader.hide();		
-								App.dialog.alert('Connect to the internet to view this file');						
+								App.dialog.alert('Something wrong');						
 							});
 	//PDFViewer.openPDF(href);
 	
