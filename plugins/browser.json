@@ -45,6 +45,9 @@
         },
         "cordova-plugin-rtsp-vlc": {
             "PACKAGE_NAME": "com.dashcam.app"
+        },
+        "cordova-plugin-file-opener2": {
+            "PACKAGE_NAME": "com.atga.dashcam"
         }
     },
     "dependent_plugins": {

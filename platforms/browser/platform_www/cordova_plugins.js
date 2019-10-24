@@ -370,6 +370,14 @@ module.exports = [
         "clobbers": [
             "window.VideoPlayerVLC"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-file-opener2/www/plugins.FileOpener2.js",
+        "id": "cordova-plugin-file-opener2.FileOpener2",
+        "pluginId": "cordova-plugin-file-opener2",
+        "clobbers": [
+            "cordova.plugins.fileOpener2"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -389,7 +397,8 @@ module.exports.metadata =
     "cordova-plugin-android-permissions": "1.0.0",
     "cordova-plugin-streaming-media-xtreme": "2.3.1",
     "es6-promise-plugin": "4.2.2",
-    "cordova-plugin-rtsp-vlc": "3.0.5"
+    "cordova-plugin-rtsp-vlc": "3.0.5",
+    "cordova-plugin-file-opener2": "2.2.1"
 }
 // BOTTOM OF METADATA
 });

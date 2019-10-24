@@ -698,11 +698,12 @@ function menuList() {
 		}
 }
 
+/*file viewing start*/
 function showUserGuide(){
 	
-    var href = URL_USERGUIDE;
+    //var href = URL_USERGUIDE;
     
-	WifiWizard2.getConnectedSSID().then(response => {	
+	/*WifiWizard2.getConnectedSSID().then(response => {	
 								let mySSID = JSON.stringify(response);
 								var pattern = /AUTO-VOX/i;
 								var pattern1 = /M-/i;
@@ -721,13 +722,50 @@ function showUserGuide(){
 							}).catch((error) => {
 								//self.$app.preloader.hide();		
 								App.dialog.alert('Something wrong');						
-							});
-	//PDFViewer.openPDF(href);
-	
-	/*
-	
-	window.open(encodeURI(href), '_blank', 'location=yes,EnableViewPortScale=yes');*/
+							});*/
+
+//$$(document).on('click', '.getManual', function(){
+    var fullPathToFilePrivate = cordova.file.applicationDirectory + 'www/resources/manual/DC100-user-guide.pdf';
+    var externalDirEntry;
+    window.resolveLocalFileSystemURL(cordova.file.externalDataDirectory, function success(dirEntry) {
+        externalDirEntry = dirEntry;
+    },function (e) {
+        alert('error dir '+JSON.stringify(e));
+    });
+
+    window.resolveLocalFileSystemURL(fullPathToFilePrivate, function onSuccess(fileEntry)
+    {
+        fileEntry.copyTo(externalDirEntry, 'DC100-user-guide.pdf',
+            function(e)
+            {
+                viewDocument(e.nativeURL);
+            },
+            function()
+            {
+                alert('copying FAILED');
+            });
+    }, function (e) { alert(JSON.stringify(e)); });
+//});
 }
+
+
+function viewDocument(url) {
+    if (cordova && cordova.plugins.fileOpener2) {
+        cordova.plugins.fileOpener2.open(
+            url, // You can also use a Cordova-style file uri: cdvfile://localhost/persistent/Downloads/starwars.pdf
+            'application/pdf',
+            {
+                error: function (e) {
+                    alert('Error status: ' + e.status + ' - Error message: ' + e.message);
+                },
+                success: function () {
+                    console.log('file opened successfully');
+                }
+            }
+        );
+    }
+}
+/*file viewing end*/
 
 function loadSwiperPage() {
 	mainView.router.navigate('/my-swiper/');
