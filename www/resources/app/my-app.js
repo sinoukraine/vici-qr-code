@@ -51,56 +51,72 @@ var App = new Framework7({
     on: {
         init: function() {
 			// Create dynamic Popup
-			var dynamicPopup = App.popup.create({
-			  content: '<div class="page open-dashcam-page popup">'+
-					'<div class="navbar">'+
-					'	<div class="navbar-inner">'+
-					/*'		<div class="left">'+
-					'			<a class="panel-open" href="#">'+
-					'				<i class="f7-icons icon-menu"></i>'+
-					'			</a>'+
-					'		</div>'+
-					*/'		<div class="title">ATGA DC100</div>'+
-					'	</div>'+
-					'</div>'+
-
-					'<div class="toolbar toolbar-bottom">'+
-					'	<div class="toolbar-inner item-title open-title">'+
-					'		<a class="link popup-close " href="#">'+
-					'			Ok, I understand'+
-					'		</a>'+
-					'	</div>'+
-					'</div>'+
-
-					'<div class="page-content">'+
-					'	<div class="block">'+
-					'		<p class="item-title open-title">'+
-					'			Please download either of the media players below to live view and view historical images and video'+
-					'		</p><p class="item-title open-title"><img class="main-bg" src="./resources/images/mx.png" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p><p class="item-title open-title"><img class="main-bg" src="./resources/images/kmp.png" width="50" alt="main"></p><p class="item-title open-title"><b>KM Player</b></p><p class="item-title open-title">Thanks you</p>'+
-					'	</div>'+
-					'	<div class="list virtual-list open-cam-list no-hairlines">'+
-					'	</div>'+
-					'</div>'+
-				'</div>',
-			  
-			  /*content: '<div class="popup">'+
-						  '<div class="block">'+
-							'<p>Popup created dynamically.</p>'+
-							'<p><a href="#" class="link popup-close">Close me</a></p>'+
-						  '</div>'+
-						'</div>',*/
-			  // Events
-			  on: {
-				open: function (popup) {
-				  console.log('Popup open');
-				},
-				opened: function (popup) {
-				  console.log('Popup opened');
-				},
-			  }
-			});
+			var currentHintState = App.methods.getFromStorage("downloadPlayer");
 			
-			 dynamicPopup.open();
+			App.methods.setInStorage({name: 'currentResolution', data: '1080p'});	
+			App.methods.setInStorage({name: 'settingSoundOn', data: 'on'});	
+			App.methods.setInStorage({name: 'settingVoiceAlarm', data: 'on'});	
+			App.methods.setInStorage({name: 'settingVoiceGesture', data: 'on'});	
+			App.methods.setInStorage({name: 'settingVoiceParking', data: 'on'});	
+			App.methods.setInStorage({name: 'settingSurveillance', data: 'off'});	
+			App.methods.setInStorage({name: 'currentSensitivity', data: 'medium'});	
+				
+				if(currentHintState != '1'){
+					
+					var dynamicPopup = App.popup.create({
+					  content: '<div class="page open-dashcam-page popup">'+
+							'<div class="navbar">'+
+							'	<div class="navbar-inner">'+
+							/*'		<div class="left">'+
+							'			<a class="panel-open" href="#">'+
+							'				<i class="f7-icons icon-menu"></i>'+
+							'			</a>'+
+							'		</div>'+
+							*/'		<div class="title">ATGA DC100</div>'+
+							'	</div>'+
+							'</div>'+
+
+							'<div class="toolbar toolbar-bottom">'+
+							'	<div class="toolbar-inner item-title open-title">'+
+							'		<a class="link popup-close " href="#">'+
+							'			Ok, I understand'+
+							'		</a>'+
+							'	</div>'+
+							'</div>'+
+
+							'<div class="page-content">'+
+							'	<div class="block">'+
+							'		<p class="item-title open-title">'+
+							'			Please download either of the media players below to live view and view historical images and video'+
+							'		</p><p class="item-title open-title"><img class="main-bg" src="./resources/images/mx.png" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p><p class="item-title open-title"><img class="main-bg" src="./resources/images/kmp.png" width="50" alt="main"></p><p class="item-title open-title"><b>KM Player</b></p><p class="item-title open-title">Thanks you</p>'+
+							'	</div>'+
+							'	<div class="list virtual-list open-cam-list no-hairlines">'+
+							'	</div>'+
+							'</div>'+
+						'</div>',
+					  
+					  /*content: '<div class="popup">'+
+								  '<div class="block">'+
+									'<p>Popup created dynamically.</p>'+
+									'<p><a href="#" class="link popup-close">Close me</a></p>'+
+								  '</div>'+
+								'</div>',*/
+					  // Events
+					  on: {
+						open: function (popup) {
+						  console.log('Popup open');
+						  
+						  App.methods.setInStorage({name: 'downloadPlayer', data: '1'});	
+						},
+						opened: function (popup) {
+						  console.log('Popup opened');
+						},
+					  }
+					});
+					
+					 dynamicPopup.open();
+			 
+				}
 			//App.dialog.alert('Please ');
             // console.log('App initialized');
         },
@@ -147,6 +163,12 @@ var App = new Framework7({
             var str = '';
             if (name) {
                 switch (name){
+                    case 'downloadPlayer':
+                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.DOWNLOADPLAYER");
+                        if(str) {
+                            ret = JSON.parse(str);
+                        }
+                    break; 
                     case 'settingSurveillance':
                         str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGSURVEILLANCE");
                         if(str) {
@@ -256,6 +278,9 @@ var App = new Framework7({
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
                 switch (params.name){
+                    case 'downloadPlayer':
+                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.DOWNLOADPLAYER", JSON.stringify(params.data));
+                    break; 
                     case 'settingSurveillance':
                         localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGSURVEILLANCE", JSON.stringify(params.data));
                     break; 
