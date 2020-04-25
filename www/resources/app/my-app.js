@@ -50,6 +50,7 @@ var App = new Framework7({
     },
     on: {
         init: function() {
+			/*
 			// Create dynamic Popup
 			var currentHintState = App.methods.getFromStorage("downloadPlayer");
 			
@@ -67,12 +68,7 @@ var App = new Framework7({
 					  content: '<div class="page open-dashcam-page popup">'+
 							'<div class="navbar">'+
 							'	<div class="navbar-inner">'+
-							/*'		<div class="left">'+
-							'			<a class="panel-open" href="#">'+
-							'				<i class="f7-icons icon-menu"></i>'+
-							'			</a>'+
-							'		</div>'+
-							*/'		<div class="title">ATGA DC100</div>'+
+							'		<div class="title">ATGA DC100</div>'+
 							'	</div>'+
 							'</div>'+
 
@@ -95,12 +91,7 @@ var App = new Framework7({
 							'</div>'+
 						'</div>',
 					  
-					  /*content: '<div class="popup">'+
-								  '<div class="block">'+
-									'<p>Popup created dynamically.</p>'+
-									'<p><a href="#" class="link popup-close">Close me</a></p>'+
-								  '</div>'+
-								'</div>',*/
+				
 					  // Events
 					  on: {
 						open: function (popup) {
@@ -116,7 +107,7 @@ var App = new Framework7({
 					
 					 dynamicPopup.open();
 			 
-				}
+				}*/
 			//App.dialog.alert('Please ');
             // console.log('App initialized');
         },
@@ -336,178 +327,6 @@ var App = new Framework7({
                 App.dialog.alert('Wrong query parameters!');
             }
         },
-		getRecordPhoto: function(resolve, reject){ 		
-			return new Promise((resolve, reject) => {
-				
-				/*let url = 'http://192.168.1.1/ini.htm?cmd=alarmvideolist';
-				let params = {};
-				let headers = {};
-				let newArr = [];
-				cordova.plugin.http.get(url, 
-					params, headers, (response) => {
-						let array = JSON.parse(response.data);
-						
-						//array.length = 1;
-						console.log(array);
-						resolve(array);
-				}, function(response) {
-				  reject();
-				});	*/
-				$.ajax({
-					   type: "GET",
-				   dataType: "json", 
-					  jsonp: false,
-						url: 'http://192.168.1.1/ini.htm?cmd=alarmvideolist',
-					  async: true,           
-						crossDomain: true, 
-					  cache: false,
-					success: function (result) {    
-						//if (resolve) {
-						resolve(result);
-						//}
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error_photo');
-						//if (reject) {
-						reject();
-						//}  
-					}
-					
-				});	
-			});   			
-		},
-		getVRecordPhoto: function(resolve, reject){ 			
-			return new Promise((resolve, reject) => {
-				let url = 'http://192.168.1.1/DCIM/104snap/';
-				let params = {};
-				let headers = {};
-				let newArr = [];
-				cordova.plugin.http.get(url, 
-					params, headers, (response) => {
-						//App.dialog.alert('rec_good');
-						var arrParse = response.data.split('</a>');
-						arrParse.forEach(function(value, index) {
-							var valParse = value.split('>');						
-							if(index > 0 && index < arrParse.length - 1){
-								newArr.push(valParse[1]);					
-							}
-						});
-						
-						//console.log(newArr);					
-						resolve(newArr);
-				}, function(response) {
-						//App.dialog.alert(response.error);
-				  console.error(response.error);
-				  reject();
-				});	
-			});				
-		},
-		getRecordVideo: function (resolve, reject) {	
-			return new Promise((resolve, reject) => {
-				$.ajax({
-					   type: "GET",
-				   dataType: "json", 
-						/*dataFilter: function(raw, type) {
-						console.log(raw, type);
-						return JSON.parse(raw);
-						{ 
-					"filename": "20190523121307_180_720p.MP4", 
-					"duration": 180, 
-					"filesize": 94716138, 
-					"title": "20190523121307.JPG", 
-					"titlesize": 5817, 
-					"thumb": "20190523121307.TGZ", 
-					"thumbsize": 36302, 
-					"time": "20190523121307" 
-				 }
-					},*/
-					  jsonp: false,
-					  //jsonpCallback: "onJsonP",
-						url: 'http://192.168.1.1/ini.htm?cmd=commonvideolist',
-					  async: true,           
-						crossDomain: true, 
-					  cache: false,
-					success: function (result) {    
-						//console.log('res', result, 'ault');
-						//data = result;
-						resolve(result);
-					},
-					error: function(XMLHttpRequest, textStatus, errorThrown){ 
-					   console.log(textStatus,'error');
-					}
-				});		
-			});     
-		},		
-        sortParseDatePhoto: function(data){
-			let dataObj = data;
-			let dateArr = [];
-			for (let i = dataObj.length - 1; i >= 0; i--) {
-				let dataArr = [];
-				let timeArr = dataObj[i].split('.');
-				//console.log(timeArr);
-				let filename = timeArr[0];
-				let time = timeArr[0].substring(1, 15);
-								
-				let newDate = (time.substring(0, 8)).substring(0, 4) + '/' + (time.substring(0, 8)).substring(4, 6) + '/' + (time.substring(0, 8)).substring(6, 9);
-					
-				let index = dateArr.findIndex(item => item.title === newDate);
-				
-				if(index == -1){
-					dataArr.push(dataObj[i]);
-					dateArr.push({
-						title: (time.substring(0, 8)).substring(0, 4) + '/' + (time.substring(0, 8)).substring(4, 6) + '/' + (time.substring(0, 8)).substring(6, 9),
-						data: dataArr
-					});
-				}else{
-					dateArr[index].data.push(dataObj[i]);
-				}
-			}
-			
-			
-			return dateArr;
-		},
-        sortDatePhoto: function(data){
-			let dataObj = data;
-			let dateArr = [];
-			
-			// info array push
-			for (let i = 0; i < dataObj.length; i++) {
-				let dataArr = [];
-				
-				let newDate = (dataObj[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj[i].time.substring(0, 8)).substring(6, 9);
-					
-				let index = dateArr.findIndex(item => item.title === newDate);
-				
-				if(index == -1){
-					dataArr.push(dataObj[i]);
-					dateArr.push({
-						title: (dataObj[i].time.substring(0, 8)).substring(0, 4) + '/' + (dataObj[i].time.substring(0, 8)).substring(4, 6) + '/' + (dataObj[i].time.substring(0, 8)).substring(6, 9),
-						data: dataArr
-					});
-				}else{
-					dateArr[index].data.push(dataObj[i]);
-				}
-			}
-			
-			return dateArr;
-		},		
-		openPlayer: function(url){
-			VideoPlayer.play(url);			
-		},
-		downloadFiles: function(arr = []){
-			if(arr.length){					
-				arr.forEach(function(value, index) {
-					if(value.url.length > 0 && value.dir.length > 0 && value.name.length > 0){
-						$$('.view-main .progressbar-infinite').removeClass('display-none');
-						DownloadFile(value.url, value.dir, value.name);
-					}else{						
-						App.dialog.alert('Can not download this file');
-					}
-				});
-			}else{
-				App.dialog.alert('Please choose files');
-			}				
-		},
 		openCamList: function(){
 			loadListPage();		
 		},
@@ -527,28 +346,83 @@ var App = new Framework7({
 		  str = str.toString();
 		  return str.length < max ? pad("0" + str, max) : str;
 		},
-		changePassword: function (data) {	
-			//return new Promise((resolve, reject) => {
-				let url = 'http://192.168.1.1/ini.htm?cmd=setwifipasswd&passwd=' + data;				
-				let params = {};
-				let headers = {};
-				
-				cordova.plugin.http.get(url, 
-					params, headers, (response) => {
-						App.dialog.alert('Set successfully. Please power cycle the DC100 before it takes effect.');
-						console.log(response);
-				}, function(response) {
-						App.dialog.alert('Can not change password');
-						console.error(response.error);
-				});	
-				 
-		}, 
 	}
 });
 
 
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
+
+$$('body').on('click', '.scanBarCode', function() {
+    let input = $$(this).siblings('input');
+
+    let permissions = cordova.plugins.permissions;
+    if (!permissions) {
+        App.alert('plugin not supported')
+    } else {
+        permissions.hasPermission(permissions.CAMERA, function(status) {
+            // App.alert(JSON.stringify(status))
+
+            if (status.hasPermission) {
+                openBarCodeReader(input);
+            } else {
+                permissions.requestPermission(permissions.CAMERA, success, error);
+
+                function error() {
+                    App.alert('Camera permission is not turned on');
+                }
+
+                function success(status1) {
+                    openBarCodeReader(input);
+                    if (!status1.hasPermission) error();
+                }
+            }
+        });
+
+    }
+});
+
+
+function openBarCodeReader(input) {
+    //console.log(input);
+    if (window.device && cordova.plugins && cordova.plugins.barcodeScanner) {
+        cordova.plugins.barcodeScanner.scan(
+            function(result) {
+                /*alert("We got a barcode\n" +
+                      "Result: " + result.text + "\n" +
+                      "Format: " + result.format + "\n" +
+                      "Cancelled: " + result.cancelled);*/
+                if (result && result.text) {
+                    input.val(result.text);					
+					if(input.attr('name') == 'searchInput') {
+						submitSearchForm();
+					}
+                    input.change(); // fix to trigger onchange / oninput event listener
+                }
+
+            },
+            function(error) {
+                alert("Scanning failed: " + error);
+            }, {
+                //preferFrontCamera : true, // iOS and Android
+                showFlipCameraButton: true, // iOS and Android
+                showTorchButton: true, // iOS and Android
+                torchOn: true, // Android, launch with the torch switched on (if available)
+                //saveHistory: true, // Android, save scan history (default false)
+                prompt: "Place a barcode inside the scan area", // Android
+                resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                //formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                //orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+                //disableAnimations : true, // iOS
+                //disableSuccessBeep: false // iOS and Android
+            }
+        );
+    } else {
+        App.alert('Your device does not support this function');
+    }
+}
+
+
 function encodeHex(str){
     str = encodeURIComponent(str).split('%').join('');
     return str.toLowerCase();
@@ -572,80 +446,6 @@ var mainView = App.views.create('.view-main');
 
 /*start download file*/
 
-//First step check parameters mismatch and checking network connection if available call    download function
-function DownloadFile(URL, Folder_Name, File_Name) {
-	//Parameters mismatch check
-	if (URL == null && Folder_Name == null && File_Name == null) {
-		return;
-	}
-	else {
-		//checking Internet connection availablity
-		var networkState = navigator.connection.type;
-		if (networkState == Connection.NONE) {
-			return;
-		} else {
-			download(URL, Folder_Name, File_Name); //If available download function call
-		}
-	}
-}
-
-
-function filetransfer(download_link, fp) {	
-	var fileTransfer = new FileTransfer();
-	// File download function with URL and local path
-	fileTransfer.download(download_link, fp,
-		function (entry) {
-			//alert("download complete: " + entry.fullPath);
-			window.plugins.scanmedia.scanFile(fp, function (msg) {				
-				$$('.view-main .progressbar-infinite').addClass('display-none');
-				App.dialog.alert("File uploaded");
-			}, function (err) {
-				$$('.view-main .progressbar-infinite').addClass('display-none');
-				App.dialog.alert("File not uploaded");
-			})
-		},
-		function (error) {		
-			App.preloader.hide(); 
-			App.dialog.alert('Please try once more');
-		}
-    );
-}
-
-function download(URL, Folder_Name, File_Name) {
-//step to request a file system 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, fileSystemSuccess, fileSystemFail);
-
-	function fileSystemSuccess(fileSystem) {
-		var download_link = encodeURI(URL);
-		ext = download_link.substr(download_link.lastIndexOf('.') + 1); //Get extension of URL
-
-		var directoryEntry = fileSystem.root; // to get root path of directory
-		directoryEntry.getDirectory(Folder_Name, { create: true, exclusive: false }, onDirectorySuccess, onDirectoryFail); // creating folder in sdcard
-		var rootdir = fileSystem.root;
-		var fp = rootdir.toURL(); 
-		//var fp = cordova.file.dataDirectory;
-		//App.dialog.alert(rootdir + '..' + rootdir.toURL());// Returns Fulpath of local directory
-		//var fp = "file:///storage/sdcard0'";
-		//fp = 'file:///data/user/0/com.sinopacific.dashcamtest/files/' + Folder_Name + "/" + File_Name + "." + ext;
-		fp = fp + "/" + Folder_Name + "/" + File_Name;// + "." + ext; // fullpath and name of the file which we want to give
-		// download function call
-		filetransfer(download_link, fp);
-	}
-
-	function onDirectorySuccess(parent) {
-		// Directory created successfuly
-	}
-
-	function onDirectoryFail(error) {
-		//Error while creating directory
-		App.dialog.alert("Unable to create new directory: " + error.code);
-	}
-
-	function fileSystemFail(evt) {
-		//Unable to access file system
-		App.dialog.alert(evt.target.error.code);
-	}
-}
 
 /*end download file*/
 
@@ -669,54 +469,7 @@ function menuList() {
 						App.panel.close($$('.panel-left'), true);
 					}
 					break;
-				case 'gallery':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "gallery")) {
-						loadGalleryPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'videos':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "videos")) {
-						loadVideosPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'info':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "info")) {
-						loadInfoPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'list':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "list")) {
-						loadListPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'settings':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "settings")) {
-						loadSettingsPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'faq':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "faq")) {
-						loadFAQPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'help':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "help")) {
-						loadHintsPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
-				case 'swiper':
-					if (typeof(activePage) == 'undefined' || (activePage && activePage.name != "swiper")) {
-						loadSwiperPage();
-						App.panel.close($$('.panel-left'), true);
-					}
-					break;
+				
 				default:
 					console.log('No Found list menu');
 			}

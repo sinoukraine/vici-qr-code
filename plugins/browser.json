@@ -48,6 +48,9 @@
         },
         "cordova-plugin-file-opener2": {
             "PACKAGE_NAME": "com.atga.dashcam"
+        },
+        "kaiquecruz-phonegap-plugin-barcodescanner-custom": {
+            "PACKAGE_NAME": "com.vici.qr-code"
         }
     },
     "dependent_plugins": {
