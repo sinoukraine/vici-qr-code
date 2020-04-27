@@ -353,8 +353,8 @@ var App = new Framework7({
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
 
-$$('body').on('click', '.scanBarCode', function() {
-    let input = $$(this).siblings('input');
+$$('body').on('click', '#scanBarCode', function() {
+    //let input = $$(this).siblings('input');
 
     let permissions = cordova.plugins.permissions;
     if (!permissions) {
@@ -364,7 +364,8 @@ $$('body').on('click', '.scanBarCode', function() {
             // App.alert(JSON.stringify(status))
 
             if (status.hasPermission) {
-                openBarCodeReader(input);
+                //openBarCodeReader(input);
+				openBarCodeReader();
             } else {
                 permissions.requestPermission(permissions.CAMERA, success, error);
 
@@ -373,7 +374,8 @@ $$('body').on('click', '.scanBarCode', function() {
                 }
 
                 function success(status1) {
-                    openBarCodeReader(input);
+                    //openBarCodeReader(input);
+					openBarCodeReader();
                     if (!status1.hasPermission) error();
                 }
             }
@@ -383,7 +385,7 @@ $$('body').on('click', '.scanBarCode', function() {
 });
 
 
-function openBarCodeReader(input) {
+function openBarCodeReader() {
     //console.log(input);
     if (window.device && cordova.plugins && cordova.plugins.barcodeScanner) {
         cordova.plugins.barcodeScanner.scan(
@@ -392,13 +394,13 @@ function openBarCodeReader(input) {
                       "Result: " + result.text + "\n" +
                       "Format: " + result.format + "\n" +
                       "Cancelled: " + result.cancelled);*/
-                if (result && result.text) {
+                /*if (result && result.text) {
                     input.val(result.text);					
 					if(input.attr('name') == 'searchInput') {
 						submitSearchForm();
 					}
                     input.change(); // fix to trigger onchange / oninput event listener
-                }
+                }*/
 
             },
             function(error) {

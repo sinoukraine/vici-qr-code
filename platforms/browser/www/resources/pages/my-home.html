@@ -2,22 +2,51 @@
 	<div class="page home-page cam" data-name="my-home">
                 <div class="navbar" style="position:relative; z-index: 10000">
                     <div class="navbar-inner">
-                        <div class="left">
+                        <!--<div class="left">
                             <a class="panel-open" href="#">
                                 <i class="f7-icons icon-menu"></i>
                             </a>
-                        </div>
-                        <div class="center title">Home</div>
+                        </div>-->
+                        <div class="title center title-center">QR Code Scanner</div>
                     </div>
                 </div>
-
-                <div class="page-content">
-                    <div class="inner-content">
+				
+                <div class="toolbar toolbar-bottom">
+                    <div class="toolbar-inner">
+                        <a class="btn-cs uppercase" href="#" id='scanBarCode'>
+                            QR Code Scan
+                        </a>
+                    </div>
+                </div>
+				
+				<form class="searchbar custom-searchbar formSearchSim">
+					<div class="searchbar-inner">
+						<div class="searchbar-input-wrap">
+							<input type="search" name="searchInput" class="search-sims" placeholder="Search" title="Search">
+							<!--<i class="searchbar-icon"></i>-->
+							<span class="input-clear-button"></span>
+							<button type="submit" class="button search-sims-btn"><i class="material-icons color-grey">search</i></button>
+						</div>
+					</div>
+				</form>
+				
+                <div class="page-content pt-5">
+					<div class="block searchbar-hide-on-search text-center">
+						To scan the QR Code, </br>click the QR CODE SCAN button
+					</div>
+					
+					<div class="border-line-bottom">
+					</div>
+					
+					<div class="list home-list virtual-list media-list no-hairlines no-chevron no-margin-top searchbar-found simList">
+					
+					</div>
+                    <!--<div class="inner-content">
 						<div class="item-input">
                             <input type="text" placeholder="1" name="vinNumber" value="1" data-prev-val="1" maxlength="25" class="">
                             <i class="f7-icons icon-menu scanBarCode"></i>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 </template>
