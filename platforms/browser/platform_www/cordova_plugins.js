@@ -392,6 +392,21 @@ module.exports = [
         "id": "kaiquecruz-phonegap-plugin-barcodescanner-custom.BarcodeScannerProxy",
         "pluginId": "kaiquecruz-phonegap-plugin-barcodescanner-custom",
         "runs": true
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+        "id": "cordova-plugin-inappbrowser.inappbrowser",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "clobbers": [
+            "cordova.InAppBrowser.open",
+            "window.open"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-inappbrowser/src/browser/InAppBrowserProxy.js",
+        "id": "cordova-plugin-inappbrowser.InAppBrowserProxy",
+        "pluginId": "cordova-plugin-inappbrowser",
+        "runs": true
     }
 ];
 module.exports.metadata = 
@@ -413,7 +428,8 @@ module.exports.metadata =
     "es6-promise-plugin": "4.2.2",
     "cordova-plugin-rtsp-vlc": "3.0.5",
     "cordova-plugin-file-opener2": "2.2.1",
-    "kaiquecruz-phonegap-plugin-barcodescanner-custom": "6.0.5"
+    "kaiquecruz-phonegap-plugin-barcodescanner-custom": "6.0.5",
+    "cordova-plugin-inappbrowser": "3.0.0"
 }
 // BOTTOM OF METADATA
 });

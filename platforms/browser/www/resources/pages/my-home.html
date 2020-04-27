@@ -19,10 +19,10 @@
                     </div>
                 </div>
 				
-				<form class="searchbar custom-searchbar formSearchSim">
+				<form class="searchbar custom-searchbar formSearchTest">
 					<div class="searchbar-inner">
 						<div class="searchbar-input-wrap">
-							<input type="search" name="searchInput" class="search-sims" placeholder="Search" title="Search">
+							<input type="search" name="searchInput" class="search-test" placeholder="Search" title="Search">
 							<!--<i class="searchbar-icon"></i>-->
 							<span class="input-clear-button"></span>
 							<button type="submit" class="button search-sims-btn"><i class="material-icons color-grey">search</i></button>
@@ -31,15 +31,15 @@
 				</form>
 				
                 <div class="page-content pt-5">
-					<div class="block searchbar-hide-on-search text-center">
+					<div class="block searchbar-hide-on-search text-center color-black">
 						To scan the QR Code, </br>click the QR CODE SCAN button
 					</div>
 					
 					<div class="border-line-bottom">
 					</div>
 					
-					<div class="list home-list virtual-list media-list no-hairlines no-chevron no-margin-top searchbar-found simList">
-					
+					<div class="list home-list virtual-list media-list no-hairlines no-chevron no-margin-top searchbar-found testList">
+						<ul></ul>
 					</div>
                     <!--<div class="inner-content">
 						<div class="item-input">
@@ -56,22 +56,198 @@
     return { 
         data: function () {
             var self = this;
-            var ret = {};            
+            var ret = {
+				virtualTestList: {},
+				filteredList: []
+			};            
 
             return ret;
         },
-		methods: {			
-			openLive: function(){		
-				var self = this;  
+		methods: {		
+			submitSearchForm: function () { 
+                let self = this;
+				var input = $$('.formSearchTest input[name="searchInput"');
+
+				self.filteredList = self.$app.methods.getFromStorage("testList");
+				$$('.testList ul').html('');
+				input.blur();
+					
+				var searchField = input.val().trim();	
 				
+				var newFilteredList = self.filteredList.filter(function(obj) {
+				  var flag = false;
+				  Object.values(obj).forEach((val) => {
+					if(String(val).indexOf(searchField) > -1) {
+					  flag = true;
+					  return;
+					}    
+				  });
+				  if(flag) return obj;
+				});
+					
+				self.filteredList = newFilteredList;
+				self.getTestList();
+			},		
+			openBarCodeReader: function() {	
+				var self = this; 
+				
+				var today = new Date();
+				var year = today.getFullYear();
+				var month = today.getMonth() + 1;
+				month = month < 10 ? '0' + month : month;
+				var day = today.getDate();
+				var h = today.getHours();
+				var m = today.getMinutes();
+				var s = today.getSeconds();
+
+				var todayStr = day + '.' + month + '.' + year + ' ' + h + ':' + m + ':' + s;
+				
+				if (window.device && cordova.plugins && cordova.plugins.barcodeScanner) {
+					cordova.plugins.barcodeScanner.scan(
+						function(result) {
+							//let input = $$('body').find('.search-test');
+							//input.val(result.text);	
+							
+							let testList = App.methods.getFromStorage("testList");	
+							testList.push({'datetime': todayStr, 'link': result.text});
+							
+							App.methods.setInStorage({name: 'testList', data: testList});	
+							
+							var listEl = self.$el.find('.testList');
+							App.virtualList.destroy(listEl)
+							self.getTestList();
+							
+							/*alert("We got a barcode\n" +
+								  "Result: " + result.text + "\n" +
+								  "Format: " + result.format + "\n" +
+								  "Cancelled: " + result.cancelled);*/
+							/*if (result && result.text) {
+								input.val(result.text);					
+								if(input.attr('name') == 'searchInput') {
+									submitSearchForm();
+								}
+								input.change(); // fix to trigger onchange / oninput event listener
+							}*/
+
+						},
+						function(error) {
+							alert("Scanning failed: " + error);
+						}, {
+							//preferFrontCamera : true, // iOS and Android
+							showFlipCameraButton: true, // iOS and Android
+							showTorchButton: true, // iOS and Android
+							torchOn: true, // Android, launch with the torch switched on (if available)
+							//saveHistory: true, // Android, save scan history (default false)
+							prompt: "Place a barcode inside the scan area", // Android
+							resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+							//formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+							//orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+							//disableAnimations : true, // iOS
+							//disableSuccessBeep: false // iOS and Android
+						}
+					);
+				} else {
+					App.alert('Your device does not support this function');
+				}
 			},
+			getTestList: function(){		
+				var self = this; 
+				
+                var testList = self.filteredList;
+				testList.reverse();
+				
+				var listEl = self.$el.find('.testList'); 
+				
+				
+				var virtualTestList = App.virtualList.create({
+                    el: listEl, 
+                    setListHeight: false,
+                    // search item by item
+                    searchAll: function (query, items) {
+						let found = [];
+						for (let i = 0; i < items.length; i++) {
+							if (items[i].title.toLowerCase().indexOf(query.toLowerCase()) >= 0 || query.trim() === '') found.push(i);
+						}
+						return found;
+                    },
+					//List of array items
+					items: testList,
+					height: function(item) {
+						return 72.67; //display the image with 50px height
+					},
+					// Display the each item using Template7 template parameter
+					renderItem: function(item, index) {
+						let ret = '';
+						let param = {};
+						
+						param.id = '1785643434'//encodeURIComponent(self.$route.query.imei);
+						let url = URL_TEST + '?' + self.$app.utils.serializeObject(param);
+						
+						ret += '<li class="item-content" >';
+						ret += '<a  href="' + url + '" class="link openTestCard">';
+						ret += '<div class="item-inner">';
+						ret += '<div class="item-title-row imei-block">';
+						ret += '<div class="item-subtitle color-grey">' + item.datetime + '</div>';		
+						ret += '<div class="item-after"><i class="item-link f7-icons icon-right openTest"></i></div>';
+						ret += '</div>';
+						ret += '<div class="item-title">' + item.link + '</div>';				
+						ret += '</div>';
+						ret += '</a>';
+						ret += '</li>';
+
+						return ret;
+					},
+				});
+				
+				//self.showTestList();
+			}
 		},
         on: {
             pageInit: function (e, page) {  
 				var self = this;    
 				
+				self.filteredList = self.$app.methods.getFromStorage("testList");
+				self.getTestList();				
 				
-							
+				$$('body').on('click', '#scanBarCode', function() {
+				
+					let permissions = cordova.plugins.permissions;
+					if (!permissions) {
+						App.alert('plugin not supported')
+					} else {
+						permissions.hasPermission(permissions.CAMERA, function(status) {
+
+							if (status.hasPermission) {
+								self.openBarCodeReader();
+							} else {
+								permissions.requestPermission(permissions.CAMERA, success, error);
+
+								function error() {
+									App.alert('Camera permission is not turned on');
+								}
+
+								function success(status1) {
+									self.openBarCodeReader();
+									if (!status1.hasPermission) error();
+								}
+							}
+						});
+
+					}
+				});
+				
+				$$('body').on('submit', '.formSearchTest', function(e) {
+					e.preventDefault();
+					self.submitSearchForm();
+					return false;
+				});
+				$$('body').on('click', '.searchTest', function() {
+					self.submitSearchForm();
+				});
+				
+				$$('body').on('click', '.openTestCard', function() {
+					var ref = cordova.InAppBrowser.open(URL_TEST, '_blank', 'location=yes');
+				});
 			}
 		}
     };

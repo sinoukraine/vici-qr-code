@@ -51,6 +51,9 @@
         },
         "kaiquecruz-phonegap-plugin-barcodescanner-custom": {
             "PACKAGE_NAME": "com.vici.qr-code"
+        },
+        "cordova-plugin-inappbrowser": {
+            "PACKAGE_NAME": "com.vici.qr-code"
         }
     },
     "dependent_plugins": {

@@ -74,7 +74,8 @@
     <plugin spec="https://github.com/alatvanas9/cordova-mediascanner-plugin" source="git"  />
     <plugin spec="https://github.com/tripflex/WifiWizard2#e38a734" source="git"  />
     <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />              <!--  working , landscape orientation --> 
-     <plugin name="kaiquecruz-phonegap-plugin-barcodescanner-custom" source="npm" />   
+     <plugin name="kaiquecruz-phonegap-plugin-barcodescanner-custom" source="npm" /> 
+    <plugin name="cordova-plugin-inappbrowser" source="npm" spec="3.0.0"  />  
 	
 	
 

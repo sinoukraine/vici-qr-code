@@ -15,8 +15,9 @@ const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
 const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
 const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
 
+
 //const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
-const URL_USERGUIDE = 'http://sinopacificukraine.com/app/DC100-user-guide.pdf';
+const URL_TEST = 'http://sinopacificukraine.com/vici/index.html';
 
 //var MapTrack = null;
 var PHOTOLIST = {};
@@ -50,66 +51,6 @@ var App = new Framework7({
     },
     on: {
         init: function() {
-			/*
-			// Create dynamic Popup
-			var currentHintState = App.methods.getFromStorage("downloadPlayer");
-			
-			App.methods.setInStorage({name: 'currentResolution', data: '1080p'});	
-			App.methods.setInStorage({name: 'settingSoundOn', data: 'on'});	
-			App.methods.setInStorage({name: 'settingVoiceAlarm', data: 'on'});	
-			App.methods.setInStorage({name: 'settingVoiceGesture', data: 'on'});	
-			App.methods.setInStorage({name: 'settingVoiceParking', data: 'on'});	
-			App.methods.setInStorage({name: 'settingSurveillance', data: 'off'});	
-			App.methods.setInStorage({name: 'currentSensitivity', data: 'medium'});	
-				
-				if(currentHintState != '1'){
-					
-					var dynamicPopup = App.popup.create({
-					  content: '<div class="page open-dashcam-page popup">'+
-							'<div class="navbar">'+
-							'	<div class="navbar-inner">'+
-							'		<div class="title">ATGA DC100</div>'+
-							'	</div>'+
-							'</div>'+
-
-							'<div class="toolbar toolbar-bottom">'+
-							'	<div class="toolbar-inner item-title open-title">'+
-							'		<a class="link popup-close " href="#">'+
-							'			Ok, I understand'+
-							'		</a>'+
-							'	</div>'+
-							'</div>'+
-
-							'<div class="page-content">'+
-							'	<div class="block">'+
-							'		<p class="item-title open-title">'+
-							'			Please download either of the media players below to live view and view historical images and video'+
-							'		</p><p class="item-title open-title"><img class="main-bg" src="./resources/images/mx.png" width="50" alt="main"></p><p class="item-title open-title"><b>MX Player</b></p><p class="item-title open-title"><img class="main-bg" src="./resources/images/kmp.png" width="50" alt="main"></p><p class="item-title open-title"><b>KM Player</b></p><p class="item-title open-title">Thanks you</p>'+
-							'	</div>'+
-							'	<div class="list virtual-list open-cam-list no-hairlines">'+
-							'	</div>'+
-							'</div>'+
-						'</div>',
-					  
-				
-					  // Events
-					  on: {
-						open: function (popup) {
-						  console.log('Popup open');
-						  
-						  App.methods.setInStorage({name: 'downloadPlayer', data: '1'});	
-						},
-						opened: function (popup) {
-						  console.log('Popup opened');
-						},
-					  }
-					});
-					
-					 dynamicPopup.open();
-			 
-				}*/
-			//App.dialog.alert('Please ');
-            // console.log('App initialized');
         },
         pageInit: function() {
             // console.log('Page initialized');
@@ -154,108 +95,12 @@ var App = new Framework7({
             var str = '';
             if (name) {
                 switch (name){
-                    case 'downloadPlayer':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.DOWNLOADPLAYER");
+                    case 'testList':
+                        str = localStorage.getItem("COM.VICI.TESTLIST");
                         if(str) {
                             ret = JSON.parse(str);
                         }
                     break; 
-                    case 'settingSurveillance':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGSURVEILLANCE");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'settingSoundOn':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGSOUNDON");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'settingVoiceParking':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEPARKING");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'settingVoiceAlarm':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'settingVoiceGesture':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'currentSensitivity':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTSENSITIVITY");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'currentGestureInduction':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTGESTUREINDUCTION");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'currentLanguage':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'currentResolution':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTRESOLUTION");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'currentCamera':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.CURRENTCAMERA");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-					case 'deletedCameras':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.DELETEDCAMERAS");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break; 
-                    case 'alarmPhotoList':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.ALARMPHOTOLIST");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break;  
-                    case 'gesturePhotoList':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.GESTUREPHOTOLIST");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break;  
-                    case 'parkingPhotoList':
-                        str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.PARKINGPHOTOLIST");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-                    break;   
-					case 'videoList':
-						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-					break;  
-					case 'normalList':
-						str = localStorage.getItem("COM.QUIKTRAK.DASHCAM.NORMALLIST");
-                        if(str) {
-                            ret = JSON.parse(str);
-                        }
-					break;  
 					default:
                         App.dialog.alert('There is no item saved with such name - '+name);
                 }
@@ -269,57 +114,9 @@ var App = new Framework7({
             let self = this;
             if (typeof(params) == 'object' && params.name && params.data) {
                 switch (params.name){
-                    case 'downloadPlayer':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.DOWNLOADPLAYER", JSON.stringify(params.data));
-                    break; 
-                    case 'settingSurveillance':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGSURVEILLANCE", JSON.stringify(params.data));
-                    break; 
-                    case 'settingSoundOn':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGSOUNDON", JSON.stringify(params.data));
-                    break; 
-                    case 'settingVoiceParking':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEPARKING", JSON.stringify(params.data));
-                    break; 
-                    case 'settingVoiceAlarm':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEALARM", JSON.stringify(params.data));
-                    break; 
-                    case 'settingVoiceGesture':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.SETTINGVOICEGESTURE", JSON.stringify(params.data));
-                    break; 
-                    case 'currentGestureInduction':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTGESTUREINDUCTION", JSON.stringify(params.data));
-                    break; 
-                    case 'currentLanguage':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTLANGUAGE", JSON.stringify(params.data));
-                    break; 
-                    case 'currentResolution':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTRESOLUTION", JSON.stringify(params.data));
-                    break; 
-                    case 'currentSensitivity':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTSENSITIVITY", JSON.stringify(params.data));
-                    break; 
-                    case 'currentCamera':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.CURRENTCAMERA", JSON.stringify(params.data));
-                    break; 
-					case 'deletedCameras':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.DELETEDCAMERAS", JSON.stringify(params.data));
-                    break;     
-                    case 'normalList':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.NORMALLIST", JSON.stringify(params.data));
-                    break; 
-                    case 'alarmPhotoList':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.ALARMPHOTOLIST", JSON.stringify(params.data));
-                    break;  
-                    case 'gesturePhotoList':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.GESTUREPHOTOLIST", JSON.stringify(params.data));
-                    break; 
-                    case 'parkingPhotoList':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.PARKINGPHOTOLIST", JSON.stringify(params.data));
-                    break;      
-                    case 'videoList':
-                        localStorage.setItem("COM.QUIKTRAK.DASHCAM.VIDEOLIST", JSON.stringify(params.data));
-                    break;                      
+                    case 'testList':
+                        localStorage.setItem("COM.VICI.TESTLIST", JSON.stringify(params.data));
+                    break;            
                     default:
                         App.dialog.alert('There is no function associated with this name - '+params.name);
                 }   
@@ -352,79 +149,6 @@ var App = new Framework7({
 
 document.addEventListener("deviceready", onDeviceReady, false ); 
  
-
-$$('body').on('click', '#scanBarCode', function() {
-    //let input = $$(this).siblings('input');
-
-    let permissions = cordova.plugins.permissions;
-    if (!permissions) {
-        App.alert('plugin not supported')
-    } else {
-        permissions.hasPermission(permissions.CAMERA, function(status) {
-            // App.alert(JSON.stringify(status))
-
-            if (status.hasPermission) {
-                //openBarCodeReader(input);
-				openBarCodeReader();
-            } else {
-                permissions.requestPermission(permissions.CAMERA, success, error);
-
-                function error() {
-                    App.alert('Camera permission is not turned on');
-                }
-
-                function success(status1) {
-                    //openBarCodeReader(input);
-					openBarCodeReader();
-                    if (!status1.hasPermission) error();
-                }
-            }
-        });
-
-    }
-});
-
-
-function openBarCodeReader() {
-    //console.log(input);
-    if (window.device && cordova.plugins && cordova.plugins.barcodeScanner) {
-        cordova.plugins.barcodeScanner.scan(
-            function(result) {
-                /*alert("We got a barcode\n" +
-                      "Result: " + result.text + "\n" +
-                      "Format: " + result.format + "\n" +
-                      "Cancelled: " + result.cancelled);*/
-                /*if (result && result.text) {
-                    input.val(result.text);					
-					if(input.attr('name') == 'searchInput') {
-						submitSearchForm();
-					}
-                    input.change(); // fix to trigger onchange / oninput event listener
-                }*/
-
-            },
-            function(error) {
-                alert("Scanning failed: " + error);
-            }, {
-                //preferFrontCamera : true, // iOS and Android
-                showFlipCameraButton: true, // iOS and Android
-                showTorchButton: true, // iOS and Android
-                torchOn: true, // Android, launch with the torch switched on (if available)
-                //saveHistory: true, // Android, save scan history (default false)
-                prompt: "Place a barcode inside the scan area", // Android
-                resultDisplayDuration: 0, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
-                //formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
-                //orientation : "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
-                //disableAnimations : true, // iOS
-                //disableSuccessBeep: false // iOS and Android
-            }
-        );
-    } else {
-        App.alert('Your device does not support this function');
-    }
-}
-
-
 function encodeHex(str){
     str = encodeURIComponent(str).split('%').join('');
     return str.toLowerCase();
