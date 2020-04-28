@@ -58,7 +58,9 @@
             var self = this;
             var ret = {
 				virtualTestList: {},
-				filteredList: []
+				filteredList: [],
+				lat: 0,
+				lng: 0
 			};            
 
             return ret;
@@ -110,7 +112,7 @@
 							if(result.text.length > 0){
 								console.log(result.text.length);
 								let testList = App.methods.getFromStorage("testList");	
-								testList.push({'datetime': todayStr, 'link': result.text});
+								testList.push({'datetime': todayStr, 'uid': result.text, 'lng': self.lng, 'lat': self.lat});
 								
 								App.methods.setInStorage({name: 'testList', data: testList});	
 								
@@ -184,17 +186,16 @@
 						let ret = '';
 						let param = {};
 						
-						param.id = '1785643434'//encodeURIComponent(self.$route.query.imei);
-						let url = URL_TEST + '?' + self.$app.utils.serializeObject(param);
+						//let url = URL_TEST + '?id=' + item.uid;
 						
 						ret += '<li class="item-content" >';
-						ret += '<a  href="' + url + '" class="link openTestCard">';
+						ret += '<a  href="/unit-card/?id=' + item.uid + '" class="link openTestCard">';
 						ret += '<div class="item-inner">';
 						ret += '<div class="item-title-row imei-block">';
 						ret += '<div class="item-subtitle color-grey">' + item.datetime + '</div>';		
 						ret += '<div class="item-after"><i class="item-link f7-icons icon-right openTest"></i></div>';
 						ret += '</div>';
-						ret += '<div class="item-title">' + item.link + '</div>';				
+						ret += '<div class="item-title">UID ' + item.uid + '</div>';				
 						ret += '</div>';
 						ret += '</a>';
 						ret += '</li>';
@@ -254,21 +255,28 @@
 				});
 				
 				var onSuccess = function(position) {
-					App.dialog.alert('Latitude: '          + position.coords.latitude          + '\n' +
+					
+					self.$setState({
+                        lat: position.coords.latitude,
+						lng: position.coords.longitude
+                    });		
+									
+					
+					/*App.dialog.alert('Latitude: '          + position.coords.latitude          + '\n' +
 						  'Longitude: '         + position.coords.longitude         + '\n' +
 						  'Altitude: '          + position.coords.altitude          + '\n' +
 						  'Accuracy: '          + position.coords.accuracy          + '\n' +
 						  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
 						  'Heading: '           + position.coords.heading           + '\n' +
 						  'Speed: '             + position.coords.speed             + '\n' +
-						  'Timestamp: '         + position.timestamp                + '\n');
+						  'Timestamp: '         + position.timestamp                + '\n');*/
 				};
 
 				// onError Callback receives a PositionError object
 				//
 				function onError(error) {
-					App.dialog.alert('code: '    + error.code    + '\n' +
-						  'message: ' + error.message + '\n');
+					/*App.dialog.alert('code: '    + error.code    + '\n' +
+						  'message: ' + error.message + '\n');*/
 				}
 
 				navigator.geolocation.getCurrentPosition(onSuccess, onError);

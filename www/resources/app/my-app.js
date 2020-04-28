@@ -8,13 +8,7 @@ const port = 10080;
 var connection_id;
 
 // API ADRESS URL
-const LOCAL_ADRESS = 'http://192.168.1.1/';
-const API_COMMON_VIDEO_LIST = LOCAL_ADRESS + 'ini.htm?cmd=commonvideolist';
-const API_ALARM_VIDEO_LIST = LOCAL_ADRESS + 'ini.htm?cmd=alarmvideolist';
-const API_GET_GPS_POSITION = LOCAL_ADRESS + 'ini.htm?cmd=gpsdatalist';
-const API_LIVE_STREAM = LOCAL_ADRESS + 'livesubstream.h264';
-const API_DOWNLOAD = LOCAL_ADRESS + 'DCIM/';
-
+const API_GET_UNIT_INFO = 'https://vici19.quiktrak.co/Scan/Result';
 
 //const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
 const URL_TEST = 'http://sinopacificukraine.com/vici/index.html';

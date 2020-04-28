@@ -123,7 +123,7 @@
     -webkit-box-shadow: 0px 0px 20px -9px rgba(111, 134, 214, 1);
     -moz-box-shadow: 0px 0px 20px -9px rgba(111, 134, 214, 1);
     box-shadow: 0px 0px 20px -9px rgba(111, 134, 214, 1);
-    font-family: 'product_sansbold';
+    /*font-family: 'product_sansbold';*/
 }
 
 .navbar {
@@ -350,7 +350,7 @@ label.item-checkbox input[type=checkbox]:checked~.icon-checkbox {
 #app .navbar i {
     color: #000000;
     font-size: 32px;
-    margin-top: 10px;
+    margin-top: 0px;
 }
 
 #app .navbar i.icon-left {
@@ -1058,7 +1058,7 @@ label.check-item input[type=checkbox]:checked~.check-item {
 }
 
 .color-black{
-	color: #000000;
+	color: #000000 !important;
 }
 
 .openTest:before {
@@ -1075,10 +1075,14 @@ label.check-item input[type=checkbox]:checked~.check-item {
 	padding-left: 15px;
 }
 
-.page-content{
+.home-page .page-content{
 	height: calc(100vh - 80px);
 }
 
 .toolbar-bottom{
 	background-color: #ffffff;
+}
+
+.info-block{
+	margin-top: 3em; 
 }
