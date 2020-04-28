@@ -1086,3 +1086,9 @@ label.check-item input[type=checkbox]:checked~.check-item {
 .info-block{
 	margin-top: 3em; 
 }
+
+.list-view .item-title {
+    overflow: visible;
+    text-overflow: initial;
+    white-space: normal;
+}

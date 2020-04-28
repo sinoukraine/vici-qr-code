@@ -1,6 +1,7 @@
 var $$ = Dom7;
 window.COM_TIMEFORMAT = 'YYYY-MM-DD HH:mm:ss';
 window.COM_TIMEFORMAT2 = 'YYYY-MM-DDTHH:mm:ss';
+window.COM_TIMEFORMAT5 = 'DD-MM-YYYY';
 
 var s;
 const ip = '192.168.1.1';
@@ -11,7 +12,7 @@ var connection_id;
 const API_GET_UNIT_INFO = 'https://vici19.quiktrak.co/Scan/Result';
 
 //const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
-const URL_TEST = 'http://sinopacificukraine.com/vici/index.html';
+const URL_TEST = 'https://sinopacificukraine.com/vici/index.html';
 
 //var MapTrack = null;
 var PHOTOLIST = {};
@@ -30,7 +31,7 @@ var App = new Framework7({
     tapHold: false, //enable tap hold events
 	theme: 'auto',
     root: '#app',
-    name: 'DashCam',
+    name: 'Vici QR Code',
     id: 'com.quiktrak.dashcam',
 	  touch: {
 		tapHold: true //enable tap hold events
@@ -42,6 +43,9 @@ var App = new Framework7({
     routes: routes,
 	// App root data
     data: function () {
+        return {           
+            UTCOFFSET: moment().utcOffset(),
+        };
     },
     on: {
         init: function() {
