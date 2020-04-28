@@ -107,16 +107,20 @@
 						function(result) {
 							//let input = $$('body').find('.search-test');
 							//input.val(result.text);	
-							
-							let testList = App.methods.getFromStorage("testList");	
-							testList.push({'datetime': todayStr, 'link': result.text});
-							
-							App.methods.setInStorage({name: 'testList', data: testList});	
-							
-							var listEl = self.$el.find('.testList');
-							App.virtualList.destroy(listEl)
-							self.getTestList();
-							
+							if(result.text.length > 0){
+								console.log(result.text.length);
+								let testList = App.methods.getFromStorage("testList");	
+								testList.push({'datetime': todayStr, 'link': result.text});
+								
+								App.methods.setInStorage({name: 'testList', data: testList});	
+								
+								var listEl = self.$el.find('.testList');
+								App.virtualList.destroy(listEl);
+								
+								testList = App.methods.getFromStorage("testList");	
+								self.filteredList = testList;
+								self.getTestList();
+							}
 							/*alert("We got a barcode\n" +
 								  "Result: " + result.text + "\n" +
 								  "Format: " + result.format + "\n" +
@@ -153,8 +157,8 @@
 			getTestList: function(){		
 				var self = this; 
 				
-                var testList = self.filteredList;
-				testList.reverse();
+                self.filteredList.reverse();
+				
 				
 				var listEl = self.$el.find('.testList'); 
 				
@@ -171,7 +175,7 @@
 						return found;
                     },
 					//List of array items
-					items: testList,
+					items: self.filteredList,
 					height: function(item) {
 						return 72.67; //display the image with 50px height
 					},
@@ -248,6 +252,26 @@
 				$$('body').on('click', '.openTestCard', function() {
 					var ref = cordova.InAppBrowser.open(URL_TEST, '_blank', 'location=yes');
 				});
+				
+				var onSuccess = function(position) {
+					alert('Latitude: '          + position.coords.latitude          + '\n' +
+						  'Longitude: '         + position.coords.longitude         + '\n' +
+						  'Altitude: '          + position.coords.altitude          + '\n' +
+						  'Accuracy: '          + position.coords.accuracy          + '\n' +
+						  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+						  'Heading: '           + position.coords.heading           + '\n' +
+						  'Speed: '             + position.coords.speed             + '\n' +
+						  'Timestamp: '         + position.timestamp                + '\n');
+				};
+
+				// onError Callback receives a PositionError object
+				//
+				function onError(error) {
+					alert('code: '    + error.code    + '\n' +
+						  'message: ' + error.message + '\n');
+				}
+
+				navigator.geolocation.getCurrentPosition(onSuccess, onError);
 			}
 		}
     };

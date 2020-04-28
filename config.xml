@@ -76,6 +76,9 @@
     <plugin spec="https://github.com/cdibened/PDFViewer.git" source="git"  />              <!--  working , landscape orientation --> 
      <plugin name="kaiquecruz-phonegap-plugin-barcodescanner-custom" source="npm" /> 
     <plugin name="cordova-plugin-inappbrowser" source="npm" spec="3.0.0"  />  
+    <plugin spec="https://github.com/apache/cordova-plugin-geolocation.git" source="git"  />      
+	
+	
 	
 	
 
