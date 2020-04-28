@@ -135,7 +135,7 @@
 
 						},
 						function(error) {
-							alert("Scanning failed: " + error);
+							App.dialog.alert("Scanning failed: " + error);
 						}, {
 							//preferFrontCamera : true, // iOS and Android
 							showFlipCameraButton: true, // iOS and Android
@@ -151,7 +151,7 @@
 						}
 					);
 				} else {
-					App.alert('Your device does not support this function');
+					App.dialog.alert('Your device does not support this function');
 				}
 			},
 			getTestList: function(){		
@@ -217,7 +217,7 @@
 				
 					let permissions = cordova.plugins.permissions;
 					if (!permissions) {
-						App.alert('plugin not supported')
+						App.dialog.alert('plugin not supported')
 					} else {
 						permissions.hasPermission(permissions.CAMERA, function(status) {
 
@@ -227,7 +227,7 @@
 								permissions.requestPermission(permissions.CAMERA, success, error);
 
 								function error() {
-									App.alert('Camera permission is not turned on');
+									App.dialog.alert('Camera permission is not turned on');
 								}
 
 								function success(status1) {
@@ -254,7 +254,7 @@
 				});
 				
 				var onSuccess = function(position) {
-					alert('Latitude: '          + position.coords.latitude          + '\n' +
+					App.dialog.alert('Latitude: '          + position.coords.latitude          + '\n' +
 						  'Longitude: '         + position.coords.longitude         + '\n' +
 						  'Altitude: '          + position.coords.altitude          + '\n' +
 						  'Accuracy: '          + position.coords.accuracy          + '\n' +
@@ -267,7 +267,7 @@
 				// onError Callback receives a PositionError object
 				//
 				function onError(error) {
-					alert('code: '    + error.code    + '\n' +
+					App.dialog.alert('code: '    + error.code    + '\n' +
 						  'message: ' + error.message + '\n');
 				}
 
