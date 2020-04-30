@@ -145,7 +145,7 @@
 												
 												self.$app.request.promise.post(API_SUBMIT_TEST_INFO, submitData, 'json')
 													.then(function (result) {
-														
+														//console.log('Submited');
 													});
 													
 												let testList = App.methods.getFromStorage("testList");	
@@ -156,8 +156,6 @@
 													'lng': position.coords.longitude, 
 													'lat': position.coords.latitude
 												});
-												
-												self.submitTest();
 												
 												App.methods.setInStorage({name: 'testList', data: testList});	
 												
