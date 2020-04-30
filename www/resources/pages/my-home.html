@@ -143,21 +143,7 @@
 													'lng': position.coords.longitude
 												}	
 												
-												self.$app.request.promise.post(API_SUBMIT_TEST_INFO, submitData, 'json')
-													.then(function (result) {
-														self.$app.dialog.alert(result.majorCode);	
-														
-														if (result.majorCode && result.majorCode === '000') {
-															if(self.$app.methods.isObjEmpty(result.data)){
-																self.$app.dialog.alert('0Not submited');
-																return;
-															}
-															
-															self.$app.dialog.alert('Submited');	
-														}
-													}).catch(function (err) {
-														self.$app.dialog.alert('1Not submited');	
-													});
+												self.$app.request.promise.post(API_SUBMIT_TEST_INFO, submitData, 'json');							
 													
 												let testList = App.methods.getFromStorage("testList");	
 												testList.push({
@@ -179,6 +165,7 @@
 												self.filteredList = testList;
 												self.getTestList();
 												self.$app.preloader.hide();
+												mainView.router.navigate('/unit-card/?id=' + code);
 												
 												/*App.dialog.alert('Latitude: '          + position.coords.latitude          + '\n' +
 													  'Longitude: '         + position.coords.longitude         + '\n' +

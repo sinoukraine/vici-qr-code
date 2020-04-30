@@ -12,9 +12,9 @@
     <feature name="BarcodeScanner">
         <param name="browser-package" value="BarcodeScanner" />
     </feature>
-    <name>Vici QR Code</name>
+    <name>ViCi QR Code</name>
     <description>
-        Vici QR Code
+        ViCi QR Code
     </description>
     <author email="info@atga.com.au" href="http://atga.com.au">
         Sinopacific Co Limited

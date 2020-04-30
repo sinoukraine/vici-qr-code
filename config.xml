@@ -17,9 +17,9 @@
 	defaultlocale="en-US" 
 	android-versionCode="6" 
 	ios-CFBundleVersion="17">com.dashcam.app-->
-    <name>Vici QR Code</name>
+    <name>ViCi QR Code</name>
     <description>
-        Vici QR Code
+        ViCi QR Code
     </description>
     <author email="info@atga.com.au" href="http://atga.com.au">
         Sinopacific Co Limited
