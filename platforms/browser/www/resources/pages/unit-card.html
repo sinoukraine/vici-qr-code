@@ -86,7 +86,7 @@
             return ret;
         },
 		methods: {
-			setUnitInfo: function (info, isSet) {  					
+			setUnitInfo: function (info) {  					
 				var self = this;
 				
 				if(!self.$app.methods.isObjEmpty(info.personInfo)){
@@ -228,12 +228,7 @@
 								updateTime: result.data.testInfo.updateTime,
 								
 							});*/	
-															
-					if( isSet ){
-					
-					} else {
-					
-					}
+						
 				}else{
 					return
 				}				
@@ -261,6 +256,19 @@
 							}
 							let info = result.data;
 							self.setUnitInfo( info );
+							
+							testList = App.methods.getFromStorage("testList");
+							
+							if(testList.findIndex(item => item.code === self.id)!=-1){
+								let testIndex = testList.findIndex(item => item.code === self.id);
+								if(!self.$app.methods.isObjEmpty(testList[testIndex])){									
+									testList[testIndex].data = info;
+									App.methods.setInStorage({name: 'testList', data: testList});	
+									testList1 = App.methods.getFromStorage("testList");
+									self.$app.dialog.alert(testList1[testIndex].data.testInfo.updateTime);
+								}
+							}
+							
 						}else{
 							testList = App.methods.getFromStorage("testList");
 							
@@ -268,7 +276,7 @@
 								let testIndex = testList.findIndex(item => item.code === self.id);
 								if(!self.$app.methods.isObjEmpty(testList[testIndex])){
 									let info = testList[testIndex].data;
-									self.setUnitInfo( info, true );
+									self.setUnitInfo( info );									
 								}else{
 									self.$app.dialog.alert('There is no information about this unit ID');
 									return;
