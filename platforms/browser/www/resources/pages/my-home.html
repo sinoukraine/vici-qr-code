@@ -125,7 +125,7 @@
 
 											if(self.$app.methods.isObjEmpty(result.data)){
 												self.$app.preloader.hide();
-												self.$app.dialog.alert('There is no information about this unit ID');
+												self.$app.dialog.alert('0There is no information about this unit ID');
 												return;
 											}
 											
@@ -178,7 +178,8 @@
 											
 										}else{
 											self.$app.preloader.hide();
-											self.$app.dialog.alert('There is no information about this unit ID');									
+											self.$app.dialog.alert('1There is no information about this unit ID');
+											self.$app.dialog.alert(result.majorCode);									
 										}
 									}).catch(function (err) {
 										self.$app.preloader.hide();
