@@ -147,7 +147,7 @@
 																									
 													self.$app.request.post(API_SUBMIT_TEST_INFO, submitData, 'json');
 																												
-													if(testList.findIndex(item => item.code === code)!=-1){	
+													if(testList.findIndex(item => item.code === code)==-1){	
 														testList.push({
 															'datetime': datetime, 
 															'code': code, 
