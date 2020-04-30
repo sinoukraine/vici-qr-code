@@ -8,6 +8,11 @@
                             </a>
                         </div>-->
                         <div class="title center title-center">QR Code Scanner</div>
+						<div class="right">
+                            <a class="panel-open" href="#">
+                                <i class="icon icon-basket clear-history"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
 				
@@ -66,6 +71,16 @@
             return ret;
         },
 		methods: {		
+			clearHistory: function () { 
+                let self = this;
+				let listEl = self.$el.find('.testList');
+				
+				App.methods.setInStorage({name: 'testList', data: []});
+				App.virtualList.destroy(listEl);
+				
+				$$('.testList ul').html('');
+				
+			},
 			submitSearchForm: function () { 
                 let self = this;
 				var input = $$('.formSearchTest input[name="searchInput"');
@@ -326,6 +341,14 @@
 				});
 				$$('body').on('click', '.searchTest', function() {
 					self.submitSearchForm();
+				});
+				
+				
+				$$('body').on('click', '.clear-history', function() {
+					console.log('crear');
+					App.dialog.confirm('Are you sure want to clear your history list?', 'ViCi QR Code', function(){
+						self.clearHistory();
+					});
 				});
 				
 				/*$$('body').on('click', '.openTestCard', function() {

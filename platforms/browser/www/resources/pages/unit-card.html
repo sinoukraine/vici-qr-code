@@ -7,7 +7,7 @@
 						<i class="icon icon-back color-black"></i>
 					</a>
 				</div>
-				<div class="title">QR code info</div>
+				<div class="title">QR Code info</div>
 			</div>
 		</div>
 		<div class="page-content">
@@ -264,8 +264,6 @@
 								if(!self.$app.methods.isObjEmpty(testList[testIndex])){									
 									testList[testIndex].data = info;
 									App.methods.setInStorage({name: 'testList', data: testList});	
-									testList1 = App.methods.getFromStorage("testList");
-									self.$app.dialog.alert(testList1[testIndex].data.testInfo.updateTime);
 								}
 							}
 							
