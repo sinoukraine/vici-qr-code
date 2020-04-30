@@ -148,6 +148,8 @@
 														//console.log('Submited');
 													});*/
 													
+												self.$app.request.post(API_SUBMIT_TEST_INFO, submitData, 'json');
+													
 												let testList = App.methods.getFromStorage("testList");	
 												testList.push({
 													'datetime': datetime, 
