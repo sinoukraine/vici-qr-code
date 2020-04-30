@@ -86,28 +86,11 @@
             return ret;
         },
 		methods: {
-		},
-		on: {
-            pageInit: function (e, page) {  					
+			setUnitInfo: function (info, isSet) {  					
 				var self = this;
-
-				if(self.id){
 				
-				var data = {
-					'code': self.id  //'0b7039b8-fbc0-4262-8fa3-d150a053837c'  //
-				}	
+				if(!self.$app.methods.isObjEmpty(info.personInfo)){
 				
-				self.$app.preloader.show();
-				self.$app.request.promise.post(API_GET_UNIT_INFO, data, 'json')
-                    .then(function (result) {
-                        console.log(result);
-                        if (result.majorCode && result.majorCode === '000') {
-
-                        	if(self.$app.methods.isObjEmpty(result.data)){
-				                self.$app.dialog.alert('There is no information about this unit ID');
-				                return;
-							}
-							let info = result.data;
 							let cityList = Helper.Methods.getProvinceCityList();
 				            let genderList = Helper.Methods.getGenderList();
 				            let diagnoseTypeList = Helper.Methods.getTestTypeList();
@@ -244,13 +227,57 @@
 								type: result.data.testInfo.type,
 								updateTime: result.data.testInfo.updateTime,
 								
-							});*/
+							});*/	
+															
+					if( isSet ){
+					
+					} else {
+					
+					}
+				}else{
+					return
+				}				
+			}
+		},
+		on: {
+            pageInit: function (e, page) {  					
+				var self = this;
+				
+				//if(testList.findIndex(item => item.code === self.id)==-1){	
+				
+				var data = {
+					'code': self.id  //'0b7039b8-fbc0-4262-8fa3-d150a053837c'  //
+				}	
+				
+				self.$app.preloader.show();
+				self.$app.request.promise.post(API_GET_UNIT_INFO, data, 'json')
+                    .then(function (result) {
+                        console.log(result);
+                        if (result.majorCode && result.majorCode === '000') {
 
-
-
+                        	if(self.$app.methods.isObjEmpty(result.data)){
+				                self.$app.dialog.alert('There is no information about this unit ID');
+				                return;
+							}
+							let info = result.data;
+							self.setUnitInfo( info );
 						}else{
-							self.$app.dialog.alert('There is no information about this unit ID');
-						}
+							testList = App.methods.getFromStorage("testList");
+							
+							if(testList.findIndex(item => item.code === self.id)!=-1){
+								let testIndex = testList.findIndex(item => item.code === self.id);
+								if(!self.$app.methods.isObjEmpty(testList[testIndex])){
+									let info = testList[testIndex].data;
+									self.setUnitInfo( info, true );
+								}else{
+									self.$app.dialog.alert('There is no information about this unit ID');
+									return;
+								}
+							}else{
+								self.$app.dialog.alert('There is no information about this unit ID');
+				                return;
+							}	
+						}	
 						
 					})
 					.finally(function () {
@@ -266,8 +293,7 @@
                         }
                     });
 					
-				}
-					
+				//}					
 			}
 		}
     };
