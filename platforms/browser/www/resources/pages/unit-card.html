@@ -89,7 +89,10 @@
 		},
 		on: {
             pageInit: function (e, page) {  					
-				var self = this;    	
+				var self = this;
+
+				if(self.id){
+				
 				var data = {
 					'code': self.id  //'0b7039b8-fbc0-4262-8fa3-d150a053837c'  //
 				}	
@@ -262,6 +265,8 @@
                             //self.$app.dialog.alert(LANGUAGE.PROMPT_MSG003);
                         }
                     });
+					
+				}
 					
 			}
 		}
