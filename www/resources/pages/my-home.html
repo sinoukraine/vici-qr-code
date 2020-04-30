@@ -143,10 +143,10 @@
 													'lng': position.coords.longitude
 												}	
 												
-												self.$app.request.promise.post(API_SUBMIT_TEST_INFO, submitData, 'json')
+												/*self.$app.request.promise.post(API_SUBMIT_TEST_INFO, submitData, 'json')
 													.then(function (result) {
 														//console.log('Submited');
-													});
+													});*/
 													
 												let testList = App.methods.getFromStorage("testList");	
 												testList.push({
