@@ -102,7 +102,7 @@
 				var m = today.getMinutes();
 				var s = today.getSeconds();
 
-				var todayStr = day + '.' + month + '.' + year + ' ' + h + ':' + m + ':' + s;
+				var datetime = day + '.' + month + '.' + year + ' ' + h + ':' + m + ':' + s;
 				
 				
 				if (window.device && cordova.plugins && cordova.plugins.barcodeScanner) {
@@ -114,20 +114,22 @@
 							//input.val(result.text);	
 							if(result.text.length > 0){
 							
+								var code = result.text;
 								var data = {
-									'code': result.text  //'0b7039b8-fbc0-4262-8fa3-d150a053837c'  //
+									'code': code //'0b7039b8-fbc0-4262-8fa3-d150a053837c'  //
 								}	
 								
 								self.$app.request.promise.post(API_GET_UNIT_INFO, data, 'json')
 									.then(function (result) {
-										console.log(result);
 										if (result.majorCode && result.majorCode === '000') {
 
 											if(self.$app.methods.isObjEmpty(result.data)){
+												self.$app.preloader.hide();
 												self.$app.dialog.alert('There is no information about this unit ID');
 												return;
 											}
 											
+											var uid = result.data.testInfo.code;
 											var onSuccess = function(position) {
 					
 												/*self.$setState({
@@ -137,9 +139,9 @@
 															
 												let testList = App.methods.getFromStorage("testList");	
 												testList.push({
-													'datetime': todayStr, 
-													'code': result.text, 
-													'uid': result.text, 
+													'datetime': datetime, 
+													'code': code, 
+													'uid': uid, 
 													'lng': position.coords.longitude, 
 													'lat': position.coords.latitude
 												});
@@ -175,6 +177,7 @@
 											navigator.geolocation.getCurrentPosition(onSuccess, onError);											
 											
 										}else{
+											self.$app.preloader.hide();
 											self.$app.dialog.alert('There is no information about this unit ID');									
 										}
 									}).catch(function (err) {
