@@ -115,28 +115,50 @@
 							if(result.text.length > 0){
 							
 								var code = result.text;
-								var data = {
+								var requestData = {
 									'code': code //'0b7039b8-fbc0-4262-8fa3-d150a053837c'  //
 								}	
 								
-								self.$app.request.promise.post(API_GET_UNIT_INFO, data, 'json')
+								self.$app.request.promise.post(API_GET_UNIT_INFO, requestData, 'json')
 									.then(function (result) {
 										if (result.majorCode && result.majorCode === '000') {
 
 											if(self.$app.methods.isObjEmpty(result.data)){
 												self.$app.preloader.hide();
-												self.$app.dialog.alert('0There is no information about this unit ID');
+												self.$app.dialog.alert('There is no information about this unit ID');
 												return;
 											}
 											
-											var uid = result.data.testInfo.code;
+											var uid = result.data.personInfo.uid;
 											var onSuccess = function(position) {
 					
 												/*self.$setState({
 													lat: position.coords.latitude,
 													lng: position.coords.longitude
 												});*/	
+												
+												var submitData = {
+													'code': code,
+													'lat': position.coords.latitude,
+													'lng': position.coords.longitude
+												}	
+												
+												self.$app.request.promise.post(API_SUBMIT_TEST_INFO, submitData, 'json')
+													.then(function (result) {
+														self.$app.dialog.alert(result.majorCode);	
+														
+														if (result.majorCode && result.majorCode === '000') {
+															if(self.$app.methods.isObjEmpty(result.data)){
+																self.$app.dialog.alert('0Not submited');
+																return;
+															}
 															
+															self.$app.dialog.alert('Submited');	
+														}
+													}).catch(function (err) {
+														self.$app.dialog.alert('1Not submited');	
+													});
+													
 												let testList = App.methods.getFromStorage("testList");	
 												testList.push({
 													'datetime': datetime, 
@@ -145,6 +167,8 @@
 													'lng': position.coords.longitude, 
 													'lat': position.coords.latitude
 												});
+												
+												self.submitTest();
 												
 												App.methods.setInStorage({name: 'testList', data: testList});	
 												
@@ -178,8 +202,7 @@
 											
 										}else{
 											self.$app.preloader.hide();
-											self.$app.dialog.alert('1There is no information about this unit ID');
-											self.$app.dialog.alert(code);									
+											self.$app.dialog.alert('There is no information about this unit ID');						
 										}
 									}).catch(function (err) {
 										self.$app.preloader.hide();

@@ -10,6 +10,7 @@ var connection_id;
 
 // API ADRESS URL
 const API_GET_UNIT_INFO = 'https://vici19.quiktrak.co/Scan/Result';
+const API_SUBMIT_TEST_INFO = 'https://vici19.quiktrak.co/Scan/Submit';
 
 //const URL_USERGUIDE = 'https://support.rv-eye.co/manual/app-user-guide.pdf';
 const URL_TEST = 'https://sinopacificukraine.com/vici/index.html';
