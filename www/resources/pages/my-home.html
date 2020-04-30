@@ -130,66 +130,64 @@
 											}
 											
 											var uid = result.data.personInfo.uid;
-											var onSuccess = function(position) {
-					
-												/*self.$setState({
-													lat: position.coords.latitude,
-													lng: position.coords.longitude
-												});*/	
-												
-												var submitData = {
-													'code': code,
-													'lat': position.coords.latitude,
-													'lng': position.coords.longitude
-												}	
-												
-												/*self.$app.request.promise.post(API_SUBMIT_TEST_INFO, submitData, 'json')
-													.then(function (result) {
-														//console.log('Submited');
-													});*/
+											var testList = App.methods.getFromStorage("testList");													
+											
+												var onSuccess = function(position) {
+						
+													/*self.$setState({
+														lat: position.coords.latitude,
+														lng: position.coords.longitude
+													});*/	
 													
-												self.$app.request.post(API_SUBMIT_TEST_INFO, submitData, 'json');
+													var submitData = {
+														'code': code,
+														'lat': position.coords.latitude,
+														'lng': position.coords.longitude
+													}	
+																									
+													self.$app.request.post(API_SUBMIT_TEST_INFO, submitData, 'json');
+																												
+													if(testList.findIndex(item => item.code === code)!=-1){	
+														testList.push({
+															'datetime': datetime, 
+															'code': code, 
+															'uid': uid, 
+															'lng': position.coords.longitude, 
+															'lat': position.coords.latitude
+														});
+														
+														App.methods.setInStorage({name: 'testList', data: testList});	
+														testList = App.methods.getFromStorage("testList");	
+													}
 													
-												let testList = App.methods.getFromStorage("testList");	
-												testList.push({
-													'datetime': datetime, 
-													'code': code, 
-													'uid': uid, 
-													'lng': position.coords.longitude, 
-													'lat': position.coords.latitude
-												});
-												
-												App.methods.setInStorage({name: 'testList', data: testList});	
-												
-												var listEl = self.$el.find('.testList');
-												App.virtualList.destroy(listEl);
-												
-												testList = App.methods.getFromStorage("testList");	
-												self.filteredList = testList;
-												self.getTestList();
-												self.$app.preloader.hide();
-												
-												mainView.router.navigate('/unit-card/?id=' + code);
-												
-												/*App.dialog.alert('Latitude: '          + position.coords.latitude          + '\n' +
-													  'Longitude: '         + position.coords.longitude         + '\n' +
-													  'Altitude: '          + position.coords.altitude          + '\n' +
-													  'Accuracy: '          + position.coords.accuracy          + '\n' +
-													  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-													  'Heading: '           + position.coords.heading           + '\n' +
-													  'Speed: '             + position.coords.speed             + '\n' +
-													  'Timestamp: '         + position.timestamp                + '\n');*/
-											};
+													var listEl = self.$el.find('.testList');
+													App.virtualList.destroy(listEl);
+													
+													self.filteredList = testList;
+													self.getTestList();
+													self.$app.preloader.hide();
+													
+													mainView.router.navigate('/unit-card/?id=' + code);
+													
+													/*App.dialog.alert('Latitude: '          + position.coords.latitude          + '\n' +
+														  'Longitude: '         + position.coords.longitude         + '\n' +
+														  'Altitude: '          + position.coords.altitude          + '\n' +
+														  'Accuracy: '          + position.coords.accuracy          + '\n' +
+														  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
+														  'Heading: '           + position.coords.heading           + '\n' +
+														  'Speed: '             + position.coords.speed             + '\n' +
+														  'Timestamp: '         + position.timestamp                + '\n');*/
+												};
 
-											// onError Callback receives a PositionError object
-											//
-											function onError(error) {
-												self.$app.preloader.hide();
-												App.dialog.alert('code: '    + error.code    + '\n' +
-													  'message: ' + error.message + '\n');
-											}
+												// onError Callback receives a PositionError object
+												//
+												function onError(error) {
+													self.$app.preloader.hide();
+													App.dialog.alert('code: '    + error.code    + '\n' +
+														  'message: ' + error.message + '\n');
+												}
 
-											navigator.geolocation.getCurrentPosition(onSuccess, onError);											
+												navigator.geolocation.getCurrentPosition(onSuccess, onError);										
 											
 										}else{
 											self.$app.preloader.hide();
