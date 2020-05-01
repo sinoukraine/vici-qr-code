@@ -18,7 +18,7 @@
 				
                 <div class="toolbar toolbar-bottom">
                     <div class="toolbar-inner">
-                        <a class="btn-cs uppercase" href="#" id='scanBarCode'>
+                        <a class="button button-raised button-fill button-large color-red btn-cs uppercase" href="#" id='scanBarCode'>
                             QR Code Scan
                         </a>
                     </div>
@@ -120,6 +120,7 @@
 				var datetime = day + '.' + month + '.' + year + ' ' + h + ':' + m + ':' + s;
 				
 				
+				//mainView.router.navigate('/unit-card/?id=cb344e40-e111-4cf1-8cfa-aa92f8ff1825');
 				if (window.device && cordova.plugins && cordova.plugins.barcodeScanner) {
 				
 					self.$app.preloader.show();
