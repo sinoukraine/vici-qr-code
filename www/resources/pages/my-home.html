@@ -71,7 +71,7 @@
             return ret;
         },
 		methods: {		
-			clearHistory: function () { 
+			/*clearHistory: function () { 
                 let self = this;
 				let listEl = self.$el.find('.testList');
 				
@@ -150,10 +150,6 @@
 											
 												var onSuccess = function(position) {
 						
-													/*self.$setState({
-														lat: position.coords.latitude,
-														lng: position.coords.longitude
-													});*/	
 													
 													var submitData = {
 														'code': code,
@@ -185,14 +181,7 @@
 													
 													mainView.router.navigate('/unit-card/?id=' + code);
 													
-													/*App.dialog.alert('Latitude: '          + position.coords.latitude          + '\n' +
-														  'Longitude: '         + position.coords.longitude         + '\n' +
-														  'Altitude: '          + position.coords.altitude          + '\n' +
-														  'Accuracy: '          + position.coords.accuracy          + '\n' +
-														  'Altitude Accuracy: ' + position.coords.altitudeAccuracy  + '\n' +
-														  'Heading: '           + position.coords.heading           + '\n' +
-														  'Speed: '             + position.coords.speed             + '\n' +
-														  'Timestamp: '         + position.timestamp                + '\n');*/
+									
 												};
 
 												// onError Callback receives a PositionError object
@@ -216,17 +205,7 @@
 									
 								
 							}
-							/*alert("We got a barcode\n" +
-								  "Result: " + result.text + "\n" +
-								  "Format: " + result.format + "\n" +
-								  "Cancelled: " + result.cancelled);*/
-							/*if (result && result.text) {
-								input.val(result.text);					
-								if(input.attr('name') == 'searchInput') {
-									submitSearchForm();
-								}
-								input.change(); // fix to trigger onchange / oninput event listener
-							}*/
+							
 
 						},
 						function(error) {
@@ -299,13 +278,13 @@
 				});
 				
 				//self.showTestList();
-			}
+			}*/
 		},
         on: {
             pageInit: function (e, page) {  
 				var self = this;    
 				
-				self.filteredList = self.$app.methods.getFromStorage("testList");
+				/*self.filteredList = self.$app.methods.getFromStorage("testList");
 				self.getTestList();				
 				
 				$$('body').on('click', '#scanBarCode', function() {
@@ -351,10 +330,7 @@
 						self.clearHistory();
 					});
 				});
-				
-				/*$$('body').on('click', '.openTestCard', function() {
-					var ref = cordova.InAppBrowser.open(URL_TEST, '_blank', 'location=yes');
-				});*/				
+				*/			
 				
 			}
 		}
