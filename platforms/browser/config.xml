@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="1" defaultlocale="en-US" id="com.viciapp.qr-code" ios-CFBundleVersion="3" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="7" defaultlocale="en-US" id="com.viciapp.qrcode" ios-CFBundleVersion="8" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Device">
         <param name="browser-package" value="Device" />
     </feature>
@@ -14,11 +14,11 @@
     </feature>
     <name>ViCi QR Code</name>
     <description>
-        ViCi QR Code
-    </description>
-    <author email="info@atga.com.au" href="http://atga.com.au">
-        Sinopacific Co Limited
-    </author>
+    ViCi QR Code
+</description>
+    <author email="support@quiktrakglobal.com" href="http://quiktrakglobal.com">
+    Sinopacific Co Limited
+</author>
     <content src="index.html" />
     <access allows-arbitrary-loads-for-media="true" allows-arbitrary-loads-in-web-content="true" allows-local-networking="true" origin="*" />
     <allow-intent href="http://*/*" />
@@ -27,25 +27,14 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
-    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
-        <string>You can take a photo of your asset using camera and upload it into the app</string>
-    </edit-config>
-    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
-        <string>You can select photo of your asset in your photo library and upload it into the app</string>
-    </edit-config>
-    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
-        <string>Need photo library access to save pictures there</string>
-    </edit-config>
-    <config-file parent="ITSAppUsesNonExemptEncryption" platform="ios" target="*-Info.plist">
-        <false />
-    </config-file>
     <splash src="splash.png" />
     <icon src="icon.png" />
-    <preference name="load-url-timeout" value="140000" />
+    <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="Orientation" value="portrait" />
-    <preference name="android-minSdkVersion" value="21" />
+    <preference name="android-minSdkVersion" value="19" />
     <preference name="android-targetSdkVersion" value="28" />
+    <preference name="multiDexEnabled" value="true" />
     <preference name="deployment-target" value="10.2" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarStyle" value="blacktranslucent" />

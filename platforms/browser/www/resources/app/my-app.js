@@ -18,7 +18,7 @@ var App = new Framework7({
 	theme: 'auto',
     root: '#app',
     name: 'ViCi QR Code',
-    id: 'com.viciapp.qr-code',
+    id: 'com.viciapp.qrcode',
 	  touch: {
 		tapHold: true //enable tap hold events
 	  },
