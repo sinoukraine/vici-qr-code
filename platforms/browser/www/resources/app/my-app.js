@@ -117,6 +117,7 @@ var App = new Framework7({
 document.addEventListener("deviceready", onDeviceReady, false ); 
 
 function onDeviceReady(){
+	App.dialog.alert('ready');
 	loadHomePage();
 }
 
