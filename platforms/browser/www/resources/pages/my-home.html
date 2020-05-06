@@ -1,6 +1,6 @@
 <template>
-	<div class="page home-page cam" data-name="my-home">
-                <div class="navbar" style="position:relative; z-index: 10000">
+	<div class="page home-page" data-name="my-home">
+                <div class="navbar">
                     <div class="navbar-inner">
                         <!--<div class="left">
                             <a class="panel-open" href="#">
@@ -284,6 +284,8 @@
             pageInit: function (e, page) {  
 				var self = this;    
 				
+				
+				App.dialog.alert('home');
 				/*self.filteredList = self.$app.methods.getFromStorage("testList");
 				self.getTestList();				
 				
