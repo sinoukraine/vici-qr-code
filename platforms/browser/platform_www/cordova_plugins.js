@@ -488,7 +488,8 @@ module.exports.metadata =
     "cordova-plugin-network-information": "2.0.3-dev",
     "phonegap-plugin-mobile-accessibility": "1.0.5-dev",
     "cordova-plugin-geolocation": "4.0.2",
-    "cordova-plugin-wkwebview-engine": "1.2.1"
+    "cordova-plugin-wkwebview-engine": "1.2.1",
+    "cordova-plugin-wkwebview-file-xhr": "2.1.4"
 }
 // BOTTOM OF METADATA
 });

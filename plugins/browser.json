@@ -63,6 +63,9 @@
         },
         "cordova-plugin-wkwebview-engine": {
             "PACKAGE_NAME": "com.viciapp.qrcode"
+        },
+        "cordova-plugin-wkwebview-file-xhr": {
+            "PACKAGE_NAME": "com.viciapp.qrcode"
         }
     },
     "dependent_plugins": {

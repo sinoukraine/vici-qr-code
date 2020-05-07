@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget android-versionCode="7" defaultlocale="en-US" id="com.viciapp.qrcode" ios-CFBundleVersion="10" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget android-versionCode="7" defaultlocale="en-US" id="com.viciapp.qrcode" ios-CFBundleVersion="11" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:android="http://schemas.android.com/apk/res/android" xmlns:cdv="http://cordova.apache.org/ns/1.0">
 <name>ViCi QR Code</name>
 <description>
     ViCi QR Code
@@ -15,6 +15,7 @@
 <allow-intent href="sms:*" />
 <allow-intent href="mailto:*" />
 <allow-intent href="geo:*" />
+<allow-navigation href="http://localhost:8080/*" />
 <platform name="android">
     <allow-intent href="market:*" />
 </platform>
@@ -77,14 +78,15 @@
 <!--<plugin name="cordova-plugin-dialogs" spec="~1.2.1" />-->
 <plugin name="cordova-plugin-splashscreen" spec="~5.0.2" />
 <plugin name="cordova-plugin-camera" spec="~4.0.3" />
-<!--<plugin name="phonegap-plugin-mobile-accessibility" spec="~1.0.5" />
-<plugin name="cordova-plugin-android-permissions" spec="~1.0.0" />-->
+<plugin name="phonegap-plugin-mobile-accessibility" spec="~1.0.5" />
+<plugin name="cordova-plugin-android-permissions" spec="~1.0.0" />
 <!--<plugin name="cordova-plugin-mediascanner" spec="~0.1.3" />-->
 <plugin name="kaiquecruz-phonegap-plugin-barcodescanner-custom" spec="~6.0.5">
     <variable name="CAMERA_USAGE_DESCRIPTION" value="You can take a photo of your asset using camera and upload it into the app" />
 </plugin>
-<!--<plugin name="cordova-plugin-geolocation" spec="~4.0.2" />-->
+<plugin name="cordova-plugin-geolocation" spec="~4.0.2" />
 <plugin name="cordova-plugin-wkwebview-engine" spec="~1.2.1" />
+<plugin name="cordova-plugin-wkwebview-file-xhr" spec="~2.1.4"/>
 
 <platform name="android">
     <icon density="ldpi" src="www/res/icon/android/drawable-ldpi-icon.png" />

@@ -117,6 +117,10 @@ var App = new Framework7({
 document.addEventListener("deviceready", onDeviceReady, false ); 
 
 function onDeviceReady(){
+	if(cordova.plugins && cordova.plugins.permissions){
+        window.permissions = cordova.plugins.permissions;
+	}
+
 	loadHomePage();
 }
 
